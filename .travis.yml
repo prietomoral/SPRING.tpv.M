@@ -13,4 +13,7 @@ notifications:
     recipients:
       - j.bernal@upm.es
       
+services:
+  - mysql
+      
 script: mvn test
