@@ -18,7 +18,7 @@ import entities.users.Role;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PersistenceConfig.class, TestsPersistenceConfig.class})
-public class AuthorizationDaoITest {
+public class AuthorizationDaoIT {
 
     @Autowired
     private AuthorizationDao authorizationDao;
