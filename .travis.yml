@@ -16,4 +16,4 @@ notifications:
 services:
   - mysql
       
-script: mvn test
+script: mvn verify
