@@ -13,4 +13,4 @@ notifications:
     recipients:
       - j.bernal@upm.es
       
-script: mvn verify
+script: mvn test
