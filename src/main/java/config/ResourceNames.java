@@ -11,6 +11,8 @@ public class ResourceNames {
     public static final String CONTROLLERS = "controllers";
 
     public static final String ENTITIES_USERS = "entities.users";
+    
+    public static final String ENTITIES_CORE = "entities.core";
 
     public static final String DAOS = "daos";
 
