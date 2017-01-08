@@ -1,4 +1,4 @@
-package daos;
+package daos.users;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -11,8 +11,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import config.PersistenceConfig;
 import config.TestsPersistenceConfig;
-import daos.TokenDao;
-import daos.UserDao;
+import daos.users.TokenDao;
+import daos.users.UserDao;
 import entities.users.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)

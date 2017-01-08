@@ -1,13 +1,13 @@
-package daos;
+package daos.users;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import daos.AuthorizationDao;
-import daos.TokenDao;
-import daos.UserDao;
+import daos.users.AuthorizationDao;
+import daos.users.TokenDao;
+import daos.users.UserDao;
 import entities.users.Authorization;
 import entities.users.Role;
 import entities.users.Token;

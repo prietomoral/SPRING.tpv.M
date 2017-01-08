@@ -1,4 +1,4 @@
-package daos;
+package daos.users;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

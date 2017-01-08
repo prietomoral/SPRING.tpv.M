@@ -5,8 +5,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import daos.TokenDao;
-import daos.UserDao;
+import daos.users.TokenDao;
+import daos.users.UserDao;
 import entities.users.Token;
 import entities.users.User;
 

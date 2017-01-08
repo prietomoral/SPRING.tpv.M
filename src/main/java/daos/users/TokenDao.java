@@ -1,4 +1,4 @@
-package daos;
+package daos.users;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

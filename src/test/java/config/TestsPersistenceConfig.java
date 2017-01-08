@@ -4,7 +4,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackages = { ResourceNames.DAOS, ResourceNames.SERVICES })
+@ComponentScan(basePackages = { ResourceNames.DAOS_USERS, ResourceNames.SERVICES })
 public class TestsPersistenceConfig {
 
 }

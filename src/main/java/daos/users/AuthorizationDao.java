@@ -1,4 +1,4 @@
-package daos;
+package daos.users;
 
 import java.util.List;
 

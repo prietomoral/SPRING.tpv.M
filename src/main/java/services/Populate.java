@@ -9,8 +9,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import config.ResourceNames;
-import daos.AuthorizationDao;
-import daos.UserDao;
+import daos.users.AuthorizationDao;
+import daos.users.UserDao;
 import entities.users.Authorization;
 import entities.users.Role;
 import entities.users.User;
