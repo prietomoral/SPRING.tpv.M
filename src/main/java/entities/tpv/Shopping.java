@@ -13,8 +13,9 @@ public class Shopping {
 
 	private int amount;
 	
-	@ManyToOne
-	private Article article;
-	
 	private int discount;
+	
+	@ManyToOne
+	private Product article;
+	
 }

@@ -14,6 +14,7 @@ public class Provider {
 	private String company;
 	private String address;
 	private long mobile;
+	private long phone;
 	private String paymentConditions;
 	private String note;
 }
