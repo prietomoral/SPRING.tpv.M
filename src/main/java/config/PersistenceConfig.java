@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @PropertySource(ResourceNames.PROPERTIES)
-@EnableJpaRepositories(basePackages = ResourceNames.DAOS_USERS, repositoryImplementationPostfix = "Impl")
+@EnableJpaRepositories(basePackages = {ResourceNames.DAOS_USERS, ResourceNames.DAOS_CORE}, repositoryImplementationPostfix = "Impl")
 @EnableTransactionManagement
 public class PersistenceConfig {
 

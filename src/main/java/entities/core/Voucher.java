@@ -60,6 +60,15 @@ public class Voucher {
         this.dateOfUse = dateOfUse;
     }
 
+    public boolean used() {
+        return dateOfUse != null;
+    }
+
+    public void consume() {
+        assert dateOfUse == null;
+        dateOfUse = Calendar.getInstance();
+    }
+
     @Override
     public int hashCode() {
         return id;
@@ -82,7 +91,12 @@ public class Voucher {
     @Override
     public String toString() {
         String createTime = new SimpleDateFormat("HH:00 dd-MMM-yyyy ").format(created.getTime());
-        String useTime = new SimpleDateFormat("HH:00 dd-MMM-yyyy ").format(dateOfUse.getTime());
+        String useTime;
+        if (this.used()) {
+            useTime = new SimpleDateFormat("HH:00 dd-MMM-yyyy ").format(dateOfUse.getTime());
+        } else {
+            useTime = "---";
+        }
         return "Voucher[" + id + ": reference=" + reference + ", value=" + value + ", created=" + createTime + ", dateOfUse=" + useTime
                 + "]";
     }

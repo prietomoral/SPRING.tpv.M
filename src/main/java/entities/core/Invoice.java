@@ -2,6 +2,7 @@ package entities.core;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -11,6 +12,7 @@ public class Invoice {
     private int id;
 
     @OneToOne
+    @JoinColumn
     private Ticket ticket;
 
     public Invoice() {

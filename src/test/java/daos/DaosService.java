@@ -1,4 +1,4 @@
-package daos.users;
+package daos;
 
 import javax.annotation.PostConstruct;
 
