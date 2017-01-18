@@ -1,4 +1,4 @@
-package daos.users;
+package daos.core;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -6,10 +6,8 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-    TokenDaoIT.class,
-    UserDaoIT.class,
-    AuthorizationDaoIT.class
+    VoucherDaoIT.class
 })
-public class AllDaosIT {
+public class AllDaosCoreIT {
 
 }

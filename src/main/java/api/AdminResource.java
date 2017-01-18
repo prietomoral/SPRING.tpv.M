@@ -11,21 +11,21 @@ import controllers.AdminController;
 @RequestMapping(Uris.VERSION + Uris.ADMINS)
 public class AdminResource {
 
-	private AdminController adminController;
+    private AdminController adminController;
 
-	@Autowired
-	public void setAdminController(AdminController adminController) {
-		this.adminController = adminController;
-	}
+    @Autowired
+    public void setAdminController(AdminController adminController) {
+        this.adminController = adminController;
+    }
 
-	@RequestMapping(method = RequestMethod.GET)
-	public String version() {
-		return Uris.VERSION;
-	}
+    @RequestMapping(method = RequestMethod.GET)
+    public String version(String param) {
+        return "{\"version\":\"" + Uris.VERSION + "\"}";
+    }
 
-	@RequestMapping(method = RequestMethod.DELETE)
-	public void deleteAllExceptAdmin() {
-		adminController.deleteAllExceptAdmin();
-	}
+    @RequestMapping(method = RequestMethod.DELETE)
+    public void deleteAllExceptAdmin() {
+        adminController.deleteAllExceptAdmin();
+    }
 
 }

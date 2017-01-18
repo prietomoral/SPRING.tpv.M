@@ -1,0 +1,20 @@
+<section class="container">
+ <div class="jumbotron text-center fondo_form">
+   <fieldset>
+    <legend>Feature00. Versión. Autor Jesus Bernal</legend>
+    <form class="form-horizontal" role="form" name='version' id='version' ng-submit="versionCtrl.version()">
+        <div class="form-group form-group-lg">            
+            <div class='col-md-2 col-md-push-5'>
+                <button type="submit" class="btn btn-primary btn-lg" >Enviar</button>
+            </div>
+            <div id='alerta' class="alert alert-danger col-md-6 col-md-push-2" ng-show = "versionCtrl.error">
+              <input type='text' class="form-control" name='usuario' ng-model='versionCtrl.respuesta' readonly/>
+            </div>
+            <div id='ok' class="alert alert-success col-md-3 col-md-push-5" ng-show = "versionCtrl.completed">
+              <input type='text' class="form-control" name='usuario' ng-model='versionCtrl.respuesta' readonly/>
+            </div>
+        </div>    
+    </form>        
+  </fieldset>
+ </div>    
+</section>   

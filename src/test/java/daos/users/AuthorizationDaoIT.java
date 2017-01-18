@@ -23,8 +23,8 @@ public class AuthorizationDaoIT {
     @Autowired
     private AuthorizationDao authorizationDao;
 
-	@Autowired
-	private UserDao userDao;
+    @Autowired
+    private UserDao userDao;
 
     @Test
     public void testFindRoleByUser() {
