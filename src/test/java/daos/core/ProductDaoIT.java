@@ -13,14 +13,30 @@ import config.TestsPersistenceConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PersistenceConfig.class, TestsPersistenceConfig.class})
-public class VoucherDaoIT {
+public class ProductDaoIT {
 
     @Autowired
-    private VoucherDao voucherDao;
+    private ArticleDao articlerDao;
+
+    @Autowired
+    private EmbroideryDao embroideryDao;
+
+    @Autowired
+    private TextilePrintingDao textilePrintingDao;
 
     @Test
-    public void testCreate() {
-        assertEquals(4, voucherDao.count());
+    public void testCreateArticle() {
+        assertEquals(8, articlerDao.count());
+    }
+
+    @Test
+    public void testCreateEmbroidery() {
+        assertEquals(4, embroideryDao.count());
+    }
+
+    @Test
+    public void testCreateTextilePrinting() {
+        assertEquals(4, textilePrintingDao.count());
     }
 
 }
