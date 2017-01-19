@@ -11,6 +11,11 @@ tpv.config(function ($routeProvider) {
             controller: "versionController",
             controllerAs: "versionCtrl"
         })
+        .when("/feature00/login", {
+            templateUrl: "app/components/feature00/login.html",
+            controller: "loginController",
+            controllerAs: "loginCtrl"
+        })
         .otherwise({
             redirectTo: '/'
         });
