@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <title>tpv U.P.M.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/tpv.css">  
-    <script src="assets/js/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="assets/js/angular.min.js"></script>
     <script src="assets/js/route.min.js"></script> 
 
@@ -17,45 +17,38 @@
     <!-- Autor: Jesús Bernal -->
     <script src="app/components/feature00/versionController.js"></script>  
 
-    <script src="app/components/noServregistration/noServregistrationController.js"></script>  
-    <script src="app/components/registration/registrationService.js"></script>  
-    <script src="app/components/registration/registrationController.js"></script>
-    <script src="app/components/query/simulatequeryService.js"></script>  
-    <script src="app/components/query/simulatequeryController.js"></script>
-    
 </head>
 <body>
-    <header class="navbar container-fluid" id='menu'>
-        <nav class="container-fluid">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <img id='upmlogo' src="assets/img/upmlogo.jpg">
-                    <span class="navbar-brand">TPV U.P.M.</span>
-                </div>
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="#/">Inicio</a></li>
+    <nav class="navbar navbar-default">
 
-                        <!-- Menus -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapse1">
+          <span class="sr-only">Desplegar navegación</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">TPV MIW UPM</a>
+      </div>
+
+      <div id="collapse1" class="collapse navbar-collapse">
+         <ul class="nav navbar-nav">
+           <li><a href="#/">Home</a></li>
+
+           <!-- Menus -->
                         
-                        <!-- Autor: Jesús Bernal -->                       
-                        <li><a href="#/feature00/version">F00.Versión</a></li>
-                       
-
-                        <li><a href="#/registration">Alta</a></li>
-                        <li><a href="#/noServregistration">Alta Sin Servicio</a></li>
-                        <li><a href="#/query">Consulta</a></li>
-                        <li><a href="#/op3">Operación 3</a></li>
-                        <li><a href="#/op4">Operación 4</a></li>  
-                        <li><a href="#/op5">Operación 5</a></li>  
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <main id='cuerpo'>
-      <div class="container" ng-view></div>
-    </main>  
+           <!-- Autor: Jesús Bernal -->                       
+           <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">F00<b class="caret"></b></a>
+             <ul class="dropdown-menu">
+               <li><a href="#/feature00/version">Versión</a></li>
+             </ul>
+           </li>
+         </ul>
+       </div>
+     </nav>
+  <main id='cuerpo'>
+    <div class="container" ng-view></div>
+  </main>  
 </body>
 
 </html>

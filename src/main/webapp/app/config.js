@@ -11,21 +11,6 @@ tpv.config(function ($routeProvider) {
             controller: "versionController",
             controllerAs: "versionCtrl"
         })
-        .when("/registration", {
-            templateUrl: "app/components/registration/registration.html",
-            controller: "registrationController",
-            controllerAs: "regCtrl"
-        })
-        .when("/noServregistration", {
-            templateUrl: "app/components/noServregistration/noServregistration.html",
-            controller: "noServregistrationController",
-            controllerAs: "nSregCtrl"
-        })    
-        .when("/query", {
-            templateUrl: "app/components/query/query.html",
-            controller: "simulatequeryController",
-            controllerAs: "qryCtrl"      
-        })
         .otherwise({
             redirectTo: '/'
         });
