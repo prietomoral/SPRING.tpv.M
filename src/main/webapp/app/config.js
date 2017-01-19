@@ -6,6 +6,11 @@ tpv.config(function ($routeProvider) {
         .when("/", {
             templateUrl: "app/components/home/home.html"
         })
+        .when("/feature00/version", {
+            templateUrl: "app/components/feature00/version.html",
+            controller: "versionController",
+            controllerAs: "versionCtrl"
+        })
         .when("/registration", {
             templateUrl: "app/components/registration/registration.html",
             controller: "registrationController",

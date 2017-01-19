@@ -10,6 +10,6 @@ import org.junit.runners.Suite.SuiteClasses;
     UserDaoIT.class,
     AuthorizationDaoIT.class
 })
-public class AllDaosIT {
+public class AllDaosUsersIntegrationTests {
 
 }
