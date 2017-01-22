@@ -2,15 +2,15 @@
  <div class="jumbotron text-center fondo_form">
    <fieldset>
     <legend>Feature00. Login. Autor Jesus Bernal</legend>
-    <form class="form-horizontal" role="form" name='login' id='login' ng-submit="loginCtrl.login()">
+    <form class="form-horizontal" role="form" name='login' id='login' ng-submit="loginCtrl.login(mobile,password)">
         <div class="form-group">
-            <label class="control-label col-sm-2 " for="usuario" >Mobile:</label>
+            <label class="control-label col-sm-2 " for="mobile" >Mobile:</label>
             <div class='col-sm-10'>
                  <input type='text' class="form-control" name='mobile' ng-model='mobile' required/>
             </div>    
         </div>        
         <div class="form-group">
-            <label class="control-label col-md-3" for="pwd">Password:</label>
+            <label class="control-label col-sm-2" for="password">Password:</label>
             <div class='col-sm-10'>
                  <input type='password' class="form-control" name='password' ng-model='password' required />
             </div>    
