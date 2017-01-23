@@ -20,7 +20,6 @@ tpv.controller('loginController', ['$http', '$timeout', function ($http, $timeou
             then( function (response) {
                         self.completed = true;
                         self.respuesta =  response.data.token;
-                        
                         $timeout( function(){
                                     self.completed = false;
                                     }, delay)
