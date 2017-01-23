@@ -16,6 +16,16 @@ tpv.config(function ($routeProvider) {
             controller: "loginController",
             controllerAs: "loginCtrl"
         })
+        .when("/feature00/manager-registration", {
+            templateUrl: "app/components/feature00/managerRegistration.html",
+            controller: "managerRegistrationController",
+            controllerAs: "managerRegistrationCtrl"
+        })
+        .when("/feature00/customer-registration", {
+            templateUrl: "app/components/feature00/customerRegistration.html",
+            controller: "customerRegistrationController",
+            controllerAs: "customerRegistrationCtrl"
+        })
         .otherwise({
             redirectTo: '/'
         });

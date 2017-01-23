@@ -21,7 +21,7 @@ tpv.controller('versionController', ['$http', '$timeout', function ($http, $time
                         },
                   function (response) {
                         self.error = true;
-                        self.respuesta = "Error:"+response.data.error + ":" + response.data.description;
+                        self.respuesta = "Error:"+response.data.error + ":" + response.data.description+"("+response.status+")";
                         $timeout( function(){
                                     self.error = false;
                                     }, delay)}

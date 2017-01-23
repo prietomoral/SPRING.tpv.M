@@ -1,0 +1,59 @@
+<section class="container">
+	<div class="jumbotron text-center fondo_form">
+		<fieldset>
+			<legend>Feature00. customerRegistration. Autor Jesus Bernal</legend>
+			<form class="form-horizontal" role="form" name='customerRegistration'
+				id='customerRegistration'
+				ng-submit="customerRegistrationCtrl.registration(token,mobile,username,password)">
+                <div class="form-group">
+                    <label class="control-label col-sm-2 " for="token">Token:</label>
+                    <div class='col-sm-10'>
+                        <input type='text' class="form-control" name='token'
+                            ng-model='token' required />
+                    </div>
+                </div>
+               <div class="form-group">
+                    <label class="control-label col-sm-2 " for="mobile">Mobile:</label>
+                    <div class='col-sm-10'>
+                        <input type='text' class="form-control" name='mobile'
+                            ng-model='mobile' required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2 " for="username">Username:</label>
+                    <div class='col-sm-10'>
+                        <input type='text' class="form-control" name='username'
+                            ng-model='username' required />
+                    </div>
+                </div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="password">Password:</label>
+					<div class='col-sm-10'>
+						<input type='password' class="form-control" name='password'
+							ng-model='password' required />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</div>
+					<div id='ok' class="alert alert-success col-sm-10"
+						ng-show="customerRegistrationCtrl.completed">
+						<strong>Petición correcta</strong>
+					</div>
+					<div id='alerta' class="alert alert-danger col-sm-10"
+						ng-show="customerRegistrationCtrl.error">
+						<strong>Error!!!</strong>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="respuesta">Respuesta:</label>
+					<div class="col-sm-10">
+						<input type='text' class="form-control" name='respuesta'
+							ng-model='customerRegistrationCtrl.respuesta' readonly />
+					</div>
+				</div>
+			</form>
+		</fieldset>
+	</div>
+</section>
