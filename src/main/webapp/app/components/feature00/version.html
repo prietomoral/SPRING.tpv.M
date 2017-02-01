@@ -1,22 +1,20 @@
 <section class="container">
- <div class="jumbotron text-center">
-   <fieldset>
-    <legend>Feature00. Versión. Autor Jesus Bernal</legend>
-    <form class="form-horizontal">
-        <div class="form-group"> 
-            <div class="col-sm-offset-2 col-sm-2 ">
-                <button  class="btn btn-primary btn-sm" ng-click="version()">Enviar</button>
-            </div>
-            <label class="bg-success col-sm-6" ng-show = "completed" >Petición correcta</label>
-            <label class="bg-danger col-sm-6" ng-show = "error" >Error!!!</label>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="respuesta">Respuesta:</label>
-            <div class="col-sm-10">
-                <input type='text' class="form-control" ng-model='response' readonly/>
-            </div>
-        </div>    
-    </form>        
-  </fieldset>
- </div>    
-</section>   
+	<div class="jumbotron text-center">
+		<fieldset>
+			<legend>Feature00. Versión. Autor Jesus Bernal</legend>
+			<form class="form-horizontal">
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-2 ">
+						<button class="btn btn-primary btn-sm" ng-click="version()">Enviar</button>
+					</div>
+					<label class="bg-success col-sm-6" ng-show="completed">Petición
+						correcta</label> <label class="bg-danger col-sm-6" ng-show="error">Error!!!</label>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="respuesta">Respuesta:</label>
+					<label class="col-sm-10" ng-bind='response'></label>
+				</div>
+			</form>
+		</fieldset>
+	</div>
+</section>

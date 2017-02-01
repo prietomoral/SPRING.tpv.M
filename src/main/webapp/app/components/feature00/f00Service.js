@@ -38,13 +38,28 @@ tpv.service('f00Service', ['$http', '$q', function ($http, $q) {
 	      return this.request(config);
 	   }
    
-   this.registration = function (mobile,username,password){
+   this.registration = function (mobile, username, password, user){
 	      $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode(sessionStorage.token + ':');
+	      let resource="";
+	      if (user==='manager')
+	    	  resource="users";
+	      else if (user==='customer') 
+	    	  resource="customers";
 		  let config = {
 	 	      method: 'POST',
-	 	      url: "http://localhost:8080/SPRING.tpv.1.0.0-SNAPSHOT/api/v0/users",
+	 	      url: "http://localhost:8080/SPRING.tpv.1.0.0-SNAPSHOT/api/v0/" + resource,
 	 	      data: {'mobile': mobile, 'username': username, 'password': password}
 		  };
 	      return this.request(config);
 	   }
+   
+   this.deleteAll = function () {
+	      $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode(sessionStorage.token + ':');
+	      let config = {
+	 	     method: 'DELETE',
+	 	     url: "http://localhost:8080/SPRING.tpv.1.0.0-SNAPSHOT/api/v0/admins",
+		  };
+	      return this.request(config);
+	   }
+
 }]);
