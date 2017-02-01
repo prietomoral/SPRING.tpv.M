@@ -9,12 +9,12 @@ tpv.config(function ($routeProvider) {
         .when("/feature00/version", {
             templateUrl: "app/components/feature00/version.html",
             controller: "versionController",
-            controllerAs: "versionCtrl"
+            controllerAs: "versionVm"
         })
         .when("/feature00/login", {
             templateUrl: "app/components/feature00/login.html",
             controller: "loginController",
-            controllerAs: "loginCtrl"
+            controllerAs: "loginVm"
         })
         .when("/feature00/manager-registration", {
             templateUrl: "app/components/feature00/managerRegistration.html",

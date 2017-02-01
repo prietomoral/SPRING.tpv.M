@@ -1,11 +1,10 @@
-tpv.service('registrationService', ['$http','$q', function ($http, $q) {
+tpv.service('feature00Service', ['$http','$q', function ($http, $q) {
     "use strict";
     let self = this;
-    self.register = function (userName, userTlf) {
+     self.version = function () {
         let config = {
                   method: 'GET',
-                  url: "http://salonso.etsisi.upm.es/miw_serv/padel/username.php",
-                  params: { username: userName }
+                  url: "http://localhost:8080/SPRING.tpv.1.0.0-SNAPSHOT/api/v0/admins"
                  };       
           let apromise = $q.defer();
           $http(config).then(
