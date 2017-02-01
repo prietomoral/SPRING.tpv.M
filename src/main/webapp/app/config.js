@@ -8,23 +8,19 @@ tpv.config(function ($routeProvider) {
         })
         .when("/feature00/version", {
             templateUrl: "app/components/feature00/version.html",
-            controller: "versionController",
-            controllerAs: "versionCtrl"
+            controller: "versionController"
         })
-        .when("/registration", {
-            templateUrl: "app/components/registration/registration.html",
-            controller: "registrationController",
-            controllerAs: "regCtrl"
+        .when("/feature00/login", {
+            templateUrl: "app/components/feature00/login.html",
+            controller: "loginController"
         })
-        .when("/noServregistration", {
-            templateUrl: "app/components/noServregistration/noServregistration.html",
-            controller: "noServregistrationController",
-            controllerAs: "nSregCtrl"
-        })    
-        .when("/query", {
-            templateUrl: "app/components/query/query.html",
-            controller: "simulatequeryController",
-            controllerAs: "qryCtrl"      
+        .when("/feature00/registration", {
+            templateUrl: "app/components/feature00/registration.html",
+            controller: "registrationController"
+        })
+        .when("/feature00/delete-all", {
+            templateUrl: "app/components/feature00/deleteAll.html",
+            controller: "deleteAllController"
         })
         .otherwise({
             redirectTo: '/'

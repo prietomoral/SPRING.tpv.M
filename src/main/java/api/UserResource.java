@@ -26,7 +26,7 @@ public class UserResource {
 	@RequestMapping(value = Uris.USERS, method = RequestMethod.POST)
 	public void userRegistration(@RequestBody UserWrapper userWrapper)
 			throws InvalidUserFieldException, AlreadyExistUserFieldException {
-		validateField(userWrapper.getUsername(), "username");
+        validateField(userWrapper.getUsername(), "username");
 		if (!this.userController.registration(userWrapper, Role.MANAGER)) {
 			throw new AlreadyExistUserFieldException();
 		}

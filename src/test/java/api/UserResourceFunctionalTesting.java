@@ -19,7 +19,7 @@ public class UserResourceFunctionalTesting {
 		String token = new RestService().loginAdmin();
 		for (int i = 0; i < 4; i++) {
 			new RestBuilder<Object>(RestService.URL).path(Uris.USERS)
-					.body(new UserWrapper(667000000 + i, "user" + i, "pass")).basicAuth(token, "").post().build();
+					.body(new UserWrapper(777000000 + i, "user" + i, "pass")).basicAuth(token, "").post().build();
 		}
 	}
 
@@ -54,7 +54,7 @@ public class UserResourceFunctionalTesting {
 	@Test
 	public void testRepeatingFieldCreate() {
 		String token = new RestService().loginAdmin();
-		UserWrapper userWrapper = new UserWrapper(666000000, "user", "pass");
+		UserWrapper userWrapper = new UserWrapper(777000000, "user", "pass");
 		new RestBuilder<Object>(RestService.URL).path(Uris.USERS).body(userWrapper).basicAuth(token, "").post().build();
 		try {
 			new RestBuilder<Object>(RestService.URL).path(Uris.USERS).body(userWrapper).basicAuth(token, "").post()
@@ -71,7 +71,7 @@ public class UserResourceFunctionalTesting {
 	public void testCreateCustomer() {
 		String token = new RestService().registerAndLoginManager();
 		new RestBuilder<Object>(RestService.URL).path(Uris.CUSTOMERS)
-				.body(new UserWrapper(667000000, "customer", "pass")).basicAuth(token, "").post().build();
+				.body(new UserWrapper(777000000, "customer", "pass")).basicAuth(token, "").post().build();
 	}
 
 	@Test
@@ -79,7 +79,7 @@ public class UserResourceFunctionalTesting {
 		try {
 			String token = new RestService().loginAdmin();
 			new RestBuilder<Object>(RestService.URL).path(Uris.CUSTOMERS)
-					.body(new UserWrapper(667000000, "customer", "pass")).basicAuth(token, "").post().build();
+					.body(new UserWrapper(777000000, "customer", "pass")).basicAuth(token, "").post().build();
 			fail();
 		} catch (HttpClientErrorException httpError) {
 			assertEquals(HttpStatus.FORBIDDEN, httpError.getStatusCode());

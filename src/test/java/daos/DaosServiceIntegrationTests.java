@@ -107,7 +107,7 @@ public class DaosServiceIntegrationTests {
     public void createProviders() {
         Provider provider;
         for (int i = 0; i < 4; i++) {
-            provider = new Provider("company" + i, "address" + i, 777000000 + i, 91777000 + i, "No", "No");
+            provider = new Provider("company" + i, "address" + i, 666100000 + i, 916661000 + i, "No", "No");
             providerDao.save(provider);
         }
     }

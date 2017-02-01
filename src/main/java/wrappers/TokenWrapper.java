@@ -2,26 +2,37 @@ package wrappers;
 
 public class TokenWrapper {
 
-	private String token;
+    private String token;
 
-	public TokenWrapper() {
-	}
+    private String rol;
 
-	public TokenWrapper(String token) {
-		this.token = token;
-	}
+    public TokenWrapper() {
+    }
 
-	public String getToken() {
-		return token;
-	}
+    public TokenWrapper(String token, String rol) {
+        this.token = token;
+        this.rol = rol;
+    }
 
-	public void setToken(String token) {
-		this.token = token;
-	}
+    public String getToken() {
+        return token;
+    }
 
-	@Override
-	public String toString() {
-		return "TokenWrapper [token=" + token + "]";
-	}
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    @Override
+    public String toString() {
+        return "TokenWrapper [token=" + token + ", rol=" + rol + "]";
+    }
 
 }

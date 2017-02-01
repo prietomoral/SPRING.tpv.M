@@ -23,7 +23,7 @@ public class TokenResource {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public TokenWrapper login(@AuthenticationPrincipal User activeUser) {
-		return new TokenWrapper(tokenController.login(Long.parseLong(activeUser.getUsername())));
+		return tokenController.login(Long.parseLong(activeUser.getUsername()));
 	}
 
 }

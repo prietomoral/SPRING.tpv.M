@@ -20,13 +20,13 @@ public class User {
 	@Column(unique = true, nullable = false)
 	private long mobile;
 
-	@Column(unique = true, nullable = false)
 	private String username;
 
 	private String dni;
 
 	private String address;
 
+    @Column(unique = true)
 	private String email;
 
 	private String password;

@@ -1,16 +1,16 @@
-tpv.controller('versionController', function($timeout, $scope, f00Service) {
-	"use strict";
-	$scope.completed = false;
-	$scope.error = false;
-	$scope.response = "";
-
-	$scope.version = function() {
+tpv.controller('deleteAllController', function($timeout, $scope, f00Service) {
+   "use strict";
+    $scope.completed = false;
+    $scope.error = false;
+    $scope.respuesta="";
+  
+    $scope.deleteAll = function () {
 		const delay = 2000;
-		f00Service.version().then(
+		f00Service.deleteAll().then(
 			function(result) {
 				// promise was fullfilled
 				$scope.completed = true;
-				$scope.response = result.version;
+				$scope.response = "";
 				$timeout(function() {
 					$scope.completed = false;
 				}, delay)
@@ -22,6 +22,6 @@ tpv.controller('versionController', function($timeout, $scope, f00Service) {
 						$scope.error = false;
 					}, delay)
 			});
-		}
-	}
+    }
+    }
 );
