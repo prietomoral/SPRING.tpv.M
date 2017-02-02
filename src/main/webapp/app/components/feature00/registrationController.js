@@ -1,40 +1,46 @@
-tpv.controller('registrationController',
-		function($timeout, $scope, f00Service) {
+tpv.controller('RegistrationController', ['$timeout','f00Service',function($timeout, f00Service) {
 			"use strict";
-			$scope.completed = false;
-			$scope.error = false;
-			$scope.respuesta = "";
+			var vm = this
 
-			$scope.user = function() {
+			vm.mobile;
+			vm.username;
+			vm.password;
+			vm.completed = false;
+			vm.error = false;
+			vm.respuesta = "";
+			vm.user = user;
+			vm.registration = registration;
+
+			function user() {
 				if (sessionStorage.rol === "ADMIN")
 					return "manager";
 				else if (sessionStorage.rol === "MANAGER") {
-					$scope.password="pass";
+					vm.password = "pass";
 					return "customer";
 				} else
 					return "nobody";
 			}
 
-			$scope.registration = function() {
+			function registration() {
 				const
 				delay = 2000;
 
-				f00Service.registration($scope.mobile, $scope.username,
-						$scope.password, $scope.user()).then(function(result) {
+				f00Service.registration(vm.mobile, vm.username, vm.password,
+						vm.user()).then(function(result) {
 					// promise was fullfilled
-					$scope.completed = true;
-					$scope.response = "";
+					vm.completed = true;
+					vm.response = "";
 					$timeout(function() {
-						$scope.completed = false;
+						vm.completed = false;
 					}, delay)
 				}, function(errors) {
 					// handle errors
-					$scope.error = true;
-					$scope.response = errors;
+					vm.error = true;
+					vm.response = errors;
 					$timeout(function() {
-						$scope.error = false;
+						vm.error = false;
 					}, delay)
 				});
 			}
 
-		});
+		}]);

@@ -8,15 +8,18 @@ tpv.config(function ($routeProvider) {
         })
         .when("/feature00/version", {
             templateUrl: "app/components/feature00/version.html",
-            controller: "versionController"
+            controller: "VersionController",
+            controllerAs: "vm"
         })
         .when("/feature00/login", {
             templateUrl: "app/components/feature00/login.html",
-            controller: "loginController"
+            controller: "LoginController",
+            controllerAs: "vm"
         })
         .when("/feature00/registration", {
             templateUrl: "app/components/feature00/registration.html",
-            controller: "registrationController"
+            controller: "RegistrationController",
+            controllerAs: "vm"
         })
         .when("/feature00/delete-all", {
             templateUrl: "app/components/feature00/deleteAll.html",

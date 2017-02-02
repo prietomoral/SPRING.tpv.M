@@ -1,30 +1,34 @@
-tpv.controller('loginController', function ($timeout,$scope,f00Service) {
+tpv.controller('LoginController',['$timeout','f00Service',function ($timeout,f00Service) {
    "use strict";
-    $scope.completed = false;
-    $scope.error = false;
-    $scope.respuesta="";
+   var vm = this;
+   
+   vm.mobile;
+   vm.password;
+   vm.completed = false;
+   vm.error = false;
+   vm.respuesta = "";
+   vm.login = login;
   
-	$scope.login = function () {
+   function login() {
       const delay = 2000;
-      f00Service.login($scope.mobile,$scope.password).then(
+      f00Service.login(vm.mobile,vm.password).then(
     	  function(result) {
     		// promise was fullfilled
-    		$scope.completed = true;
-    		$scope.response = result.token + ":" + result.rol;
+    		  vm.completed = true;
+    		  vm.response = result.token + ":" + result.rol;
     		sessionStorage.token = result.token;
     		sessionStorage.rol = result.rol;
     		$timeout(function() {
-    			$scope.completed = false;
+    			vm.completed = false;
     		}, delay)
     	  },function(errors) {
     		// handle errors
-    		$scope.error = true;
-    		$scope.response = errors;
+    		  vm.error = true;
+    		  vm.response = errors;
     			$timeout(function() {
-    				$scope.error = false;
+    				vm.error = false;
     			}, delay)
-    	  });
-      }
-   	
-    
-});
+    	  }
+      );
+   } 
+}]);
