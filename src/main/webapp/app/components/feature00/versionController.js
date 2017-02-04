@@ -1,27 +1,30 @@
-tpv.controller('versionController', function($timeout, $scope, f00Service) {
-	"use strict";
-	$scope.completed = false;
-	$scope.error = false;
-	$scope.response = "";
+tpv.controller('VersionController', [ '$timeout', 'f00Service',
+		function($timeout, f00Service) {
+			"use strict";
+			var vm = this;
 
-	$scope.version = function() {
-		const delay = 2000;
-		f00Service.version().then(
-			function(result) {
-				// promise was fullfilled
-				$scope.completed = true;
-				$scope.response = result.version;
-				$timeout(function() {
-					$scope.completed = false;
-				}, delay)
-			},function(errors) {
-				// handle errors
-				$scope.error = true;
-				$scope.response = errors;
+			vm.completed = false;
+			vm.error = false;
+			vm.response = "";
+			vm.version = version;
+
+			function version() {
+				const
+				delay = 2000;
+				f00Service.version().then(function(result) {
+					// promise was fullfilled
+					vm.completed = true;
+					vm.response = result.version;
 					$timeout(function() {
-						$scope.error = false;
+						vm.completed = false;
 					}, delay)
-			});
-		}
-	}
-);
+				}, function(errors) {
+					// handle errors
+					vm.error = true;
+					vm.response = errors;
+					$timeout(function() {
+						vm.error = false;
+					}, delay)
+				});
+			}
+		} ]);
