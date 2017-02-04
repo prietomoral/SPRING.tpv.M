@@ -23,7 +23,8 @@ tpv.config(function ($routeProvider) {
         })
         .when("/feature00/delete-all", {
             templateUrl: "app/components/feature00/deleteAll.html",
-            controller: "deleteAllController"
+            controller: "DeleteAllController",
+            controllerAs: "vm"
         })
         .otherwise({
             redirectTo: '/'

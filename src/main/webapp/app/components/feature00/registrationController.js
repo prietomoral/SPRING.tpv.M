@@ -1,15 +1,18 @@
-tpv.controller('RegistrationController', ['$timeout','f00Service',function($timeout, f00Service) {
+tpv.controller('RegistrationController', [
+		'$timeout',
+		'f00Service',
+		function($timeout, f00Service) {
 			"use strict";
 			var vm = this
 
-			vm.mobile;
-			vm.username;
-			vm.password;
 			vm.completed = false;
 			vm.error = false;
+			vm.mobile;
+			vm.password;
+			vm.registration = registration;
 			vm.respuesta = "";
 			vm.user = user;
-			vm.registration = registration;
+			vm.username;
 
 			function user() {
 				if (sessionStorage.rol === "ADMIN")
@@ -43,4 +46,4 @@ tpv.controller('RegistrationController', ['$timeout','f00Service',function($time
 				});
 			}
 
-		}]);
+		} ]);
