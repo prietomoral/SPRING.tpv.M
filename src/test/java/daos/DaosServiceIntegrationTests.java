@@ -20,6 +20,7 @@ import daos.users.UserDao;
 import entities.core.Article;
 import entities.core.Embroidery;
 import entities.core.Invoice;
+import entities.core.Product;
 import entities.core.Provider;
 import entities.core.Shopping;
 import entities.core.TextilePrinting;
@@ -143,19 +144,22 @@ public class DaosServiceIntegrationTests {
 
         ticket = new Ticket(1L, TicketState.CLOSED);
         for (int i = 0; i < 4; i++) {
-            ticket.addShopping(new Shopping(1 + i, 0, articleDao.findOne(84000001111L + i)));
+            Product product = articleDao.findOne(84000001111L + i);
+            ticket.addShopping(new Shopping(1 + i, 0, product.getId(), product.getDescription(), product.getRetailPrice()));
         }
         ticketDao.save(ticket);
 
         ticket = new Ticket(2L, TicketState.OPENED);
         for (int i = 0; i < 4; i++) {
-            ticket.addShopping(new Shopping(1 + i, 0, embroideryDao.findOne(84000002222L + i)));
+            Product product = embroideryDao.findOne(84000002222L + i);
+            ticket.addShopping(new Shopping(1 + i, 0, product.getId(), product.getDescription(), product.getRetailPrice()));
         }
         ticketDao.save(ticket);
 
         ticket = new Ticket(3L, TicketState.OPENED);
         for (int i = 0; i < 4; i++) {
-            ticket.addShopping(new Shopping(1 + i, 10, embroideryDao.findOne(84000003333L + i)));
+            Product product = textilePrintingDao.findOne(84000003333L + i);
+            ticket.addShopping(new Shopping(1 + i, 10, product.getId(), product.getDescription(), product.getRetailPrice()));
         }
         ticketDao.save(ticket);
     }
