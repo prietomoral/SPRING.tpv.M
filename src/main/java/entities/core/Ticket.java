@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -26,6 +27,7 @@ public class Ticket {
 
     private Calendar created;
 
+    @Column(unique = true, nullable = false)
     private String reference;
 
     @Enumerated(EnumType.STRING)
