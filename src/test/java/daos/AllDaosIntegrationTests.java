@@ -8,10 +8,7 @@ import daos.core.AllDaosCoreIntegrationTests;
 import daos.users.AllDaosUsersIntegrationTests;
 
 @RunWith(Suite.class)
-@SuiteClasses({
-    AllDaosCoreIntegrationTests.class,
-    AllDaosUsersIntegrationTests.class
-})
+@SuiteClasses({AllDaosCoreIntegrationTests.class, AllDaosUsersIntegrationTests.class})
 public class AllDaosIntegrationTests {
 
 }

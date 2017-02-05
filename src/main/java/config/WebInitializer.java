@@ -12,28 +12,27 @@ import api.Uris;
 
 public class WebInitializer implements WebApplicationInitializer {
 
-	// Se configura el dispatcher
-	@Override
-	public void onStartup(ServletContext servletContext) throws ServletException {
-		// Se crea un contexto basado en anotaciones
-		AnnotationConfigWebApplicationContext annConWebAppCtx = new AnnotationConfigWebApplicationContext();
+    // Se configura el dispatcher
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+        // Se crea un contexto basado en anotaciones
+        AnnotationConfigWebApplicationContext annConWebAppCtx = new AnnotationConfigWebApplicationContext();
 
-		// Se configura el paquete de los ficheros de configuración. En el
-		// propio paquete!!!
-		annConWebAppCtx.setConfigLocation(this.getClass().getPackage().getName());
+        // Se configura el paquete de los ficheros de configuración. En el
+        // propio paquete!!!
+        annConWebAppCtx.setConfigLocation(this.getClass().getPackage().getName());
 
-		// Se configura el contexto utilizado en Securiry
-		annConWebAppCtx.setServletContext(servletContext);
+        // Se configura el contexto utilizado en Securiry
+        annConWebAppCtx.setServletContext(servletContext);
 
-		// Se configura el servlet
-		ServletRegistration.Dynamic servlet = servletContext.addServlet("dispatcher",
-				new DispatcherServlet(annConWebAppCtx));
+        // Se configura el servlet
+        ServletRegistration.Dynamic servlet = servletContext.addServlet("dispatcher", new DispatcherServlet(annConWebAppCtx));
 
-		// 1 es True
-		servlet.setLoadOnStartup(1);
+        // 1 es True
+        servlet.setLoadOnStartup(1);
 
-		// Se configura la ruta relativa del servlet
-		servlet.addMapping(Uris.SERVLET_MAP + "/*");
-	}
+        // Se configura la ruta relativa del servlet
+        servlet.addMapping(Uris.SERVLET_MAP + "/*");
+    }
 
 }

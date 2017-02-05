@@ -2,7 +2,6 @@ package daos.core;
 
 import static org.junit.Assert.assertEquals;
 
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +14,13 @@ import config.TestsPersistenceConfig;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PersistenceConfig.class, TestsPersistenceConfig.class})
 public class ProviderDaoIT {
-    
+
     @Autowired
     private ProviderDao providerDao;
-    
+
     @Test
     public void testCreate() {
         assertEquals(4, providerDao.count());
     }
-
 
 }

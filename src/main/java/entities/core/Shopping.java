@@ -15,11 +15,11 @@ public class Shopping {
     private int amount;
 
     private int discount;
-    
+
     private long productId;
-    
+
     private String description;
-    
+
     private BigDecimal retailPrice;
 
     public Shopping() {
@@ -52,7 +52,6 @@ public class Shopping {
     public void setDiscount(int discount) {
         this.discount = discount;
     }
-
 
     public long getProductId() {
         return productId;

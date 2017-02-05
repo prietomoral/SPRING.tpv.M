@@ -6,7 +6,7 @@ public class UnauthorizedException extends ApiException {
 
     public static final String DESCRIPTION = "La identificación utilizada no tiene la autoridad suficiente";
 
-    public static final int CODE = 001;
+    public static final int CODE = 5;
 
     public UnauthorizedException() {
         this("");

@@ -19,15 +19,15 @@ import entities.users.User;
 @ContextConfiguration(classes = {PersistenceConfig.class, TestsPersistenceConfig.class})
 public class TokenDaoIT {
 
-	@Autowired
-	private UserDao userDao;
+    @Autowired
+    private UserDao userDao;
 
-	@Autowired
-	private TokenDao tokenDao;
+    @Autowired
+    private TokenDao tokenDao;
 
     @Test
     public void testFindByUser() {
-		User user = userDao.findByMobile(666000000);
+        User user = userDao.findByMobile(666000000);
         assertNotNull(tokenDao.findByUser(user));
         assertNull(tokenDao.findByUser(userDao.findByMobile(666000001)));
     }

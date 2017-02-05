@@ -16,35 +16,34 @@ import wrappers.UserWrapper;
 @RequestMapping(Uris.VERSION)
 public class UserResource {
 
-	private UserController userController;
+    private UserController userController;
 
-	@Autowired
-	public void setUserController(UserController userController) {
-		this.userController = userController;
-	}
+    @Autowired
+    public void setUserController(UserController userController) {
+        this.userController = userController;
+    }
 
-	@RequestMapping(value = Uris.USERS, method = RequestMethod.POST)
-	public void userRegistration(@RequestBody UserWrapper userWrapper)
-			throws InvalidUserFieldException, AlreadyExistUserFieldException {
+    @RequestMapping(value = Uris.USERS, method = RequestMethod.POST)
+    public void userRegistration(@RequestBody UserWrapper userWrapper) throws InvalidUserFieldException, AlreadyExistUserFieldException {
         validateField(userWrapper.getUsername(), "username");
-		if (!this.userController.registration(userWrapper, Role.MANAGER)) {
-			throw new AlreadyExistUserFieldException();
-		}
-	}
+        if (!this.userController.registration(userWrapper, Role.MANAGER)) {
+            throw new AlreadyExistUserFieldException();
+        }
+    }
 
-	@RequestMapping(value = Uris.CUSTOMERS, method = RequestMethod.POST)
-	public void customerRegistration(@RequestBody UserWrapper userWrapper)
-			throws InvalidUserFieldException, AlreadyExistUserFieldException {
-		validateField(userWrapper.getUsername(), "username");
-		if (!this.userController.registration(userWrapper, Role.CUSTOMER)) {
-			throw new AlreadyExistUserFieldException();
-		}
-	}
+    @RequestMapping(value = Uris.CUSTOMERS, method = RequestMethod.POST)
+    public void customerRegistration(@RequestBody UserWrapper userWrapper)
+            throws InvalidUserFieldException, AlreadyExistUserFieldException {
+        validateField(userWrapper.getUsername(), "username");
+        if (!this.userController.registration(userWrapper, Role.CUSTOMER)) {
+            throw new AlreadyExistUserFieldException();
+        }
+    }
 
-	private void validateField(String field, String msg) throws InvalidUserFieldException {
-		if (field == null || field.isEmpty()) {
-			throw new InvalidUserFieldException(msg);
-		}
-	}
+    private void validateField(String field, String msg) throws InvalidUserFieldException {
+        if (field == null || field.isEmpty()) {
+            throw new InvalidUserFieldException(msg);
+        }
+    }
 
 }

@@ -8,15 +8,15 @@ import services.DataService;
 @Controller
 public class AdminController {
 
-	private DataService dataService;
+    private DataService dataService;
 
-	@Autowired
-	public void setDataService(DataService dataService) {
-		this.dataService = dataService;
-	}
+    @Autowired
+    public void setDataService(DataService dataService) {
+        this.dataService = dataService;
+    }
 
-	public void deleteAllExceptAdmin() {
-		dataService.deleteAllExceptAdmin();
-	}
+    public void deleteAllExceptAdmin() {
+        dataService.deleteAllExceptAdmin();
+    }
 
 }

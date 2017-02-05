@@ -6,7 +6,7 @@ public class NotFoundUserIdException extends ApiException {
 
     public static final String DESCRIPTION = "No se encuentra el identificador de usuario utilizado";
 
-    public static final int CODE = 333;
+    public static final int CODE = 4;
 
     public NotFoundUserIdException() {
         this("");

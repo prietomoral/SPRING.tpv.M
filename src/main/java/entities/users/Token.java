@@ -12,59 +12,59 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Token {
 
-	@Id
-	@GeneratedValue
-	private int id;
+    @Id
+    @GeneratedValue
+    private int id;
 
-	@Column(unique = true, nullable = false)
-	private String value;
+    @Column(unique = true, nullable = false)
+    private String value;
 
-	@ManyToOne
-	@JoinColumn
-	private User user;
+    @ManyToOne
+    @JoinColumn
+    private User user;
 
-	public Token() {
-	}
+    public Token() {
+    }
 
-	public Token(User user) {
-		assert user != null;
-		this.user = user;
-		this.value = new Encrypt().encryptInBase64UrlSafe("" + user.getId() + Long.toString(new Date().getTime()));
-	}
+    public Token(User user) {
+        assert user != null;
+        this.user = user;
+        this.value = new Encrypt().encryptInBase64UrlSafe("" + user.getId() + Long.toString(new Date().getTime()));
+    }
 
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public String getValue() {
+        return value;
+    }
 
-	public User getUser() {
-		return user;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	@Override
-	public int hashCode() {
-		return id;
-	}
+    @Override
+    public int hashCode() {
+        return id;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		return id == ((Token) obj).id;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        return id == ((Token) obj).id;
+    }
 
-	@Override
-	public String toString() {
-		return "Token [id=" + id + ", value=" + value + ", user=" + user + "]";
-	}
+    @Override
+    public String toString() {
+        return "Token [id=" + id + ", value=" + value + ", user=" + user + "]";
+    }
 }

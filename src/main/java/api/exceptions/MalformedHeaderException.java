@@ -6,7 +6,7 @@ public class MalformedHeaderException extends ApiException {
 
     public static final String DESCRIPTION = "Error de Authorization en cabecera por formato erroneo, debe estar en Auth Basic";
 
-    public static final int CODE = 666;
+    public static final int CODE = 3;
 
     public MalformedHeaderException() {
         this("");

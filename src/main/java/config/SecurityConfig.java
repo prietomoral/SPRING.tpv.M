@@ -21,30 +21,29 @@ import entities.users.Role;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	UserDetailsService userDetailsService;
+    @Autowired
+    UserDetailsService userDetailsService;
 
-	@Autowired
-	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-	}
+    @Autowired
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests()//
-				.antMatchers(HttpMethod.GET, Uris.SERVLET_MAP + Uris.VERSION + Uris.ADMINS).permitAll()//
-				.antMatchers(Uris.SERVLET_MAP + Uris.VERSION + Uris.TOKENS + "/**").authenticated()//
-				.antMatchers(Uris.SERVLET_MAP + Uris.VERSION + Uris.ADMINS + "/**").hasRole(Role.ADMIN.name())//
-				.antMatchers(HttpMethod.POST, Uris.SERVLET_MAP + Uris.VERSION + Uris.USERS + "/**")
-					.hasRole(Role.ADMIN.name())//
-				.antMatchers(HttpMethod.POST, Uris.SERVLET_MAP + Uris.VERSION + Uris.CUSTOMERS + "/**")
-					.hasAnyRole(Role.MANAGER.name(), Role.OPERATOR.name())//
-				.and().httpBasic();//
-	}
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable().authorizeRequests()//
+                .antMatchers(HttpMethod.GET, Uris.SERVLET_MAP + Uris.VERSION + Uris.ADMINS).permitAll()//
+                .antMatchers(Uris.SERVLET_MAP + Uris.VERSION + Uris.TOKENS + "/**").authenticated()//
+                .antMatchers(Uris.SERVLET_MAP + Uris.VERSION + Uris.ADMINS + "/**").hasRole(Role.ADMIN.name())//
+                .antMatchers(HttpMethod.POST, Uris.SERVLET_MAP + Uris.VERSION + Uris.USERS + "/**").hasRole(Role.ADMIN.name())//
+                .antMatchers(HttpMethod.POST, Uris.SERVLET_MAP + Uris.VERSION + Uris.CUSTOMERS + "/**")
+                .hasAnyRole(Role.MANAGER.name(), Role.OPERATOR.name())//
+                .and().httpBasic();//
+    }
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
 }

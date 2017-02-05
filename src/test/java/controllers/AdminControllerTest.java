@@ -17,9 +17,9 @@ public class AdminControllerTest {
         dataServiceMock = new DataServiceMock();
         adminController.setDataService(dataServiceMock);
     }
-    
+
     @Test
-    public void testDeleteAllExceptAdmin(){
+    public void testDeleteAllExceptAdmin() {
         assertFalse(dataServiceMock.isExecuted());
         adminController.deleteAllExceptAdmin();
         assertTrue(dataServiceMock.isExecuted());

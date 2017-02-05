@@ -6,7 +6,7 @@ public class InvalidUserFieldException extends ApiException {
 
     public static final String DESCRIPTION = "Campo de User vacio o inexistente";
 
-    public static final int CODE = 1;
+    public static final int CODE = 2;
 
     public InvalidUserFieldException() {
         this("");

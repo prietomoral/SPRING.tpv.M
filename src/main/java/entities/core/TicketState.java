@@ -1,5 +1,5 @@
 package entities.core;
 
 public enum TicketState {
-	OPENED, STARTED, CLOSED, COMMITTED;
+    OPENED, STARTED, CLOSED, COMMITTED;
 }

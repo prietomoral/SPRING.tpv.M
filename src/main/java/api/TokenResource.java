@@ -14,16 +14,16 @@ import wrappers.TokenWrapper;
 @RequestMapping(Uris.VERSION + Uris.TOKENS)
 public class TokenResource {
 
-	private TokenController tokenController;
+    private TokenController tokenController;
 
-	@Autowired
-	public void setTokenController(TokenController tokenController) {
-		this.tokenController = tokenController;
-	}
+    @Autowired
+    public void setTokenController(TokenController tokenController) {
+        this.tokenController = tokenController;
+    }
 
-	@RequestMapping(method = RequestMethod.POST)
-	public TokenWrapper login(@AuthenticationPrincipal User activeUser) {
-		return tokenController.login(Long.parseLong(activeUser.getUsername()));
-	}
+    @RequestMapping(method = RequestMethod.POST)
+    public TokenWrapper login(@AuthenticationPrincipal User activeUser) {
+        return tokenController.login(Long.parseLong(activeUser.getUsername()));
+    }
 
 }

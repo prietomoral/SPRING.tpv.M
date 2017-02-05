@@ -7,5 +7,5 @@ import entities.users.User;
 
 public interface TokenDao extends JpaRepository<Token, Integer> {
 
-	Token findByUser(User user);
+    Token findByUser(User user);
 }

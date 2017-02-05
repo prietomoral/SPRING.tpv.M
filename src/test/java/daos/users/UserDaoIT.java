@@ -18,25 +18,25 @@ import entities.users.Token;
 import entities.users.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { PersistenceConfig.class, TestsPersistenceConfig.class })
+@ContextConfiguration(classes = {PersistenceConfig.class, TestsPersistenceConfig.class})
 public class UserDaoIT {
 
-	@Autowired
-	private UserDao userDao;
-	
-	@Autowired
-	private TokenDao tokenDao;
+    @Autowired
+    private UserDao userDao;
 
-	@Test
-	public void testCreate() {
-		assertTrue(userDao.count() >= 4);
-	}
+    @Autowired
+    private TokenDao tokenDao;
 
-	@Test
-	public void testFindByTokenValue() {
-		User user = userDao.findByMobile(666000000);
-		Token token=tokenDao.findByUser(user);
-		assertEquals(user, userDao.findByTokenValue(token.getValue()));
-		assertNull(userDao.findByTokenValue("kk"));
-	}
+    @Test
+    public void testCreate() {
+        assertTrue(userDao.count() >= 4);
+    }
+
+    @Test
+    public void testFindByTokenValue() {
+        User user = userDao.findByMobile(666000000);
+        Token token = tokenDao.findByUser(user);
+        assertEquals(user, userDao.findByTokenValue(token.getValue()));
+        assertNull(userDao.findByTokenValue("kk"));
+    }
 }
