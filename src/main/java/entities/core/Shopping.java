@@ -1,9 +1,10 @@
 package entities.core;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Shopping {
@@ -14,17 +15,22 @@ public class Shopping {
     private int amount;
 
     private int discount;
-
-    @ManyToOne
-    private Product product;
+    
+    private long productId;
+    
+    private String description;
+    
+    private BigDecimal retailPrice;
 
     public Shopping() {
     }
 
-    public Shopping(int amount, int discount, Product product) {
+    public Shopping(int amount, int discount, long productId, String description, BigDecimal retailPrice) {
         this.amount = amount;
         this.discount = discount;
-        this.product = product;
+        this.productId = productId;
+        this.description = description;
+        this.retailPrice = retailPrice;
     }
 
     public int getId() {
@@ -47,8 +53,17 @@ public class Shopping {
         this.discount = discount;
     }
 
-    public Product getProduct() {
-        return product;
+
+    public long getProductId() {
+        return productId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public BigDecimal getRetailPrice() {
+        return retailPrice;
     }
 
     @Override
@@ -72,7 +87,8 @@ public class Shopping {
 
     @Override
     public String toString() {
-        return "Shopping[" + id + ": amount=" + amount + ", discount=" + discount + ", product=" + product + "]";
+        return "Shopping[" + id + ": amount=" + amount + ", discount=" + discount + ", productId=" + productId + ", description="
+                + description + ", retailPrice=" + retailPrice + "]";
     }
 
 }

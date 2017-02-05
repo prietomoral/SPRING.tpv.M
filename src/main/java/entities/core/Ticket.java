@@ -3,6 +3,7 @@ package entities.core;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import entities.users.Encrypt;
 import entities.users.User;
 
 @Entity
@@ -23,6 +25,8 @@ public class Ticket {
     private long id;
 
     private Calendar created;
+
+    private String reference;
 
     @Enumerated(EnumType.STRING)
     private TicketState ticketState;
@@ -42,6 +46,7 @@ public class Ticket {
         created = Calendar.getInstance();
         this.ticketState = ticketState;
         shoppingList = new ArrayList<>();
+        reference = new Encrypt().encryptInBase64UrlSafe("" + this.getId() + Long.toString(new Date().getTime()));
     }
 
     public long getId() {
@@ -78,6 +83,10 @@ public class Ticket {
 
     public Calendar getCreated() {
         return created;
+    }
+
+    public String getReference() {
+        return reference;
     }
 
     @Override
