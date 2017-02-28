@@ -2,8 +2,8 @@ tpv.controller('DeleteAllController', [ '$timeout', 'f00Service',
 		function($timeout, f00Service) {
 			"use strict";
 			var vm = this;
-
-			vm.completed = false;
+			
+            vm.completed = false;
 			vm.deleteAll = deleteAll;
 			vm.error = false;
 			vm.response = "";

@@ -269,8 +269,8 @@
 					<path>/${project.build.finalName}</path>
 					<update>true</update>
 					<url>${tomcat.url}</url>
-					<username>nyuron</username>
-					<password>nyuron.15</password>
+					<username>user</username>
+					<password>pass</password>
 				</configuration>
 			</plugin>
 		</plugins>

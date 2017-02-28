@@ -1,5 +1,61 @@
 #Core
 
+## User
+> Feature-00. Autor: Jesús Bernal
+
+> _**Incorporar el manejo de usuarios básicos del TPV**_
+
+###Arquitectura del API
+####Arquitectura de paquetes
+![](https://github.com/miw-upm/SPRING.tpv/blob/develop/docs/wiki/TPV.Architecture.png)
+####Diagrama de clases
+![](https://github.com/miw-upm/SPRING.tpv/blob/develop/docs/wiki/TPV.Users.Entities.png)
+![](https://github.com/miw-upm/SPRING.tpv/blob/develop/docs/wiki/TPV.Users.Wrappers.png)
+####API
+* GET /api/v0/admins
+ 
+ >Devuelve la versión del API
+
+ >Rol: ANONYMOUS
+
+* DELETE /api/v0/admins
+ 
+ >Borra toda la BBDD excepto el usuario ´admin´ 
+
+ >Rol: ADMIN
+
+* POST /api/v0/users
+ 
+ >Registra un nuevo usuario de categoría ´MANAGER´ 
+
+ >Body: UserWrapper
+
+ >Rol: ADMIN
+
+* POST /api/v0/customers
+ 
+ >Registra un nuevo cliente de categoría ´CUSTOMER´ 
+
+ >Body: UserWrapper
+
+ >Rol: MANAGER & OPERATOR
+
+* POST /api/v0/tokens
+ 
+ >Obtiene un token asociado a un usuario
+
+ >Header: Authorization: "Basic user:password" (Auth BAsic)
+
+ >return: TokenWrapper
+
+ >Rol: AUTHENTICATED
+
+### Feature-00.1 Front-end
+Creación del Front-end mediante AngularJS
+
+### Feature-00.2 Front-end. Refactorización
+Reorganización del código para mejorar su estructura
+
 ##Entities & Daos
 > Feature-01. Autor: Jesús Bernal
 
@@ -10,7 +66,7 @@
 ### Feature-01.1 Entidades
 ####Diagrama de clases
 
-![](https://github.com/miw-upm/SPRING.tpv/blob/develop/docs/TPV.Core.Entities.png)
+![](https://github.com/miw-upm/SPRING.tpv/blob/develop/docs/wiki/TPV.Core.Entities.png)
 
 ### Feature-01.2 DAOS
 Se crearán los DAOS: ArticleDao, EmbroideryDao, InvoiceDao, ProviderDao, TextilePrintingDao, TicketDao y VoucherDao.
@@ -28,7 +84,7 @@ Además, para los test, se crea una población de test
 ## Product
 > Feature-03. Autor: --  --
 
->_**Permitir la creación, lectura, modificación de productos**_. Se debe realizar en sus tres variantes: `Artículos `y servicios de `Bordados `o `PrendaImpresa`. No se debe permitir el borrado de productos. La lectura debe ser sencilla, sin búsquedas, mostrando una lista de todos los productos.
+>_**Permitir la creación, lectura, modificación de productos y borrado**_. Se debe realizar en sus tres variantes: `Artículos `y servicios de `Bordados `o `PrendaImpresa`. La lectura debe ser sencilla, sin búsquedas, mostrando una lista de todos los productos.
 
 >Se debe realizar en todas las capas: `Front-end >> API >> Controller >> DAOS` y realizando los test oportunos de cada capa
 
@@ -93,5 +149,33 @@ Además, para los test, se crea una población de test
 > Feature-11. Autor: --  --
 
 >_**Permitir el seguimiento de productos de servicios (Bordados, Prenda Impresa o Artículo sin stock)**_. Cuando se cree un producto de tipo servicio, se creará un token y se enviará un correo al cliente con el enlace para que el cliente solo pueda consultar el estado del producto, pudiendo consultar los datos del pedido y el estado en que se encuentra. En este caso, el token se enviará mediante un parámetro de un método GET. Cuando el pedido alcance el estado de CERRADO, se le enviará un email al cliente indicando que ya lo puede recorrer. Dicho token será válido hasta que el producto alcance el estado de COMMIT, a partir del cual el token quedará anulado.
+
+>Se debe realizar en todas las capas: `Front-end >> API >> Controller >> DAOS >> Entities` y realizando los test oportunos de cada capa
+
+## Populate
+> Feature-12. Autor: -- --
+
+>_**Permitir poblar las Bases de Datos a partir de un fichero en formato YAML**_. Sólo se podrá realizar con el Rol de ADMIN. En la petición, se le indicará el nombre del fichero.
+
+>Se debe realizar en todas las capas: `Front-end >> API >> Controller >> DAOS >> Entities` y realizando los test oportunos de cada capa
+
+## Token expiration
+> Feature-13. Autor: -- --
+
+>_**Aumentar el control de los tokens, estableciendo caducidad de los mismos**_. Se deberá ofrecer una funcionalidad para eliminar los tokens caducados. Lanzar cada noche mediante _Spring Batch_, un proceso de limpieza de tokens caducados
+
+>Se debe realizar en todas las capas: `Front-end >> API >> Controller >> DAOS >> Entities` y realizando los test oportunos de cada capa
+
+## Statistics
+> Feature-14. Autor: -- --
+
+>_**Ofrecer un conjunto de estudios estadisticos, mostrando en gráficas, de diferentes estudios sobre las Bases de Datos**_. Tambien se permitirá obtener los datos de forma numérica. Los estudios estadisticos serán abiertos, como ejemplo, se podría estudiar las ventas de un producto a lo largo de un periodo de tiempo, la evolución de ventas en total a lo largo de un periodo...
+
+>Se debe realizar en todas las capas: `Front-end >> API >> Controller >> DAOS >> Entities` y realizando los test oportunos de cada capa
+
+## Pdf creator
+> Feature-15. Autor: -- --
+
+>_**A partir de tickets y facturas, crear pdfs**_. Las facturas se crearán para din-A4 y los tickets para papel continuo de 80mm
 
 >Se debe realizar en todas las capas: `Front-end >> API >> Controller >> DAOS >> Entities` y realizando los test oportunos de cada capa

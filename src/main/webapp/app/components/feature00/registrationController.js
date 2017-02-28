@@ -3,7 +3,7 @@ tpv.controller('RegistrationController', [
 		'f00Service',
 		function($timeout, f00Service) {
 			"use strict";
-			var vm = this
+			var vm = this;
 
 			vm.completed = false;
 			vm.error = false;
