@@ -17,7 +17,7 @@ import config.TestsPersistenceConfig;
 public class ProductDaoIT {
 
     @Autowired
-    private ArticleDao articlerDao;
+    private ArticleDao articleDao;
 
     @Autowired
     private EmbroideryDao embroideryDao;
@@ -27,7 +27,7 @@ public class ProductDaoIT {
 
     @Test
     public void testCreateArticle() {
-        assertEquals(8, articlerDao.count());
+        assertEquals(8, articleDao.count());
     }
 
     @Test
@@ -48,6 +48,11 @@ public class ProductDaoIT {
     @Test
     public void testFindByIdTextilePrinting() {
         assertNotNull(textilePrintingDao.findById(84000003333L + 0));
+    }
+    
+    @Test
+    public void testFindByIdArticle() {
+        assertNotNull(articleDao.findById(84000001111L + 0));
     }
 
 }

@@ -26,6 +26,11 @@ tpv.config(function ($routeProvider) {
             controller: "DeleteAllController",
             controllerAs: "vm"
         })
+        .when("/feature04", {
+            templateUrl: "app/components/feature04/index.html",
+            controller: "FilterController",
+            controllerAs: "vm"
+        })
         .otherwise({
             redirectTo: '/'
         });
