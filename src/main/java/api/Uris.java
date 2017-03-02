@@ -17,5 +17,5 @@ public class Uris {
     public static final String TOKENS = "/tokens";
 
     public static final String ACTIVE = "/active";
-
+ 
 }
