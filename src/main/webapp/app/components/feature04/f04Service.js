@@ -1,4 +1,4 @@
-tpv.service('f04Service', [function () {
+tpv.service('f04Service', function () {
    "use strict";
 
-}]);
+});
