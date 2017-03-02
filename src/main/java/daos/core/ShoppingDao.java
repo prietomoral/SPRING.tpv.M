@@ -16,4 +16,5 @@ public interface ShoppingDao extends JpaRepository<Shopping, Long>{
             + "order by amount desc",
             nativeQuery=true)
     public List<String> statisticsSoldProducts();
+    
 }
