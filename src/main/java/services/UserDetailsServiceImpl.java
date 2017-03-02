@@ -2,6 +2,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -32,7 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(final String mobileOrTokenValue) throws UsernameNotFoundException {
-        User user = userDao.findByTokenValue(mobileOrTokenValue);
+        User user = userDao.findByTokenValue(mobileOrTokenValue, new Date());
         if (user != null) {
             List<Role> roleList = authorizationDao.findRoleByUser(user);
             return this.userBuilder(Long.toString(user.getMobile()), new BCryptPasswordEncoder().encode(""), roleList);
