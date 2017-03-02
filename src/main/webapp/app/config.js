@@ -33,7 +33,7 @@ tpv.config(function ($routeProvider) {
         })
         .when("/feature15", {
             templateUrl: "app/components/feature15/generatePDF.html",
-            controller: "FilterController",
+            controller: "PDFGenerationController",
             controllerAs: "vm"
         })
         .otherwise({
