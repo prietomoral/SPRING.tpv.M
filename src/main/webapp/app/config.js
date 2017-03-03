@@ -31,6 +31,11 @@ tpv.config(function ($routeProvider) {
             controller: "SearchArticlesController",
             controllerAs: "vm"
         })
+        .when("/feature04/search-embroideries", {
+            templateUrl: "app/components/feature04/searchEmbroideries.html",
+            controller: "SearchEmbroideriesController",
+            controllerAs: "vm"
+        })
         .otherwise({
             redirectTo: '/'
         });
