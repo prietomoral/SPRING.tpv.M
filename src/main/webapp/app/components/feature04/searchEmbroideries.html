@@ -101,16 +101,40 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Reference</th>
-                        <th>Description</th>
-                        <th>Retail price</th>
-                        <th>Stitches</th>
-                        <th>Colors</th>
-                        <th>Square millimeters</th>
+                        <th class="clickable" ng-click="vm.sortType='reference'; vm.sortReverse = !vm.sortReverse">
+                            Reference
+                            <span ng-show="vm.sortType=='reference' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+                            <span ng-show="vm.sortType=='reference' && !vm.sortReverse" class="glyphicon glyphicon-triangle-top text-primary"></span>
+                        </th>
+                        <th class="clickable" ng-click="vm.sortType='description'; vm.sortReverse = !vm.sortReverse">
+                            Description
+                            <span ng-show="vm.sortType=='description' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+                            <span ng-show="vm.sortType=='description' && !vm.sortReverse" class="glyphicon glyphicon-triangle-top text-primary"></span>
+                        </th>
+                        <th class="clickable" ng-click="vm.sortType='retailPrice'; vm.sortReverse = !vm.sortReverse">
+                            Retail price
+                            <span ng-show="vm.sortType=='retailPrice' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+                            <span ng-show="vm.sortType=='retailPrice' && !vm.sortReverse" class="glyphicon glyphicon-triangle-top text-primary"></span>
+                        </th>
+                        <th class="clickable" ng-click="vm.sortType='stitches'; vm.sortReverse = !vm.sortReverse">
+                            Stitches
+                            <span ng-show="vm.sortType=='stitches' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+                            <span ng-show="vm.sortType=='stitches' && !vm.sortReverse" class="glyphicon glyphicon-triangle-top text-primary"></span>
+                        </th>
+                        <th class="clickable" ng-click="vm.sortType='colors'; vm.sortReverse = !vm.sortReverse">
+                            Colors
+                            <span ng-show="vm.sortType=='colors' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+                            <span ng-show="vm.sortType=='colors' && !vm.sortReverse" class="glyphicon glyphicon-triangle-top text-primary"></span>
+                        </th>
+                        <th class="clickable" ng-click="vm.sortType='squareMillimeters'; vm.sortReverse = !vm.sortReverse">
+                            Square millimeters
+                            <span ng-show="vm.sortType=='squareMillimeters' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+                            <span ng-show="vm.sortType=='squareMillimeters' && !vm.sortReverse" class="glyphicon glyphicon-triangle-top text-primary"></span>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="embroidery in embroideriesFiltered = (vm.embroideries | filter:search | filter:vm.filterExactRetailPrice | filter:vm.filterRetailPrice | filter:vm.filterExactStitches | filter:vm.filterStitches | filter:vm.filterExactColors |filter:vm.filterColors | filter:vm.filterExactSquareMillimeters | filter:vm.filterSquareMillimeters)">
+                    <tr ng-repeat="embroidery in embroideriesFiltered = (vm.embroideries | orderBy:vm.sortType:vm.sortReverse | filter:search | filter:vm.filterExactRetailPrice | filter:vm.filterRetailPrice | filter:vm.filterExactStitches | filter:vm.filterStitches | filter:vm.filterExactColors |filter:vm.filterColors | filter:vm.filterExactSquareMillimeters | filter:vm.filterSquareMillimeters)">
                         <td>{{embroidery.reference}}</td>
                         <td>{{embroidery.description}}</td>
                         <td>{{embroidery.retailPrice}}</td>

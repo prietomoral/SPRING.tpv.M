@@ -12,6 +12,8 @@ tpv.controller('SearchArticlesController', function($route, f04Service) {
 	vm.maxWholesalePrice = 0;
 	vm.showOnlyOnStock = false;
 	vm.searchVisibility = false;
+	vm.sortType = "reference";
+	vm.sortReverse = false;
 	
 	vm.filterExactRetailPrice = (prod) => {
 		return vm.exactRetailPrice == 0 || vm.exactRetailPrice == null || prod.retailPrice.toString().match(vm.exactRetailPrice.toString()) != null;
