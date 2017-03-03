@@ -43,6 +43,10 @@
 			</div>
 		    <div class="row">
 		        <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="companyInput">Search by provider name</label>
+                        <input ng-model="search.provider.company" id="companyInput" placeholder="Gildan" class="form-control">
+                    </div>
 					<div class="form-group">
 			            <div class="checkbox">
 			                <label>
@@ -80,19 +84,45 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Reference</th>
-                        <th>Description</th>
-                        <th>Retail price</th>
-                        <th>Wholesale price</th>
-                        <th>Stock</th>
+                        <th class="clickable" ng-click="vm.sortType='reference'; vm.sortReverse = !vm.sortReverse">
+                            Reference
+                            <span ng-show="vm.sortType=='reference' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+                            <span ng-show="vm.sortType=='reference' && !vm.sortReverse" class="glyphicon glyphicon-triangle-top text-primary"></span>
+                        </th>
+                        <th class="clickable" ng-click="vm.sortType='description'; vm.sortReverse = !vm.sortReverse">
+                            Description
+                            <span ng-show="vm.sortType=='description' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+                            <span ng-show="vm.sortType=='description' && !vm.sortReverse" class="glyphicon glyphicon-triangle-top text-primary"></span>
+                        </th>
+                        <th class="clickable" ng-click="vm.sortType='retailPrice'; vm.sortReverse = !vm.sortReverse">
+                            Retail price
+                            <span ng-show="vm.sortType=='retailPrice' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+                            <span ng-show="vm.sortType=='retailPrice' && !vm.sortReverse" class="glyphicon glyphicon-triangle-top text-primary"></span>
+                        </th>
+                        <th class="clickable" ng-click="vm.sortType='wholesalePrice'; vm.sortReverse = !vm.sortReverse">
+                            Wholesale price
+                            <span ng-show="vm.sortType=='wholesalePrice' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+                            <span ng-show="vm.sortType=='wholesalePrice' && !vm.sortReverse" class="glyphicon glyphicon-triangle-top text-primary"></span>
+                        </th>
+                        <th class="clickable" ng-click="vm.sortType='provider.company'; vm.sortReverse = !vm.sortReverse">
+                            Provider
+                            <span ng-show="vm.sortType=='provider.company' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+                            <span ng-show="vm.sortType=='provider.company' && !vm.sortReverse" class="glyphicon glyphicon-triangle-top text-primary"></span>
+                        </th>
+                        <th class="clickable" ng-click="vm.sortType='stock'; vm.sortReverse = !vm.sortReverse">
+                            Stock
+                            <span ng-show="vm.sortType=='stock' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+                            <span ng-show="vm.sortType=='stock' && !vm.sortReverse" class="glyphicon glyphicon-triangle-top text-primary"></span>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="article in articlesFiltered = (vm.articles | filter:search | filter:vm.filterExactRetailPrice | filter:vm.filterRetailPrice | filter:vm.filterOnStock | filter:vm.filterWholesalePrice | filter: vm.filterExactWholesalePrice)">
+                    <tr ng-repeat="article in articlesFiltered = (vm.articles | orderBy:vm.sortType:vm.sortReverse | filter:search | filter:vm.filterExactRetailPrice | filter:vm.filterRetailPrice | filter:vm.filterOnStock | filter:vm.filterWholesalePrice | filter: vm.filterExactWholesalePrice)">
                         <td>{{article.reference}}</td>
                         <td>{{article.description}}</td>
                         <td>{{article.retailPrice}}</td>
                         <td>{{article.wholesalePrice}}</td>
+                        <td>{{article.provider.company}}</td>
                         <td>{{article.stock}}</td>
                     </tr>
                 </tbody>

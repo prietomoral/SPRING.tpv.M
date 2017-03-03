@@ -62,14 +62,30 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Reference</th>
-                        <th>Description</th>
-                        <th>Retail price</th>
-                        <th>Type</th>
+                        <th class="clickable" ng-click="vm.sortType='reference'; vm.sortReverse = !vm.sortReverse">
+                            Reference
+                            <span ng-show="vm.sortType=='reference' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+                            <span ng-show="vm.sortType=='reference' && !vm.sortReverse" class="glyphicon glyphicon-triangle-top text-primary"></span>
+                        </th>
+                        <th class="clickable" ng-click="vm.sortType='description'; vm.sortReverse = !vm.sortReverse">
+                            Description
+                            <span ng-show="vm.sortType=='description' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+                            <span ng-show="vm.sortType=='description' && !vm.sortReverse" class="glyphicon glyphicon-triangle-top text-primary"></span>
+                        </th>
+                        <th class="clickable" ng-click="vm.sortType='retailPrice'; vm.sortReverse = !vm.sortReverse">
+                            Retail price
+                            <span ng-show="vm.sortType=='retailPrice' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+                            <span ng-show="vm.sortType=='retailPrice' && !vm.sortReverse" class="glyphicon glyphicon-triangle-top text-primary"></span>
+                        </th>
+                        <th class="clickable" ng-click="vm.sortType='type'; vm.sortReverse = !vm.sortReverse">
+                            Type
+                            <span ng-show="vm.sortType=='type' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+                            <span ng-show="vm.sortType=='type' && !vm.sortReverse" class="glyphicon glyphicon-triangle-top text-primary"></span>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="textilePrinting in textilePrintingsFiltered = (vm.textilePrintings | filter:search | filter:vm.filterExactRetailPrice | filter:vm.filterRetailPrice)">
+                    <tr ng-repeat="textilePrinting in textilePrintingsFiltered = (vm.textilePrintings | orderBy:vm.sortType:vm.sortReverse | filter:search | filter:vm.filterExactRetailPrice | filter:vm.filterRetailPrice)">
                         <td>{{textilePrinting.reference}}</td>
                         <td>{{textilePrinting.description}}</td>
                         <td>{{textilePrinting.retailPrice}}</td>
