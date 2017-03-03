@@ -1,4 +1,4 @@
-tpv.controller('FilterController', function($route, f04Service) {
+tpv.controller('SearchArticlesController', function($route, f04Service) {
 	"use strict";
 	
 	var vm = this;
