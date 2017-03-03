@@ -8,7 +8,15 @@ tpv.service('f04Service', function () {
 			"description": "DESCRIPTION 1",
 			"retailPrice": 666.1,
 			"stock": 251,
-			"wholesalePrice": 55.1
+			"wholesalePrice": 55.1,
+			"provider": {
+				"id": 1,
+				"company": "Company 1",
+				"address": "Address Company 1",
+				"mobile": 667223311,
+				"paymentConditions": "Conditions Company 1",
+				"note": "Note Company 1"		
+			}
 		},
 		{
 			"id": 2,
@@ -16,7 +24,15 @@ tpv.service('f04Service', function () {
 			"description": "DESCRIPTION 2",
 			"retailPrice": 666.2,
 			"stock": 0,
-			"wholesalePrice": 55.2
+			"wholesalePrice": 55.2,
+			"provider": {
+				"id": 2,
+				"company": "Company 2",
+				"address": "Address Company 2",
+				"mobile": 667223312,
+				"paymentConditions": "Conditions Company 2",
+				"note": "Note Company 2"		
+			}
 		},
 		{
 			"id": 3,
@@ -24,7 +40,15 @@ tpv.service('f04Service', function () {
 			"description": "DESCRIPTION 3",
 			"retailPrice": 666.3,
 			"stock": 253,
-			"wholesalePrice": 55.3
+			"wholesalePrice": 55.3,
+			"provider": {
+				"id": 1,
+				"company": "Company 1",
+				"address": "Address Company 1",
+				"mobile": 667223311,
+				"paymentConditions": "Conditions Company 1",
+				"note": "Note Company 1"		
+			}
 		},
 		{
 			"id": 4,
@@ -32,7 +56,15 @@ tpv.service('f04Service', function () {
 			"description": "DESCRIPTION 4",
 			"retailPrice": 666.4,
 			"stock": 254,
-			"wholesalePrice": 55.4
+			"wholesalePrice": 55.4,
+			"provider": {
+				"id": 3,
+				"company": "Company 3",
+				"address": "Address Company 3",
+				"mobile": 667223313,
+				"paymentConditions": "Conditions Company 3",
+				"note": "Note Company 3"		
+			}
 		}
 	];
    
