@@ -21,6 +21,8 @@ tpv.controller('SearchEmbroideriesController', function($route, f04Service) {
 	vm.minSquareMillimeters = 0;
 	vm.maxSquareMillimeters = 0;
 	
+	vm.searchVisibility = false;
+	
 	vm.filterExactRetailPrice = (prod) => {
 		return vm.exactRetailPrice == 0 || vm.exactRetailPrice == null || prod.retailPrice.toString().match(vm.exactRetailPrice.toString()) != null;
 	}
