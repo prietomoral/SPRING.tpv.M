@@ -74,6 +74,37 @@ tpv.service('f04Service', function () {
 			"squareMillimeters": 9
 		}
 	];
+	
+	var textilePrintings = [
+		{
+			"id": 9,
+			"reference": "REFERENCE9",
+			"description": "DESCRIPTION 9",
+			"retailPrice": 666.9,
+			"type": "Type 9"
+		},
+		{
+			"id": 10,
+			"reference": "REFERENCE10",
+			"description": "DESCRIPTION 10",
+			"retailPrice": 666.10,
+			"type": "Type 10"
+		},
+		{
+			"id": 11,
+			"reference": "REFERENCE11",
+			"description": "DESCRIPTION 11",
+			"retailPrice": 666.11,
+			"type": "Type 11"
+		},
+		{
+			"id": 12,
+			"reference": "REFERENCE12",
+			"description": "DESCRIPTION 12",
+			"retailPrice": 666.12,
+			"type": "Type 12"
+		}
+	];
    
 	this.getArticles = () =>{
 		return articles;
@@ -81,6 +112,10 @@ tpv.service('f04Service', function () {
    
 	this.getEmbroideries = () =>{
 		return embroideries;
+	}
+	
+	this.getTextilePrintings = () =>{
+		return textilePrintings;
 	}
 
 });
