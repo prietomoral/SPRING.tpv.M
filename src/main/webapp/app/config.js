@@ -26,9 +26,9 @@ tpv.config(function ($routeProvider) {
             controller: "DeleteAllController",
             controllerAs: "vm"
         })
-        .when("/feature04", {
-            templateUrl: "app/components/feature04/index.html",
-            controller: "FilterController",
+        .when("/feature04/search-articles", {
+            templateUrl: "app/components/feature04/searchArticles.html",
+            controller: "SearchArticlesController",
             controllerAs: "vm"
         })
         .otherwise({
