@@ -16,7 +16,7 @@ public abstract class ProductWrapper {
 
     }
 
-    public ProductWrapper(int id, String reference, String description, BigDecimal retailPrice) {
+    public ProductWrapper(long id, String reference, String description, BigDecimal retailPrice) {
         this.id = id;
         this.reference = reference;
         this.description = description;

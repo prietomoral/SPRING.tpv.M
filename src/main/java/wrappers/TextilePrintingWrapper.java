@@ -10,7 +10,7 @@ public class TextilePrintingWrapper extends ProductWrapper {
 
     }
 
-    public TextilePrintingWrapper(int id, String reference, String description, BigDecimal retailPrice, String type) {
+    public TextilePrintingWrapper(long id, String reference, String description, BigDecimal retailPrice, String type) {
         super(id, reference, description, retailPrice);
         this.type = type;
     }

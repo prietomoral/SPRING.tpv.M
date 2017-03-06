@@ -14,7 +14,7 @@ public class EmbroideryWrapper extends ProductWrapper {
 
     }
 
-    public EmbroideryWrapper(int id, String reference, String description, BigDecimal retailPrice, int stitches, int colors,
+    public EmbroideryWrapper(long id, String reference, String description, BigDecimal retailPrice, int stitches, int colors,
             int squareMillimeters) {
         super(id, reference, description, retailPrice);
         this.stitches = stitches;

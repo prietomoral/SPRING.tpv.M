@@ -14,7 +14,7 @@ public class ArticleWrapper extends ProductWrapper {
 
     }
 
-    public ArticleWrapper(int id, String reference, String description, BigDecimal retailPrice, int stock, BigDecimal wholesalePrice,
+    public ArticleWrapper(long id, String reference, String description, BigDecimal retailPrice, int stock, BigDecimal wholesalePrice,
             ProviderWrapper provider) {
         super(id, reference, description, retailPrice);
         this.stock = stock;
