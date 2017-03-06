@@ -26,6 +26,21 @@ tpv.config(function ($routeProvider) {
             controller: "DeleteAllController",
             controllerAs: "vm"
         })
+        .when("/feature04/search-articles", {
+            templateUrl: "app/components/feature04/searchArticles.html",
+            controller: "SearchArticlesController",
+            controllerAs: "vm"
+        })
+        .when("/feature04/search-embroideries", {
+            templateUrl: "app/components/feature04/searchEmbroideries.html",
+            controller: "SearchEmbroideriesController",
+            controllerAs: "vm"
+        })
+        .when("/feature04/search-textile-printings", {
+            templateUrl: "app/components/feature04/searchTextilePrintings.html",
+            controller: "SearchTextilePrintingsController",
+            controllerAs: "vm"
+        })
         .otherwise({
             redirectTo: '/'
         });

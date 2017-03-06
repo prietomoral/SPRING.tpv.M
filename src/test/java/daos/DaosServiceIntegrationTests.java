@@ -1,6 +1,7 @@
 package daos;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 
 import javax.annotation.PostConstruct;
 
@@ -99,8 +100,11 @@ public class DaosServiceIntegrationTests {
 
     public void createVouchers() {
         Voucher voucher;
-        for (int i = 0; i < 4; i++) {
-            voucher = new Voucher(new BigDecimal(i));
+        for (int i = 0; i < 5; i++) {
+            voucher = new Voucher(new BigDecimal(i*20));
+            if(i > 3){
+                voucher.setDateOfUse(Calendar.getInstance());
+            }
             voucherDao.save(voucher);
         }
     }
