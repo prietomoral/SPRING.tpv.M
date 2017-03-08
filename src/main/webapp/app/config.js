@@ -41,6 +41,26 @@ tpv.config(function ($routeProvider) {
             controller: "SearchTextilePrintingsController",
             controllerAs: "vm"
         })
+        .when("/feature10", {
+            templateUrl: "app/components/feature10/index.html",
+            controller: "AlertsController",
+            controllerAs: "vm"
+        })
+        .when("/feature10/:id", {
+            templateUrl: "app/components/feature10/show.html",
+            controller: "AlertsShowController",
+            controllerAs: "vm"
+        })
+        .when("/feature10/new", {
+            templateUrl: "app/components/feature10/new.html",
+            controller: "AlertsNewController",
+            controllerAs: "vm"
+        })
+        .when("/feature10/edit/:id", {
+            templateUrl: "app/components/feature10/edit.html",
+            controller: "AlertsEditController",
+            controllerAs: "vm"
+        })
         .otherwise({
             redirectTo: '/'
         });

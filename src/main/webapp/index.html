@@ -9,25 +9,30 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="assets/js/angular.min.js"></script>
-    <script src="assets/js/route.min.js"></script> 
+    <script src="assets/js/route.min.js"></script>
 
     <!-- Configuración -->
     <script src="app/config.js"></script>
 
     <!-- Controladores -->
     <!-- Autor: Jesús Bernal -->
-    <script src="app/components/feature00/f00Service.js"></script>  
-    <script src="app/components/feature00/versionController.js"></script>  
-    <script src="app/components/feature00/loginController.js"></script>  
-    <script src="app/components/feature00/registrationController.js"></script>  
-    <script src="app/components/feature00/deleteAllController.js"></script>  
-    
+    <script src="app/components/feature00/f00Service.js"></script>
+    <script src="app/components/feature00/versionController.js"></script>
+    <script src="app/components/feature00/loginController.js"></script>
+    <script src="app/components/feature00/registrationController.js"></script>
+    <script src="app/components/feature00/deleteAllController.js"></script>
+
     <!-- Autor: Sergio Banegas -->
-    <script src="app/components/feature04/f04Service.js"></script>  
+    <script src="app/components/feature04/f04Service.js"></script>
     <script src="app/components/feature04/searchArticlesController.js"></script>
     <script src="app/components/feature04/searchEmbroideriesController.js"></script>
     <script src="app/components/feature04/searchTextilePrintingsController.js"></script>
-    
+
+    <script src="app/components/feature10/alertsService.js"></script>
+    <script src="app/components/feature10/alertsController.js"></script>
+    <script src="app/components/feature10/alertsEditController.js"></script>
+    <script src="app/components/feature10/alertsNewController.js"></script>
+    <script src="app/components/feature10/alertsShowController.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-default">
@@ -47,8 +52,8 @@
            <li><a href="#/">Home</a></li>
 
            <!-- Menus -->
-                        
-           <!-- Autor: Jesús Bernal -->                       
+
+           <!-- Autor: Jesús Bernal -->
            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">F00<b class="caret"></b></a>
              <ul class="dropdown-menu">
                <li><a href="#/feature00/version">Version</a></li>
@@ -57,8 +62,7 @@
                <li><a href="#/feature00/delete-all">Delete All</a></li>
              </ul>
            </li>
-           
-           <!-- Autor: Sergio Banegas -->                       
+           <!-- Autor: Sergio Banegas -->
            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">F04<b class="caret"></b></a>
              <ul class="dropdown-menu">
                <li><a href="#/feature04/search-articles">Search articles</a></li>
@@ -66,13 +70,18 @@
                <li><a href="#/feature04/search-textile-printings">Search textile printings</a></li>
              </ul>
            </li>
-           
+           <li class="dropdown"><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">F10<b class="caret"></b></a>
+             <ul class="dropdown-menu">
+               <li><a href="#/feature10">Listado</a></li>
+               <li><a href="#/feature10/new">Nuevo</a></li>
+             </ul>
+           </li>
          </ul>
        </div>
      </nav>
   <main id='cuerpo'>
     <div class="container" ng-view></div>
-  </main>  
+  </main>
 </body>
 
 </html>
