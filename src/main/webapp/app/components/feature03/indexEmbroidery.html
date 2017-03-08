@@ -1,0 +1,38 @@
+<section>
+    <div class="page-header">
+      <h1>Embroideries List</h1>
+    </div>
+
+    <br/>
+    <div class="panel panel-primary">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Reference</th>
+                        <th>Description</th>
+                        <th>Retail price</th>
+                        <th>Stitches</th>
+                        <th>Colors</th>
+                        <th>Square millimeters</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="embroidery in embroideries = (vm.embroideries | orderBy:vm.sortType:vm.sortReverse)">
+                        <td>{{embroidery.reference}}</td>
+                        <td>{{embroidery.description}}</td>
+                        <td>{{embroidery.retailPrice}}</td>
+                        <td>{{embroidery.stitches}}</td>
+                        <td>{{embroidery.colors}}</td>
+                        <td>{{embroidery.squareMillimeters}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="panel" ng-hide="embroideries.length">
+                <div class="panel-body">
+                    No embroideries found with this data
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
