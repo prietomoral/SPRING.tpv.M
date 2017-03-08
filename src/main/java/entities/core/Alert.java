@@ -9,47 +9,76 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Alert {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
-    private int warning;
+	private int warning;
 
-    private int critical;
+	private int critical;
 
-    @ManyToOne
-    private Article article;
+	@ManyToOne
+	private Article article;
 
-    public int getId() {
-        return id;
-    }
+	public Alert(int id, int warning, int critical, Article article) {
+		super();
+		this.id = id;
+		this.warning = warning;
+		this.critical = critical;
+		this.article = article;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public int getWarning() {
-        return warning;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setWarning(int warning) {
-        this.warning = warning;
-    }
+	public int getWarning() {
+		return warning;
+	}
 
-    public int getCritical() {
-        return critical;
-    }
+	public void setWarning(int warning) {
+		this.warning = warning;
+	}
 
-    public void setCritical(int critical) {
-        this.critical = critical;
-    }
+	public int getCritical() {
+		return critical;
+	}
 
-    public Article getArticle() {
-        return article;
-    }
+	public void setCritical(int critical) {
+		this.critical = critical;
+	}
 
-    public void setArticle(Article article) {
-        this.article = article;
-    }
+	public Article getArticle() {
+		return article;
+	}
+
+	public void setArticle(Article article) {
+		this.article = article;
+	}
+
+	@Override
+	public int hashCode() {
+		return id;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		} else if (getClass() != obj.getClass()) {
+			return false;
+		} else {
+			return id == ((Alert) obj).id;
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "Alert [id=" + id + ", warning=" + warning + ", critical=" + critical + ", article=" + article + "]";
+	}
 
 }
