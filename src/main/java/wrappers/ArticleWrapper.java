@@ -46,4 +46,10 @@ public class ArticleWrapper extends ProductWrapper {
         this.provider = provider;
     }
 
+    @Override
+    public String toString() {
+        return "ArticleWrapper [" + super.toString() + ", stock=" + stock + ", wholesalePrice=" + wholesalePrice + ", provider=" + provider
+                + "]";
+    }
+
 }

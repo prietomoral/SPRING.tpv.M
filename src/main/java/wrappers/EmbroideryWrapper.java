@@ -46,4 +46,10 @@ public class EmbroideryWrapper extends ProductWrapper {
         this.squareMillimeters = squareMillimeters;
     }
 
+    @Override
+    public String toString() {
+        return "EmbroideryWrapper [" + super.toString() + ", stitches=" + stitches + ", colors=" + colors + ", squareMillimeters="
+                + squareMillimeters + "]";
+    }
+
 }
