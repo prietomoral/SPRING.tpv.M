@@ -61,6 +61,11 @@ tpv.config(function ($routeProvider) {
             controller: "AlertsEditController",
             controllerAs: "vm"
         })
+        .when("/feature15", {
+            templateUrl: "app/components/feature15/generatePDF.html",
+            controller: "PDFGenerationController",
+            controllerAs: "vm"
+        })
         .otherwise({
             redirectTo: '/'
         });
