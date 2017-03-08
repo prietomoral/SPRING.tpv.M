@@ -26,9 +26,39 @@ tpv.config(function ($routeProvider) {
             controller: "DeleteAllController",
             controllerAs: "vm"
         })
-        .when("/feature04", {
-            templateUrl: "app/components/feature04/index.html",
-            controller: "FilterController",
+        .when("/feature04/search-articles", {
+            templateUrl: "app/components/feature04/searchArticles.html",
+            controller: "SearchArticlesController",
+            controllerAs: "vm"
+        })
+        .when("/feature04/search-embroideries", {
+            templateUrl: "app/components/feature04/searchEmbroideries.html",
+            controller: "SearchEmbroideriesController",
+            controllerAs: "vm"
+        })
+        .when("/feature04/search-textile-printings", {
+            templateUrl: "app/components/feature04/searchTextilePrintings.html",
+            controller: "SearchTextilePrintingsController",
+            controllerAs: "vm"
+        })
+        .when("/feature10", {
+            templateUrl: "app/components/feature10/index.html",
+            controller: "AlertsController",
+            controllerAs: "vm"
+        })
+        .when("/feature10/:id", {
+            templateUrl: "app/components/feature10/show.html",
+            controller: "AlertsShowController",
+            controllerAs: "vm"
+        })
+        .when("/feature10/new", {
+            templateUrl: "app/components/feature10/new.html",
+            controller: "AlertsNewController",
+            controllerAs: "vm"
+        })
+        .when("/feature10/edit/:id", {
+            templateUrl: "app/components/feature10/edit.html",
+            controller: "AlertsEditController",
             controllerAs: "vm"
         })
         .when("/feature15", {

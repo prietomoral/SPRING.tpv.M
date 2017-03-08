@@ -8,6 +8,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,10 +31,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private AuthorizationDao authorizationDao;
+    
+    @Autowired
+    private Environment environment;
 
     @Override
     public UserDetails loadUserByUsername(final String mobileOrTokenValue) throws UsernameNotFoundException {
-        User user = userDao.findByTokenValue(mobileOrTokenValue, new Date());
+        User user = userDao.findByTokenValue(mobileOrTokenValue, new Date(new Date().getTime() - Integer.parseInt(environment.getProperty("tokenTime.user"))));
         if (user != null) {
             List<Role> roleList = authorizationDao.findRoleByUser(user);
             return this.userBuilder(Long.toString(user.getMobile()), new BCryptPasswordEncoder().encode(""), roleList);

@@ -9,6 +9,7 @@ import java.util.Date;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -28,6 +29,9 @@ public class UserDaoIT {
 
     @Autowired
     private TokenDao tokenDao;
+    
+    @Autowired
+    private Environment environment;
 
     @Test
     public void testCreate() {
@@ -38,8 +42,8 @@ public class UserDaoIT {
     public void testFindByTokenValue() {
         User user = userDao.findByMobile(666000000);
         Token token = tokenDao.findByUser(user);
-        assertEquals(user, userDao.findByTokenValue(token.getValue(), new Date()));
-        assertEquals(null, userDao.findByTokenValue(token.getValue(), new Date(new Date().getTime() + 3601*1000)));
+        assertEquals(user, userDao.findByTokenValue(token.getValue(), new Date(new Date().getTime() - Integer.parseInt(environment.getProperty("tokenTime.user")) + 1000)));
+        assertEquals(null, userDao.findByTokenValue(token.getValue(), new Date(new Date().getTime() - Integer.parseInt(environment.getProperty("tokenTime.user")) + Integer.parseInt(environment.getProperty("tokenTime.user")) + 1000)));
         assertNull(userDao.findByTokenValue("kk", new Date()));
     }
 }
