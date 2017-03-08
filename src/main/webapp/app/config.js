@@ -26,6 +26,11 @@ tpv.config(function ($routeProvider) {
             controller: "DeleteAllController",
             controllerAs: "vm"
         })
+        .when("/feature03/list-embroidery", {
+            templateUrl: "app/components/feature03/indexEmbroidery.html",
+            controller: "ListController",
+            controllerAs: "vm"
+        })
         .when("/feature04/search-articles", {
             templateUrl: "app/components/feature04/searchArticles.html",
             controller: "SearchArticlesController",
