@@ -71,6 +71,11 @@ tpv.config(function ($routeProvider) {
             controller: "PDFGenerationController",
             controllerAs: "vm"
         })
+        .when("/feature08", {
+            templateUrl: "app/components/feature08/facturas.html",
+            controller: "CreateInvoice",
+            controllerAs: "vm"
+        })
         .otherwise({
             redirectTo: '/'
         });
