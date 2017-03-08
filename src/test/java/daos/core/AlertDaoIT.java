@@ -19,7 +19,6 @@ public class AlertDaoIT {
 	private AlertDao alertDao;
 
 	@Test
-
 	public void testCreate() {
 		assertEquals(4, alertDao.count());
 	}
