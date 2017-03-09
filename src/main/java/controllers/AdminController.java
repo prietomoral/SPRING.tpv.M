@@ -19,4 +19,8 @@ public class AdminController {
         dataService.deleteAllExceptAdmin();
     }
 
+    public void populate() {
+        dataService.populate();
+    }
+
 }

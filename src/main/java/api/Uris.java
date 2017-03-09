@@ -18,6 +18,8 @@ public class Uris {
 
     public static final String ACTIVE = "/active";
 
+    public static final String ALERTS = "/alerts";
+
     public static final String ARTICLES = "/articles";
 
     public static final String SEARCH = "/search";
@@ -25,5 +27,7 @@ public class Uris {
     public static final String INVOICES = "/invoices";
 
     public static final String EMBROIDERIES = "/embroideries";
+    
+    public static final String TEXTILE_PRINTING = "/textileprinting";
 
 }
