@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 @EnableWebMvc
-@EnableSpringDataWebSupport
+@EnableSpringDataWebSupport // Esto permite la paginación de Spring
 @ComponentScan(basePackages = {ResourceNames.REST_API, ResourceNames.CONTROLLERS, ResourceNames.DAOS_USERS, ResourceNames.DAOS_CORE,
         ResourceNames.SERVICES})
 public class WebConfig extends WebMvcConfigurerAdapter {
