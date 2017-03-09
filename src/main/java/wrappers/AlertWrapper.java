@@ -2,47 +2,55 @@ package wrappers;
 
 public class AlertWrapper {
 
-    private int id;
+	public AlertWrapper(int id, int warning, int critical, String productDescription) {
+		super();
+		this.id = id;
+		this.warning = warning;
+		this.critical = critical;
+		this.productDescription = productDescription;
+	}
 
-    private int warning;
+	private int id;
 
-    private int critical;
+	private int warning;
 
-    private String productDescription;
+	private int critical;
 
-    public AlertWrapper() {
-    }
+	private String productDescription;
 
-    public int getId() {
-        return id;
-    }
+	public AlertWrapper() {
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public int getWarning() {
-        return warning;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setWarning(int warning) {
-        this.warning = warning;
-    }
+	public int getWarning() {
+		return warning;
+	}
 
-    public int getCritical() {
-        return critical;
-    }
+	public void setWarning(int warning) {
+		this.warning = warning;
+	}
 
-    public void setCritical(int critical) {
-        this.critical = critical;
-    }
+	public int getCritical() {
+		return critical;
+	}
 
-    public String getProductDescription() {
-        return productDescription;
-    }
+	public void setCritical(int critical) {
+		this.critical = critical;
+	}
 
-    public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
-    }
+	public String getProductDescription() {
+		return productDescription;
+	}
+
+	public void setProductDescription(String productDescription) {
+		this.productDescription = productDescription;
+	}
 
 }
