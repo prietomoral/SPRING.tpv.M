@@ -47,17 +47,17 @@ public class ProductDaoIT {
 
     @Test
     public void testFindByIdEmbroidery() {
-        assertNotNull(embroideryDao.findById(84000002222L + 0));
+        assertNotNull(embroideryDao.findOne(84000002222L + 0));
     }
 
     @Test
     public void testFindByIdTextilePrinting() {
-        assertNotNull(textilePrintingDao.findById(84000003333L + 0));
+        assertNotNull(textilePrintingDao.findOne(84000003333L + 0));
     }
 
     @Test
     public void testFindByIdArticle() {
-        assertNotNull(articleDao.findById(84000001111L + 0));
+        assertNotNull(articleDao.findOne(84000001111L + 0));
     }
 
     @Test

@@ -13,14 +13,14 @@ import config.TestsPersistenceConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { PersistenceConfig.class, TestsPersistenceConfig.class })
-public class TicketDaoIT {
+public class AlertDaoIT {
 
 	@Autowired
-	private TicketDao ticketDao;
+	private AlertDao alertDao;
 
 	@Test
 	public void testCreate() {
-		assertEquals(3, ticketDao.count());
+		assertEquals(4, alertDao.count());
 	}
 
 }

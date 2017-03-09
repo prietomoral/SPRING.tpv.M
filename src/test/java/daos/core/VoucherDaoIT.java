@@ -2,6 +2,8 @@ package daos.core;
 
 import static org.junit.Assert.assertEquals;
 
+import java.math.BigDecimal;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,12 @@ public class VoucherDaoIT {
     @Test
     public void testCreate() {
         assertEquals(5, voucherDao.count());
+    }
+    
+    @Test
+    public void testSumTotalVoucherActive(){
+        BigDecimal result = voucherDao.sumValueInVouchersActive();
+        assertEquals(new BigDecimal(120).setScale(2, BigDecimal.ROUND_HALF_UP), result);
     }
 
 }
