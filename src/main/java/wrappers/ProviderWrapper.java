@@ -10,6 +10,8 @@ public class ProviderWrapper {
 
     private long mobile;
 
+    private long phone;
+
     private String paymentConditions;
 
     private String note;
@@ -18,11 +20,12 @@ public class ProviderWrapper {
 
     }
 
-    public ProviderWrapper(int id, String company, String address, long mobile, String paymentConditions, String note) {
+    public ProviderWrapper(int id, String company, String address, long mobile, long phone, String paymentConditions, String note) {
         this.id = id;
         this.company = company;
         this.address = address;
         this.mobile = mobile;
+        this.phone = phone;
         this.paymentConditions = paymentConditions;
         this.note = note;
     }
@@ -59,6 +62,14 @@ public class ProviderWrapper {
         this.mobile = mobile;
     }
 
+    public long getPhone() {
+        return phone;
+    }
+
+    public void setPhone(long phone) {
+        this.phone = phone;
+    }
+
     public String getPaymentConditions() {
         return paymentConditions;
     }
@@ -89,6 +100,12 @@ public class ProviderWrapper {
         if (getClass() != obj.getClass())
             return false;
         return id == ((ProviderWrapper) obj).id;
+    }
+
+    @Override
+    public String toString() {
+        return "ProviderWrapper [id=" + id + ", company=" + company + ", address=" + address + ", mobile=" + mobile + ", phone=" + phone
+                + ", paymentConditions=" + paymentConditions + ", note=" + note + "]";
     }
 
 }
