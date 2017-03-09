@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import daos.core.TextilePrintingDao;
-import daos.users.TokenDao;
 import entities.core.TextilePrinting;
 import wrappers.TextilePrintingWrapper;
 
@@ -37,4 +36,16 @@ public class TextilePrintingController {
     	
     	return listTextilePrintingWrapper;
     }
+
+	public void add(TextilePrintingWrapper textilePrintingWrapper) {
+		TextilePrinting textilePrinting = new TextilePrinting(
+				textilePrintingWrapper.getId(),
+				textilePrintingWrapper.getReference(),
+				textilePrintingWrapper.getRetailPrice(),
+				textilePrintingWrapper.getDescription(),
+				textilePrintingWrapper.getType()
+				);
+		
+		this.textilePrintingDao.save(textilePrinting);
+	}
 }
