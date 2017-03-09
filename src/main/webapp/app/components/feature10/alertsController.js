@@ -8,7 +8,7 @@ function AlertsController(AlertsService) {
   init();
 
   function init(){
-    return AlertsService.getAll().then(function success(response){
+    AlertsService.getAll().then(function success(response){
       vm.data = response;
     },
     function error(errors){

@@ -9,10 +9,11 @@ import controllers.AllControllersTests;
 import daos.AllDaosIntegrationTests;
 import entities.AllEntitiesTests;
 import services.AllServicesIntegrationTests;
+import services.AllServicesTests;
 
 @RunWith(Suite.class)
 @SuiteClasses({AllEntitiesTests.class, AllControllersTests.class, AllDaosIntegrationTests.class, AllControllersIntegrationTests.class,
-        AllServicesIntegrationTests.class})
+        AllServicesIntegrationTests.class, AllServicesTests.class})
 public class AllTests {
 
 }

@@ -28,7 +28,12 @@ tpv.config(function ($routeProvider) {
         })
         .when("/feature03/list-embroidery", {
             templateUrl: "app/components/feature03/indexEmbroidery.html",
-            controller: "ListController",
+            controller: "EmbroideryController",
+            controllerAs: "vm"
+        })
+        .when("/feature03/list-textile-printing", {
+            templateUrl: "app/components/feature03/indexTextilePrinting.html",
+            controller: "TextilePrintinController",
             controllerAs: "vm"
         })
         .when("/feature04/search-articles", {
@@ -76,9 +81,9 @@ tpv.config(function ($routeProvider) {
             controller: "PDFGenerationController",
             controllerAs: "vm"
         })
-        .when("/feature08", {
-            templateUrl: "app/components/feature08/facturas.html",
-            controller: "CreateInvoice",
+        .when("/feature08/create-invoice", {
+            templateUrl: "app/components/feature08/create.html",
+            controller: "CreateInvoiceController",
             controllerAs: "vm"
         })
         .otherwise({
