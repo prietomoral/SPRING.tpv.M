@@ -18,4 +18,8 @@ public interface ShoppingDao extends JpaRepository<Shopping, Long>{
     
     @Query("Select s.productId,s.description,SUM(s.amount) from Shopping s GROUP BY s.productId ORDER BY SUM(s.amount) DESC")
     public List<Object[]> findTotalSoldsProducts();
+    /*
+    @Query("Select NEW  daos.core.SemiWrapperStatisticShopping(s.productId, s.description, SUM(s.amount)) from Shopping s GROUP BY s.productId ORDER BY SUM(s.amount) DESC")
+    public List<SemiWrapperStatisticShopping> findTotalSoldsProductsFormat();
+    */
 }

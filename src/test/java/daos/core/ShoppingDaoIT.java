@@ -45,4 +45,13 @@ public class ShoppingDaoIT {
         }
         assertTrue(mostSoldProducts.size()>0);
     }
+    /*
+    @Test
+    public void testFindTotalSoldsProductsFormat(){
+        List<SemiWrapperStatisticShopping> mostSoldProducts=shoppingDao.findTotalSoldsProductsFormat();
+        for(SemiWrapperStatisticShopping s: mostSoldProducts){
+            System.out.println("Con clase Wrapper: idProduct "+s.getIdProduct()+" Descripcion: "+s.getDescription()+" Cantidad total: "+s.getTotalAmountSold());
+        }
+        assertTrue(mostSoldProducts.size()>0);
+    }*/
 }
