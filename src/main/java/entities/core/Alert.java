@@ -20,9 +20,7 @@ public class Alert {
 	@ManyToOne
 	private Article article;
 
-	public Alert(int id, int warning, int critical, Article article) {
-		super();
-		this.id = id;
+	public Alert(int warning, int critical, Article article) {
 		this.warning = warning;
 		this.critical = critical;
 		this.article = article;

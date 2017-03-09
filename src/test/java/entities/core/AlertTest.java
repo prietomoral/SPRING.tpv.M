@@ -12,7 +12,7 @@ public class AlertTest {
 	@Test
 	public void testAlert() {
 
-		Alert alert = new Alert(1, 10, 5, articles);
+		Alert alert = new Alert(10, 5, articles);
 		Assert.assertEquals(alert.getWarning(), 10);
 		Assert.assertEquals(alert.getCritical(), 5);
 	}
