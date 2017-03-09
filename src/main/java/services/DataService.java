@@ -68,4 +68,8 @@ public class DataService {
         populate.createDefaultAdmin();
     }
 
+    public void populate() {
+        populate.populate();
+    }
+
 }
