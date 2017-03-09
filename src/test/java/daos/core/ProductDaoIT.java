@@ -1,16 +1,21 @@
 package daos.core;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import config.PersistenceConfig;
 import config.TestsPersistenceConfig;
+import entities.core.Article;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PersistenceConfig.class, TestsPersistenceConfig.class})
@@ -49,10 +54,24 @@ public class ProductDaoIT {
     public void testFindByIdTextilePrinting() {
         assertNotNull(textilePrintingDao.findById(84000003333L + 0));
     }
-    
+
     @Test
     public void testFindByIdArticle() {
         assertNotNull(articleDao.findById(84000001111L + 0));
+    }
+
+    @Test
+    public void testSearchArticles() {
+        Page<Article> articlePage = articleDao.search(new PageRequest(1, 4));
+        assertNotNull(articlePage);
+        assertTrue(articlePage.getNumberOfElements() > 0);
+        assertEquals(8, articlePage.getTotalElements());
+        assertEquals(1, articlePage.getNumber());
+        assertTrue(articlePage.hasContent());
+        assertEquals("article5", articlePage.getContent().get(0).getReference());
+        assertEquals(2, articlePage.getTotalPages());
+        assertTrue(articlePage.isLast());
+        assertFalse(articlePage.isFirst());
     }
 
 }
