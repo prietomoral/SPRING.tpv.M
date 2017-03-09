@@ -1,7 +1,7 @@
 
-tpv.factory('AlertsService', ['$http', AlertsService]);
+tpv.factory('AlertsService', ['$http', 'APP', '$q', AlertsService]);
 
-function AlertsService($http) {
+function AlertsService($http, APP, $q) {
   'use strict';
   var alertService = {
     getAll: getAll
@@ -9,18 +9,14 @@ function AlertsService($http) {
 
   return alertService;
 
-  var apiUrl="http://localhost:8080/SPRING.tpv.M.1.2.0-SNAPSHOT/api/v0";
-
   function getAll() {
     return $http({
       method: 'GET',
-      url: apiUrl + '/alerts'
+      url: APP.apiUrl + '/alerts'
     }).then(function successCallback(response) {
-        // return response.data;
-        return [];
+        return response.data;
       }, function errorCallback(response) {
-        // return response.errors;
-        return [];
+        return $q.reject(response);
       });
   }
 }
