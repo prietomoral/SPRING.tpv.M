@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import api.Uris;
-import wrappers.ArticlePageWrapper;
+import api.wrappersForTest.ArticlePageWrapper;
 
 public class ArticleResourceFunctionalTesting {
 

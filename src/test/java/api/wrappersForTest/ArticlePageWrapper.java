@@ -1,8 +1,10 @@
-package wrappers;
+package api.wrappersForTest;
 
 import java.util.List;
 
 import org.springframework.data.domain.Sort;
+
+import wrappers.ArticleWrapper;
 
 public class ArticlePageWrapper extends PageWrapper {
 
