@@ -3,6 +3,7 @@ package services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import daos.core.AlertDao;
 import daos.core.ArticleDao;
 import daos.core.EmbroideryDao;
 import daos.core.InvoiceDao;
@@ -36,6 +37,9 @@ public class DataService {
     private ProviderDao providerDao;
 
     @Autowired
+    private AlertDao alertDao;
+
+    @Autowired
     private ArticleDao articleDao;
 
     @Autowired
@@ -60,12 +64,17 @@ public class DataService {
 
         voucherDao.deleteAll();
 
+        alertDao.deleteAll();
         articleDao.deleteAll();
         embroideryDao.deleteAll();
         textilePrintingDao.deleteAll();
         providerDao.deleteAll();
 
         populate.createDefaultAdmin();
+    }
+
+    public void populate() {
+        populate.populate();
     }
 
 }
