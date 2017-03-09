@@ -6,20 +6,14 @@ public class ArticleWrapper extends ProductWrapper {
 
     private int stock;
 
-    private BigDecimal wholesalePrice;
-
-    private ProviderWrapper provider;
 
     public ArticleWrapper() {
 
     }
 
-    public ArticleWrapper(long id, String reference, String description, BigDecimal retailPrice, int stock, BigDecimal wholesalePrice,
-            ProviderWrapper provider) {
+    public ArticleWrapper(long id, String reference, String description, BigDecimal retailPrice, int stock) {
         super(id, reference, description, retailPrice);
         this.stock = stock;
-        this.wholesalePrice = wholesalePrice;
-        this.provider = provider;
     }
 
     public int getStock() {
@@ -30,26 +24,9 @@ public class ArticleWrapper extends ProductWrapper {
         this.stock = stock;
     }
 
-    public BigDecimal getWholesalePrice() {
-        return wholesalePrice;
-    }
-
-    public void setWholesalePrice(BigDecimal wholesalePrice) {
-        this.wholesalePrice = wholesalePrice;
-    }
-
-    public ProviderWrapper getProvider() {
-        return provider;
-    }
-
-    public void setProvider(ProviderWrapper provider) {
-        this.provider = provider;
-    }
-
     @Override
     public String toString() {
-        return "ArticleWrapper [" + super.toString() + ", stock=" + stock + ", wholesalePrice=" + wholesalePrice + ", provider=" + provider
-                + "]";
+        return "ArticleWrapper [" + super.toString() + ", stock=" + stock + "]";
     }
 
 }
