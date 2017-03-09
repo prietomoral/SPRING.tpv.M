@@ -20,4 +20,10 @@ public class Uris {
 
     public static final String ALERTS = "/alerts";
 
+    public static final String ARTICLES = "/articles";
+
+    public static final String SEARCH = "/search";
+
+    public static final String EMBROIDERIES = "/embroideries";
+
 }

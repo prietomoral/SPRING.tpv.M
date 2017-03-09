@@ -56,6 +56,11 @@ public abstract class ProductWrapper {
     }
 
     @Override
+    public String toString() {
+        return "id=" + id + ", reference=" + reference + ", description=" + description + ", retailPrice=" + retailPrice;
+    }
+
+    @Override
     public int hashCode() {
         return Long.hashCode(id);
     }
