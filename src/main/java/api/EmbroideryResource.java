@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import controllers.EmbroideryController;
-import entities.core.Embroidery;
+import wrappers.EmbroideryWrapper;
 
 @RestController
 @RequestMapping(Uris.VERSION + Uris.EMBROIDERIES)
@@ -22,9 +22,8 @@ public class EmbroideryResource {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String findAllEmbroidery() {
-       // return embroideryController.allEmbroidery();
-        return "hola";
+    public List<EmbroideryWrapper> findAllEmbroidery() {
+        return embroideryController.allEmbroidery();   
     }
 
 }
