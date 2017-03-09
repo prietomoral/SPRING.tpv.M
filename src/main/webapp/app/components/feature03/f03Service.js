@@ -33,7 +33,7 @@ tpv.service('f03Service', ['$http', '$q', function ($http, $q) {
 	      return this.request(config);
 	   }
    
-   this.listEmbroideries = function () {
+   this.listTextilePrinting = function () {
 	      $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode(sessionStorage.token + ':');
 	      let config = {
 	 	     method: 'GET',

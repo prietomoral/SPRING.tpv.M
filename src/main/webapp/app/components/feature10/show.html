@@ -1,1 +1,22 @@
-<h4>mostrar</h4>
+<div class="panel panel-primary">
+  <div class="panel-heading">Alerta de {{vm.alert.productDescription}}</div>
+  <div class="panel-body">
+    <div class="col-md-6">
+      Valor de advertencia:
+    </div>
+    <div class="col-md-6">
+      <span class="label label-warning">{{vm.alert.warning}}</span>
+    </div>
+    <div class="col-md-6">
+      Valor crítico:
+    </div>
+    <div class="col-md-6">
+      <span class="label label-danger">{{vm.alert.critical}}</span>
+    </div>
+  </div>
+</div>
+
+<div>
+  <a class="btn btn-success" href="#/feature10">Regresar a la lista</a>
+  <a class="btn btn-default" ng-href="#/feature10/edit/{{vm.alert.id}}">Editar</a>
+</div>
