@@ -4,7 +4,8 @@ tpv.factory('AlertsService', ['$http', 'APP', '$q', AlertsService]);
 function AlertsService($http, APP, $q) {
   'use strict';
   var alertService = {
-    getAll: getAll
+    getAll: getAll,
+    getAlert: getAlert
   };
 
   return alertService;
@@ -13,6 +14,17 @@ function AlertsService($http, APP, $q) {
     return $http({
       method: 'GET',
       url: APP.apiUrl + '/alerts'
+    }).then(function successCallback(response) {
+        return response.data;
+      }, function errorCallback(response) {
+        return $q.reject(response);
+      });
+  }
+
+  function getAlert(id) {
+    return $http({
+      method: 'GET',
+      url: APP.apiUrl + '/alerts/' + id
     }).then(function successCallback(response) {
         return response.data;
       }, function errorCallback(response) {
