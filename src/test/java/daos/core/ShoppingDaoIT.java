@@ -36,4 +36,13 @@ public class ShoppingDaoIT {
         }
        assertTrue(shoppings.size()>0);
     }
+    
+    @Test
+    public void testFindTotalSoldsProducts(){
+        List<Object[]> mostSoldProducts=shoppingDao.findTotalSoldsProducts();
+        for(Object[] s: mostSoldProducts){
+            System.out.println(s[0]+" Descripcion: "+s[1]+" Cantidad total: "+s[2]);
+        }
+        assertTrue(mostSoldProducts.size()>0);
+    }
 }
