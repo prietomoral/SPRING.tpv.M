@@ -22,8 +22,9 @@ public class EmbroideryResource {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Embroidery> findAllEmbroidery() {
-        return embroideryController.allEmbroidery();
+    public String findAllEmbroidery() {
+       // return embroideryController.allEmbroidery();
+        return "hola";
     }
 
 }

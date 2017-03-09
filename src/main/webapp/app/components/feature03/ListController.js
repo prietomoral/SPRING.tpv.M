@@ -1,4 +1,4 @@
-tpv.controller('ListController', function($route, f03Service) {
+/*tpv.controller('ListController', function($route, f03Service) {
 	"use strict";
 	
 	var vm = this;
@@ -20,9 +20,39 @@ tpv.controller('ListController', function($route, f03Service) {
 	vm.sortType = "reference";
 	vm.sortReverse = false;
 	
-	
+ alert(vm.embroideries);
 
-	
+});*/
 
-		
-});
+tpv.controller('ListController', [ '$timeout', 'f03Service',
+		function($timeout, f03Service) {
+			"use strict";
+			var vm = this;
+			
+            vm.completed = false;
+			vm.listEmbroideries = listEmbroideries;
+			vm.error = false;
+			vm.response = "";
+
+			function listEmbroideries() {
+				const
+				delay = 2000;
+				f03Service.listEmbroideries().then(function(result) {
+					alert(result);
+					// promise was fullfilled
+					vm.completed = true;
+					vm.response = "";
+					$timeout(function() {
+						vm.completed = false;
+					}, delay)
+				}, function(errors) {
+					// handle errors
+					vm.error = true;
+					vm.response = errors;
+					$timeout(function() {
+						vm.error = false;
+					}, delay)
+				});
+			}
+
+		} ]);
