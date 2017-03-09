@@ -28,7 +28,7 @@ tpv.config(function ($routeProvider) {
         })
         .when("/feature03/list-embroidery", {
             templateUrl: "app/components/feature03/indexEmbroidery.html",
-            controller: "ListController",
+            controller: "EmbroideryController",
             controllerAs: "vm"
         })
         .when("/feature03/list-textile-printing", {
