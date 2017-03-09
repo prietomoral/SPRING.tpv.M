@@ -13,6 +13,7 @@
 
     <!-- Configuración -->
     <script src="app/config.js"></script>
+    <script src="app/constants.js"></script>
 
     <!-- Controladores -->
     <!-- Autor: Jesús Bernal -->
@@ -25,6 +26,7 @@
      <!-- Autor: Hector Lozano y Abraham Montas -->
     <script src="app/components/feature03/f03Service.js"></script>
     <script src="app/components/feature03/ListController.js"></script>
+    <script src="app/components/feature03/TextilePrintingController.js"></script>
   
 
     <!-- Autor: Sergio Banegas -->
@@ -33,15 +35,21 @@
     <script src="app/components/feature04/searchEmbroideriesController.js"></script>
     <script src="app/components/feature04/searchTextilePrintingsController.js"></script>
 
+    <!-- Autor: Fabricio Flores, Tomás Loor -->
     <script src="app/components/feature10/alertsService.js"></script>
     <script src="app/components/feature10/alertsController.js"></script>
     <script src="app/components/feature10/alertsEditController.js"></script>
     <script src="app/components/feature10/alertsNewController.js"></script>
     <script src="app/components/feature10/alertsShowController.js"></script>
-    
+
     <!-- Autor: Mariana Salcedo -->
     <script src="app/components/feature07/f07Service.js"></script>
     <script src="app/components/feature07/createVoucherController.js"></script>
+    
+    <!-- Autor: Corina Cabrera. -->
+    <script src="app/components/feature08/f08Service.js"></script>
+    <script src="app/components/feature08/createController.js"></script>
+    
 </head>
 <body>
     <nav class="navbar navbar-default">
@@ -75,6 +83,9 @@
            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">F03<b class="caret"></b></a>
              <ul class="dropdown-menu">
                <li><a href="#/feature03/list-embroidery">List Embroideries</a></li>
+               <li><a href="#">Create Embroideries</a></li>
+               <li><a href="#/feature03/list-textile-printing">List Textile Printing</a></li>
+               <li><a href="#">Create Textile Printing</a></li>
              </ul>
            </li>
            <!-- Autor: Sergio Banegas -->
@@ -85,21 +96,21 @@
                <li><a href="#/feature04/search-textile-printings">Search textile printings</a></li>
              </ul>
            </li>
-        
+
            <!-- Autor: Mariana Salcedo. -->
            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">F07<b class="caret"></b></a>
              <ul class="dropdown-menu">
                <li><a href="#/feature07/create-voucher">Create Voucher</a></li>
              </ul>
            </li>
-           
+
            <!-- Autor: Corina Cabrera. -->
            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">F08<b class="caret"></b></a>
              <ul class="dropdown-menu">
-               <li><a href="#/feature08">Facturas</a></li>
+               <li><a href="#/feature08/create-invoice">Crear factura</a></li>
              </ul>
            </li>
-        
+
            <!-- Autor: Fco. Javier R. M. -->
            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">F15<b class="caret"></b></a>
              <ul class="dropdown-menu">

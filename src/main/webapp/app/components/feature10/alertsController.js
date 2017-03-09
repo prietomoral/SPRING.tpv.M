@@ -9,10 +9,10 @@ function AlertsController(AlertsService) {
 
   function init(){
     AlertsService.getAll().then(function success(response){
-
+      vm.data = response;
     },
     function error(errors){
-
+      console.log(errors);
     });
   }
 }

@@ -23,4 +23,9 @@ public class TextilePrintingWrapper extends ProductWrapper {
         this.type = type;
     }
 
+    @Override
+    public String toString() {
+        return "TextilePrintingWrapper [" + super.toString() + ", type=" + type + "]";
+    }
+
 }

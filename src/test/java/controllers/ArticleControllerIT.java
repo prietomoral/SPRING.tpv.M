@@ -1,4 +1,4 @@
-package daos.core;
+package controllers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -14,55 +14,20 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import config.PersistenceConfig;
+import config.TestsControllerConfig;
 import config.TestsPersistenceConfig;
-import entities.core.Article;
+import wrappers.ArticleWrapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {PersistenceConfig.class, TestsPersistenceConfig.class})
-public class ProductDaoIT {
+@ContextConfiguration(classes = {PersistenceConfig.class, TestsPersistenceConfig.class, TestsControllerConfig.class})
+public class ArticleControllerIT {
 
     @Autowired
-    private ArticleDao articleDao;
-
-    @Autowired
-    private EmbroideryDao embroideryDao;
-
-    @Autowired
-    private TextilePrintingDao textilePrintingDao;
+    private ArticleController articleController;
 
     @Test
-    public void testCreateArticle() {
-        assertEquals(8, articleDao.count());
-    }
-
-    @Test
-    public void testCreateEmbroidery() {
-        assertEquals(4, embroideryDao.count());
-    }
-
-    @Test
-    public void testCreateTextilePrinting() {
-        assertEquals(4, textilePrintingDao.count());
-    }
-
-    @Test
-    public void testFindByIdEmbroidery() {
-        assertNotNull(embroideryDao.findOne(84000002222L + 0));
-    }
-
-    @Test
-    public void testFindByIdTextilePrinting() {
-        assertNotNull(textilePrintingDao.findOne(84000003333L + 0));
-    }
-
-    @Test
-    public void testFindByIdArticle() {
-        assertNotNull(articleDao.findOne(84000001111L + 0));
-    }
-
-    @Test
-    public void testSearchArticles() {
-        Page<Article> articlePage = articleDao.search(new PageRequest(1, 4));
+    public void testSearch() {
+        Page<ArticleWrapper> articlePage = articleController.search(new PageRequest(1, 4));
         assertNotNull(articlePage);
         assertTrue(articlePage.getNumberOfElements() > 0);
         assertEquals(8, articlePage.getTotalElements());
