@@ -19,8 +19,11 @@ public class Alert {
 
 	@ManyToOne
 	private Article article;
+	
+	public Alert() {
+    }
 
-	public Alert(int warning, int critical, Article article) {
+    public Alert(int warning, int critical, Article article) {
 		this.warning = warning;
 		this.critical = critical;
 		this.article = article;
