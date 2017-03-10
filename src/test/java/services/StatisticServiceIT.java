@@ -22,9 +22,11 @@ public class StatisticServiceIT {
     @Test
     public void mostSoldProductsMappedTest(){
         List<SemiWrapperStatisticSold> statistics =statisticService.mostSoldProductsMapped();
+        System.out.println(statistics.size());
         for (SemiWrapperStatisticSold statistic : statistics) {
             System.out.println(statistic.toString());
         }
-        assertTrue(statistics.size()>0&&statistics.size()<=5);
+        assertTrue(statistics.size()<=5);
+        assertTrue(statistics.size()>0);
     }
 }
