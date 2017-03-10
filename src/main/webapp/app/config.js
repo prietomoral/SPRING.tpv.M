@@ -1,4 +1,4 @@
-var tpv = angular.module("tpv", ["ngRoute", 'bw.paging']);
+var tpv = angular.module("tpv", ["ngRoute", 'bw.paging', "Alertify"]);
 
 tpv.config(function ($routeProvider) {
     "use strict";

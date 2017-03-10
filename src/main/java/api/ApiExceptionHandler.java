@@ -12,6 +12,7 @@ import api.exceptions.ApiException;
 import api.exceptions.ErrorMessage;
 import api.exceptions.InvalidUserFieldException;
 import api.exceptions.MalformedHeaderException;
+import api.exceptions.MissingArticleIdException;
 import api.exceptions.NotFoundUserIdException;
 import api.exceptions.UnauthorizedException;
 
@@ -34,7 +35,7 @@ public class ApiExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({MalformedHeaderException.class, InvalidUserFieldException.class})
+    @ExceptionHandler({MalformedHeaderException.class, InvalidUserFieldException.class, MissingArticleIdException.class})
     @ResponseBody
     public ErrorMessage badRequest(ApiException exception) {
         ErrorMessage apiErrorMessage = new ErrorMessage(exception);
