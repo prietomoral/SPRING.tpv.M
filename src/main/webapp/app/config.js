@@ -41,6 +41,11 @@ tpv.config(function ($routeProvider) {
             controller: "TextilePrintingController",
             controllerAs: "vm"
         })
+        .when("/feature03/create-textile-printing", {
+            templateUrl: "app/components/feature03/newTextilePrinting.html",
+            controller: "TextilePrintingController",
+            controllerAs: "vm"
+        })
         .when("/feature04/search-articles", {
             templateUrl: "app/components/feature04/searchArticles.html",
             controller: "SearchArticlesController",
