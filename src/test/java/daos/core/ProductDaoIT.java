@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import config.PersistenceConfig;
 import config.TestsPersistenceConfig;
 import entities.core.Article;
+import entities.core.Embroidery;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PersistenceConfig.class, TestsPersistenceConfig.class})
@@ -72,6 +73,20 @@ public class ProductDaoIT {
         assertEquals(2, articlePage.getTotalPages());
         assertTrue(articlePage.isLast());
         assertFalse(articlePage.isFirst());
+    }
+    
+    @Test
+    public void testSearchEmbroideries() {
+        Page<Embroidery> embroideryPage = embroideryDao.search(new PageRequest(1, 2));
+        assertNotNull(embroideryPage);
+        assertTrue(embroideryPage.getNumberOfElements() > 0);
+        assertEquals(4, embroideryPage.getTotalElements());
+        assertEquals(1, embroideryPage.getNumber());
+        assertTrue(embroideryPage.hasContent());
+        assertEquals("embroidery2", embroideryPage.getContent().get(0).getReference());
+        assertEquals(2, embroideryPage.getTotalPages());
+        assertTrue(embroideryPage.isLast());
+        assertFalse(embroideryPage.isFirst());
     }
 
 }
