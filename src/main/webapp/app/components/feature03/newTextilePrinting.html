@@ -1,0 +1,33 @@
+
+<ol class="breadcrumb">
+  <li><a href="#/feature03">Textile Printing</a></li>
+  <li class="active"><a href="#/feature10/create-textil-printing">New Textile Printing</a></li>
+</ol>
+
+<div class="container">
+   <form role="form" ng-submit="vm.addTextilPrinting()">
+      <div class="form-group">
+	    <label>Id</label>
+	    <input type="text" class="form-control"  placeholder="84000003333" ng-model='vm.textilPrinting.id'>
+	  </div>
+	  <div class="form-group">
+	    <label>Description</label>
+	    <input type="text" class="form-control"  placeholder="Description" ng-model='vm.textilPrinting.description'>
+	  </div>
+	  <div class="form-group">
+	    <label>Reference</label>
+	    <input type="text" class="form-control"  placeholder="Reference" ng-model='vm.textilPrinting.reference'>
+	  </div>
+	  <div class="form-group">
+	    <label>Retail Price</label>
+	    <input type="text" class="form-control"  placeholder="100.00" ng-model='vm.textilPrinting.retailPrice'>
+	  </div>
+	  <div class="form-group">
+	    <label>Type</label>
+	    <input type="text" class="form-control"  placeholder="ploter" ng-model='vm.textilPrinting.type'>
+	  </div>
+	  
+	  <input type="submit" class="btn btn-primary "  value="Guardar">  
+	  
+    </form>
+</div>
