@@ -23,9 +23,12 @@ public class Uris {
     public static final String ARTICLES = "/articles";
 
     public static final String SEARCH = "/search";
-    
+
+    public static final String INVOICES = "/invoices";
+
     public static final String EMBROIDERIES = "/embroideries";
-    
-    public static final String TEXTILE_PRINTING = "/textileprinting";
+
+    // TODO Poner la ruta en plural
+    public static final String TEXTILE_PRINTINGS = "/textileprinting";
 
 }

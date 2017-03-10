@@ -3,6 +3,9 @@ package api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,7 +14,7 @@ import controllers.TextilePrintingController;
 import wrappers.TextilePrintingWrapper;
 
 @RestController
-@RequestMapping(Uris.VERSION + Uris.TEXTILE_PRINTING)
+@RequestMapping(Uris.VERSION + Uris.TEXTILE_PRINTINGS)
 public class TextilePrintingResource {
 
     private TextilePrintingController textilePrintingController;
@@ -23,7 +26,18 @@ public class TextilePrintingResource {
 
     @RequestMapping(method = RequestMethod.GET)
     public List<TextilePrintingWrapper> all() {
-       return textilePrintingController.all();
+        return this.textilePrintingController.all();
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public void add(@RequestBody TextilePrintingWrapper textilePrintingWrapper) {
+        this.textilePrintingController.add(textilePrintingWrapper);
+    }
+
+    @RequestMapping(value = Uris.SEARCH, method = RequestMethod.GET)
+    public Page<TextilePrintingWrapper> search(Pageable pageable) {
+        Page<TextilePrintingWrapper> page = textilePrintingController.search(pageable);
+        return page;
     }
 
 }

@@ -3,7 +3,12 @@ package api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.RequestBody;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +29,13 @@ public class EmbroideryResource {
 
     @RequestMapping(method = RequestMethod.GET)
     public List<EmbroideryWrapper> findAllEmbroidery() {
-        return embroideryController.allEmbroidery();   
+        return embroideryController.allEmbroidery();
+    }
+
+    @RequestMapping(value = Uris.SEARCH, method = RequestMethod.GET)
+    public Page<EmbroideryWrapper> search(Pageable pageable) {
+        Page<EmbroideryWrapper> page = embroideryController.search(pageable);
+        return page;
     }
     
     @RequestMapping(method = RequestMethod.POST)

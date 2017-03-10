@@ -1,4 +1,4 @@
-var tpv = angular.module("tpv", ["ngRoute"]);
+var tpv = angular.module("tpv", ["ngRoute", 'bw.paging']);
 
 tpv.config(function ($routeProvider) {
     "use strict";
@@ -81,9 +81,9 @@ tpv.config(function ($routeProvider) {
             controller: "PDFGenerationController",
             controllerAs: "vm"
         })
-        .when("/feature08", {
-            templateUrl: "app/components/feature08/facturas.html",
-            controller: "CreateInvoice",
+        .when("/feature08/create-invoice", {
+            templateUrl: "app/components/feature08/create.html",
+            controller: "CreateInvoiceController",
             controllerAs: "vm"
         })
         .otherwise({
