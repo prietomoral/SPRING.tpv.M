@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import daos.core.ShoppingDao;
 
 @Service
-public class SatisticService {
+public class StatisticService {
     @Autowired
     private ShoppingDao shopingDao;
     
@@ -19,7 +19,7 @@ public class SatisticService {
         for(int i=0;i<soldList.size() && i<5 ;i++){
             Long id=(Long) soldList.get(i)[0];
             String description=(String)soldList.get(i)[1];
-            int totalAmount=(Integer)soldList.get(i)[2];
+            Long totalAmount=(Long)soldList.get(i)[2];
             SemiWrapperStatisticSold soldProduct=new SemiWrapperStatisticSold(id,description,totalAmount);
             statistics.add(soldProduct);
         }

@@ -3,14 +3,14 @@ package services;
 public class SemiWrapperStatisticSold {
     private Long idProduct;
 
-    private int totalAmountSold;
+    private Long totalAmountSold;
 
     private String description;
 
     public SemiWrapperStatisticSold() {
     }
 
-    public SemiWrapperStatisticSold(Long idProduct, String description, int totalAmountSold) {
+    public SemiWrapperStatisticSold(Long idProduct, String description, Long totalAmountSold) {
         this.idProduct = idProduct;
         this.totalAmountSold = totalAmountSold;
         this.description = description;
@@ -24,11 +24,11 @@ public class SemiWrapperStatisticSold {
         this.idProduct = idProduct;
     }
 
-    public int getTotalAmountSold() {
+    public Long getTotalAmountSold() {
         return totalAmountSold;
     }
 
-    public void setTotalAmountSold(int totalAmountSold) {
+    public void setTotalAmountSold(Long totalAmountSold) {
         this.totalAmountSold = totalAmountSold;
     }
 
