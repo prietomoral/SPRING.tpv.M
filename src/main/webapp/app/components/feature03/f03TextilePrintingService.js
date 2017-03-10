@@ -5,7 +5,8 @@ function f03TextilePrintingService($http, $q) {
 	'use strict';
      const urlBase="http://localhost:8080/SPRING.tpv.M.1.2.0-SNAPSHOT/api/v0";
      var textilePrintingService = {
-    		 listAllTextilePrinting: listAllTextilePrinting
+    		 listAllTextilePrinting: listAllTextilePrinting,
+    		 addTextilePrinting: addTextilePrinting
      };
      
      return textilePrintingService;
@@ -20,4 +21,22 @@ function f03TextilePrintingService($http, $q) {
     		 return $q.reject(response);
     	 });
      }
+     
+     function addTextilePrinting() {
+   	    return $http({
+   	      method: 'POST',
+   	      url: APP.apiUrl + '/textileprinting',
+   	      data:{
+   	    	  'id': textilePrinting.id, 
+   	    	  'description': textilPrinting.description, 
+   	    	  'reference': textilPrinting.reference, 
+   	    	  'retailPrice': textilPrinting.retailPrice, 
+   	    	  'type': textilPrinting.type
+   	    	  }
+   	    }).then(function successCallback(response) {
+   	        return response.data;
+   	      }, function errorCallback(response) {
+   	        return $q.reject(response);
+   	      });
+   	  }
 }
