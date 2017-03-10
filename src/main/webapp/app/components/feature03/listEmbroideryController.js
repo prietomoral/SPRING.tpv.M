@@ -1,6 +1,6 @@
-tpv.controller('EmbroideryController', ['f03Service', EmbroideryController]);
+tpv.controller('listEmbroideryController', ['f03Service', listEmbroideryController]);
 
-function EmbroideryController(f03Service) {
+function listEmbroideryController(f03Service) {
   'use strict';
   var vm = this;
   vm.initList = initList;

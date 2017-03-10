@@ -1,6 +1,5 @@
 package controllers;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +47,15 @@ public class EmbroideryController {
 
     public void add(EmbroideryWrapper embroideryWrapper) {
 
-        Embroidery embroidery = new Embroidery(84000002222L + 1, "embroidery" + 1, new BigDecimal(20 + 1), "embroidery" + 1, 1 * 1000, 1,1 * 10);
+        Embroidery embroidery = new Embroidery(
+                embroideryWrapper.getId(),
+                embroideryWrapper.getReference(),
+                embroideryWrapper.getRetailPrice(),
+                embroideryWrapper.getDescription(),
+                embroideryWrapper.getStitches(),
+                embroideryWrapper.getColors(),
+                embroideryWrapper.getSquareMillimeters());
+
         this.embroideryDao.save(embroidery);
 
     }
