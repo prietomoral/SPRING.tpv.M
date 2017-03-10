@@ -48,10 +48,10 @@ public class EmbroideryController {
         Page<Embroidery> page = embroideryDao.search(pageable);
         List<EmbroideryWrapper> embroideryWrapperList = new ArrayList<>();
         for (Embroidery embroidery : page.getContent()) {
-            EmbroideryWrapper articleWrapper = new EmbroideryWrapper(embroidery.getId(), embroidery.getReference(),
+            EmbroideryWrapper embroideryWrapper = new EmbroideryWrapper(embroidery.getId(), embroidery.getReference(),
                     embroidery.getDescription(), embroidery.getRetailPrice(), embroidery.getStitches(), embroidery.getColors(),
                     embroidery.getSquareMillimeters());
-            embroideryWrapperList.add(articleWrapper);
+            embroideryWrapperList.add(embroideryWrapper);
         }
         return new PageImpl<EmbroideryWrapper>(embroideryWrapperList, pageable, page.getTotalElements());
     }
