@@ -1,1 +1,29 @@
-<h4>nuevo</h4>
+
+<ol class="breadcrumb">
+  <li><a href="#/feature10">Alarmas</a></li>
+  <li class="active"><a href="#/feature10/new">Crear alarma</a></li>
+</ol>
+
+<div class="container">
+   <form role="form" ng-submit="vm.createAlert()">
+      <div class="form-group">
+	    <label><span class="label label-warning"> </span>&nbsp; Warning </label>
+	    <input type="text" class="form-control"  placeholder="warning" ng-model='vm.alert.warning'>
+	  </div>
+	  <div class="form-group">
+	    <label> <span class="label label-danger"> </span>&nbsp; Critical</label>
+	    <input type="text" class="form-control"  placeholder="critical" ng-model='vm.alert.critical'>
+	  </div>
+	  <div class="form-group">
+	    <label >Código producto</label>
+	    <input type="text" class="form-control"  placeholder="código producto" ng-model='vm.alert.product_id'>
+	  </div>
+	  
+	  <input type="submit" class="btn btn-primary "  value="Guardar">  
+	  
+	 
+	 <div class="alert alert-danger no-data" role="alert" ng-if="vm.data.length === 0"> 
+	 	No se pudo ingresar la alarma
+	 </div>
+    </form>
+</div>

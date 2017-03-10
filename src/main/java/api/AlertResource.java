@@ -18,30 +18,34 @@ import wrappers.AlertWrapperCreate;
 @RequestMapping(Uris.VERSION + Uris.ALERTS)
 public class AlertResource {
 
-    private AlertController alertController;
+	private AlertController alertController;
 
-    @Autowired
-    public void setAlertController(AlertController alertController) {
-        this.alertController = alertController;
-    }
+	@Autowired
+	public void setAlertController(AlertController alertController) {
+		this.alertController = alertController;
+	}
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<AlertWrapper> index() {
-        return alertController.findAll();
-    }
+	@RequestMapping(method = RequestMethod.GET)
+	public List<AlertWrapper> index() {
+		return alertController.findAll();
+	}
 
-    @RequestMapping(value = Uris.ID, method = RequestMethod.GET)
-    public AlertWrapper OneAlert(@PathVariable(value = "id") int id) {
-        return alertController.findOneAlert(id);
-    }
+	@RequestMapping(value = Uris.ID, method = RequestMethod.GET)
+	public AlertWrapper OneAlert(@PathVariable(value = "id") int id) {
+		return alertController.findOneAlert(id);
+	}
 
-    @RequestMapping(method = RequestMethod.POST)
-    public AlertWrapper createAlert(@RequestBody AlertWrapperCreate alertWrapperCreate) throws MissingArticleIdException {
-        Long product_id = alertWrapperCreate.getProduct_id();
-        if (product_id.equals(null)) {
-            throw new MissingArticleIdException();
-        }
-        return alertController.createAlert(alertWrapperCreate);
-    }
+	@RequestMapping(method = RequestMethod.POST)
+	public AlertWrapper createAlert(@RequestBody AlertWrapperCreate alertWrapperCreate)
+			throws MissingArticleIdException {
+		System.out.println("UNOOO" + alertWrapperCreate.getCritical());
+		System.out.println("DOOOs" + alertWrapperCreate.getWarning());
+		System.out.println("TRESS" + alertWrapperCreate.getProduct_id());
+		if (alertWrapperCreate.getProduct_id() == 0) {
+			throw new MissingArticleIdException();
+		} else {
+			return alertController.createAlert(alertWrapperCreate);
+		}
+	}
 
 }
