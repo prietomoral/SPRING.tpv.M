@@ -34,4 +34,15 @@ public class ArticleController {
         return new PageImpl<ArticleWrapper>(articleWrappers, pageable, page.getTotalElements());
     }
 
+    public List<ArticleWrapper> getAll() {
+        List<ArticleWrapper> articleWrappers = new ArrayList<>();
+        for (Article article : articleDao.findAll()) {
+            ArticleWrapper articleWrapper = new ArticleWrapper();
+            articleWrapper.setDescription(article.getDescription());
+            articleWrapper.setId(article.getId());
+            articleWrappers.add(articleWrapper);
+        }
+        return articleWrappers;
+    }
+
 }
