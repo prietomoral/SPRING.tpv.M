@@ -3,6 +3,7 @@ package api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +25,11 @@ public class EmbroideryResource {
     @RequestMapping(method = RequestMethod.GET)
     public List<EmbroideryWrapper> findAllEmbroidery() {
         return embroideryController.allEmbroidery();   
+    }
+    
+    @RequestMapping(method = RequestMethod.POST)
+    public void add(@RequestBody EmbroideryWrapper embroideryWrapper) {
+        this.embroideryController.add(embroideryWrapper);
     }
 
 }

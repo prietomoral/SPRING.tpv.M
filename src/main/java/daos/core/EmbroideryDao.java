@@ -1,7 +1,5 @@
 package daos.core;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import entities.core.Embroidery;
