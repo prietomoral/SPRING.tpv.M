@@ -22,16 +22,16 @@ function f03TextilePrintingService($http, $q) {
     	 });
      }
      
-     function addTextilePrinting() {
+     function addTextilePrinting(textilePrinting) {
    	    return $http({
    	      method: 'POST',
-   	      url: APP.apiUrl + '/textileprinting',
+   	      url: urlBase + '/textileprinting',
    	      data:{
    	    	  'id': textilePrinting.id, 
-   	    	  'description': textilPrinting.description, 
-   	    	  'reference': textilPrinting.reference, 
-   	    	  'retailPrice': textilPrinting.retailPrice, 
-   	    	  'type': textilPrinting.type
+   	    	  'description': textilePrinting.description, 
+   	    	  'reference': textilePrinting.reference, 
+   	    	  'retailPrice': textilePrinting.retailPrice, 
+   	    	  'type': textilePrinting.type
    	    	  }
    	    }).then(function successCallback(response) {
    	        return response.data;
