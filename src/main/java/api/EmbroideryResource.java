@@ -3,8 +3,12 @@ package api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,6 +36,11 @@ public class EmbroideryResource {
     public Page<EmbroideryWrapper> search(Pageable pageable) {
         Page<EmbroideryWrapper> page = embroideryController.search(pageable);
         return page;
+    }
+    
+    @RequestMapping(method = RequestMethod.POST)
+    public void add(@RequestBody EmbroideryWrapper embroideryWrapper) {
+        this.embroideryController.add(embroideryWrapper);
     }
 
 }

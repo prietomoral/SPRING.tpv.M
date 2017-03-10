@@ -1,5 +1,6 @@
 package controllers;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,10 +28,11 @@ public class EmbroideryController {
 
         List<EmbroideryWrapper> embroideryList = new ArrayList<EmbroideryWrapper>();
 
+        System.out.println("result" + embroideryDao.findAll());
         for (Embroidery embroidery : embroideryDao.findAll()) {
 
             EmbroideryWrapper embroideryWrapper = new EmbroideryWrapper();
-
+            embroideryWrapper.setId(embroidery.getId());
             embroideryWrapper.setReference(embroidery.getReference());
             embroideryWrapper.setDescription(embroidery.getDescription());
             embroideryWrapper.setRetailPrice(embroidery.getRetailPrice());
@@ -44,6 +46,13 @@ public class EmbroideryController {
 
     }
 
+    public void add(EmbroideryWrapper embroideryWrapper) {
+
+        Embroidery embroidery = new Embroidery(84000002222L + 1, "embroidery" + 1, new BigDecimal(20 + 1), "embroidery" + 1, 1 * 1000, 1,1 * 10);
+        this.embroideryDao.save(embroidery);
+
+    }
+
     public Page<EmbroideryWrapper> search(Pageable pageable) {
         Page<Embroidery> page = embroideryDao.search(pageable);
         List<EmbroideryWrapper> embroideryWrapperList = new ArrayList<>();
@@ -54,5 +63,6 @@ public class EmbroideryController {
             embroideryWrapperList.add(embroideryWrapper);
         }
         return new PageImpl<EmbroideryWrapper>(embroideryWrapperList, pageable, page.getTotalElements());
+
     }
 }
