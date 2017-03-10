@@ -17,6 +17,7 @@ import config.PersistenceConfig;
 import config.TestsPersistenceConfig;
 import entities.core.Article;
 import entities.core.Embroidery;
+import entities.core.TextilePrinting;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PersistenceConfig.class, TestsPersistenceConfig.class})
@@ -74,7 +75,7 @@ public class ProductDaoIT {
         assertTrue(articlePage.isLast());
         assertFalse(articlePage.isFirst());
     }
-    
+
     @Test
     public void testSearchEmbroideries() {
         Page<Embroidery> embroideryPage = embroideryDao.search(new PageRequest(1, 2));
@@ -87,6 +88,20 @@ public class ProductDaoIT {
         assertEquals(2, embroideryPage.getTotalPages());
         assertTrue(embroideryPage.isLast());
         assertFalse(embroideryPage.isFirst());
+    }
+
+    @Test
+    public void testSearchTextilePrintings() {
+        Page<TextilePrinting> textilePrintingPage = textilePrintingDao.search(new PageRequest(1, 2));
+        assertNotNull(textilePrintingPage);
+        assertTrue(textilePrintingPage.getNumberOfElements() > 0);
+        assertEquals(4, textilePrintingPage.getTotalElements());
+        assertEquals(1, textilePrintingPage.getNumber());
+        assertTrue(textilePrintingPage.hasContent());
+        assertEquals("textilePrinting2", textilePrintingPage.getContent().get(0).getReference());
+        assertEquals(2, textilePrintingPage.getTotalPages());
+        assertTrue(textilePrintingPage.isLast());
+        assertFalse(textilePrintingPage.isFirst());
     }
 
 }
