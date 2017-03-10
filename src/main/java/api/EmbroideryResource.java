@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import controllers.EmbroideryController;
 import wrappers.EmbroideryWrapper;
 
+
 @RestController
 @RequestMapping(Uris.VERSION + Uris.EMBROIDERIES)
 public class EmbroideryResource {
@@ -37,10 +38,11 @@ public class EmbroideryResource {
         Page<EmbroideryWrapper> page = embroideryController.search(pageable);
         return page;
     }
-    
+        
     @RequestMapping(method = RequestMethod.POST)
     public void add(@RequestBody EmbroideryWrapper embroideryWrapper) {
         this.embroideryController.add(embroideryWrapper);
     }
+    
 
 }
