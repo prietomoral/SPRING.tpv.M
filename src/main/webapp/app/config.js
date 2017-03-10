@@ -1,4 +1,4 @@
-var tpv = angular.module("tpv", ["ngRoute", 'bw.paging']);
+var tpv = angular.module("tpv", ["ngRoute", 'bw.paging', "Alertify"]);
 
 tpv.config(function ($routeProvider) {
     "use strict";
@@ -66,7 +66,7 @@ tpv.config(function ($routeProvider) {
             controller: "AlertsController",
             controllerAs: "vm"
         })
-        .when("/feature10/:id", {
+        .when("/feature10/:id/show", {
             templateUrl: "app/components/feature10/show.html",
             controller: "AlertsShowController",
             controllerAs: "vm"
@@ -76,7 +76,7 @@ tpv.config(function ($routeProvider) {
             controller: "AlertsNewController",
             controllerAs: "vm"
         })
-        .when("/feature10/edit/:id", {
+        .when("/feature10/:id/edit", {
             templateUrl: "app/components/feature10/edit.html",
             controller: "AlertsEditController",
             controllerAs: "vm"

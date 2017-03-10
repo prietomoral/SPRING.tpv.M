@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import api.exceptions.MissingArticleIdException;
 import daos.core.AlertDao;
 import daos.core.ArticleDao;
 import entities.core.Alert;
@@ -50,15 +51,19 @@ public class AlertController {
 
     }
 
-    public AlertWrapper createAlert(AlertWrapperCreate alertWrapperCreate) {
+    public AlertWrapper createAlert(AlertWrapperCreate alertWrapperCreate) throws MissingArticleIdException {
         Alert alert = new Alert();
         Article article = articleDao.findOne(alertWrapperCreate.getProduct_id());
-        alert.setArticle(article);
-        alert.setCritical(alertWrapperCreate.getCritical());
-        alert.setWarning(alertWrapperCreate.getWarning());
-        alertDao.save(alert);
-        AlertWrapper alertWrapper = new AlertWrapper(alert.getId(), alert.getWarning(), alert.getCritical(), article.getDescription());
-        return alertWrapper;
+        if (article == null) {
+            throw new MissingArticleIdException();
+        } else {
+            alert.setArticle(article);
+            alert.setCritical(alertWrapperCreate.getCritical());
+            alert.setWarning(alertWrapperCreate.getWarning());
+            alertDao.save(alert);
+            AlertWrapper alertWrapper = new AlertWrapper(alert.getId(), alert.getWarning(), alert.getCritical(), article.getDescription());
+            return alertWrapper;
+        }
     }
 
 }

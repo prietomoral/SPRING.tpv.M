@@ -37,10 +37,6 @@ public class AlertResource {
 
     @RequestMapping(method = RequestMethod.POST)
     public AlertWrapper createAlert(@RequestBody AlertWrapperCreate alertWrapperCreate) throws MissingArticleIdException {
-        Long product_id = alertWrapperCreate.getProduct_id();
-        if (product_id.equals(null)) {
-            throw new MissingArticleIdException();
-        }
         return alertController.createAlert(alertWrapperCreate);
     }
 
