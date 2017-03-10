@@ -27,6 +27,5 @@ public class StatisticServiceIT {
             System.out.println(statistic.toString());
         }
         assertTrue(statistics.size()<=5);
-        assertTrue(statistics.size()>0);
     }
 }
