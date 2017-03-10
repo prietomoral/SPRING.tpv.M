@@ -9,8 +9,7 @@ function addEmbroideryController(f03Service) {
  
   function createEmbroidery(){
 	  f03Service.createEmbroidery(vm.embroidery).then(function success(response){
-      vm.embroidery = {};
-      alert("Embroidery creado correctamente");
+	      vm.data = response;
     },
     function error(errors){
       console.log(errors);

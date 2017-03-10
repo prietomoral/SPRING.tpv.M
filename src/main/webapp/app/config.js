@@ -33,7 +33,7 @@ tpv.config(function ($routeProvider) {
         })
         .when("/feature03/list-embroidery", {
             templateUrl: "app/components/feature03/indexEmbroidery.html",
-            controller: "EmbroideryController",
+            controller: "listEmbroideryController",
             controllerAs: "vm"
         })
         .when("/feature03/new-embroidery", {
@@ -43,7 +43,7 @@ tpv.config(function ($routeProvider) {
         })
         .when("/feature03/list-textile-printing", {
             templateUrl: "app/components/feature03/indexTextilePrinting.html",
-            controller: "TextilePrintingController",
+            controller: "listTextilePrintingController",
             controllerAs: "vm"
         })
         .when("/feature03/create-textile-printing", {
