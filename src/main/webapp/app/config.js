@@ -1,4 +1,7 @@
-var tpv = angular.module("tpv", ["ngRoute", 'bw.paging', "Alertify"]);
+var tpv = angular.module("tpv", ["ngRoute",
+                                 'bw.paging',
+                                 "Alertify",
+                                 "angucomplete"]);
 
 tpv.config(function ($routeProvider) {
     "use strict";
@@ -84,7 +87,19 @@ tpv.config(function ($routeProvider) {
         .when("/feature10/new", {
             templateUrl: "app/components/feature10/new.html",
             controller: "AlertsNewController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+            resolve: {
+              articles: function(f03Service, $location, Alertify){
+                return f03Service.listAllArticles().then(function success(response){
+                  if (response.length === 0) {
+                    $location.url('/feature10');
+                    Alertify.log('No existen artículos.\nNecesitas crear uno antes de crear alertas');
+                  }else{
+                    return response;
+                  }
+                });
+              }
+            }
         })
         .when("/feature10/:id/edit", {
             templateUrl: "app/components/feature10/edit.html",
