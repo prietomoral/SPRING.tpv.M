@@ -8,7 +8,8 @@ function f03Service($http, $q) {
     		 listAllEmbroideries: listAllEmbroideries,
     		 listAllTextilePrinting: listAllTextilePrinting,
     		 createEmbroidery:createEmbroidery,
-    		 addTextilePrinting: addTextilePrinting
+    		 addTextilePrinting: addTextilePrinting,
+    		 deleteOneEmbroidery:deleteOneEmbroidery
      };
      
      return feature03Service;
@@ -36,6 +37,18 @@ function f03Service($http, $q) {
  	        return $q.reject(response);
  	      });
  	  }
+     
+     function deleteOneEmbroidery(id) {
+    	 return $http({
+    		 method: 'DELETE',
+    		 url: urlBase + '/embroideries/'+id
+    	 }).then(function successCallback(response) {
+    		 return response.data;
+    	 }, function errorCallback(response) {
+    		 return $q.reject(response);
+    	 });
+     }
+        
      
      function listAllTextilePrinting() {
     	 return $http({
