@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
+import api.exceptions.AlreadyExistEmbroideryException;
 import daos.core.EmbroideryDao;
 import entities.core.Embroidery;
 import wrappers.EmbroideryWrapper;
@@ -45,19 +46,18 @@ public class EmbroideryController {
 
     }
 
-    public void add(EmbroideryWrapper embroideryWrapper) {
+    public void add(EmbroideryWrapper embroideryWrapper) throws AlreadyExistEmbroideryException {
 
-        Embroidery embroidery = new Embroidery(
-                embroideryWrapper.getId(),
-                embroideryWrapper.getReference(),
-                embroideryWrapper.getRetailPrice(),
-                embroideryWrapper.getDescription(),
-                embroideryWrapper.getStitches(),
-                embroideryWrapper.getColors(),
-                embroideryWrapper.getSquareMillimeters());
+        Embroidery embroideryDB = embroideryDao.findOne(embroideryWrapper.getId());
+        if (embroideryDB != null) {
+            throw new AlreadyExistEmbroideryException();
+        } else {
+            Embroidery embroidery = new Embroidery(embroideryWrapper.getId(), embroideryWrapper.getReference(),
+                    embroideryWrapper.getRetailPrice(), embroideryWrapper.getDescription(), embroideryWrapper.getStitches(),
+                    embroideryWrapper.getColors(), embroideryWrapper.getSquareMillimeters());
 
-        this.embroideryDao.save(embroidery);
-
+            this.embroideryDao.save(embroidery);
+        }
     }
 
     public Page<EmbroideryWrapper> search(Pageable pageable) {
@@ -70,6 +70,12 @@ public class EmbroideryController {
             embroideryWrapperList.add(embroideryWrapper);
         }
         return new PageImpl<EmbroideryWrapper>(embroideryWrapperList, pageable, page.getTotalElements());
+
+    }
+
+    public void deleteEmbroidery(Integer id) {
+        Embroidery embroidery = embroideryDao.findOne(Long.valueOf(id));
+        embroideryDao.delete(embroidery);
 
     }
 }
