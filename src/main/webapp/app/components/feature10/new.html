@@ -16,13 +16,21 @@
 	  </div>
 	  <div class="form-group">
 	    <label >Código producto</label>
-	    <input type="text" class="form-control"  placeholder="código producto" ng-model='vm.alert.product_id'>
+       <angucomplete id="ex1"
+                     placeholder="Busca artículos"
+                     pause="100"
+                     selectedobject="vm.selectedArticle"
+                     localdata="vm.articles"
+                     searchfields="description"
+                     titlefield="description"
+                     minlength="1"
+                     inputclass="form-control form-control-small"/>
 	  </div>
-	  
-	  <input type="submit" class="btn btn-primary "  value="Guardar">  
-	  
-	 
-	 <div class="alert alert-danger no-data" role="alert" ng-if="vm.data.length === 0"> 
+
+	  <input type="submit" class="btn btn-primary "  value="Guardar">
+
+
+	 <div class="alert alert-danger no-data" role="alert" ng-if="vm.data.length === 0">
 	 	No se pudo ingresar la alarma
 	 </div>
     </form>
