@@ -13,7 +13,7 @@ tpv.service('f02Service', ['$http', '$q', function ($http, $q) {
    		return $http({
    			method: 'POST',
    			url: urlBase + '/providers',
-   			data:{'id': provider.id, 'company': provider.company , 'address': provider.address, 'mobile':provider.mobile, 'phone':provider.phone, 'paymentConditions':provider.paymentConditions, 'note':provider.note}
+   			data:{'company': provider.company , 'address': provider.address, 'mobile':provider.mobile, 'phone':provider.phone, 'paymentConditions':provider.paymentConditions, 'note':provider.note}
    		}).then(function successCallback(response) {
 	        return response.data;
    		}, function errorCallback(response) {
