@@ -1,18 +1,19 @@
 tpv.factory('f03Service', ['$http', '$q', f03Service]);
 
 function f03Service($http, $q) {
-	
+
 	'use strict';
      const urlBase="http://localhost:8080/SPRING.tpv.M.1.2.0-SNAPSHOT/api/v0";
      var feature03Service = {
     		 listAllEmbroideries: listAllEmbroideries,
     		 listAllTextilePrinting: listAllTextilePrinting,
     		 createEmbroidery:createEmbroidery,
-    		 addTextilePrinting: addTextilePrinting
+    		 addTextilePrinting: addTextilePrinting,
+    		 listAllArticles: listAllArticles
      };
-     
+
      return feature03Service;
-     
+
      function listAllEmbroideries() {
     	 return $http({
     		 method: 'GET',
@@ -23,8 +24,8 @@ function f03Service($http, $q) {
     		 return $q.reject(response);
     	 });
      }
-          
-     
+
+
      function createEmbroidery(embroidery) {
  	    return $http({
  	      method: 'POST',
@@ -36,7 +37,7 @@ function f03Service($http, $q) {
  	        return $q.reject(response);
  	      });
  	  }
-     
+
      function listAllTextilePrinting() {
     	 return $http({
     		 method: 'GET',
@@ -47,16 +48,16 @@ function f03Service($http, $q) {
     		 return $q.reject(response);
     	 });
      }
-     
+
      function addTextilePrinting(textilePrinting) {
    	    return $http({
    	      method: 'POST',
    	      url: urlBase + '/textileprinting',
    	      data:{
-   	    	  'id': textilePrinting.id, 
-   	    	  'description': textilePrinting.description, 
-   	    	  'reference': textilePrinting.reference, 
-   	    	  'retailPrice': textilePrinting.retailPrice, 
+   	    	  'id': textilePrinting.id,
+   	    	  'description': textilePrinting.description,
+   	    	  'reference': textilePrinting.reference,
+   	    	  'retailPrice': textilePrinting.retailPrice,
    	    	  'type': textilePrinting.type
    	    	  }
    	    }).then(function successCallback(response) {
@@ -65,5 +66,15 @@ function f03Service($http, $q) {
    	        return $q.reject(response);
    	      });
    	  }
-     
+
+	 function listAllArticles() {
+		return $http({
+			method: 'GET',
+			url: urlBase + '/articles'
+		}).then(function successCallback(response) {
+			return response.data;
+		}, function errorCallback(response) {
+			return $q.reject(response);
+		});
+	 }
 }
