@@ -1,1 +1,31 @@
-<h4>Create provider</h4>
+<section>
+    <div class="page-header">
+      <h1>Create new provider</h1>
+    </div>
+    <div class="container">
+        <form role="form">
+            <div class="form-group">
+                <input type="text" class="form-control"  placeholder="ID" ng-model='vm.provider.id'>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control"  placeholder="Company" ng-model='vm.provider.company'>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control"  placeholder="Address" ng-model='vm.provider.address'>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control"  placeholder="Mobile" ng-model='vm.provider.mobile'>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control"  placeholder="Phone" ng-model='vm.provider.phone'>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control"  placeholder="Payment conditions" ng-model='vm.provider.paymentConditions'>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control"  placeholder="Note" ng-model='vm.provider.note'>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Save"  ng-click="vm.createProvider()">  
+        </form>
+    </div>
+</section>
