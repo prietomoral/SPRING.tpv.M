@@ -3,11 +3,11 @@ tpv.service('f04Service', function ($http, $q) {
    
    	const urlBase = "http://localhost:8080/SPRING.tpv.M.1.2.0-SNAPSHOT/api/v0";
 	
-	this.request = (config) => {
+	this.request = config => {
 	      let deferred = $q.defer();
-	      $http(config).then((response) => {
+	      $http(config).then(response => {
 	    	  deferred.resolve(response.data);
-	      }, (response) => {
+	      }, response => {
 	    	  let errorMsg;
 	    	  if(response.data.error === undefined) {
 	    		  errorMsg="";
@@ -23,7 +23,7 @@ tpv.service('f04Service', function ($http, $q) {
 	this.getArticles = (pageNumber, pageSize) =>{
 		  let config = {
 		 	 method: 'GET',
-		 	 url: urlBase+`/articles/search?page=${pageNumber}&size=${pageSize}`
+		 	 url: `${urlBase}/articles/search?page=${pageNumber}&size=${pageSize}`
 		  };
 	      return this.request(config);
 	}
@@ -31,7 +31,7 @@ tpv.service('f04Service', function ($http, $q) {
 	this.getEmbroideries = (pageNumber, pageSize) =>{
 		let config = {
 			method: 'GET',
-			url: urlBase+`/embroideries/search?page=${pageNumber}&size=${pageSize}`
+			url: `${urlBase}/embroideries/search?page=${pageNumber}&size=${pageSize}`
 		};
 		return this.request(config);
 	}
@@ -40,7 +40,7 @@ tpv.service('f04Service', function ($http, $q) {
 	this.getTextilePrintings = (pageNumber, pageSize) =>{
 		let config = {
 			method: 'GET',
-			url: urlBase+`/textileprinting/search?page=${pageNumber}&size=${pageSize}`
+			url: `${urlBase}/textileprinting/search?page=${pageNumber}&size=${pageSize}`
 		};
 		return this.request(config);
 	}

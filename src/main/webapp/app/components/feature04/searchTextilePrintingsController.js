@@ -22,21 +22,21 @@ tpv.controller('SearchTextilePrintingsController', function($route, f04Service) 
 	loadTextilePrintings();
 	
 	function loadTextilePrintings(){
-		f04Service.getTextilePrintings(vm.pageNumber, vm.pageSize).then((result) => {
+		f04Service.getTextilePrintings(vm.pageNumber, vm.pageSize).then(result => {
 			vm.loading = false;
 			vm.textilePrintings = result.content;
 			vm.pageNumber = result.number;
 			vm.totalTextilePrintings = result.totalElements;
 			vm.pageSize = result.size;
 			vm.error = false;
-		}, (errors) => {
+		}, errors => {
 			vm.loading = false;
 			vm.errors = errors;
 			vm.error = true;
 		});
 	}
 	
-	vm.changeToPage = (pageNumber) => {
+	vm.changeToPage = pageNumber => {
 		vm.pageNumber = pageNumber;
 		loadTextilePrintings();
 	}
