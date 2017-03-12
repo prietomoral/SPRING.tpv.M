@@ -20,13 +20,30 @@ public class TextilePrintingResourceFunctionalTesting {
     }
 
     @Test
-    public void testSearch() {
+    public void testSearchWithoutParameters() {
         TextilePrintingPageWrapper textilePrintingPage = new RestBuilder<TextilePrintingPageWrapper>(RestService.URL)
                 .path(Uris.TEXTILE_PRINTINGS + Uris.SEARCH).param("size", "2").param("page", "1").clazz(TextilePrintingPageWrapper.class)
                 .get().build();
         assertNotNull(textilePrintingPage);
         assertTrue(textilePrintingPage.getNumberOfElements() > 0);
         assertEquals(4, textilePrintingPage.getTotalElements());
+        assertEquals(1, textilePrintingPage.getNumber());
+        assertTrue(textilePrintingPage.hasContent());
+        assertEquals("textilePrinting2", textilePrintingPage.getContent().get(0).getReference());
+        assertEquals(2, textilePrintingPage.getTotalPages());
+        assertTrue(textilePrintingPage.isLast());
+        assertFalse(textilePrintingPage.isFirst());
+    }
+
+    @Test
+    public void testSearchWithParameters() {
+        TextilePrintingPageWrapper textilePrintingPage = new RestBuilder<TextilePrintingPageWrapper>(RestService.URL)
+                .path(Uris.TEXTILE_PRINTINGS + Uris.SEARCH).param("size", "2").param("page", "1").param("description", "textileprinting")
+                .param("minRetailPrice", "20").param("maxRetailPrice", "22").param("type", "ploter").clazz(TextilePrintingPageWrapper.class)
+                .get().build();
+        assertNotNull(textilePrintingPage);
+        assertTrue(textilePrintingPage.getNumberOfElements() > 0);
+        assertEquals(3, textilePrintingPage.getTotalElements());
         assertEquals(1, textilePrintingPage.getNumber());
         assertTrue(textilePrintingPage.hasContent());
         assertEquals("textilePrinting2", textilePrintingPage.getContent().get(0).getReference());
