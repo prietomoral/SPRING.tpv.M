@@ -1,46 +1,7 @@
 tpv.service('f04Service', function ($http, $q) {
    "use strict"; 
    
-   const urlBase = "http://localhost:8080/SPRING.tpv.M.1.2.0-SNAPSHOT/api/v0";
-   
-	var embroideries = [
-		{
-			"id": 5,
-			"reference": "REFERENCE5",
-			"description": "DESCRIPTION 5",
-			"retailPrice": 666.5,
-			"stitches": 205,
-			"colors": 5,
-			"squareMillimeters": 6
-		},
-		{
-			"id": 6,
-			"reference": "REFERENCE6",
-			"description": "DESCRIPTION 6",
-			"retailPrice": 666.6,
-			"stitches": 206,
-			"colors": 6,
-			"squareMillimeters": 7
-		},
-		{
-			"id": 7,
-			"reference": "REFERENCE7",
-			"description": "DESCRIPTION 7",
-			"retailPrice": 666.7,
-			"stitches": 207,
-			"colors": 7,
-			"squareMillimeters": 8
-		},
-		{
-			"id": 8,
-			"reference": "REFERENCE8",
-			"description": "DESCRIPTION 8",
-			"retailPrice": 666.8,
-			"stitches": 208,
-			"colors": 8,
-			"squareMillimeters": 9
-		}
-	];
+   	const urlBase = "http://localhost:8080/SPRING.tpv.M.1.2.0-SNAPSHOT/api/v0";
 	
 	var textilePrintings = [
 		{
@@ -98,8 +59,12 @@ tpv.service('f04Service', function ($http, $q) {
 	      return this.request(config);
 	}
    
-	this.getEmbroideries = () =>{
-		return embroideries;
+	this.getEmbroideries = (pageNumber, pageSize) =>{
+		let config = {
+			method: 'GET',
+			url: urlBase+`/embroideries/search?page=${pageNumber}&size=${pageSize}`
+		};
+		return this.request(config);
 	}
 	
 	this.getTextilePrintings = () =>{
