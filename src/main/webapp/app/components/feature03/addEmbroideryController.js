@@ -13,7 +13,7 @@ function addEmbroideryController(f03Service,Alertify) {
 	          Alertify.success("The embroidery has been created successfully!");
           },
 	      function error(errors){
-	          Alertify.error("This embroidery already exist");
+	          Alertify.error("A product with this Id already exist");
 	      });
   }
 	  
