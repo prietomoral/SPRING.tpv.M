@@ -67,4 +67,7 @@ public class TextilePrintingController {
 		TextilePrinting textilePrinting = textilePrintingDao.findOne(Long.valueOf(id));
 		textilePrintingDao.delete(textilePrinting);
 	}
+
+	public void edit(int id, TextilePrintingWrapper textilePrintingWrapper) {
+	}
 }

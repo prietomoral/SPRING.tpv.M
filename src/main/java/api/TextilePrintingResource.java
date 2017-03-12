@@ -47,5 +47,10 @@ public class TextilePrintingResource {
 	public void delete(@PathVariable(value = "id") int id) {
 		this.textilePrintingController.delete(id);
 	}
+	
+	@RequestMapping(method = RequestMethod.PUT)
+	public void edit(int id, @RequestBody TextilePrintingWrapper textilePrintingWrapper) {
+		this.textilePrintingController.edit(id,textilePrintingWrapper);
+	}
 
 }
