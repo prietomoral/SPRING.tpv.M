@@ -5,6 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.math.BigDecimal;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,8 +65,8 @@ public class ProductDaoIT {
     }
 
     @Test
-    public void testSearchArticles() {
-        Page<Article> articlePage = articleDao.search(new PageRequest(1, 4));
+    public void testSearchArticlesWithoutParameters() {
+        Page<Article> articlePage = articleDao.search(new PageRequest(1, 4), null, null, null, null, false);
         assertNotNull(articlePage);
         assertTrue(articlePage.getNumberOfElements() > 0);
         assertEquals(8, articlePage.getTotalElements());
@@ -74,6 +76,30 @@ public class ProductDaoIT {
         assertEquals(2, articlePage.getTotalPages());
         assertTrue(articlePage.isLast());
         assertFalse(articlePage.isFirst());
+    }
+
+    @Test
+    public void testSearchArticlesWithParameters() {
+        Page<Article> articlePage = articleDao.search(new PageRequest(1, 4), null, "article", new BigDecimal(21), new BigDecimal(26),
+                false);
+        assertNotNull(articlePage);
+        assertTrue(articlePage.getNumberOfElements() > 0);
+        assertEquals(5, articlePage.getTotalElements());
+        assertEquals(1, articlePage.getNumber());
+        assertTrue(articlePage.hasContent());
+        assertEquals("article6", articlePage.getContent().get(0).getReference());
+        assertEquals(2, articlePage.getTotalPages());
+        assertTrue(articlePage.isLast());
+        assertFalse(articlePage.isFirst());
+    }
+
+    @Test
+    public void testSearchArticlesOnlyOnStock() {
+        Page<Article> articlePage = articleDao.search(new PageRequest(1, 4), null, null, null, null, true);
+        assertNotNull(articlePage);
+        assertEquals(0, articlePage.getTotalElements());
+        assertFalse(articlePage.hasContent());
+        assertEquals(0, articlePage.getTotalPages());
     }
 
     @Test
