@@ -10,7 +10,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
-import api.exceptions.AlreadyExistEmbroideryException;
+import api.exceptions.AlreadyExistProductException;
 import daos.core.EmbroideryDao;
 import entities.core.Embroidery;
 import wrappers.EmbroideryWrapper;
@@ -47,11 +47,11 @@ public class EmbroideryController {
 
     }
 
-    public void add(EmbroideryWrapper embroideryWrapper) throws AlreadyExistEmbroideryException {
+    public void add(EmbroideryWrapper embroideryWrapper) throws AlreadyExistProductException {
 
         Embroidery embroideryDB = embroideryDao.findOne(embroideryWrapper.getId());
         if (embroideryDB != null) {
-            throw new AlreadyExistEmbroideryException();
+            throw new AlreadyExistProductException();
         } else {
             Embroidery embroidery = new Embroidery(embroideryWrapper.getId(), embroideryWrapper.getReference(),
                     embroideryWrapper.getRetailPrice(), embroideryWrapper.getDescription(), embroideryWrapper.getStitches(),

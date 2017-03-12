@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import api.exceptions.AlreadyExistTextilePrintingException;
+import api.exceptions.AlreadyExistProductException;
 import controllers.TextilePrintingController;
 import wrappers.TextilePrintingWrapper;
 
@@ -34,7 +34,7 @@ public class TextilePrintingResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void add(@RequestBody TextilePrintingWrapper textilePrintingWrapper) throws AlreadyExistTextilePrintingException {
+    public void add(@RequestBody TextilePrintingWrapper textilePrintingWrapper) throws AlreadyExistProductException {
         this.textilePrintingController.add(textilePrintingWrapper);
     }
 

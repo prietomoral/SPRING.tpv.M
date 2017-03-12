@@ -10,7 +10,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
-import api.exceptions.AlreadyExistTextilePrintingException;
+import api.exceptions.AlreadyExistProductException;
 import daos.core.TextilePrintingDao;
 import entities.core.TextilePrinting;
 import wrappers.TextilePrintingWrapper;
@@ -42,10 +42,10 @@ public class TextilePrintingController {
         return listTextilePrintingWrapper;
     }
 
-    public void add(TextilePrintingWrapper textilePrintingWrapper) throws AlreadyExistTextilePrintingException {
+    public void add(TextilePrintingWrapper textilePrintingWrapper) throws AlreadyExistProductException {
         TextilePrinting textilePrintingDB = textilePrintingDao.findOne(textilePrintingWrapper.getId());
         if (textilePrintingDB != null) {
-            throw new AlreadyExistTextilePrintingException();
+            throw new AlreadyExistProductException();
         } else {
             TextilePrinting textilePrinting = new TextilePrinting(textilePrintingWrapper.getId(), textilePrintingWrapper.getReference(),
                     textilePrintingWrapper.getRetailPrice(), textilePrintingWrapper.getDescription(), textilePrintingWrapper.getType());
