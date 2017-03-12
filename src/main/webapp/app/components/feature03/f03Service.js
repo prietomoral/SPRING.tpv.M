@@ -64,7 +64,7 @@ function f03Service($http, $q) {
      function listAllTextilePrinting() {
     	 return $http({
     		 method: 'GET',
-    		 url: urlBase + '/textileprinting'
+    		 url: urlBase + '/textileprintings'
     	 }).then(function successCallback(response) {
     		 return response.data;
     	 }, function errorCallback(response) {
@@ -75,7 +75,7 @@ function f03Service($http, $q) {
      function addTextilePrinting(textilePrinting) {
    	    return $http({
    	      method: 'POST',
-   	      url: urlBase + '/textileprinting',
+   	      url: urlBase + '/textileprintings',
    	      data:{
    	    	  'id': textilePrinting.id,
    	    	  'description': textilePrinting.description,
@@ -93,7 +93,7 @@ function f03Service($http, $q) {
      function deleteOneTextilePrinting(id) {
     	 return $http({
     		 method: 'DELETE',
-    		 url: urlBase + '/textileprinting/'+id
+    		 url: urlBase + '/textileprintings/'+id
     	 }).then(function successCallback(response) {
     		 return response.data;
     	 }, function errorCallback(response) {

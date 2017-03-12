@@ -1,4 +1,4 @@
-tpv.controller('listTextilePrintingController', ['f03Service', listTextilePrintingController, 'Alertify']);
+tpv.controller('listTextilePrintingController', listTextilePrintingController, 'Alertify');
 
 function listTextilePrintingController(f03Service, Alertify) {
   'use strict';
