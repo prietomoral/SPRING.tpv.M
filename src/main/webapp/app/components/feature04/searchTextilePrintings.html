@@ -6,17 +6,17 @@
 	    <div class="panel-heading clickable" ng-click="vm.onClickAdvancedSearch()">
 	       Advanced search
 	       <div class="pull-right">
-		       <div ng-show="vm.searchVisibility">
+		       <div ng-show="vm.advancedSearchVisibility">
 		           Hide filters
 		           <span class="glyphicon glyphicon-chevron-up"></span>
 		       </div>
-		       <div ng-hide="vm.searchVisibility">
+		       <div ng-hide="vm.advancedSearchVisibility">
 		           Show filters
 		           <span class="glyphicon glyphicon-chevron-down"></span>
 		       </div>
 	       </div>
 	    </div>
-		<div class="panel-body" ng-show="vm.searchVisibility">
+		<div class="panel-body" ng-show="vm.advancedSearchVisibility">
             <div class="row">
 			    <div class="col-lg-4">
 			        <div class="form-group">
@@ -85,7 +85,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="textilePrinting in textilePrintingsFiltered = (vm.textilePrintings | orderBy:vm.sortType:vm.sortReverse | filter:search | filter:vm.filterExactRetailPrice | filter:vm.filterRetailPrice)">
+                    <tr ng-repeat="textilePrinting in vm.textilePrintings">
                         <td>{{textilePrinting.reference}}</td>
                         <td>{{textilePrinting.description}}</td>
                         <td>{{textilePrinting.retailPrice}}</td>
@@ -93,10 +93,37 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="panel" ng-hide="textilePrintingsFiltered.length">
+            <div class="panel" ng-hide="vm.textilePrintings.length > 0">
                 <div class="panel-body">
                     No textile printings found with this data
                 </div>
+            </div>
+            <div class="panel" ng-hide="!vm.loading">
+                <div class="panel-body">
+                    Loading...
+                </div>
+            </div>
+            <div class="panel" ng-show="vm.error">
+                <div class="panel-body">
+                    Error loading textile printings
+                </div>
+            </div>
+        </div>
+        <div class="panel" ng-show="vm.textilePrintings.length > 0">
+            <div class="panel-body center">
+                <paging
+                    class="small"
+                    page="vm.pageNumber + 1" 
+                    page-size="vm.pageSize" 
+                    total="vm.totalTextilePrintings"
+                    show-prev-next="true"
+                    show-first-last="true"
+                    text-next-class="glyphicon glyphicon-chevron-right"
+                    text-prev-class="glyphicon glyphicon-chevron-left"
+                    text-first-class="glyphicon glyphicon-backward"
+                    text-last-class="glyphicon glyphicon-forward"
+                    paging-action="vm.changeToPage(page - 1)">
+                </paging>   
             </div>
         </div>
     </div>
