@@ -133,11 +133,26 @@ public class ProductDaoIT {
     }
 
     @Test
-    public void testSearchTextilePrintings() {
-        Page<TextilePrinting> textilePrintingPage = textilePrintingDao.search(new PageRequest(1, 2));
+    public void testSearchTextilePrintingsWithoutParameters() {
+        Page<TextilePrinting> textilePrintingPage = textilePrintingDao.search(new PageRequest(1, 2), null, null, null, null, null);
         assertNotNull(textilePrintingPage);
         assertTrue(textilePrintingPage.getNumberOfElements() > 0);
         assertEquals(4, textilePrintingPage.getTotalElements());
+        assertEquals(1, textilePrintingPage.getNumber());
+        assertTrue(textilePrintingPage.hasContent());
+        assertEquals("textilePrinting2", textilePrintingPage.getContent().get(0).getReference());
+        assertEquals(2, textilePrintingPage.getTotalPages());
+        assertTrue(textilePrintingPage.isLast());
+        assertFalse(textilePrintingPage.isFirst());
+    }
+
+    @Test
+    public void testSearchTextilePrintingsWithParameters() {
+        Page<TextilePrinting> textilePrintingPage = textilePrintingDao.search(new PageRequest(1, 2), null, "textileprinting",
+                new BigDecimal(20), new BigDecimal(22), "ploter");
+        assertNotNull(textilePrintingPage);
+        assertTrue(textilePrintingPage.getNumberOfElements() > 0);
+        assertEquals(3, textilePrintingPage.getTotalElements());
         assertEquals(1, textilePrintingPage.getNumber());
         assertTrue(textilePrintingPage.hasContent());
         assertEquals("textilePrinting2", textilePrintingPage.getContent().get(0).getReference());
