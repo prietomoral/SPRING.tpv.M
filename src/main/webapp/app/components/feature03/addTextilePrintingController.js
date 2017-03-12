@@ -12,7 +12,7 @@ function addTextilePrintingController(f03Service, Alertify) {
 	        Alertify.success("The textile printing has been created successfully!");
         },
 	    function error(errors){
-	      Alertify.error("This textile printing already exist");
+	      Alertify.error("A product with this Id already exist");
 	    });
   }
 	  
