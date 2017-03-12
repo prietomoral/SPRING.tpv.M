@@ -33,21 +33,21 @@ tpv.controller('SearchEmbroideriesController', function($route, f04Service) {
 	loadEmbroideries();
 	
 	function loadEmbroideries(){
-		f04Service.getEmbroideries(vm.pageNumber, vm.pageSize).then((result) => {
+		f04Service.getEmbroideries(vm.pageNumber, vm.pageSize).then(result => {
 			vm.loading = false;
 			vm.embroideries = result.content;
 			vm.pageNumber = result.number;
 			vm.totalEmbroideries = result.totalElements;
 			vm.pageSize = result.size;
 			vm.error = false;
-		}, (errors) => {
+		}, errors => {
 			vm.loading = false;
 			vm.errors = errors;
 			vm.error = true;
 		});
 	}
 	
-	vm.changeToPage = (pageNumber) => {
+	vm.changeToPage = pageNumber => {
 		vm.pageNumber = pageNumber;
 		loadEmbroideries();
 	}
