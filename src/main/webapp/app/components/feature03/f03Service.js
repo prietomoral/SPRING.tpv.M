@@ -7,10 +7,11 @@ function f03Service($http, $q) {
      var feature03Service = {
     		 listAllEmbroideries: listAllEmbroideries,
     		 listAllTextilePrinting: listAllTextilePrinting,
+    		 listAllArticles: listAllArticles,
     		 createEmbroidery:createEmbroidery,
     		 addTextilePrinting: addTextilePrinting,
-    		 listAllArticles: listAllArticles,
-    		 deleteOneEmbroidery:deleteOneEmbroidery
+    		 deleteOneEmbroidery:deleteOneEmbroidery,
+    		 deleteOneTextilePrinting: deleteOneTextilePrinting
      };
 
      return feature03Service;
@@ -31,7 +32,15 @@ function f03Service($http, $q) {
  	    return $http({
  	      method: 'POST',
  	      url: urlBase + '/embroideries',
- 	      data:{'id': embroidery.id, 'reference':embroidery.reference , 'description': embroidery.description,'retailPrice':embroidery.price,'stitches':embroidery.stitches,'colors':embroidery.colors,'squareMillimeters':embroidery.millimiters}
+ 	      data:{
+ 	    	  'id': embroidery.id, 
+ 	    	  'reference':embroidery.reference, 
+ 	    	  'description': embroidery.description,
+ 	    	  'retailPrice':embroidery.price,
+ 	    	  'stitches':embroidery.stitches,
+ 	    	  'colors':embroidery.colors,
+ 	    	  'squareMillimeters':embroidery.millimiters
+ 	    	  }
  	    }).then(function successCallback(response) {
  	        return response.data;
  	      }, function errorCallback(response) {
@@ -80,6 +89,17 @@ function f03Service($http, $q) {
    	        return $q.reject(response);
    	      });
    	  }
+     
+     function deleteOneTextilePrinting(id) {
+    	 return $http({
+    		 method: 'DELETE',
+    		 url: urlBase + '/textileprinting/'+id
+    	 }).then(function successCallback(response) {
+    		 return response.data;
+    	 }, function errorCallback(response) {
+    		 return $q.reject(response);
+    	 });
+     }
 
 	 function listAllArticles() {
 		return $http({

@@ -1,4 +1,4 @@
-tpv.controller('listEmbroideryController', listEmbroideryController,'Alertify');
+tpv.controller('listEmbroideryController', listEmbroideryController, 'Alertify');
 
 function listEmbroideryController(f03Service,Alertify) {
   'use strict';
@@ -15,18 +15,16 @@ function listEmbroideryController(f03Service,Alertify) {
       console.log(errors);
     });
   }
-  
-  
-  
+ 
   function deleteEmbroidery(id){
-	  f03Service.deleteOneEmbroidery(id).then(function success(response){
-		  Alertify.success("Deleted Embroidery");
-		  initList();
-	  },
-	  function error(errors){
-		  Alertify.error("Not exist Embroidery");
-  });
-}
+		  f03Service.deleteOneEmbroidery(id).then(function success(response){
+			  Alertify.success("The embroidery has been deleted successfully.");
+			  initList();
+		  },
+		  function error(errors){
+			  Alertify.error("The embroidery has not been deleted successfully.");
+	  });
+   }
 	  
 }
 

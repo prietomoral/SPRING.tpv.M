@@ -2,7 +2,7 @@ package api.exceptions;
 
 public class AlreadyExistEmbroideryException extends ApiException{
     
-    private static final long serialVersionUID = -1344640670884805385L;
+    private static final long serialVersionUID = -1344640670884805485L;
 
     public static final String DESCRIPTION = "Embroidery ya existe!";
 
