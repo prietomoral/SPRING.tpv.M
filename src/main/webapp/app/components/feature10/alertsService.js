@@ -5,7 +5,8 @@ function AlertsService($http, APP, $q) {
   'use strict';
   var alertService = {
     getAll: getAll,
-    getAlert: getAlert
+    getAlert: getAlert,
+    createAlert: createAlert
   };
 
   return alertService;
@@ -31,4 +32,17 @@ function AlertsService($http, APP, $q) {
         return $q.reject(response);
       });
   }
+  function createAlert(alert) {
+	    return $http({
+	      method: 'POST',
+	      url: APP.apiUrl + '/alerts',
+	      data:{'warning': alert.warning,
+              'critical': alert.critical,
+              'product_id': alert.product_id}
+	    }).then(function successCallback(response) {
+	        return response.data;
+	      }, function errorCallback(response) {
+	        return $q.reject(response);
+	      });
+	  }
 }

@@ -1,5 +1,7 @@
 package api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +27,11 @@ public class ArticleResource {
     public Page<ArticleWrapper> search(Pageable pageable) {
         Page<ArticleWrapper> page = articleController.search(pageable);
         return page;
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public List<ArticleWrapper> getAll() {
+        return articleController.getAll();
     }
 
 }
