@@ -1,6 +1,6 @@
 package api.exceptions;
 
-public class AlreadyExistEmbroideryException extends ApiException{
+public class AlreadyExistProductException extends ApiException{
     
     private static final long serialVersionUID = -1344640670884805485L;
 
@@ -8,11 +8,11 @@ public class AlreadyExistEmbroideryException extends ApiException{
 
     public static final int CODE = 1;
 
-    public AlreadyExistEmbroideryException() {
+    public AlreadyExistProductException() {
         this("");
     }
 
-    public AlreadyExistEmbroideryException(String detail) {
+    public AlreadyExistProductException(String detail) {
         super(DESCRIPTION + ". " + detail, CODE);
     }
 

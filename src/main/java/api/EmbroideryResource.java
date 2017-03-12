@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import api.exceptions.AlreadyExistEmbroideryException;
+import api.exceptions.AlreadyExistProductException;
 import controllers.EmbroideryController;
 import wrappers.EmbroideryWrapper;
 
@@ -48,7 +48,7 @@ public class EmbroideryResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void add(@RequestBody EmbroideryWrapper embroideryWrapper) throws AlreadyExistEmbroideryException {
+    public void add(@RequestBody EmbroideryWrapper embroideryWrapper) throws AlreadyExistProductException {
         this.embroideryController.add(embroideryWrapper);
     }
 
