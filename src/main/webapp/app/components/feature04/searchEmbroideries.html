@@ -6,17 +6,17 @@
 	    <div class="panel-heading clickable" ng-click="vm.onClickAdvancedSearch()">
 	       Advanced search
 	       <div class="pull-right">
-		       <div ng-show="vm.searchVisibility">
+		       <div ng-show="vm.advancedSearchVisibility">
 		           Hide filters
 		           <span class="glyphicon glyphicon-chevron-up"></span>
 		       </div>
-		       <div ng-hide="vm.searchVisibility">
+		       <div ng-hide="vm.advancedSearchVisibility">
 		           Show filters
 		           <span class="glyphicon glyphicon-chevron-down"></span>
 		       </div>
 	       </div>
 	    </div>
-		<div class="panel-body" ng-show="vm.searchVisibility">
+		<div class="panel-body" ng-show="vm.advancedSearchVisibility">
             <div class="row">
 			    <div class="col-lg-4">
 			        <div class="form-group">
@@ -134,7 +134,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="embroidery in embroideriesFiltered = (vm.embroideries | orderBy:vm.sortType:vm.sortReverse | filter:search | filter:vm.filterExactRetailPrice | filter:vm.filterRetailPrice | filter:vm.filterExactStitches | filter:vm.filterStitches | filter:vm.filterExactColors |filter:vm.filterColors | filter:vm.filterExactSquareMillimeters | filter:vm.filterSquareMillimeters)">
+                    <tr ng-repeat="embroidery in vm.embroideries">
                         <td>{{embroidery.reference}}</td>
                         <td>{{embroidery.description}}</td>
                         <td>{{embroidery.retailPrice}}</td>
@@ -144,10 +144,37 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="panel" ng-hide="embroideriesFiltered.length">
+            <div class="panel" ng-hide="vm.embroideries.length > 0">
                 <div class="panel-body">
                     No embroideries found with this data
                 </div>
+            </div>
+            <div class="panel" ng-hide="!vm.loading">
+                <div class="panel-body">
+                    Loading...
+                </div>
+            </div>
+            <div class="panel" ng-show="vm.error">
+                <div class="panel-body">
+                    Error loading embroideries
+                </div>
+            </div>
+        </div>
+        <div class="panel" ng-show="vm.embroideries.length>0">
+            <div class="panel-body center">
+                <paging
+                    class="small"
+                    page="vm.pageNumber + 1" 
+                    page-size="vm.pageSize" 
+                    total="vm.totalEmbroideries"
+                    show-prev-next="true"
+                    show-first-last="true"
+                    text-next-class="glyphicon glyphicon-chevron-right"
+                    text-prev-class="glyphicon glyphicon-chevron-left"
+                    text-first-class="glyphicon glyphicon-backward"
+                    text-last-class="glyphicon glyphicon-forward"
+                    paging-action="vm.changeToPage(page - 1)">
+                </paging>   
             </div>
         </div>
     </div>

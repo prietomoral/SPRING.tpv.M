@@ -1,7 +1,20 @@
 
-tpv.controller('AlertsNewController', AlertsNewController);
+tpv.controller('AlertsNewController', ['AlertsService', 'Alertify', 'articles', AlertsNewController]);
 
-function AlertsNewController() {
+function AlertsNewController(AlertsService, Alertify, articles) {
   'use strict';
   var vm = this;
+  vm.createAlert = createAlert;
+  vm.articles = articles;
+
+  function createAlert(){
+    vm.alert.product_id = vm.selectedArticle.originalObject.id;
+    AlertsService.createAlert(vm.alert).then(function success(response){
+      vm.data = response;
+    },
+    function error(errors){
+      Alertify.error(errors.data.description);
+    });
+  }
+
 }

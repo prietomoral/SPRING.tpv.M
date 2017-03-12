@@ -6,17 +6,17 @@
 	    <div class="panel-heading clickable" ng-click="vm.onClickAdvancedSearch()">
 	       Advanced search
 	       <div class="pull-right">
-		       <div ng-show="vm.searchVisibility">
+		       <div ng-show="vm.advancedSearchVisibility">
 		           Hide filters
 		           <span class="glyphicon glyphicon-chevron-up"></span>
 		       </div>
-		       <div ng-hide="vm.searchVisibility">
+		       <div ng-hide="vm.advancedSearchVisibility">
 		           Show filters
 		           <span class="glyphicon glyphicon-chevron-down"></span>
 		       </div>
 	       </div>
 	    </div>
-		<div class="panel-body" ng-show="vm.searchVisibility">
+		<div class="panel-body" ng-show="vm.advancedSearchVisibility">
 		    <div class="row">
 			    <div class="col-lg-4">
 			        <div class="form-group">
@@ -43,10 +43,6 @@
 			</div>
 		    <div class="row">
 		        <div class="col-lg-4">
-                    <div class="form-group">
-                        <label for="companyInput">Search by provider name</label>
-                        <input ng-model="search.provider.company" id="companyInput" placeholder="Gildan" class="form-control">
-                    </div>
 					<div class="form-group">
 			            <div class="checkbox">
 			                <label>
@@ -59,22 +55,6 @@
 					   Clear filters
 					</button>
 		        </div>
-		        <div class="col-lg-8">
-		            <div class="row">
-			            <div class="form-group col-lg-4">
-			                <label for="exactWholesalePriceInput">Exact wholesale price</label>
-			                <input ng-model="vm.exactWholesalePrice" type="number" min="0" step="0.01" id="exactWholesalePriceInput" class="form-control">
-			            </div>
-			            <div class="form-group col-lg-4">
-			                <label for="minWholesalePriceInput">Min wholesale price</label>
-			                <input ng-model="vm.minWholesalePrice" type="number" min="0" step="0.01" id="minWholesalePriceInput" class="form-control">
-			            </div>
-			            <div class="form-group col-lg-4">
-			                <label for="maxWholesalePriceInput">Max wholesale price</label>
-			                <input ng-model="vm.maxWholesalePrice" type="number" min="0" step="0.01" id="maxWholesalePriceInput" class="form-control">
-			            </div>
-		            </div>
-		        </div> 
 		    </div>
 	    </div>
     </div>
@@ -99,16 +79,6 @@
                             <span ng-show="vm.sortType=='retailPrice' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
                             <span ng-show="vm.sortType=='retailPrice' && !vm.sortReverse" class="glyphicon glyphicon-triangle-top text-primary"></span>
                         </th>
-                        <th class="clickable" ng-click="vm.sortType='wholesalePrice'; vm.sortReverse = !vm.sortReverse">
-                            Wholesale price
-                            <span ng-show="vm.sortType=='wholesalePrice' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
-                            <span ng-show="vm.sortType=='wholesalePrice' && !vm.sortReverse" class="glyphicon glyphicon-triangle-top text-primary"></span>
-                        </th>
-                        <th class="clickable" ng-click="vm.sortType='provider.company'; vm.sortReverse = !vm.sortReverse">
-                            Provider
-                            <span ng-show="vm.sortType=='provider.company' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
-                            <span ng-show="vm.sortType=='provider.company' && !vm.sortReverse" class="glyphicon glyphicon-triangle-top text-primary"></span>
-                        </th>
                         <th class="clickable" ng-click="vm.sortType='stock'; vm.sortReverse = !vm.sortReverse">
                             Stock
                             <span ng-show="vm.sortType=='stock' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
@@ -117,20 +87,45 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="article in articlesFiltered = (vm.articles | orderBy:vm.sortType:vm.sortReverse | filter:search | filter:vm.filterExactRetailPrice | filter:vm.filterRetailPrice | filter:vm.filterOnStock | filter:vm.filterWholesalePrice | filter: vm.filterExactWholesalePrice)">
+                <tr ng-repeat="article in vm.articles">
                         <td>{{article.reference}}</td>
                         <td>{{article.description}}</td>
                         <td>{{article.retailPrice}}</td>
-                        <td>{{article.wholesalePrice}}</td>
-                        <td>{{article.provider.company}}</td>
                         <td>{{article.stock}}</td>
                     </tr>
                 </tbody>
             </table>
-            <div class="panel" ng-hide="articlesFiltered.length">
+            <div class="panel" ng-hide="vm.articles.length > 0">
                 <div class="panel-body">
                     No products found with this data
                 </div>
+            </div>
+            <div class="panel" ng-hide="!vm.loading">
+                <div class="panel-body">
+                    Loading...
+                </div>
+            </div>
+            <div class="panel" ng-show="vm.error">
+                <div class="panel-body">
+                    Error loading articles
+                </div>
+            </div>
+        </div>
+        <div class="panel" ng-show="vm.articles.length>0">
+            <div class="panel-body center">
+                <paging
+				    class="small"
+				    page="vm.pageNumber + 1" 
+				    page-size="vm.pageSize" 
+				    total="vm.totalArticles"
+				    show-prev-next="true"
+				    show-first-last="true"
+				    text-next-class="glyphicon glyphicon-chevron-right"
+				    text-prev-class="glyphicon glyphicon-chevron-left"
+				    text-first-class="glyphicon glyphicon-backward"
+				    text-last-class="glyphicon glyphicon-forward"
+				    paging-action="vm.changeToPage(page - 1)">
+                </paging>   
             </div>
         </div>
     </div>

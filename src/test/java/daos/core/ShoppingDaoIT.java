@@ -36,4 +36,22 @@ public class ShoppingDaoIT {
         }
        assertTrue(shoppings.size()>0);
     }
+    
+    @Test
+    public void testFindTotalSoldsProducts(){
+        List<Object[]> mostSoldProducts=shoppingDao.findTotalSoldsProducts();
+        for(Object[] s: mostSoldProducts){
+            System.out.println(s[0]+" Descripcion: "+s[1]+" Cantidad total: "+s[2]);
+        }
+        assertTrue(mostSoldProducts.size()>0);
+    }
+    /*
+    @Test
+    public void testFindTotalSoldsProductsFormat(){
+        List<SemiWrapperStatisticShopping> mostSoldProducts=shoppingDao.findTotalSoldsProductsFormat();
+        for(SemiWrapperStatisticShopping s: mostSoldProducts){
+            System.out.println("Con clase Wrapper: idProduct "+s.getIdProduct()+" Descripcion: "+s.getDescription()+" Cantidad total: "+s.getTotalAmountSold());
+        }
+        assertTrue(mostSoldProducts.size()>0);
+    }*/
 }

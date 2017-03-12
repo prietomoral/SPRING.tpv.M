@@ -1,4 +1,7 @@
-var tpv = angular.module("tpv", ["ngRoute"]);
+var tpv = angular.module("tpv", ["ngRoute",
+                                 'bw.paging',
+                                 "Alertify",
+                                 "angucomplete"]);
 
 tpv.config(function ($routeProvider) {
     "use strict";
@@ -26,14 +29,29 @@ tpv.config(function ($routeProvider) {
             controller: "DeleteAllController",
             controllerAs: "vm"
         })
+        .when("/feature02/create-provider", {
+            templateUrl: "app/components/feature02/createProvider.html",
+            controller: "CreateProviderController",
+            controllerAs: "vm"
+        })
         .when("/feature03/list-embroidery", {
             templateUrl: "app/components/feature03/indexEmbroidery.html",
-            controller: "EmbroideryController",
+            controller: "listEmbroideryController",
+            controllerAs: "vm"
+        })
+        .when("/feature03/new-embroidery", {
+            templateUrl: "app/components/feature03/newEmbroidery.html",
+            controller: "addEmbroideryController",
             controllerAs: "vm"
         })
         .when("/feature03/list-textile-printing", {
             templateUrl: "app/components/feature03/indexTextilePrinting.html",
-            controller: "TextilePrintinController",
+            controller: "listTextilePrintingController",
+            controllerAs: "vm"
+        })
+        .when("/feature03/create-textile-printing", {
+            templateUrl: "app/components/feature03/newTextilePrinting.html",
+            controller: "addTextilePrintingController",
             controllerAs: "vm"
         })
         .when("/feature04/search-articles", {
@@ -61,7 +79,7 @@ tpv.config(function ($routeProvider) {
             controller: "AlertsController",
             controllerAs: "vm"
         })
-        .when("/feature10/:id", {
+        .when("/feature10/:id/show", {
             templateUrl: "app/components/feature10/show.html",
             controller: "AlertsShowController",
             controllerAs: "vm"
@@ -69,9 +87,21 @@ tpv.config(function ($routeProvider) {
         .when("/feature10/new", {
             templateUrl: "app/components/feature10/new.html",
             controller: "AlertsNewController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+            resolve: {
+              articles: function(f03Service, $location, Alertify){
+                return f03Service.listAllArticles().then(function success(response){
+                  if (response.length === 0) {
+                    $location.url('/feature10');
+                    Alertify.log('No existen artículos.\nNecesitas crear uno antes de crear alertas');
+                  }else{
+                    return response;
+                  }
+                });
+              }
+            }
         })
-        .when("/feature10/edit/:id", {
+        .when("/feature10/:id/edit", {
             templateUrl: "app/components/feature10/edit.html",
             controller: "AlertsEditController",
             controllerAs: "vm"

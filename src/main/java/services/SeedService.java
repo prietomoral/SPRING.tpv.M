@@ -1,12 +1,13 @@
 package services;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.yaml.snakeyaml.Yaml;
 
@@ -16,17 +17,18 @@ import entities.core.TextilePrinting;
 @Transactional
 public class SeedService {
 
+    @Autowired
     private Yaml yamlParser;
 
-    private static final String PRODUCT_YAML = "src/main/resources/META-INF/product.yml";
+    @Autowired
+    private ApplicationContext appContext;
 
-    public SeedService() {
-        this.yamlParser = new Yaml();
-    }
+    private static final String YAML_FILES_ROOT = "classpath:META-INF/";
 
-    public TextilePrinting parseYaml() throws FileNotFoundException {
-        InputStream input = new FileInputStream(new File(PRODUCT_YAML));
-        TextilePrinting textilePrinting = (TextilePrinting) yamlParser.loadAs(input, TextilePrinting.class);
+    public TextilePrinting parseYaml(String fileName) throws IOException {
+        Resource resource = appContext.getResource(YAML_FILES_ROOT + fileName);
+        InputStream input = resource.getInputStream();
+        TextilePrinting textilePrinting = (TextilePrinting) yamlParser.load(input);
         return textilePrinting;
     }
 
