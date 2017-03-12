@@ -4,7 +4,7 @@ public class AlreadyExistProductException extends ApiException{
     
     private static final long serialVersionUID = -1344640670884805485L;
 
-    public static final String DESCRIPTION = "Embroidery ya existe!";
+    public static final String DESCRIPTION = "producto ya existe!";
 
     public static final int CODE = 1;
 
