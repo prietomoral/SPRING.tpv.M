@@ -24,6 +24,7 @@ tpv.service('f08Service', ['$http', '$q', function ($http, $q) {
 	   let config = {
 			   method: 'POST',
 			   url: urlBase+"/invoices",
+			   data:{'id_ticket': id_ticket}
 	   };
 	  return this.request(config);
   }
