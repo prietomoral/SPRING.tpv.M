@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import daos.core.ProviderDao;
 import entities.core.Provider;
 import wrappers.ProviderAddWrapper;
+import wrappers.ProviderWrapper;
 
 @Controller
 public class ProviderController {

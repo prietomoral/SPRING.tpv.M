@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import controllers.ProviderController;
 import wrappers.ProviderAddWrapper;
+import wrappers.ProviderWrapper;
 
 @RestController
 @RequestMapping(Uris.VERSION + Uris.PROVIDERS)
