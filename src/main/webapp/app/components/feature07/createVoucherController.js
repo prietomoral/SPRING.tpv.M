@@ -4,5 +4,10 @@ tpv.controller('CreateVoucherController', [ 'f07Service',
 		var vm = this;
 				
 	
+		vm.create = create;
+		
+		function create(){
+			alert(vm.value);
+		}
 	} 
 ]);

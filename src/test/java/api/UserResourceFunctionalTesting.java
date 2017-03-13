@@ -5,7 +5,9 @@ import static org.junit.Assert.fail;
 
 import org.apache.logging.log4j.LogManager;
 import org.junit.After;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -13,6 +15,9 @@ import api.Uris;
 import wrappers.UserWrapper;
 
 public class UserResourceFunctionalTesting {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void testCreateManager() {
@@ -24,7 +29,7 @@ public class UserResourceFunctionalTesting {
     }
 
     @Test
-    public void testCreateManagerUnauthorized() {
+    public void testCreateManagerUnauthorized2() {
         try {
             new RestBuilder<Object>(RestService.URL).path(Uris.USERS).body(new UserWrapper(667000000, "user", "pass")).post().build();
             fail();
@@ -35,6 +40,13 @@ public class UserResourceFunctionalTesting {
         }
     }
 
+    @Test
+    public void testCreateManagerUnauthorized() {
+        thrown.expect(new HttpMatcher(HttpStatus.UNAUTHORIZED));
+        new RestBuilder<Object>(RestService.URL).path(Uris.USERS).body(new UserWrapper(667000000, "user", "pass")).post().build();
+    }
+    
+    
     @Test
     public void testBadRequestCreate() {
         String token = new RestService().loginAdmin();

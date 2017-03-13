@@ -2,10 +2,11 @@ package wrappers;
 
 import java.math.BigDecimal;
 
+import entities.core.Article;
+
 public class ArticleWrapper extends ProductWrapper {
 
     private int stock;
-
 
     public ArticleWrapper() {
 
@@ -14,6 +15,11 @@ public class ArticleWrapper extends ProductWrapper {
     public ArticleWrapper(long id, String reference, String description, BigDecimal retailPrice, int stock) {
         super(id, reference, description, retailPrice);
         this.stock = stock;
+    }
+
+    public ArticleWrapper(Article article) {
+        super(article);
+        this.stock = article.getStock();
     }
 
     public int getStock() {

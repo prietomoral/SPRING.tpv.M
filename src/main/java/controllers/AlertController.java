@@ -66,4 +66,18 @@ public class AlertController {
         }
     }
 
+    public void delete(int id) {
+        Alert alert = alertDao.findOne(id);
+        alertDao.delete(alert);
+    }
+
+    public void edit(int id, AlertWrapperCreate alertWrapperCreate) {
+        Alert alert = alertDao.findOne(id);
+        Article article = articleDao.findOne(alertWrapperCreate.getProduct_id());
+        alert.setArticle(article);
+        alert.setWarning(alertWrapperCreate.getWarning());
+        alert.setCritical(alertWrapperCreate.getCritical());
+        alertDao.save(alert);
+    }
+
 }
