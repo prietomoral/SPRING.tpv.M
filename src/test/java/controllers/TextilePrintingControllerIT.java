@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -29,8 +30,8 @@ public class TextilePrintingControllerIT {
 
     @Test
     public void testSearchWithoutParameters() {
-        Page<TextilePrintingWrapper> textilePrintingPage = textilePrintingController.search(new PageRequest(1, 2), null, null, null, null,
-                null);
+        Page<TextilePrintingWrapper> textilePrintingPage = textilePrintingController
+                .search(new PageRequest(1, 2, Direction.ASC, "retailPrice"), null, null, null, null, null);
         assertNotNull(textilePrintingPage);
         assertTrue(textilePrintingPage.getNumberOfElements() > 0);
         assertEquals(4, textilePrintingPage.getTotalElements());
@@ -44,14 +45,15 @@ public class TextilePrintingControllerIT {
 
     @Test
     public void testSearchWithParameters() {
-        Page<TextilePrintingWrapper> textilePrintingPage = textilePrintingController.search(new PageRequest(1, 2), null, "textileprinting",
-                new BigDecimal(20), new BigDecimal(22), "ploter");
+        Page<TextilePrintingWrapper> textilePrintingPage = textilePrintingController.search(
+                new PageRequest(1, 2, Direction.DESC, "retailPrice"), null, "textileprinting", new BigDecimal(20), new BigDecimal(22),
+                "ploter");
         assertNotNull(textilePrintingPage);
         assertTrue(textilePrintingPage.getNumberOfElements() > 0);
         assertEquals(3, textilePrintingPage.getTotalElements());
         assertEquals(1, textilePrintingPage.getNumber());
         assertTrue(textilePrintingPage.hasContent());
-        assertEquals("textilePrinting2", textilePrintingPage.getContent().get(0).getReference());
+        assertEquals("textilePrinting0", textilePrintingPage.getContent().get(0).getReference());
         assertEquals(2, textilePrintingPage.getTotalPages());
         assertTrue(textilePrintingPage.isLast());
         assertFalse(textilePrintingPage.isFirst());
