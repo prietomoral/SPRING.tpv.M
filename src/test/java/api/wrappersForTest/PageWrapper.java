@@ -1,5 +1,6 @@
 package api.wrappersForTest;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 
 public abstract class PageWrapper {
@@ -23,21 +24,15 @@ public abstract class PageWrapper {
     public PageWrapper() {
     }
 
-    public PageWrapper(int numberOfElements, int number, int size, Sort sort, long totalElements, int totalPages) {
-        this.number = number;
-        this.numberOfElements = numberOfElements;
-        this.size = size;
-        this.sort = sort;
-        this.totalElements = totalElements;
-        this.totalPages = totalPages;
-        this.first = false;
-        this.last = false;
-        if (number == 0) {
-            this.first = true;
-        }
-        if (number == totalPages - 1 || totalPages == 0) {
-            this.last = true;
-        }
+    public PageWrapper(Page<?> page) {
+        this.number = page.getNumber();
+        this.numberOfElements = page.getNumberOfElements();
+        this.size = page.getSize();
+        this.sort = page.getSort();
+        this.totalElements = page.getTotalElements();
+        this.totalPages = page.getTotalPages();
+        this.first = page.isFirst();
+        this.last = page.isLast();
     }
 
     public boolean isFirst() {

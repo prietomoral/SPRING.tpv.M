@@ -2,58 +2,83 @@ tpv.controller('SearchEmbroideriesController', function($route, f04Service) {
 	"use strict";
 	
 	var vm = this;
-	
-	vm.loading = true;
-	
-	vm.pageNumber = 0;
-	vm.pageSize = 3;
-	vm.totalEmbroideries = 0;
-	
-	vm.exactRetailPrice = 0;
-	vm.minRetailPrice = 0;
-	vm.maxRetailPrice = 0;
-	vm.exactStitches = 0;
-	vm.minStitches = 0;
-	vm.maxStitches = 0;
-	vm.exactColors = 0;
-	vm.minColors = 0;
-	vm.maxColors = 0;
-	vm.exactSquareMillimeters = 0;
-	vm.minSquareMillimeters = 0;
-	vm.maxSquareMillimeters = 0;
+		
+	vm.pageInfo = {
+		pageNumber: 0,
+		pageSize: 3,
+		totalArticles: 0,
+		sortParameter: "reference",
+		sortType: "asc"
+	};
 	
 	vm.advancedSearchVisibility = false;
 	
-	vm.sortType = "reference";
-	vm.sortReverse = false;
+	vm.searchValues = {
+		reference: "",
+		description: "",
+		minRetailPrice: "",
+		maxRetailPrice: "",
+		minStitches: "",
+		maxStitches: "",
+		minColors: "",
+		maxColors: "",
+		minSquareMillimeters: "",
+		maxSquareMillimeters: ""
+	}
 	
+	vm.loading = true;
 	vm.error = false;
-	vm.errors;
+	
 	vm.embroideries = [];
 	loadEmbroideries();
 	
 	function loadEmbroideries(){
-		f04Service.getEmbroideries(vm.pageNumber, vm.pageSize).then(result => {
+		formatEmptyNumbers();
+		f04Service.getEmbroideries(vm.pageInfo, vm.searchValues).then(result => {
 			vm.loading = false;
 			vm.embroideries = result.content;
-			vm.pageNumber = result.number;
-			vm.totalEmbroideries = result.totalElements;
-			vm.pageSize = result.size;
+			vm.pageInfo.pageNumber = result.number;
+			vm.pageInfo.totalEmbroideries = result.totalElements;
+			vm.pageInfo.pageSize = result.size;
 			vm.error = false;
 		}, errors => {
 			vm.loading = false;
-			vm.errors = errors;
 			vm.error = true;
 		});
 	}
 	
+	function formatEmptyNumbers(){
+		vm.searchValues.minRetailPrice = f04Service.formatEmptyNumber(vm.searchValues.minRetailPrice);
+		vm.searchValues.maxRetailPrice = f04Service.formatEmptyNumber(vm.searchValues.maxRetailPrice);
+		vm.searchValues.minStitches = f04Service.formatEmptyNumber(vm.searchValues.minStitches);
+		vm.searchValues.maxStitches = f04Service.formatEmptyNumber(vm.searchValues.maxStitches);
+		vm.searchValues.minColors = f04Service.formatEmptyNumber(vm.searchValues.minColors);
+		vm.searchValues.maxColors = f04Service.formatEmptyNumber(vm.searchValues.maxColors);
+		vm.searchValues.minSquareMillimeters = f04Service.formatEmptyNumber(vm.searchValues.minSquareMillimeters);
+		vm.searchValues.maxSquareMillimeters = f04Service.formatEmptyNumber(vm.searchValues.maxSquareMillimeters);
+	}
+	
 	vm.changeToPage = pageNumber => {
-		vm.pageNumber = pageNumber;
+		vm.pageInfo.pageNumber = pageNumber;
 		loadEmbroideries();
 	}
 	
 	vm.onClickAdvancedSearch = () => {
 		vm.advancedSearchVisibility = !vm.advancedSearchVisibility;
+	}
+	
+	vm.onClickSearchButton = () => {
+		loadEmbroideries();
+	}
+	
+	vm.sortBy = parameter => {
+		if (vm.pageInfo.sortType == "asc" && vm.pageInfo.sortParameter == parameter) {
+			vm.pageInfo.sortType = "desc";
+		} else {
+			vm.pageInfo.sortType = "asc";
+		}
+		vm.pageInfo.sortParameter = parameter;
+		loadEmbroideries();
 	}
 	
 	vm.clearFilters = () => {

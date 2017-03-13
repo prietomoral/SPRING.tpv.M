@@ -13,7 +13,7 @@ import entities.core.Embroidery;
 
 public interface EmbroideryDao extends JpaRepository<Embroidery, Long> {
 
-    @Query("SELECT e FROM Embroidery e WHERE (:reference IS NULL OR e.reference = :reference) "
+    @Query("SELECT e FROM Embroidery e WHERE (:reference IS NULL OR :reference = '' OR e.reference = :reference) "
             + "AND (:description IS NULL OR e.description LIKE CONCAT('%',:description,'%')) "
             + "AND (:minRetailPrice IS NULL OR e.retailPrice >= :minRetailPrice) "
             + "AND (:maxRetailPrice IS NULL OR e.retailPrice <= :maxRetailPrice) "
