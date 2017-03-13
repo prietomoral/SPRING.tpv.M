@@ -46,9 +46,18 @@ public class InvoiceController {
 	    return false;
 	}
 	
+	public int getNextInvoiceId (){
+        int count = invoiceDao.findAll().size();
+        if (count == 0){
+            return 2017001;
+        }else{
+            return invoiceDao.findAll().get(count-1).getId() +1;
+        }
+    }
+	
 	public void createInvoice (IdTicketWrapper ticketWrapper){
 	    Ticket ticket = ticketDao.findById(ticketWrapper.getId());
-	    Invoice invoice = new Invoice (123, ticket);
+	    Invoice invoice = new Invoice (getNextInvoiceId(), ticket);
 	    this.invoiceDao.save(invoice);
 	}
 
