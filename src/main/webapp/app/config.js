@@ -1,7 +1,8 @@
 var tpv = angular.module("tpv", ["ngRoute",
                                  'bw.paging',
                                  "Alertify",
-                                 "angucomplete"]);
+                                 "angucomplete",
+                                 "ngMessages"]);
 
 tpv.config(function ($routeProvider) {
     "use strict";
