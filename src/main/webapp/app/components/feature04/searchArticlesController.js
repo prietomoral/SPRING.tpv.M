@@ -27,6 +27,7 @@ tpv.controller('SearchArticlesController', function($route, f04Service) {
 	loadArticles();
 	
 	function loadArticles(){
+		formatEmptyNumbers();
 		f04Service.getArticles(vm.pageNumber, vm.pageSize, vm.reference, vm.description, vm.minRetailPrice, vm.maxRetailPrice, vm.onlyOnStock).then(result => {
 			vm.loading = false;
 			vm.articles = result.content;
@@ -38,6 +39,11 @@ tpv.controller('SearchArticlesController', function($route, f04Service) {
 			vm.loading = false;
 			vm.error = true;
 		});
+	}
+	
+	function formatEmptyNumbers(){
+		vm.minRetailPrice = f04Service.formatEmptyNumber(vm.minRetailPrice);
+		vm.maxRetailPrice = f04Service.formatEmptyNumber(vm.maxRetailPrice);
 	}
 	
 	vm.changeToPage = pageNumber => {
