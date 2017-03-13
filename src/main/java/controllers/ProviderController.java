@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 
 import daos.core.ProviderDao;
 import entities.core.Provider;
-import wrappers.ProviderWrapper;
+import wrappers.ProviderAddWrapper;
 
 @Controller
 public class ProviderController {
@@ -16,7 +16,7 @@ public class ProviderController {
         this.providerDao = providerDao;
     }
     
-    public void add(ProviderWrapper providerWrapper) {
+    public void add(ProviderAddWrapper providerWrapper) {
         Provider provider = new Provider(
                 providerWrapper.getCompany(), 
                 providerWrapper.getAddress(), 
