@@ -74,14 +74,14 @@ public class EmbroideryController {
 
     }
 
-    public void deleteEmbroidery(Integer id) {
-        Embroidery embroidery = embroideryDao.findOne(Long.valueOf(id));
+    public void deleteEmbroidery(long id) {
+        Embroidery embroidery = embroideryDao.findOne(id);
         embroideryDao.delete(embroidery);
 
     }
 
-    public Embroidery findOneEmbroidery(int id) {
-        Embroidery embroidery = embroideryDao.findOne(Long.valueOf(id));
+    public Embroidery findOneEmbroidery(long id) {
+        Embroidery embroidery = embroideryDao.findOne(id);
         return embroidery;
     }
 

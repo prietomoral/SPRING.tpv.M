@@ -1,7 +1,8 @@
 var tpv = angular.module("tpv", ["ngRoute",
                                  'bw.paging',
                                  "Alertify",
-                                 "angucomplete"]);
+                                 "angucomplete",
+                                 "ngMessages"]);
 
 tpv.config(function ($routeProvider) {
     "use strict";
@@ -34,6 +35,11 @@ tpv.config(function ($routeProvider) {
             controller: "CreateProviderController",
             controllerAs: "vm"
         })
+        .when("/feature02/list-providers", {
+            templateUrl: "app/components/feature02/listProviders.html",
+            controller: "ListProviderController",
+            controllerAs: "vm"
+        })
         .when("/feature03/list-embroidery", {
             templateUrl: "app/components/feature03/indexEmbroidery.html",
             controller: "listEmbroideryController",
@@ -57,6 +63,11 @@ tpv.config(function ($routeProvider) {
         .when("/feature03/create-textile-printing", {
             templateUrl: "app/components/feature03/newTextilePrinting.html",
             controller: "addTextilePrintingController",
+            controllerAs: "vm"
+        })
+        .when("/feature03/list-articles", {
+            templateUrl: "app/components/feature03/indexArticle.html",
+            controller: "listArticleController",
             controllerAs: "vm"
         })
         .when("/feature04/search-articles", {
