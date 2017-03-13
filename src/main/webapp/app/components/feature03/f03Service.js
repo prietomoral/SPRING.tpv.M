@@ -15,7 +15,8 @@ function f03Service($http, $q) {
     		 findOneEmbroidery: findOneEmbroidery,
     		 updateEmbroidery: updateEmbroidery,
     		 listAllArticles: listAllArticles,
-    		 deleteOneArticle: deleteOneArticle
+    		 deleteOneArticle: deleteOneArticle,
+    		 createArticle: createArticle
      };
 
      return feature03Service;
@@ -30,6 +31,25 @@ function f03Service($http, $q) {
     		 return $q.reject(response);
     	 });
      }
+     
+     function createArticle(article) {
+  	    return $http({
+  	      method: 'POST',
+  	      url: urlBase + '/articles',
+  	      data:{
+  	    	  'id': article.id, 
+  	    	  'reference':article.reference, 
+  	    	  'description': article.description,
+  	    	  'retailPrice':article.retailPrice,
+  	    	  'wholesalePrice':article.wholesalePrice,
+  	    	 // 'provider':article.provider,
+  	    	  }
+  	    }).then(function successCallback(response) {
+  	        return response.data;
+  	      }, function errorCallback(response) {
+  	        return $q.reject(response);
+  	      });
+  	  }
      
      function deleteOneArticle(id) {
     	 return $http({
