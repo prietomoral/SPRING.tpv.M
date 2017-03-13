@@ -26,7 +26,6 @@ tpv.service('f04Service', function ($http, $q) {
 		 	 url: `${urlBase}/articles/search?page=${pageNumber}&size=${pageSize}&reference=${reference}&description=${description}` + 
 		 	 `&minRetailPrice=${minRetailPrice}&maxRetailPrice=${maxRetailPrice}&onlyOnStock=${onlyOnStock}`
 		  };
-		  console.log(config.url);
 	      return this.request(config);
 	}
    
