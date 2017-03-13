@@ -9,11 +9,14 @@ tpv.controller('SearchTextilePrintingsController', function($route, f04Service) 
 	vm.pageSize = 3;
 	vm.totalTextilePrintings = 0;
 	
-	vm.exactRetailPrice = 0;
-	vm.minRetailPrice = 0;
-	vm.maxRetailPrice = 0;
-	
 	vm.advancedSearchVisibility = false;
+	
+	vm.reference = "";
+	vm.description = "";
+	vm.minRetailPrice = "";
+	vm.maxRetailPrice = "";
+	vm.type = "";
+	
 	
 	vm.sortType = "reference";
 	vm.sortReverse = false;
@@ -22,7 +25,8 @@ tpv.controller('SearchTextilePrintingsController', function($route, f04Service) 
 	loadTextilePrintings();
 	
 	function loadTextilePrintings(){
-		f04Service.getTextilePrintings(vm.pageNumber, vm.pageSize).then(result => {
+		formatEmptyNumbers();
+		f04Service.getTextilePrintings(vm.pageNumber, vm.pageSize, vm.reference, vm.description, vm.minRetailPrice, vm.maxRetailPrice, vm.type).then(result => {
 			vm.loading = false;
 			vm.textilePrintings = result.content;
 			vm.pageNumber = result.number;
@@ -31,9 +35,13 @@ tpv.controller('SearchTextilePrintingsController', function($route, f04Service) 
 			vm.error = false;
 		}, errors => {
 			vm.loading = false;
-			vm.errors = errors;
 			vm.error = true;
 		});
+	}
+	
+	function formatEmptyNumbers(){
+		vm.minRetailPrice = f04Service.formatEmptyNumber(vm.minRetailPrice);
+		vm.maxRetailPrice = f04Service.formatEmptyNumber(vm.maxRetailPrice);
 	}
 	
 	vm.changeToPage = pageNumber => {
@@ -43,6 +51,10 @@ tpv.controller('SearchTextilePrintingsController', function($route, f04Service) 
 	
 	vm.onClickAdvancedSearch = () => {
 		vm.advancedSearchVisibility = !vm.advancedSearchVisibility;
+	}
+	
+	vm.onClickSearchButton = () => {
+		loadTextilePrintings();
 	}
 	
 	vm.clearFilters = () => {

@@ -10,13 +10,37 @@ function f03Service($http, $q) {
     		 listAllArticles: listAllArticles,
     		 createEmbroidery:createEmbroidery,
     		 addTextilePrinting: addTextilePrinting,
-    		 deleteOneEmbroidery:deleteOneEmbroidery,
+    		 deleteOneEmbroidery: deleteOneEmbroidery,
     		 deleteOneTextilePrinting: deleteOneTextilePrinting,
-    		 findOneEmbroidery:findOneEmbroidery,
-    		 updateEmbroidery:updateEmbroidery
+    		 findOneEmbroidery: findOneEmbroidery,
+    		 updateEmbroidery: updateEmbroidery,
+    		 listAllArticles: listAllArticles,
+    		 deleteOneArticle: deleteOneArticle
      };
 
      return feature03Service;
+     
+     function listAllArticles() {
+    	 return $http({
+    		 method: 'GET',
+    		 url: urlBase + '/articles'
+    	 }).then(function successCallback(response) {
+    		 return response.data;
+    	 }, function errorCallback(response) {
+    		 return $q.reject(response);
+    	 });
+     }
+     
+     function deleteOneArticle(id) {
+    	 return $http({
+    		 method: 'DELETE',
+    		 url: urlBase + '/articles/'+id
+    	 }).then(function successCallback(response) {
+    		 return response.data;
+    	 }, function errorCallback(response) {
+    		 return $q.reject(response);
+    	 });
+     }
 
      function listAllEmbroideries() {
     	 return $http({

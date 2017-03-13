@@ -1,17 +1,41 @@
 package wrappers;
 
-public class InvoiceWrapper {
+import entities.core.Ticket;
 
-	private int id_ticket;
+public class InvoiceWrapper {
+    
+    private int id;
+    
+    private Ticket ticket;
 	
 	public InvoiceWrapper(){
+	    
 	}
 	
-	public InvoiceWrapper(int id_ticket){
-		this.id_ticket = id_ticket;
+	public InvoiceWrapper(int id, Ticket ticket){
+	    this.id = id;
+	    this.ticket = ticket;
 	}
 	
-	public int getId_ticket(){
-		return id_ticket;
+	public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
+    public Ticket getTicket(){
+		return ticket;
 	}
+
+    @Override
+    public String toString() {
+        return "InvoiceWrapper [id=" + id + ", ticket=" + ticket + "]";
+    }
+
 }

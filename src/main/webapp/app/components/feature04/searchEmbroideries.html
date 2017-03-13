@@ -3,97 +3,95 @@
 	  <h1>Embroidery search</h1>
 	</div>
 	<div class="panel panel-primary">
-	    <div class="panel-heading clickable" ng-click="vm.onClickAdvancedSearch()">
-	       Advanced search
-	       <div class="pull-right">
-		       <div ng-show="vm.advancedSearchVisibility">
-		           Hide filters
-		           <span class="glyphicon glyphicon-chevron-up"></span>
-		       </div>
-		       <div ng-hide="vm.advancedSearchVisibility">
-		           Show filters
-		           <span class="glyphicon glyphicon-chevron-down"></span>
-		       </div>
-	       </div>
-	    </div>
-		<div class="panel-body" ng-show="vm.advancedSearchVisibility">
+        <div class="panel-heading clearfix">
+            <div class="panel-title pull-left">
+                Search filters
+            </div>
+            <div class="clearfix visible-xs"></div>
+            <div class="pull-right center">
+                <span class="clickable">            
+                    <span ng-click="vm.onClickAdvancedSearch()">
+                        <button class="btn btn-info" ng-show="vm.advancedSearchVisibility">
+                           Hide advanced filters
+                           <span class="glyphicon glyphicon-chevron-up"></span>
+                        </button>
+                        <button class="btn btn-info" ng-hide="vm.advancedSearchVisibility">
+                           Show advanced filters
+                           <span class="glyphicon glyphicon-chevron-down"></span>
+                        </button>
+                   </span>
+                   <button class="btn btn-warning" ng-click="vm.clearFilters()">
+                       Clear filters
+                       <span class="glyphicon glyphicon-refresh"></span>
+                   </button>
+                </span>
+            </div>
+        </div>
+        <div class="panel-body">
             <div class="row">
-			    <div class="col-lg-4">
-			        <div class="form-group">
-			            <label for="referenceInput">Search by reference</label>
-			            <input ng-model="search.reference" id="referenceInput" placeholder="627-23-12_TPV" class="form-control">
-			        </div>
-			    </div>
-			    <div class="col-lg-8">
-			        <div class="row">
-			            <div class="form-group col-lg-4">
-			                <label for="exactRetailPriceInput">Exact retail price</label>
-			                <input ng-model="vm.exactRetailPrice" type="number" min="0" step="0.01" id="exactRetailPriceInput" class="form-control">
-			            </div>
-			            <div class="form-group col-lg-4">
-			                <label for="minRetailPriceInput">Min retail price</label>
-			                <input ng-model="vm.minRetailPrice" type="number" min="0" step="0.01" id="minRetailPriceInput" class="form-control">
-			            </div>
-			            <div class="form-group col-lg-4">
-			                <label for="maxRetailPriceInput">Max retail price</label>
-			                <input ng-model="vm.maxRetailPrice" type="number" min="0" step="0.01" id="maxRetailPriceInput" class="form-control">
-			            </div>
-			        </div>  
-			    </div>
-			</div> 
-		    <div class="row">
-		        <div class="col-lg-4">		        
-					<div class="row">
-					   <div class="form-group col-lg-4">
-                            <label for="exactStitchesInput">Exact number of stitches</label>
-                            <input ng-model="vm.exactStitches" type="number" min="0" id="exactStitchesInput" class="form-control">
-                        </div>
-                        <div class="form-group col-lg-4">
-                            <label for="minStitchesInput">Min number of stitches</label>
-                            <input ng-model="vm.minStitches" type="number" min="0" id="minStitchesInput" class="form-control">
-                        </div>
-                        <div class="form-group col-lg-4">
-                            <label for="maxStitchesInput">Max number of stitches</label>
-                            <input ng-model="vm.maxStitches" type="number" min="0"  id="maxStitchesInput" class="form-control">
-                        </div>
-                   </div>
-					<button class="btn btn-primary" ng-click="vm.clearFilters()">
-					   <span class="glyphicon glyphicon-refresh"></span>
-					   Clear filters
-					</button>
-		        </div>
-		        <div class="col-lg-8">
-		            <div class="row">
-			            <div class="form-group col-lg-4">
-			                <label for="exactColorsInput">Exact number of colors</label>
-			                <input ng-model="vm.exactColors" type="number" min="0" id="exactColorsInput" class="form-control">
-			            </div>
-			            <div class="form-group col-lg-4">
-			                <label for="minColorsInput">Min number of colors</label>
-			                <input ng-model="vm.minColors" type="number" min="0" id="minColorsInput" class="form-control">
-			            </div>
-			            <div class="form-group col-lg-4">
-			                <label for="maxColorsInput">Max number of colors</label>
-			                <input ng-model="vm.maxColors" type="number" min="0" id="maxColorsInput" class="form-control">
-			            </div>
-		            </div>
-		            <div class="row">
-                        <div class="form-group col-lg-4">
-                            <label for="exactSquareMillimetersInput">Exact square millimeters</label>
-                            <input ng-model="vm.exactSquareMillimeters" type="number" min="0" step="0.01" id="exactSquareMillimetersInput" class="form-control">
-                        </div>
-                        <div class="form-group col-lg-4">
-                            <label for="minSquareMillimetersInput">Min square millimeters</label>
-                            <input ng-model="vm.minSquareMillimeters" type="number" min="0" step="0.01" id="minSquareMillimetersInput" class="form-control">
-                        </div>
-                        <div class="form-group col-lg-4">
-                            <label for="maxSquareMillimetersInput">Max square millimeters</label>
-                            <input ng-model="vm.maxSquareMillimeters" type="number" min="0" step="0.01" id="maxSquareMillimetersInput" class="form-control">
-                        </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="referenceInput">Search by reference</label>
+                        <input ng-model="vm.reference" id="referenceInput" placeholder="627-23-12_TPV" class="form-control">
                     </div>
-		        </div> 
-		    </div>
-	    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="referenceInput">Search by description</label>
+                        <input ng-model="vm.description" id="referenceInput" placeholder="Description" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="minRetailPriceInput">Min retail price</label>
+                            <input ng-model="vm.minRetailPrice" type="number" min="0" step="0.01" id="minRetailPriceInput" class="form-control">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="maxRetailPriceInput">Max retail price</label>
+                            <input ng-model="vm.maxRetailPrice" type="number" min="0" step="0.01" id="maxRetailPriceInput" class="form-control">
+                        </div>
+                        <button class="btn btn-primary" ng-click="vm.onClickSearchButton()">
+                            <span class="glyphicon glyphicon-search"></span>
+                            Search
+                        </button>                               
+                    </div>  
+                </div>
+            </div>
+            <div class="row" ng-show="vm.advancedSearchVisibility">                
+                <hr/>
+                <div class="col-md-4">              
+	                <div class="form-group">
+	                    <label for="minStitchesInput">Min number of stitches</label>
+	                    <input ng-model="vm.minStitches" type="number" min="0" id="minStitchesInput" class="form-control">
+	                </div>
+	                <div class="form-group">
+	                    <label for="maxStitchesInput">Max number of stitches</label>
+	                    <input ng-model="vm.maxStitches" type="number" min="0"  id="maxStitchesInput" class="form-control">
+	                </div>
+                </div>
+                <div class="col-md-4">
+	                <div class="form-group ">
+	                    <label for="minColorsInput">Min number of colors</label>
+	                    <input ng-model="vm.minColors" type="number" min="0" id="minColorsInput" class="form-control">
+	                </div>
+	                <div class="form-group">
+	                    <label for="maxColorsInput">Max number of colors</label>
+	                    <input ng-model="vm.maxColors" type="number" min="0" id="maxColorsInput" class="form-control">
+	                </div>                    
+                </div> 
+                <div class="col-md-4">
+	                <div class="form-group">
+	                    <label for="minSquareMillimetersInput">Min square millimeters</label>
+	                    <input ng-model="vm.minSquareMillimeters" type="number" min="0" step="0.01" id="minSquareMillimetersInput" class="form-control">
+	                </div>
+	                <div class="form-group">
+	                    <label for="maxSquareMillimetersInput">Max square millimeters</label>
+	                    <input ng-model="vm.maxSquareMillimeters" type="number" min="0" step="0.01" id="maxSquareMillimetersInput" class="form-control">
+	                </div>
+                </div>
+            </div>
+        </div>
     </div>
     <br/>
     <div class="panel panel-primary">

@@ -26,7 +26,7 @@ public class VoucherResource {
 
     
     @RequestMapping(value = Uris.VOUCHERS, method = RequestMethod.POST)
-    public Voucher userRegistration(@RequestBody BigDecimal value) {
+    public Voucher createVoucher(@RequestBody BigDecimal value) {
        return voucherController.createVoucher(value, Calendar.getInstance());
     }
     

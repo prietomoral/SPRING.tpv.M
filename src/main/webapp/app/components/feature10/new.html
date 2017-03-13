@@ -5,29 +5,54 @@
 </ol>
 
 <div class="container">
-   <form role="form" ng-submit="vm.createAlert()">
-      <div class="form-group">
-	    <label><span class="label label-warning"> </span>&nbsp; Warning </label>
-	    <input type="text" class="form-control"  placeholder="warning" ng-model='vm.alert.warning'>
-	  </div>
-	  <div class="form-group">
-	    <label> <span class="label label-danger"> </span>&nbsp; Critical</label>
-	    <input type="text" class="form-control"  placeholder="critical" ng-model='vm.alert.critical'>
-	  </div>
-	  <div class="form-group">
-	    <label >Código producto</label>
-       <angucomplete id="ex1"
-                     placeholder="Busca artículos"
-                     pause="100"
-                     selectedobject="vm.selectedArticle"
-                     localdata="vm.articles"
-                     searchfields="description"
-                     titlefield="description"
-                     minlength="1"
-                     inputclass="form-control form-control-small"/>
+  <form name="vm.form" novalidate role="form" ng-submit="vm.createAlert()">
+
+    <div class="form-group" ng-class="{ 'has-error': vm.form.warning.$touched && vm.form.warning.$invalid }">
+      <label class="control-label" for="warning"><span class="label label-warning"> </span>&nbsp;Valor de advertencia</label>
+      <input type="number"
+             class="form-control"
+             name="warning"
+             placeholder="warning"
+             ng-model='vm.alert.warning'
+             required>
+      <div class="help-block" ng-messages="vm.form.warning.$error" ng-if="vm.form.warning.$touched">
+        <p ng-message="required">Campo requerido</p>
+        <p ng-message="number">Valor nó válido</p>
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error': vm.form.critical.$touched && vm.form.critical.$invalid }">
+	    <label class="control-label" for="critical"> <span class="label label-danger"> </span>&nbsp;Valor crítico</label>
+	    <input type="number"
+             class="form-control"
+             placeholder="critical"
+             name="critical"
+             ng-model='vm.alert.critical'
+             required>
+      <div class="help-block" ng-messages="vm.form.critical.$error" ng-if="vm.form.critical.$touched">
+        <p ng-message="required">Campo requerido</p>
+        <p ng-message="number">Valor nó válido</p>
+      </div>
 	  </div>
 
-	  <input type="submit" class="btn btn-primary "  value="Guardar">
+    <div class="form-group">
+	    <label class="control-label">Producto</label>
+      <angucomplete id="ex1"
+                    placeholder="Busca artículos"
+                    pause="100"
+                    selectedobject="vm.alert.article"
+                    localdata="vm.articles"
+                    searchfields="description"
+                    titlefield="description"
+                    minlength="1"
+                    required
+                    inputclass="form-control form-control-small"/>
+	  </div>
+
+	  <input type="submit"
+           class="btn btn-primary"
+           ng-disabled="!vm.alert.article.originalObject || vm.form.$invalid"
+           value="Guardar">
 
 
 	 <div class="alert alert-danger no-data" role="alert" ng-if="vm.data.length === 0">

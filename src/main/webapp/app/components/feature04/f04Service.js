@@ -20,29 +20,42 @@ tpv.service('f04Service', function ($http, $q) {
 	      return deferred.promise;	   
 	}	
    
-	this.getArticles = (pageNumber, pageSize) =>{
+	this.getArticles = (pageNumber, pageSize, reference, description, minRetailPrice, maxRetailPrice, onlyOnStock) => {
 		  let config = {
 		 	 method: 'GET',
-		 	 url: `${urlBase}/articles/search?page=${pageNumber}&size=${pageSize}`
+		 	 url: `${urlBase}/articles/search?page=${pageNumber}&size=${pageSize}&reference=${reference}&description=${description}` + 
+		 	 `&minRetailPrice=${minRetailPrice}&maxRetailPrice=${maxRetailPrice}&onlyOnStock=${onlyOnStock}`
 		  };
 	      return this.request(config);
 	}
    
-	this.getEmbroideries = (pageNumber, pageSize) =>{
+	this.getEmbroideries = (pageNumber, pageSize, reference, description, minRetailPrice, maxRetailPrice, minStitches, maxStitches, 
+			minColors, maxColors, minSquareMillimeters, maxSquareMillimeters) => {
 		let config = {
 			method: 'GET',
-			url: `${urlBase}/embroideries/search?page=${pageNumber}&size=${pageSize}`
+			url: `${urlBase}/embroideries/search?page=${pageNumber}&size=${pageSize}&reference=${reference}&description=${description}` + 
+		 	 `&minRetailPrice=${minRetailPrice}&maxRetailPrice=${maxRetailPrice}&minStitches=${minStitches}` + 
+		 	 `&maxStitches=${maxStitches}&minColors=${minColors}&maxColors=${maxColors}` + 
+		 	 `&minSquareMillimeters=${minSquareMillimeters}&maxSquareMillimeters=${maxSquareMillimeters}`
 		};
 		return this.request(config);
 	}
 	
-	// TODO poner la ruta en plural
-	this.getTextilePrintings = (pageNumber, pageSize) =>{
+	this.getTextilePrintings = (pageNumber, pageSize, reference, description, minRetailPrice, maxRetailPrice, type) => {
 		let config = {
 			method: 'GET',
-			url: `${urlBase}/textileprinting/search?page=${pageNumber}&size=${pageSize}`
+			url: `${urlBase}/textileprintings/search?page=${pageNumber}&size=${pageSize}&reference=${reference}&description=${description}` + 
+		 	 `&minRetailPrice=${minRetailPrice}&maxRetailPrice=${maxRetailPrice}&type=${type}`
 		};
 		return this.request(config);
+	}
+	
+	this.formatEmptyNumber = emptyNumber => {
+		if (emptyNumber == undefined){
+			return "";
+		} else {
+			return emptyNumber;
+		}
 	}
 
 });
