@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import api.exceptions.AlreadyExistProductException;
 import controllers.EmbroideryController;
+import entities.core.Embroidery;
 import wrappers.EmbroideryWrapper;
 
 @RestController
@@ -51,10 +52,20 @@ public class EmbroideryResource {
     public void add(@RequestBody EmbroideryWrapper embroideryWrapper) throws AlreadyExistProductException {
         this.embroideryController.add(embroideryWrapper);
     }
+    
+    @RequestMapping(method = RequestMethod.PUT)
+    public void update(@RequestBody EmbroideryWrapper embroideryWrapper){
+        this.embroideryController.update(embroideryWrapper);
+    }
 
     @RequestMapping(value = Uris.ID, method = RequestMethod.DELETE)
     public void deleteEmbroidery(@PathVariable(value = "id") int id) {
         embroideryController.deleteEmbroidery(id);
+    }
+    
+    @RequestMapping(value = Uris.ID, method = RequestMethod.GET)
+    public Embroidery findOneEmbroidery(@PathVariable(value = "id") int id) {
+       return embroideryController.findOneEmbroidery(id);    
     }
 
 }
