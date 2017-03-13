@@ -14,7 +14,6 @@ public class StatisticProductByDateWrapper {
     }
 
     public StatisticProductByDateWrapper(int idShopping, Long idProduct, String description, int amount) {
-        super();
         this.idShopping = idShopping;
         this.idProduct = idProduct;
         this.description = description;
