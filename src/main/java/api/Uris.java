@@ -34,4 +34,8 @@ public class Uris {
 
     public static final String STATISTIC = "/statistic";
 
+    public static final String BY_DATE = "/byDate";
+
+    public static final String POPULAR_PRODUCTS = "/poopularProducts";
+
 }
