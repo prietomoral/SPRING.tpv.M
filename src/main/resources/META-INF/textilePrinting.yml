@@ -1,4 +1,9 @@
-reference: test reference
-retailPrice: 23.55
-description: test description
-type: test type
+textilePrintingList:
+  - reference: test reference
+    retailPrice: 23.55
+    description: test description
+    type: test type
+  - reference: test reference 2
+    retailPrice: 23.55
+    description: test description 2
+    type: test type 2
