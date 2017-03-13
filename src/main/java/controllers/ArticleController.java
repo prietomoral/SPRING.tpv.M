@@ -36,6 +36,7 @@ public class ArticleController {
     }
 
     public List<Article> all() {
+
         List<Article> articles = articleDao.findAll();
         return articles;
     }
