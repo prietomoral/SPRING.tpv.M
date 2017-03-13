@@ -1,9 +1,11 @@
 textilePrintingList:
-  - reference: test reference
+  - id: 85000001111
+    reference: test reference
     retailPrice: 23.55
     description: test description
     type: test type
-  - reference: test reference 2
+  - id: 85000001112
+    reference: test reference 2
     retailPrice: 23.55
     description: test description 2
     type: test type 2
@@ -23,13 +25,15 @@ providerList:
     paymentConditions: 30 dias
     note: asd asdas dasd asdasdasd a
 articleList:
-  - reference: article reference 1
+  - id: 85000002221
+    reference: article reference 1
     retailPrice: 8.45
     description: article description 1
     stock: 5
     wholesalePrice: 6.78
     provider: *provider
-  - reference: article reference 2
+  - id: 85000002222
+    reference: article reference 2
     retailPrice: 18.00
     description: article description 2
     stock: 1
