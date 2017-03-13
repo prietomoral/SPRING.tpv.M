@@ -9,23 +9,25 @@ tpv.controller('SearchArticlesController', function($route, f04Service) {
 	vm.pageSize = 3;
 	vm.totalArticles = 0;
 	
-	vm.exactRetailPrice = 0;
-	vm.minRetailPrice = 0;
-	vm.maxRetailPrice = 0;
-	vm.showOnlyOnStock = false;
 	vm.advancedSearchVisibility = false;
+
+	
+	vm.reference = "";
+	vm.description = "";
+	vm.minRetailPrice = "";
+	vm.maxRetailPrice = "";
+	vm.onlyOnStock = false;
 	
 	vm.sortType = "reference";
 	vm.sortReverse = false;
 	
 	vm.error = false;
-	vm.errors;
 	vm.articles = [];
 	
 	loadArticles();
 	
 	function loadArticles(){
-		f04Service.getArticles(vm.pageNumber, vm.pageSize).then(result => {
+		f04Service.getArticles(vm.pageNumber, vm.pageSize, vm.reference, vm.description, vm.minRetailPrice, vm.maxRetailPrice, vm.onlyOnStock).then(result => {
 			vm.loading = false;
 			vm.articles = result.content;
 			vm.pageNumber = result.number;
@@ -34,7 +36,6 @@ tpv.controller('SearchArticlesController', function($route, f04Service) {
 			vm.error = false;
 		}, errors => {
 			vm.loading = false;
-			vm.errors = errors;
 			vm.error = true;
 		});
 	}
@@ -46,6 +47,10 @@ tpv.controller('SearchArticlesController', function($route, f04Service) {
 	
 	vm.onClickAdvancedSearch = () => {
 		vm.advancedSearchVisibility = !vm.advancedSearchVisibility;
+	}
+	
+	vm.onClickSearchButton = () => {
+		loadArticles();
 	}
 	
 	vm.clearFilters = () => {

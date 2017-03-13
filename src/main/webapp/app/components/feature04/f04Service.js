@@ -20,11 +20,13 @@ tpv.service('f04Service', function ($http, $q) {
 	      return deferred.promise;	   
 	}	
    
-	this.getArticles = (pageNumber, pageSize) =>{
+	this.getArticles = (pageNumber, pageSize, reference, description, minRetailPrice, maxRetailPrice, onlyOnStock) =>{
 		  let config = {
 		 	 method: 'GET',
-		 	 url: `${urlBase}/articles/search?page=${pageNumber}&size=${pageSize}`
+		 	 url: `${urlBase}/articles/search?page=${pageNumber}&size=${pageSize}&description=${description}` + 
+		 	 `&minRetailPrice=${minRetailPrice}&maxRetailPrice=${maxRetailPrice}&onlyOnStock=${onlyOnStock}`
 		  };
+		  console.log(config.url);
 	      return this.request(config);
 	}
    
@@ -36,11 +38,10 @@ tpv.service('f04Service', function ($http, $q) {
 		return this.request(config);
 	}
 	
-	// TODO poner la ruta en plural
 	this.getTextilePrintings = (pageNumber, pageSize) =>{
 		let config = {
 			method: 'GET',
-			url: `${urlBase}/textileprinting/search?page=${pageNumber}&size=${pageSize}`
+			url: `${urlBase}/textileprintings/search?page=${pageNumber}&size=${pageSize}`
 		};
 		return this.request(config);
 	}
