@@ -32,4 +32,15 @@ tpv.service('f02Service', ['$http', '$q', function ($http, $q) {
 	        return $q.reject(response);
    		});
 	}
+   	
+   	function listIdCompanyProviders() {
+   		return $http({
+   			method: 'GET',
+   			url: urlBase + '/idCompanyProviders'
+   		}).then(function successCallback(response) {
+	        return response.data;
+   		}, function errorCallback(response) {
+	        return $q.reject(response);
+   		});
+	}
 }]);

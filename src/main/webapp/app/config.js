@@ -40,6 +40,11 @@ tpv.config(function ($routeProvider) {
             controller: "ListProviderController",
             controllerAs: "vm"
         })
+        .when("/feature02/list-id-company-providers", {
+            templateUrl: "app/components/feature02/listIdCompanyProviders.html",
+            controller: "ListIdCompanyProviderController",
+            controllerAs: "vm"
+        })
         .when("/feature03/list-embroidery", {
             templateUrl: "app/components/feature03/indexEmbroidery.html",
             controller: "listEmbroideryController",
