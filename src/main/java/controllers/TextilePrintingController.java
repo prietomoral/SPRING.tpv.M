@@ -59,10 +59,7 @@ public class TextilePrintingController {
         Page<TextilePrinting> page = textilePrintingDao.search(pageable, reference, description, minRetailPrice, maxRetailPrice, type);
         List<TextilePrintingWrapper> textilePrintingWrapperList = new ArrayList<>();
         for (TextilePrinting textilePrinting : page.getContent()) {
-            TextilePrintingWrapper textilePrintingWrapper = new TextilePrintingWrapper(textilePrinting.getId(),
-                    textilePrinting.getReference(), textilePrinting.getDescription(), textilePrinting.getRetailPrice(),
-                    textilePrinting.getType());
-            textilePrintingWrapperList.add(textilePrintingWrapper);
+            textilePrintingWrapperList.add(new TextilePrintingWrapper(textilePrinting));
         }
         return new PageImpl<TextilePrintingWrapper>(textilePrintingWrapperList, pageable, page.getTotalElements());
     }

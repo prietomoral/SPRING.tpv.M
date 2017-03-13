@@ -2,6 +2,8 @@ package wrappers;
 
 import java.math.BigDecimal;
 
+import entities.core.Embroidery;
+
 public class EmbroideryWrapper extends ProductWrapper {
 
     private int stitches;
@@ -20,6 +22,13 @@ public class EmbroideryWrapper extends ProductWrapper {
         this.stitches = stitches;
         this.colors = colors;
         this.squareMillimeters = squareMillimeters;
+    }
+
+    public EmbroideryWrapper(Embroidery embroidery) {
+        super(embroidery);
+        this.stitches = embroidery.getStitches();
+        this.colors = embroidery.getColors();
+        this.squareMillimeters = embroidery.getSquareMillimeters();
     }
 
     public int getStitches() {

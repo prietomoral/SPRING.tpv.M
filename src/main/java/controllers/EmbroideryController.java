@@ -68,10 +68,7 @@ public class EmbroideryController {
                 maxStitches, minColors, maxColors, minSquareMillimeters, maxSquareMillimeters);
         List<EmbroideryWrapper> embroideryWrapperList = new ArrayList<>();
         for (Embroidery embroidery : page.getContent()) {
-            EmbroideryWrapper embroideryWrapper = new EmbroideryWrapper(embroidery.getId(), embroidery.getReference(),
-                    embroidery.getDescription(), embroidery.getRetailPrice(), embroidery.getStitches(), embroidery.getColors(),
-                    embroidery.getSquareMillimeters());
-            embroideryWrapperList.add(embroideryWrapper);
+            embroideryWrapperList.add(new EmbroideryWrapper(embroidery));
         }
         return new PageImpl<EmbroideryWrapper>(embroideryWrapperList, pageable, page.getTotalElements());
 
