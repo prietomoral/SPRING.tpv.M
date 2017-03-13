@@ -20,7 +20,7 @@ tpv.service('f04Service', function ($http, $q) {
 	      return deferred.promise;	   
 	}	
    
-	this.getArticles = (pageNumber, pageSize, reference, description, minRetailPrice, maxRetailPrice, onlyOnStock) =>{
+	this.getArticles = (pageNumber, pageSize, reference, description, minRetailPrice, maxRetailPrice, onlyOnStock) => {
 		  let config = {
 		 	 method: 'GET',
 		 	 url: `${urlBase}/articles/search?page=${pageNumber}&size=${pageSize}&reference=${reference}&description=${description}` + 
@@ -31,7 +31,7 @@ tpv.service('f04Service', function ($http, $q) {
 	}
    
 	this.getEmbroideries = (pageNumber, pageSize, reference, description, minRetailPrice, maxRetailPrice, minStitches, maxStitches, 
-			minColors, maxColors, minSquareMillimeters, maxSquareMillimeters) =>{
+			minColors, maxColors, minSquareMillimeters, maxSquareMillimeters) => {
 		let config = {
 			method: 'GET',
 			url: `${urlBase}/embroideries/search?page=${pageNumber}&size=${pageSize}&reference=${reference}&description=${description}` + 
@@ -42,10 +42,11 @@ tpv.service('f04Service', function ($http, $q) {
 		return this.request(config);
 	}
 	
-	this.getTextilePrintings = (pageNumber, pageSize) =>{
+	this.getTextilePrintings = (pageNumber, pageSize, reference, description, minRetailPrice, maxRetailPrice, type) => {
 		let config = {
 			method: 'GET',
-			url: `${urlBase}/textileprintings/search?page=${pageNumber}&size=${pageSize}`
+			url: `${urlBase}/textileprintings/search?page=${pageNumber}&size=${pageSize}&reference=${reference}&description=${description}` + 
+		 	 `&minRetailPrice=${minRetailPrice}&maxRetailPrice=${maxRetailPrice}&type=${type}`
 		};
 		return this.request(config);
 	}
