@@ -30,23 +30,25 @@ tpv.service('f04Service', function ($http, $q) {
 	      return this.request(config);
 	}
    
-	this.getEmbroideries = (pageNumber, pageSize, reference, description, minRetailPrice, maxRetailPrice, minStitches, maxStitches, 
-			minColors, maxColors, minSquareMillimeters, maxSquareMillimeters) => {
+	this.getEmbroideries = (pageInfo, searchValues) => {
 		let config = {
 			method: 'GET',
-			url: `${urlBase}/embroideries/search?page=${pageNumber}&size=${pageSize}&reference=${reference}&description=${description}` + 
-		 	 `&minRetailPrice=${minRetailPrice}&maxRetailPrice=${maxRetailPrice}&minStitches=${minStitches}` + 
-		 	 `&maxStitches=${maxStitches}&minColors=${minColors}&maxColors=${maxColors}` + 
-		 	 `&minSquareMillimeters=${minSquareMillimeters}&maxSquareMillimeters=${maxSquareMillimeters}`
+			url: `${urlBase}/embroideries/search?page=${pageInfo.pageNumber}&size=${pageInfo.pageSize}` + 
+			`&sort=${pageInfo.sortParameter},${pageInfo.sortType}&reference=${searchValues.reference}&description=${searchValues.description}` + 
+		 	 `&minRetailPrice=${searchValues.minRetailPrice}&maxRetailPrice=${searchValues.maxRetailPrice}&minStitches=${searchValues.minStitches}` + 
+		 	 `&maxStitches=${searchValues.maxStitches}&minColors=${searchValues.minColors}&maxColors=${searchValues.maxColors}` + 
+		 	 `&minSquareMillimeters=${searchValues.minSquareMillimeters}&maxSquareMillimeters=${searchValues.maxSquareMillimeters}`
 		};
 		return this.request(config);
 	}
 	
-	this.getTextilePrintings = (pageNumber, pageSize, reference, description, minRetailPrice, maxRetailPrice, type) => {
+	this.getTextilePrintings = (pageInfo, searchValues) => {
 		let config = {
 			method: 'GET',
-			url: `${urlBase}/textileprintings/search?page=${pageNumber}&size=${pageSize}&reference=${reference}&description=${description}` + 
-		 	 `&minRetailPrice=${minRetailPrice}&maxRetailPrice=${maxRetailPrice}&type=${type}`
+			url: `${urlBase}/textileprintings/search?page=${pageInfo.pageNumber}&size=${pageInfo.pageSize}` + 
+			`&sort=${pageInfo.sortParameter},${pageInfo.sortType}&reference=${searchValues.reference}` + 
+			`&description=${searchValues.description}&minRetailPrice=${searchValues.minRetailPrice}` + 
+			`&maxRetailPrice=${searchValues.maxRetailPrice}&type=${searchValues.type}`
 		};
 		return this.request(config);
 	}
