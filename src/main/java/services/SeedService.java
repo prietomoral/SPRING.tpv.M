@@ -11,8 +11,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.yaml.snakeyaml.Yaml;
 
-import entities.core.TextilePrinting;
-
 @Service
 @Transactional
 public class SeedService {
@@ -25,10 +23,10 @@ public class SeedService {
 
     private static final String YAML_FILES_ROOT = "classpath:META-INF/";
 
-    public TextilePrinting parseYaml(String fileName) throws IOException {
+    public TpvGraph parseYaml(String fileName) throws IOException {
         Resource resource = appContext.getResource(YAML_FILES_ROOT + fileName);
         InputStream input = resource.getInputStream();
-        TextilePrinting textilePrinting = (TextilePrinting) yamlParser.load(input);
+        TpvGraph textilePrinting = (TpvGraph) yamlParser.load(input);
         return textilePrinting;
     }
 
