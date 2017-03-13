@@ -59,12 +59,12 @@ public class EmbroideryResource {
     }
 
     @RequestMapping(value = Uris.ID, method = RequestMethod.DELETE)
-    public void deleteEmbroidery(@PathVariable(value = "id") int id) {
+    public void deleteEmbroidery(@PathVariable(value = "id") long id) {
         embroideryController.deleteEmbroidery(id);
     }
     
     @RequestMapping(value = Uris.ID, method = RequestMethod.GET)
-    public Embroidery findOneEmbroidery(@PathVariable(value = "id") int id) {
+    public Embroidery findOneEmbroidery(@PathVariable(value = "id") long id) {
        return embroideryController.findOneEmbroidery(id);    
     }
 
