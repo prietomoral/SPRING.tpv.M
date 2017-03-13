@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import controllers.ProviderController;
-import wrappers.ProviderWrapper;
+import wrappers.ProviderAddWrapper;
 
 @RestController
 @RequestMapping(Uris.VERSION + Uris.PROVIDERS)
@@ -22,7 +22,7 @@ public class ProviderResource {
     }
     
     @RequestMapping(method = RequestMethod.POST)
-    public void add(@RequestBody ProviderWrapper providerWrapper) {
+    public void add(@RequestBody ProviderAddWrapper providerWrapper) {
         this.providerController.add(providerWrapper);
     }
     
