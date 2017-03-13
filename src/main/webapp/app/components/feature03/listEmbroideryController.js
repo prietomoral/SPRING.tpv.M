@@ -1,9 +1,11 @@
-tpv.controller('listEmbroideryController', ['f03Service', listEmbroideryController]);
+tpv.controller('listEmbroideryController', listEmbroideryController, 'Alertify');
 
-function listEmbroideryController(f03Service) {
+function listEmbroideryController(f03Service,Alertify) {
   'use strict';
   var vm = this;
   vm.initList = initList;
+  vm.deleteEmbroidery = deleteEmbroidery;
+ 
 
   function initList(){
 	  f03Service.listAllEmbroideries().then(function success(response){
@@ -13,4 +15,18 @@ function listEmbroideryController(f03Service) {
       console.log(errors);
     });
   }
+ 
+  function deleteEmbroidery(id){
+		  f03Service.deleteOneEmbroidery(id).then(function success(response){
+			  Alertify.success("The embroidery has been deleted successfully.");
+			  initList();
+		  },
+		  function error(errors){
+			  Alertify.error("The embroidery has not been deleted successfully.");
+	  });
+   }
+	  
 }
+
+
+	  

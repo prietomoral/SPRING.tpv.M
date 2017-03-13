@@ -19,7 +19,7 @@
               <td>{{textilePrinting.reference}}</td>
               <td>{{textilePrinting.description}}</td>
               <td>{{textilePrinting.retailPrice}}</td>
-              <td><a ng-href="#feature03/{{textilePrinting.id}}">Edit</a> | <a ng-href="#feature03/{{textilePrinting.id}}">Delete</a></td>
+              <td><a ng-href="#feature03/{{textilePrinting.id}}">Edit</a> | <input type="button"  value="Delete" ng-click="vm.deleteTextilePrinting(textilePrinting.id)"></td>
             </tr>
           </tbody>
         </table>

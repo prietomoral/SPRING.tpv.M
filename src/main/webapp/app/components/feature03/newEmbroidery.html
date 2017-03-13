@@ -1,39 +1,70 @@
+<section>
+    <div class="page-header">
+      <h2>New Embroidery</h2>
+    </div>
+    <div class="container col-md-offset-3">
+       <form class="form-horizontal" role="form" name="formEmbroidery" ng-submit="vm.createEmbroidery()">
+       
+          <div class="form-group">
+            <label class="control-label label-id col-md-1">Id</label>
+            <div class="col-md-4">
+               <input type="number" class="form-control"  placeholder="id" ng-model='vm.embroidery.id' required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="control-label label-reference col-md-1">Reference</label>
+            <div class="col-md-4">
+                <input type="text" class="form-control"  placeholder="Reference" ng-model='vm.embroidery.reference' required>
+            </div>
+          </div>
+          
+           <div class="form-group">
+            <label class="control-label label-description col-md-1">Description</label>
+            <div class="col-md-4">
+               <input type="text" class="form-control"  placeholder="Description" ng-model='vm.embroidery.description' required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="control-label label-price col-md-1">Retail-Price</label>
+             <div class="col-md-4">
+                <input type="number" class="form-control" name="price" placeholder="Retail Price (0,00)" ng-init="vm.embroidery.price='0,00'" ng-model='vm.embroidery.price' ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>
+                <span class="help-block" ng-show="!formEmbroidery.price.$valid">
+                    Invalid!
+                </span>
+            </div>
+          </div>
+          
+           <div class="form-group">
+            <label class="control-label label-stitches col-md-1">Stitches</label>
+             <div class="col-md-4">
+                <input type="number" class="form-control"  placeholder="Stitches" ng-model='vm.embroidery.stitches' required>
+             </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="control-label label-colors col-md-1">Color</label>
+            <div class="col-md-4">
+               <input type="number" class="form-control"  placeholder="Color" ng-model='vm.embroidery.colors' required>
+            </div>
+          </div>
+          
+           <div class="form-group">
+            <label class="control-label label-millimeters col-md-1">Millimiters</label>
+            <div class="col-md-4">
+               <input type="number" class="form-control"  placeholder="Millimiters" ng-model='vm.embroidery.millimiters'  required>
+            </div>
+          </div>
+          
+          <div class="form-group"> 
+             <div class="col-md-offset-2 col-md-10">
+               <input type="submit" class="btn btn-primary "  value="Guardar"> 
+             </div>
+          </div> 
+          
+                         
+      </form>
+    </div>
+</section>
 
-
-<div class="container">
-   <form role="form" ng-submit="vm.createEmbroidery()">
-      <div class="form-group">
-        <label><span class="label label-id"> </span>&nbsp; Id </label>
-        <input type="text" class="form-control"  placeholder="id" ng-model='vm.embroidery.id'>
-      </div>
-      <div class="form-group">
-        <label> <span class="label label-reference"> </span>&nbsp; Reference</label>
-        <input type="text" class="form-control"  placeholder="reference" ng-model='vm.embroidery.reference'>
-      </div>
-       <div class="form-group">
-        <label> <span class="label label-description"> </span>&nbsp; Description</label>
-        <input type="text" class="form-control"  placeholder="description" ng-model='vm.embroidery.description'>
-      </div>
-      <div class="form-group">
-        <label> <span class="label label-price"> </span>&nbsp; Retail-Price</label>
-        <input type="text" class="form-control"  placeholder="price" ng-model='vm.embroidery.price'>
-      </div>
-       <div class="form-group">
-        <label> <span class="label label-stitches"> </span>&nbsp; Stitches</label>
-        <input type="text" class="form-control"  placeholder="stitches" ng-model='vm.embroidery.stitches'>
-      </div>
-      <div class="form-group">
-        <label> <span class="label label-colors"> </span>&nbsp; Colors</label>
-        <input type="text" class="form-control"  placeholder="colors" ng-model='vm.embroidery.colors'>
-      </div>
-       <div class="form-group">
-        <label> <span class="label label-millimeters"> </span>&nbsp; Millimiters</label>
-        <input type="text" class="form-control"  placeholder="millimiters" ng-model='vm.embroidery.millimiters'>
-      </div>
-      
-      
-      <input type="submit" class="btn btn-primary "  value="Guardar">  
-      
-     
-    </form>
-</div>

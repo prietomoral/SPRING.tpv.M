@@ -1,5 +1,6 @@
 package controllers;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
+import api.exceptions.AlreadyExistProductException;
 import daos.core.EmbroideryDao;
 import entities.core.Embroidery;
 import wrappers.EmbroideryWrapper;
@@ -45,23 +47,25 @@ public class EmbroideryController {
 
     }
 
-    public void add(EmbroideryWrapper embroideryWrapper) {
+    public void add(EmbroideryWrapper embroideryWrapper) throws AlreadyExistProductException {
 
-        Embroidery embroidery = new Embroidery(
-                embroideryWrapper.getId(),
-                embroideryWrapper.getReference(),
-                embroideryWrapper.getRetailPrice(),
-                embroideryWrapper.getDescription(),
-                embroideryWrapper.getStitches(),
-                embroideryWrapper.getColors(),
-                embroideryWrapper.getSquareMillimeters());
+        Embroidery embroideryDB = embroideryDao.findOne(embroideryWrapper.getId());
+        if (embroideryDB != null) {
+            throw new AlreadyExistProductException();
+        } else {
+            Embroidery embroidery = new Embroidery(embroideryWrapper.getId(), embroideryWrapper.getReference(),
+                    embroideryWrapper.getRetailPrice(), embroideryWrapper.getDescription(), embroideryWrapper.getStitches(),
+                    embroideryWrapper.getColors(), embroideryWrapper.getSquareMillimeters());
 
-        this.embroideryDao.save(embroidery);
-
+            this.embroideryDao.save(embroidery);
+        }
     }
 
-    public Page<EmbroideryWrapper> search(Pageable pageable) {
-        Page<Embroidery> page = embroideryDao.search(pageable);
+    public Page<EmbroideryWrapper> search(Pageable pageable, String reference, String description, BigDecimal minRetailPrice,
+            BigDecimal maxRetailPrice, Integer minStitches, Integer maxStitches, Integer minColors, Integer maxColors,
+            Integer minSquareMillimeters, Integer maxSquareMillimeters) {
+        Page<Embroidery> page = embroideryDao.search(pageable, reference, description, minRetailPrice, maxRetailPrice, minStitches,
+                maxStitches, minColors, maxColors, minSquareMillimeters, maxSquareMillimeters);
         List<EmbroideryWrapper> embroideryWrapperList = new ArrayList<>();
         for (Embroidery embroidery : page.getContent()) {
             EmbroideryWrapper embroideryWrapper = new EmbroideryWrapper(embroidery.getId(), embroidery.getReference(),
@@ -70,6 +74,12 @@ public class EmbroideryController {
             embroideryWrapperList.add(embroideryWrapper);
         }
         return new PageImpl<EmbroideryWrapper>(embroideryWrapperList, pageable, page.getTotalElements());
+
+    }
+
+    public void deleteEmbroidery(Integer id) {
+        Embroidery embroidery = embroideryDao.findOne(Long.valueOf(id));
+        embroideryDao.delete(embroidery);
 
     }
 }

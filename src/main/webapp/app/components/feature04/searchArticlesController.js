@@ -25,21 +25,21 @@ tpv.controller('SearchArticlesController', function($route, f04Service) {
 	loadArticles();
 	
 	function loadArticles(){
-		f04Service.getArticles(vm.pageNumber, vm.pageSize).then((result) => {
+		f04Service.getArticles(vm.pageNumber, vm.pageSize).then(result => {
 			vm.loading = false;
 			vm.articles = result.content;
 			vm.pageNumber = result.number;
 			vm.totalArticles = result.totalElements;
 			vm.pageSize = result.size;
 			vm.error = false;
-		}, (errors) => {
+		}, errors => {
 			vm.loading = false;
 			vm.errors = errors;
 			vm.error = true;
 		});
 	}
 	
-	vm.changeToPage = (pageNumber) => {
+	vm.changeToPage = pageNumber => {
 		vm.pageNumber = pageNumber;
 		loadArticles();
 	}

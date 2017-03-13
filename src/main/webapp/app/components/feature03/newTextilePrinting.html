@@ -1,33 +1,51 @@
+<section>
+    <div class="page-header">
+      <h2>New textile printing</h2>
+    </div>
+    <div class="container col-md-offset-3">
+       <form class="form-horizontal" role="form" name="formTextilePrinting" ng-submit="vm.addTextilePrinting()">
+       
+          <div class="form-group">
+            <label class="control-label label-id col-md-1">Id</label>
+            <div class="col-md-4">
+               <input type="number" class="form-control"  placeholder="id" ng-model='vm.textilePrinting.id' required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="control-label label-reference col-md-1">Reference</label>
+            <div class="col-md-4">
+                <input type="text" class="form-control"  placeholder="Reference" ng-model='vm.textilePrinting.reference' required>
+            </div>
+          </div>
+          
+           <div class="form-group">
+            <label class="control-label label-description col-md-1">Description</label>
+            <div class="col-md-4">
+               <input type="text" class="form-control"  placeholder="Description" ng-model='vm.textilePrinting.description' required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="control-label label-price col-md-1">Retail-Price</label>
+             <div class="col-md-4">
+                <input type="number" class="form-control" placeholder="10,00" ng-model='vm.textilePrinting.retailPrice' ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="control-label label-description col-md-1">Type</label>
+            <div class="col-md-4">
+               <input type="text" class="form-control"  placeholder="Ploter" ng-model='vm.textilePrinting.typen' required>
+            </div>
+          </div>
+          
+          <div class="form-group"> 
+             <div class="col-md-offset-2 col-md-10">
+               <input type="submit" class="btn btn-primary "  value="Guardar"> 
+             </div>
+          </div>           
+      </form>
+    </div>
+</section>
 
-<ol class="breadcrumb">
-  <li><a href="#/feature03">Textile Printing</a></li>
-  <li class="active"><a href="#/feature10/create-textile-printing">New Textile Printing</a></li>
-</ol>
-
-<div class="container">
-   <form role="form" ng-submit="vm.addTextilePrinting()">
-      <div class="form-group">
-	    <label>Id</label>
-	    <input type="text" class="form-control"  placeholder="84000003333" ng-model='vm.textilePrinting.id'>
-	  </div>
-	  <div class="form-group">
-	    <label>Description</label>
-	    <input type="text" class="form-control"  placeholder="Description" ng-model='vm.textilePrinting.description'>
-	  </div>
-	  <div class="form-group">
-	    <label>Reference</label>
-	    <input type="text" class="form-control"  placeholder="Reference" ng-model='vm.textilePrinting.reference'>
-	  </div>
-	  <div class="form-group">
-	    <label>Retail Price</label>
-	    <input type="text" class="form-control"  placeholder="100.00" ng-model='vm.textilePrinting.retailPrice'>
-	  </div>
-	  <div class="form-group">
-	    <label>Type</label>
-	    <input type="text" class="form-control"  placeholder="ploter" ng-model='vm.textilePrinting.type'>
-	  </div>
-	  
-	  <input type="submit" class="btn btn-primary "  value="Guardar">  
-	  
-    </form>
-</div>

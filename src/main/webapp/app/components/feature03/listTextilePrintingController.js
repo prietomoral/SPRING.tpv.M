@@ -1,9 +1,10 @@
-tpv.controller('listTextilePrintingController', ['f03Service', listTextilePrintingController]);
+tpv.controller('listTextilePrintingController', listTextilePrintingController, 'Alertify');
 
-function listTextilePrintingController(f03Service) {
+function listTextilePrintingController(f03Service, Alertify) {
   'use strict';
   var vm = this;
   vm.initList = initList;
+  vm.deleteTextilePrinting = deleteTextilePrinting;
 
   function initList(){
 	  f03Service.listAllTextilePrinting().then(function success(response){
@@ -13,4 +14,15 @@ function listTextilePrintingController(f03Service) {
       console.log(errors);
     });
   }
+  
+  function deleteTextilePrinting(id){
+	  f03Service.deleteOneTextilePrinting(id).then(function success(response){
+		  Alertify.success("The textile printing has been deleted successfully.");
+		  initList();
+	  },
+	  function error(errors){
+		  Alertify.error("The textile printing has not been deleted successfully.");
+     });
+  }
+  
 }

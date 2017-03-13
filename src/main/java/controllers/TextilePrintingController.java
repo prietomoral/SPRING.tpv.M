@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
+import api.exceptions.AlreadyExistProductException;
 import daos.core.TextilePrintingDao;
 import entities.core.TextilePrinting;
 import wrappers.TextilePrintingWrapper;
@@ -41,15 +42,21 @@ public class TextilePrintingController {
         return listTextilePrintingWrapper;
     }
 
-    public void add(TextilePrintingWrapper textilePrintingWrapper) {
-        TextilePrinting textilePrinting = new TextilePrinting(textilePrintingWrapper.getId(), textilePrintingWrapper.getReference(),
-                textilePrintingWrapper.getRetailPrice(), textilePrintingWrapper.getDescription(), textilePrintingWrapper.getType());
+    public void add(TextilePrintingWrapper textilePrintingWrapper) throws AlreadyExistProductException {
+        TextilePrinting textilePrintingDB = textilePrintingDao.findOne(textilePrintingWrapper.getId());
+        if (textilePrintingDB != null) {
+            throw new AlreadyExistProductException();
+        } else {
+            TextilePrinting textilePrinting = new TextilePrinting(textilePrintingWrapper.getId(), textilePrintingWrapper.getReference(),
+                    textilePrintingWrapper.getRetailPrice(), textilePrintingWrapper.getDescription(), textilePrintingWrapper.getType());
 
-        this.textilePrintingDao.save(textilePrinting);
+            this.textilePrintingDao.save(textilePrinting);
+        }
     }
 
-    public Page<TextilePrintingWrapper> search(Pageable pageable) {
-        Page<TextilePrinting> page = textilePrintingDao.search(pageable);
+    public Page<TextilePrintingWrapper> search(Pageable pageable, String reference, String description, BigDecimal minRetailPrice,
+            BigDecimal maxRetailPrice, String type) {
+        Page<TextilePrinting> page = textilePrintingDao.search(pageable, reference, description, minRetailPrice, maxRetailPrice, type);
         List<TextilePrintingWrapper> textilePrintingWrapperList = new ArrayList<>();
         for (TextilePrinting textilePrinting : page.getContent()) {
             TextilePrintingWrapper textilePrintingWrapper = new TextilePrintingWrapper(textilePrinting.getId(),
@@ -58,5 +65,13 @@ public class TextilePrintingController {
             textilePrintingWrapperList.add(textilePrintingWrapper);
         }
         return new PageImpl<TextilePrintingWrapper>(textilePrintingWrapperList, pageable, page.getTotalElements());
+    }
+
+    public void delete(int id) {
+        TextilePrinting textilePrinting = textilePrintingDao.findOne(Long.valueOf(id));
+        textilePrintingDao.delete(textilePrinting);
+    }
+
+    public void edit(int id, TextilePrintingWrapper textilePrintingWrapper) {
     }
 }

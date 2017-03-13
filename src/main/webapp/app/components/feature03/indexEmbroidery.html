@@ -2,7 +2,6 @@
     <div class="page-header">
       <h1>Embroideries List</h1>
     </div>
-
     <br/>
     <div class="table-responsive">
        <table class="table table-striped">
@@ -25,7 +24,7 @@
               <td>{{embroidery.stitches}}</td>
               <td>{{embroidery.colors}}</td>
               <td>{{embroidery.squareMillimeters}}</td>
-              <td><a ng-href="#feature03/{{embroidery.id}}">Edit</a> | <a ng-href="#feature03/{{embroidery.id}}">Delete</a></td>
+              <td><a ng-href="#feature03/{{embroidery.id}}">Edit</a> | <input type="button"  value="Delete" ng-click="vm.deleteEmbroidery(embroidery.id)"></td>
             </tr>
           </tbody>
         </table>
