@@ -34,7 +34,7 @@ public class StatisticController {
     
     public List<TotalSoldProductWrapper> getMostSoldProducts(){
         List<SemiWrapperStatisticSold> semiWrapperMostSoldProducts=statisticService.mostSoldProductsMapped();
-        List<TotalSoldProductWrapper> mostSoldProducts=new ArrayList<TotalSoldProductWrapper>();
+        List<TotalSoldProductWrapper> mostSoldProducts=new ArrayList<>();
         for (SemiWrapperStatisticSold sWMSP : semiWrapperMostSoldProducts) {
             TotalSoldProductWrapper soldProduct=new TotalSoldProductWrapper(sWMSP.getIdProduct(),sWMSP.getTotalAmountSold(),sWMSP.getDescription());
             mostSoldProducts.add(soldProduct);
@@ -46,7 +46,7 @@ public class StatisticController {
         Long id=statisticData.getId();
         Calendar inicio=statisticData.getInicio();
         Calendar fin=statisticData.getFin();
-        List<StatisticProductByDateWrapper> listStatisticProduct=new ArrayList<StatisticProductByDateWrapper>();
+        List<StatisticProductByDateWrapper> listStatisticProduct=new ArrayList<>();
         List<Shopping> listShoppingByDate=shoppingDao.findShoppingsProductByDate(id, inicio, fin);
         for (Shopping shopping : listShoppingByDate) {
             StatisticProductByDateWrapper productByDateW=new StatisticProductByDateWrapper(shopping.getId(),shopping.getProductId(),shopping.getDescription(),shopping.getAmount());
