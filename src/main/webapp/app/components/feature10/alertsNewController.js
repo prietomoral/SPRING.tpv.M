@@ -8,8 +8,9 @@ function AlertsNewController(AlertsService, Alertify, articles) {
   vm.articles = articles;
 
   function createAlert(){
-    vm.alert.product_id = vm.selectedArticle.originalObject.id;
+    vm.alert.product_id = vm.alert.article.originalObject.id;
     AlertsService.createAlert(vm.alert).then(function success(response){
+      //TODO go to /show state
       vm.data = response;
     },
     function error(errors){

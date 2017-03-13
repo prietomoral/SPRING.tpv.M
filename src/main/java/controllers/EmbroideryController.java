@@ -74,9 +74,29 @@ public class EmbroideryController {
 
     }
 
-    public void deleteEmbroidery(Integer id) {
-        Embroidery embroidery = embroideryDao.findOne(Long.valueOf(id));
+    public void deleteEmbroidery(long id) {
+        Embroidery embroidery = embroideryDao.findOne(id);
         embroideryDao.delete(embroidery);
+
+    }
+
+    public Embroidery findOneEmbroidery(long id) {
+        Embroidery embroidery = embroideryDao.findOne(id);
+        return embroidery;
+    }
+
+    public void update(EmbroideryWrapper embroideryWrapper) {
+
+        Embroidery embroideryDB = embroideryDao.findOne(embroideryWrapper.getId());
+
+        embroideryDB.setReference(embroideryWrapper.getReference());
+        embroideryDB.setDescription(embroideryWrapper.getDescription());
+        embroideryDB.setRetailPrice(embroideryWrapper.getRetailPrice());
+        embroideryDB.setStitches(embroideryWrapper.getStitches());
+        embroideryDB.setColors(embroideryWrapper.getColors());
+        embroideryDB.setSquareMillimeters(embroideryWrapper.getSquareMillimeters());
+
+        this.embroideryDao.save(embroideryDB);
 
     }
 }

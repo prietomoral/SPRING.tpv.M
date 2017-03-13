@@ -6,7 +6,7 @@ public class NotFoundTicketIdException extends ApiException{
 
     public static final String DESCRIPTION = "No se encuentra el ticket con el identificador utilizado";
 
-    public static final int CODE = 4;
+    public static final int CODE = 11;
 
     public NotFoundTicketIdException() {
         this("");

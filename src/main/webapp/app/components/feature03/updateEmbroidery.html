@@ -1,14 +1,14 @@
 <section>
     <div class="page-header">
-      <h2>New Embroidery</h2>
+      <h2>Update Embroidery</h2>
     </div>
-    <div class="container col-md-offset-3">
-       <form class="form-horizontal" role="form" name="formEmbroidery" ng-submit="vm.createEmbroidery()">
+    <div class="container col-md-offset-3" ng-init="vm.findOneEmbroidery()">
+       <form class="form-horizontal" role="form" name="formEmbroidery" ng-submit="vm.updateEmbroidery()">
        
           <div class="form-group">
             <label class="control-label label-id col-md-1">Id</label>
             <div class="col-md-4">
-               <input type="number" class="form-control"  placeholder="id" ng-model='vm.embroidery.id' required>
+               <input type="number" class="form-control"  placeholder="id" ng-model='vm.embroidery.id' required readonly>
             </div>
           </div>
           
@@ -29,7 +29,10 @@
           <div class="form-group">
             <label class="control-label label-price col-md-1">Retail-Price</label>
              <div class="col-md-4">
-                <input type="number" class="form-control" name="price" placeholder="Retail Price (0,00)"  ng-model='vm.embroidery.price' ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>
+                <input type="number" class="form-control" name="price" placeholder="Retail Price (0,00)" ng-model='vm.embroidery.retailPrice' ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>
+                <span class="help-block" ng-show="!formEmbroidery.price.$valid">
+                    Invalid!
+                </span>
             </div>
           </div>
           
@@ -50,7 +53,7 @@
            <div class="form-group">
             <label class="control-label label-millimeters col-md-1">Millimiters</label>
             <div class="col-md-4">
-               <input type="number" class="form-control"  placeholder="Millimiters" ng-model='vm.embroidery.millimiters'  required>
+               <input type="number" class="form-control"  placeholder="Millimiters" ng-model='vm.embroidery.squareMillimeters'  required>
             </div>
           </div>
           

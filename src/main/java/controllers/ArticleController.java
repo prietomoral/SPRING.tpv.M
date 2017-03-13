@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
+import api.exceptions.AlreadyExistProductException;
 import daos.core.ArticleDao;
 import entities.core.Article;
 import wrappers.ArticleWrapper;
@@ -34,15 +35,29 @@ public class ArticleController {
         return new PageImpl<ArticleWrapper>(articleWrappers, pageable, page.getTotalElements());
     }
 
-    public List<ArticleWrapper> getAll() {
-        List<ArticleWrapper> articleWrappers = new ArrayList<>();
-        for (Article article : articleDao.findAll()) {
-            ArticleWrapper articleWrapper = new ArticleWrapper();
-            articleWrapper.setDescription(article.getDescription());
-            articleWrapper.setId(article.getId());
-            articleWrappers.add(articleWrapper);
+    public List<Article> all() {
+
+        List<Article> articles = articleDao.findAll();
+        return articles;
+    }
+
+    public void add(Article article) throws AlreadyExistProductException {
+        Article articleDB = articleDao.findOne(article.getId());
+        if (articleDB != null) {
+            throw new AlreadyExistProductException();
+        } else {
+            this.articleDao.save(article);
         }
-        return articleWrappers;
+    }
+
+    public void delete(int id) {
+        Article article = articleDao.findOne(Long.valueOf(id));
+        articleDao.delete(article);
+    }
+
+    public void edit(int id, Article article) {
+        // TODO Auto-generated method stub
+
     }
 
 }
