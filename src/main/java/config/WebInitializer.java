@@ -4,6 +4,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
+import org.apache.logging.log4j.LogManager;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -13,8 +15,12 @@ import api.Uris;
 public class WebInitializer implements WebApplicationInitializer {
 
     // Se configura el dispatcher
+    @SuppressWarnings("resource")
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
+        
+        new ClassPathXmlApplicationContext("SpringBatchConfig.xml");
+        
         // Se crea un contexto basado en anotaciones
         AnnotationConfigWebApplicationContext annConWebAppCtx = new AnnotationConfigWebApplicationContext();
 
