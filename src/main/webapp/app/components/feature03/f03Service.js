@@ -13,10 +13,24 @@ function f03Service($http, $q) {
     		 deleteOneEmbroidery:deleteOneEmbroidery,
     		 deleteOneTextilePrinting: deleteOneTextilePrinting,
     		 findOneEmbroidery:findOneEmbroidery,
-    		 updateEmbroidery:updateEmbroidery
+    		 updateEmbroidery:updateEmbroidery,
+    		 listAllArticles:listAllArticles
      };
 
      return feature03Service;
+     
+     function listAllArticles() {
+    	 return $http({
+    		 method: 'GET',
+    		 url: urlBase + '/articles'
+    	 }).then(function successCallback(response) {
+    		 return response.data;
+    	 }, function errorCallback(response) {
+    		 return $q.reject(response);
+    	 });
+     }
+     
+     
 
      function listAllEmbroideries() {
     	 return $http({

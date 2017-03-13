@@ -13,14 +13,16 @@ import api.exceptions.ErrorMessage;
 import api.exceptions.InvalidUserFieldException;
 import api.exceptions.MalformedHeaderException;
 import api.exceptions.MissingArticleIdException;
+import api.exceptions.NotFoundTicketIdException;
 import api.exceptions.NotFoundUserIdException;
 import api.exceptions.UnauthorizedException;
+import api.exceptions.TicketHasNoUserException;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler({NotFoundUserIdException.class})
+    @ExceptionHandler({NotFoundUserIdException.class, NotFoundTicketIdException.class, TicketHasNoUserException.class})
     @ResponseBody
     public ErrorMessage notFoundRequest(ApiException exception) {
         ErrorMessage apiErrorMessage = new ErrorMessage(exception);
