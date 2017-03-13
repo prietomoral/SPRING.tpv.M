@@ -23,10 +23,10 @@ public class SeedService {
 
     private static final String YAML_FILES_ROOT = "classpath:META-INF/";
 
-    public TextilePrintingList parseYaml(String fileName) throws IOException {
+    public TpvGraph parseYaml(String fileName) throws IOException {
         Resource resource = appContext.getResource(YAML_FILES_ROOT + fileName);
         InputStream input = resource.getInputStream();
-        TextilePrintingList textilePrinting = (TextilePrintingList) yamlParser.load(input);
+        TpvGraph textilePrinting = (TpvGraph) yamlParser.load(input);
         return textilePrinting;
     }
 
