@@ -29,14 +29,19 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="referenceInput">Search by reference</label>
                         <input ng-model="vm.reference" id="referenceInput" placeholder="627-23-12_TPV" class="form-control">
                     </div>
-                    
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="referenceInput">Search by description</label>
+                        <input ng-model="vm.description" id="referenceInput" placeholder="Description" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <div class="row">
                         <div class="form-group col-md-4">
                             <label for="minRetailPriceInput">Min retail price</label>
@@ -53,7 +58,7 @@
                     </div>  
                 </div>
             </div>
-            <div class="row" ng-show="vm.advancedSearchVisibility">
+            <div class="row" ng-show="vm.advancedSearchVisibility">                
                 <hr/>
                 <div class="col-md-4">              
 	                <div class="form-group">
