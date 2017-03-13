@@ -32,24 +32,24 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="referenceInput">Search by reference</label>
-                        <input ng-model="vm.reference" id="referenceInput" placeholder="627-23-12_TPV" class="form-control">
+                        <input ng-model="vm.searchValues.reference" id="referenceInput" placeholder="627-23-12_TPV" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="referenceInput">Search by description</label>
-                        <input ng-model="vm.description" id="referenceInput" placeholder="Description" class="form-control">
+                        <input ng-model="vm.searchValues.description" id="referenceInput" placeholder="Description" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="row">
                         <div class="form-group col-md-4">
                             <label for="minRetailPriceInput">Min retail price</label>
-                            <input ng-model="vm.minRetailPrice" type="number" min="0" step="0.01" id="minRetailPriceInput" class="form-control">
+                            <input ng-model="vm.searchValues.minRetailPrice" type="number" min="0" step="0.01" id="minRetailPriceInput" class="form-control">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="maxRetailPriceInput">Max retail price</label>
-                            <input ng-model="vm.maxRetailPrice" type="number" min="0" step="0.01" id="maxRetailPriceInput" class="form-control">
+                            <input ng-model="vm.searchValues.maxRetailPrice" type="number" min="0" step="0.01" id="maxRetailPriceInput" class="form-control">
                         </div>
                         <button class="btn btn-primary" ng-click="vm.onClickSearchButton()">
                             <span class="glyphicon glyphicon-search"></span>
@@ -63,7 +63,7 @@
                 <div class="form-group col-lg-4">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" ng-model="vm.onlyOnStock">On stock
+                            <input type="checkbox" ng-model="vm.searchValues.onlyOnStock">On stock
                         </label>
                     </div>
                 </div>      
@@ -76,25 +76,25 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th class="clickable" ng-click="vm.sortType='reference'; vm.sortReverse = !vm.sortReverse">
+                        <th class="clickable" ng-click="vm.sortBy('reference')">
                             Reference
-                            <span ng-show="vm.sortType=='reference' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
-                            <span ng-show="vm.sortType=='reference' && !vm.sortReverse" class="glyphicon glyphicon-triangle-top text-primary"></span>
+                            <span ng-show="vm.pageInfo.sortParameter=='reference' && vm.pageInfo.sortType == 'desc'" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+                            <span ng-show="vm.pageInfo.sortParameter=='reference' && vm.pageInfo.sortType == 'asc'" class="glyphicon glyphicon-triangle-top text-primary"></span>
                         </th>
-                        <th class="clickable" ng-click="vm.sortType='description'; vm.sortReverse = !vm.sortReverse">
+                        <th class="clickable" ng-click="vm.sortBy('description')">
                             Description
-                            <span ng-show="vm.sortType=='description' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
-                            <span ng-show="vm.sortType=='description' && !vm.sortReverse" class="glyphicon glyphicon-triangle-top text-primary"></span>
+                            <span ng-show="vm.pageInfo.sortParameter=='description' && vm.pageInfo.sortType == 'desc'" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+                            <span ng-show="vm.pageInfo.sortParameter=='description' && vm.pageInfo.sortType == 'asc'" class="glyphicon glyphicon-triangle-top text-primary"></span>
                         </th>
-                        <th class="clickable" ng-click="vm.sortType='retailPrice'; vm.sortReverse = !vm.sortReverse">
+                        <th class="clickable" ng-click="vm.sortBy('retailPrice')">
                             Retail price
-                            <span ng-show="vm.sortType=='retailPrice' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
-                            <span ng-show="vm.sortType=='retailPrice' && !vm.sortReverse" class="glyphicon glyphicon-triangle-top text-primary"></span>
+                            <span ng-show="vm.pageInfo.sortParameter=='retailPrice' && vm.pageInfo.sortType == 'desc'" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+                            <span ng-show="vm.pageInfo.sortParameter=='retailPrice' && vm.pageInfo.sortType == 'asc'" class="glyphicon glyphicon-triangle-top text-primary"></span>
                         </th>
-                        <th class="clickable" ng-click="vm.sortType='stock'; vm.sortReverse = !vm.sortReverse">
+                        <th class="clickable" ng-click="vm.sortBy('stock')">
                             Stock
-                            <span ng-show="vm.sortType=='stock' && vm.sortReverse" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
-                            <span ng-show="vm.sortType=='stock' && !vm.sortReverse" class="glyphicon glyphicon-triangle-top text-primary"></span>
+                            <span ng-show="vm.pageInfo.sortParameter=='stock' && vm.pageInfo.sortType == 'desc'" class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+                            <span ng-show="vm.pageInfo.sortParameter=='stock' && vm.pageInfo.sortType == 'asc'" class="glyphicon glyphicon-triangle-top text-primary"></span>
                         </th>
                     </tr>
                 </thead>
@@ -127,9 +127,9 @@
             <div class="panel-body center">
                 <paging
                     class="small"
-                    page="vm.pageNumber + 1" 
-                    page-size="vm.pageSize" 
-                    total="vm.totalArticles"
+                    page="vm.pageInfo.pageNumber + 1" 
+                    page-size="vm.pageInfo.pageSize" 
+                    total="vm.pageInfo.totalArticles"
                     show-prev-next="true"
                     show-first-last="true"
                     text-next-class="glyphicon glyphicon-chevron-right"

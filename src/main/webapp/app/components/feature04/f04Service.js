@@ -20,11 +20,12 @@ tpv.service('f04Service', function ($http, $q) {
 	      return deferred.promise;	   
 	}	
    
-	this.getArticles = (pageNumber, pageSize, reference, description, minRetailPrice, maxRetailPrice, onlyOnStock) => {
+	this.getArticles = (pageInfo, searchValues) => {
 		  let config = {
 		 	 method: 'GET',
-		 	 url: `${urlBase}/articles/search?page=${pageNumber}&size=${pageSize}&reference=${reference}&description=${description}` + 
-		 	 `&minRetailPrice=${minRetailPrice}&maxRetailPrice=${maxRetailPrice}&onlyOnStock=${onlyOnStock}`
+		 	 url: `${urlBase}/articles/search?page=${pageInfo.pageNumber}&size=${pageInfo.pageSize}` + 
+		 	 `&sort=${pageInfo.sortParameter},${pageInfo.sortType}&reference=${searchValues.reference}&description=${searchValues.description}` + 
+		 	 `&minRetailPrice=${searchValues.minRetailPrice}&maxRetailPrice=${searchValues.maxRetailPrice}&onlyOnStock=${searchValues.onlyOnStock}`
 		  };
 	      return this.request(config);
 	}

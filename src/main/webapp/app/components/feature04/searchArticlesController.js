@@ -3,37 +3,38 @@ tpv.controller('SearchArticlesController', function($route, f04Service) {
 	
 	var vm = this;
 	
-	vm.loading = true;
-	
-	vm.pageNumber = 0;
-	vm.pageSize = 3;
-	vm.totalArticles = 0;
+	vm.pageInfo = {
+		pageNumber: 0,
+		pageSize: 3,
+		totalArticles: 0,
+		sortParameter: "reference",
+		sortType: "asc"
+	};
 	
 	vm.advancedSearchVisibility = false;
-
 	
-	vm.reference = "";
-	vm.description = "";
-	vm.minRetailPrice = "";
-	vm.maxRetailPrice = "";
-	vm.onlyOnStock = false;
+	vm.searchValues = {
+		reference: "",
+		description: "",
+		minRetailPrice: "",
+		maxRetailPrice: "",
+		onlyOnStock: false
+	}
 	
-	vm.sortType = "reference";
-	vm.sortReverse = false;
-	
+	vm.loading = true;
 	vm.error = false;
-	vm.articles = [];
 	
+	vm.articles = [];
 	loadArticles();
 	
 	function loadArticles(){
 		formatEmptyNumbers();
-		f04Service.getArticles(vm.pageNumber, vm.pageSize, vm.reference, vm.description, vm.minRetailPrice, vm.maxRetailPrice, vm.onlyOnStock).then(result => {
+		f04Service.getArticles(vm.pageInfo, vm.searchValues).then(result => {
 			vm.loading = false;
 			vm.articles = result.content;
-			vm.pageNumber = result.number;
-			vm.totalArticles = result.totalElements;
-			vm.pageSize = result.size;
+			vm.pageInfo.pageNumber = result.number;
+			vm.pageInfo.totalArticles = result.totalElements;
+			vm.pageInfo.pageSize = result.size;
 			vm.error = false;
 		}, errors => {
 			vm.loading = false;
@@ -42,12 +43,12 @@ tpv.controller('SearchArticlesController', function($route, f04Service) {
 	}
 	
 	function formatEmptyNumbers(){
-		vm.minRetailPrice = f04Service.formatEmptyNumber(vm.minRetailPrice);
-		vm.maxRetailPrice = f04Service.formatEmptyNumber(vm.maxRetailPrice);
+		vm.searchValues.minRetailPrice = f04Service.formatEmptyNumber(vm.searchValues.minRetailPrice);
+		vm.searchValues.maxRetailPrice = f04Service.formatEmptyNumber(vm.searchValues.maxRetailPrice);
 	}
 	
 	vm.changeToPage = pageNumber => {
-		vm.pageNumber = pageNumber;
+		vm.pageInfo.pageNumber = pageNumber;
 		loadArticles();
 	}
 	
@@ -56,6 +57,16 @@ tpv.controller('SearchArticlesController', function($route, f04Service) {
 	}
 	
 	vm.onClickSearchButton = () => {
+		loadArticles();
+	}
+	
+	vm.sortBy = parameter => {
+		if (vm.pageInfo.sortType == "asc" && vm.pageInfo.sortParameter == parameter) {
+			vm.pageInfo.sortType = "desc";
+		} else {
+			vm.pageInfo.sortType = "asc";
+		}
+		vm.pageInfo.sortParameter = parameter;
 		loadArticles();
 	}
 	
