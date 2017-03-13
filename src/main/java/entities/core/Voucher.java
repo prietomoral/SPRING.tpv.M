@@ -36,6 +36,13 @@ public class Voucher {
         dateOfUse = null;
     }
 
+    public Voucher(BigDecimal value, Calendar date) {
+        reference = new Encrypting().encryptInBase64UrlSafe("" + value + Long.toString(new Date().getTime()));
+        this.value = value;
+        created = date;
+        dateOfUse = null;
+    }
+    
     public int getId() {
         return id;
     }
