@@ -1,1 +1,22 @@
-<h4>create voucher</h4>
+<section class="container">
+	 <fieldset>
+	     <legend>Feature 07. Create Voucher. Autor: Mariana Salcedo</legend>
+	     <form class="form-horizontal">
+	         <div class="form-group">
+	             <label class="control-label col-sm-2 " for="value">Value:</label>
+	             <div class='col-sm-10'>
+	                 <input type='text' numbersOnly class="form-control" ng-model='vm.value'
+	                     required />
+	             </div>
+	         </div>
+	         <div class="form-group">
+	             <div class="col-sm-offset-2 col-sm-2 ">
+	                 <button class="btn btn-primary btn-sm"
+	                     ng-click="vm.create()">Enviar</button>
+	             </div>
+	             <label class="bg-success col-sm-6" ng-show="vm.completed">Petición
+	                 correcta</label> <label class="bg-danger col-sm-6" ng-show="vm.error">Error!!!</label>
+	         </div>
+	     </form>
+	 </fieldset>
+</section>
