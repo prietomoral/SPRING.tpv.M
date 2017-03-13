@@ -48,7 +48,7 @@ public class TextilePrintingResource {
     }
 
     @RequestMapping(value = Uris.ID, method = RequestMethod.DELETE)
-    public void delete(@PathVariable(value = "id") int id) {
+    public void delete(@PathVariable(value = "id") long id) {
         this.textilePrintingController.delete(id);
     }
 

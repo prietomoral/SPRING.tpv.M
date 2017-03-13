@@ -64,8 +64,8 @@ public class TextilePrintingController {
         return new PageImpl<TextilePrintingWrapper>(textilePrintingWrapperList, pageable, page.getTotalElements());
     }
 
-    public void delete(int id) {
-        TextilePrinting textilePrinting = textilePrintingDao.findOne(Long.valueOf(id));
+    public void delete(long id) {
+        TextilePrinting textilePrinting = textilePrintingDao.findOne(id);
         textilePrintingDao.delete(textilePrinting);
     }
 
