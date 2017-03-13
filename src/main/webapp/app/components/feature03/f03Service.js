@@ -11,15 +11,42 @@ function f03Service($http, $q) {
     		 createEmbroidery:createEmbroidery,
     		 addTextilePrinting: addTextilePrinting,
     		 deleteOneEmbroidery:deleteOneEmbroidery,
-    		 deleteOneTextilePrinting: deleteOneTextilePrinting
+    		 deleteOneTextilePrinting: deleteOneTextilePrinting,
+    		 findOneEmbroidery:findOneEmbroidery,
+    		 updateEmbroidery:updateEmbroidery,
+    		 listAllArticles:listAllArticles
      };
 
      return feature03Service;
+     
+     function listAllArticles() {
+    	 return $http({
+    		 method: 'GET',
+    		 url: urlBase + '/articles'
+    	 }).then(function successCallback(response) {
+    		 return response.data;
+    	 }, function errorCallback(response) {
+    		 return $q.reject(response);
+    	 });
+     }
+     
+     
 
      function listAllEmbroideries() {
     	 return $http({
     		 method: 'GET',
     		 url: urlBase + '/embroideries'
+    	 }).then(function successCallback(response) {
+    		 return response.data;
+    	 }, function errorCallback(response) {
+    		 return $q.reject(response);
+    	 });
+     }
+     
+     function findOneEmbroidery(id) {
+    	 return $http({
+    		 method: 'GET',
+    		 url: urlBase + '/embroideries/'+id
     	 }).then(function successCallback(response) {
     		 return response.data;
     	 }, function errorCallback(response) {
@@ -47,6 +74,29 @@ function f03Service($http, $q) {
  	        return $q.reject(response);
  	      });
  	  }
+     
+     
+     function updateEmbroidery(embroidery) {
+  	    return $http({
+  	      method: 'PUT',
+  	      url: urlBase + '/embroideries',
+  	      data:{
+  	    	'id': embroidery.id,
+  	    	 'reference':embroidery.reference, 
+  	    	 'description': embroidery.description,
+  	    	 'retailPrice':embroidery.retailPrice,
+  	    	 'stitches':embroidery.stitches,
+  	    	 'colors':embroidery.colors,
+  	    	 'squareMillimeters':embroidery.squareMillimeters
+  	    	  }
+  	    }).then(function successCallback(response) {
+  	        return response.data;
+  	      }, function errorCallback(response) {
+  	        return $q.reject(response);
+  	      });
+  	  }
+     
+     
 
      
      function deleteOneEmbroidery(id) {
