@@ -4,7 +4,7 @@ function listArticleController(f03Service,Alertify) {
   'use strict';
   var vm = this;
   vm.initList = initList;
-  //vm.deleteEmbroidery = deleteEmbroidery;
+  vm.deleteArticle = deleteArticle;
  
 
   function initList(){
@@ -16,15 +16,15 @@ function listArticleController(f03Service,Alertify) {
     });
   }
  
- /* function deleteEmbroidery(id){
-		  f03Service.deleteOneEmbroidery(id).then(function success(response){
-			  Alertify.success("The embroidery has been deleted successfully.");
+  function deleteArticle(id){
+		  f03Service.deleteOneArticle(id).then(function success(response){
+			  Alertify.success("The article has been deleted successfully.");
 			  initList();
 		  },
 		  function error(errors){
-			  Alertify.error("The embroidery has not been deleted successfully.");
+			  Alertify.error("The article has not been deleted successfully.");
 	  });
-   }*/
+   }
 	  
 }
 
