@@ -40,4 +40,14 @@ public class AlertResource {
         return alertController.createAlert(alertWrapperCreate);
     }
 
+    @RequestMapping(value = Uris.ID, method = RequestMethod.DELETE)
+    public void delete(@PathVariable(value = "id") int id) {
+        alertController.delete(id);
+    }
+
+    @RequestMapping(value = Uris.ID, method = RequestMethod.PUT)
+    public void edit(@PathVariable(value = "id") int id, @RequestBody AlertWrapperCreate alertWrapperCreate) {
+        alertController.edit(id, alertWrapperCreate);
+    }
+
 }
