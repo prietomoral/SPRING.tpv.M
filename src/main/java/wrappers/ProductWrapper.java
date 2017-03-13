@@ -2,6 +2,8 @@ package wrappers;
 
 import java.math.BigDecimal;
 
+import entities.core.Product;
+
 public abstract class ProductWrapper {
 
     private long id;
@@ -21,6 +23,13 @@ public abstract class ProductWrapper {
         this.reference = reference;
         this.description = description;
         this.retailPrice = retailPrice;
+    }
+
+    public ProductWrapper(Product product) {
+        this.id = product.getId();
+        this.reference = product.getReference();
+        this.description = product.getDescription();
+        this.retailPrice = product.getRetailPrice();
     }
 
     public long getId() {

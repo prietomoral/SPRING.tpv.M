@@ -29,9 +29,7 @@ public class ArticleController {
         Page<Article> page = articleDao.search(pageable, reference, description, minRetailPrice, maxRetailPrice, onlyOnStock);
         List<ArticleWrapper> articleWrappers = new ArrayList<>();
         for (Article article : page.getContent()) {
-            ArticleWrapper articleWrapper = new ArticleWrapper(article.getId(), article.getReference(), article.getDescription(),
-                    article.getRetailPrice(), article.getStock());
-            articleWrappers.add(articleWrapper);
+            articleWrappers.add(new ArticleWrapper(article));
         }
         return new PageImpl<ArticleWrapper>(articleWrappers, pageable, page.getTotalElements());
     }

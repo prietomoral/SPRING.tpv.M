@@ -24,5 +24,10 @@
             </div>
             <input type="submit" class="btn btn-primary" value="Save"  ng-click="vm.createProvider()">  
         </form>
+        
+    </div>
+    <div class="container">
+        <label class="bg-success col-md-12" ng-show="vm.completed">Correct request</label> 
+        <label class="bg-danger col-md-12" ng-show="vm.error">Error!!!</label>
     </div>
 </section>
