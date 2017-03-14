@@ -69,6 +69,20 @@ public class TextilePrintingController {
         textilePrintingDao.delete(textilePrinting);
     }
 
-    public void edit(int id, TextilePrintingWrapper textilePrintingWrapper) {
+    public void edit(TextilePrintingWrapper textilePrintingWrapper) {
+
+    	TextilePrinting textilePrintingDB = textilePrintingDao.findOne(textilePrintingWrapper.getId());
+
+        textilePrintingDB.setReference(textilePrintingWrapper.getReference());
+        textilePrintingDB.setDescription(textilePrintingWrapper.getDescription());
+        textilePrintingDB.setRetailPrice(textilePrintingWrapper.getRetailPrice());
+        textilePrintingDB.setType(textilePrintingWrapper.getType());
+
+        this.textilePrintingDao.save(textilePrintingDB);
     }
+
+	public TextilePrinting findOne(long id) {
+		TextilePrinting textilePrinting = textilePrintingDao.findOne(id);
+        return textilePrinting;
+	}
 }
