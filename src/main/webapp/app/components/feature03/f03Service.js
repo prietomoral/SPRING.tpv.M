@@ -38,11 +38,11 @@ function f03Service($http, $q) {
   	      url: urlBase + '/articles',
   	      data:{
   	    	  'id': article.id, 
-  	    	  'reference':article.reference, 
+  	    	  'reference': article.reference, 
   	    	  'description': article.description,
-  	    	  'retailPrice':article.retailPrice,
-  	    	  'wholesalePrice':article.wholesalePrice,
-  	    	 // 'provider':article.provider,
+  	    	  'retailPrice': article.retailPrice,
+  	    	  'wholesalePrice': article.wholesalePrice,
+  	    	  'providerId': article.providerId
   	    	  }
   	    }).then(function successCallback(response) {
   	        return response.data;
