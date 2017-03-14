@@ -32,27 +32,11 @@ tpv.service('f07Service', ['$http', '$q', function ($http, $q) {
    }
    
    this.getVouchers = function(){
-      let deferred = $q.defer();
-      deferred.resolve([{
-		   id: 1,
-		   reference: "R3f3r3nc3",
-		   value: 4333, 
-		   created: "12/03/2017",
-		   dateOfUse: "14/03/2017"
-	   },{
-		   id: 2,
-		   reference: "R3f3r3nc32",
-		   value: 4333, 
-		   created: "05/03/2017"
-	   },{
-		   id: 1,
-		   reference: "R3f3r3nc33",
-		   value: 4333, 
-		   created: "04/12/2015",
-		   dateOfUse: "06/02/2016"
-	   }]);
-
-      return deferred.promise;    
+	  let config = {
+ 	      method: 'GET',
+	      url: urlBase+ "/" + resource
+	  };
+	  return this.request(config);    
    }
    
 }]);
