@@ -22,17 +22,17 @@ public class Token {
     @ManyToOne
     @JoinColumn
     private User user;
-    
+
     @Column(nullable = false)
     private Date creationDate;
 
     public Token() {
+        this.creationDate = new Date();
     }
 
     public Token(User user) {
         assert user != null;
-        this.user = user;
-        this.value = new Encrypting().encryptInBase64UrlSafe("" + user.getId() + Long.toString(new Date().getTime()));
+        setUser(user);
         this.creationDate = new Date();
     }
 
@@ -47,7 +47,12 @@ public class Token {
     public User getUser() {
         return user;
     }
-    
+
+    public void setUser(User user) {
+        this.user = user;
+        this.value = new Encrypting().encryptInBase64UrlSafe("" + user.getId() + Long.toString(new Date().getTime()));
+    }
+
     public Date getCreationDate() {
         return creationDate;
     }

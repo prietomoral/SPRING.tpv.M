@@ -15,6 +15,7 @@ import daos.core.ArticleDao;
 import daos.core.ProviderDao;
 import daos.core.TextilePrintingDao;
 import daos.users.AuthorizationDao;
+import daos.users.TokenDao;
 import daos.users.UserDao;
 
 @Service
@@ -32,6 +33,9 @@ public class SeedService {
 
     @Autowired
     private AuthorizationDao authorizationDao;
+
+    @Autowired
+    private TokenDao tokenDao;
 
     @Autowired
     private ProviderDao providerDao;
@@ -52,6 +56,7 @@ public class SeedService {
 
         userDao.save(tpvGraph.getUserList());
         authorizationDao.save(tpvGraph.getAuthorizationList());
+        tokenDao.save(tpvGraph.getTokenList());
         providerDao.save(tpvGraph.getProviderList());
         articleDao.save(tpvGraph.getArticleList());
         textilePrintingDao.save(tpvGraph.getTextilePrintingList());

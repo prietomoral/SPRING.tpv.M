@@ -25,6 +25,9 @@ authorizationList:
     role: CUSTOMER
   - user: *user666000003
     role: CUSTOMER
+    
+tokenList:
+  - user: *user666000000
 
 textilePrintingList:
   - id: 85000001111
