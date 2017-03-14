@@ -18,7 +18,9 @@ function f03Service($http, $q) {
     		 deleteOneArticle: deleteOneArticle,
     		 createArticle: createArticle,
     		 editTextilePrinting: editTextilePrinting,
-    		 findOneTextilePrinting: findOneTextilePrinting
+    		 findOneTextilePrinting: findOneTextilePrinting,
+    		 findOneArticle: findOneArticle,
+    		 updateArticle: updateArticle
      };
 
      return feature03Service;
@@ -27,6 +29,18 @@ function f03Service($http, $q) {
     	 return $http({
     		 method: 'GET',
     		 url: urlBase + '/articles'
+    	 }).then(function successCallback(response) {
+    		 return response.data;
+    	 }, function errorCallback(response) {
+    		 return $q.reject(response);
+    	 });
+     }
+     
+     
+     function findOneArticle(id) {
+    	 return $http({
+    		 method: 'GET',
+    		 url: urlBase + '/articles/'+id
     	 }).then(function successCallback(response) {
     		 return response.data;
     	 }, function errorCallback(response) {
@@ -63,6 +77,27 @@ function f03Service($http, $q) {
     		 return $q.reject(response);
     	 });
      }
+     
+     
+     function updateArticle(article) {
+   	    return $http({
+   	      method: 'PUT',
+   	      url: urlBase + '/articles',
+   	      data:{
+   	    	  'id': article.id, 
+	    	  'reference': article.reference, 
+	    	  'description': article.description,
+	    	  'retailPrice': article.retailPrice,
+	    	  'wholesalePrice': article.wholesalePrice,
+	    	  'providerId': article.providerId
+   	    	  }
+   	    }).then(function successCallback(response) {
+   	        return response.data;
+   	      }, function errorCallback(response) {
+   	        return $q.reject(response);
+   	      });
+   	  }
+     
 
      function listAllEmbroideries() {
     	 return $http({

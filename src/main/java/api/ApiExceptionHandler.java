@@ -17,15 +17,17 @@ import api.exceptions.MissingArticleIdException;
 import api.exceptions.NotFoundAlertIdException;
 import api.exceptions.NotFoundTicketIdException;
 import api.exceptions.NotFoundUserIdException;
-import api.exceptions.TicketHasNoUserException;
+import api.exceptions.NotFoundVouchers;
 import api.exceptions.UnauthorizedException;
+import api.exceptions.TicketHasNoUserException;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
 
+
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler({ NotFoundUserIdException.class, NotFoundTicketIdException.class, TicketHasNoUserException.class,
-			NotFoundAlertIdException.class })
+			NotFoundAlertIdException.class, NotFoundVouchers.class })
 	@ResponseBody
 	public ErrorMessage notFoundRequest(ApiException exception) {
 		ErrorMessage apiErrorMessage = new ErrorMessage(exception);
