@@ -35,4 +35,11 @@ public class ProviderControllerIT {
         List<ProviderIdCompanyWrapper> providers = providerController.getAllIdCompany();
         assertEquals(4, providers.size());
     }
+	
+	@Test
+	public void testGetOneById() {
+		List<ProviderWrapper> providers = providerController.getAll();
+		ProviderWrapper resultProvider = providerController.getOneById(providers.get(0).getId());
+		assertEquals(providers.get(0).getAddress(), resultProvider.getAddress());
+	}
 }
