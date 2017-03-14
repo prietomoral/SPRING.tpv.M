@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import daos.core.ProviderDao;
 import entities.core.Provider;
 import wrappers.ProviderAddWrapper;
+import wrappers.ProviderIdCompanyWrapper;
 import wrappers.ProviderWrapper;
 
 @Controller
@@ -48,5 +49,14 @@ public class ProviderController {
     	
     	return providerList;
     }
-
+    
+    public List<ProviderIdCompanyWrapper> getAllIdCompany() {
+    	List<ProviderIdCompanyWrapper> providerList = new ArrayList<>();
+    	
+    	for(Provider provider: providerDao.findAll()) {
+    		providerList.add(new ProviderIdCompanyWrapper(provider.getId(), provider.getCompany()));
+    	}
+    	
+    	return providerList;
+    }
 }
