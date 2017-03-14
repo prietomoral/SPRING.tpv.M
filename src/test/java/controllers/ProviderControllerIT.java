@@ -17,7 +17,7 @@ import wrappers.ProviderIdCompanyWrapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PersistenceConfig.class, TestsPersistenceConfig.class, TestsControllerConfig.class})
-public class ProviderControllerTestsIT {
+public class ProviderControllerIT {
 	
 	@Autowired
     private ProviderController providerController;
