@@ -31,7 +31,6 @@ public class StatisticResource {
     
     @RequestMapping(value = Uris.BY_DATE, method = RequestMethod.POST)
     public List<StatisticProductByDateWrapper> getProductSalesInTime(@RequestBody StatisticDataWrapper statisticData){
-        statisticController.getSoldsOfProductByDate(statisticData);
-        return null;
+       return statisticController.getSoldsOfProductByDate(statisticData);
     }
 }
