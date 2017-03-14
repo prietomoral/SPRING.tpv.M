@@ -49,6 +49,15 @@ public class ProviderResourceFunctionalTesting {
     }
 	
 	@Test
+	public void testGetOneById() {
+		List<ProviderWrapper> providers = Arrays.asList(
+                new RestTemplate().exchange(RestService.URL + Uris.PROVIDERS, HttpMethod.GET, new HttpEntity<Object>(new HttpHeaders()), ProviderWrapper[].class).getBody());
+		int id = providers.get(0).getId();
+		ProviderWrapper response = new RestTemplate().exchange(RestService.URL + Uris.PROVIDERS + "/" + id, HttpMethod.GET, new HttpEntity<Object>(new HttpHeaders()), ProviderWrapper.class).getBody();
+		assertEquals(providers.get(0).getCompany(), response.getCompany());
+	}
+	
+	@Test
 	public void testCreateProvider() {
 		ProviderAddWrapper provider = new ProviderAddWrapper();
         provider.setCompany("Company");

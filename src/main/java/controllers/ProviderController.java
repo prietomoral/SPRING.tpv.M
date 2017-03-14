@@ -59,4 +59,16 @@ public class ProviderController {
     	
     	return providerList;
     }
+    
+    public ProviderWrapper getOneById(int id) {
+    	Provider provider = providerDao.findOne(id);
+    	return new ProviderWrapper(
+				provider.getId(),
+				provider.getCompany(),
+				provider.getAddress(),
+				provider.getMobile(),
+				provider.getPhone(),
+				provider.getPaymentConditions(),
+				provider.getNote());
+    }
 }
