@@ -55,9 +55,15 @@ public class ArticleResource {
         this.articleController.delete(id);
     }
 
+
     @RequestMapping(method = RequestMethod.PUT)
-    public void edit(int id, @RequestBody Article article) {
-        this.articleController.edit(id, article);
+    public void update(@RequestBody CrudArticleWrapper article){
+        this.articleController.update(article);
+    }
+    
+    @RequestMapping(value = Uris.ID, method = RequestMethod.GET)
+    public Article findOneArticle(@PathVariable(value = "id") long id) {
+       return articleController.findOneArticle(id);    
     }
 
 }
