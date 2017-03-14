@@ -18,6 +18,7 @@ import api.exceptions.AlreadyExistProductException;
 import controllers.ArticleController;
 import entities.core.Article;
 import wrappers.ArticleWrapper;
+import wrappers.CrudArticleWrapper;
 
 @RestController
 @RequestMapping(Uris.VERSION + Uris.ARTICLES)
@@ -45,7 +46,7 @@ public class ArticleResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void add(@RequestBody Article article) throws AlreadyExistProductException {
+    public void add(@RequestBody CrudArticleWrapper article) throws AlreadyExistProductException {
         this.articleController.add(article);
     }
 

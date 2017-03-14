@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import api.exceptions.AlreadyExistProductException;
 import controllers.TextilePrintingController;
+import entities.core.TextilePrinting;
 import wrappers.TextilePrintingWrapper;
 
 @RestController
@@ -55,8 +56,12 @@ public class TextilePrintingResource {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public void edit(int id, @RequestBody TextilePrintingWrapper textilePrintingWrapper) {
-        this.textilePrintingController.edit(id, textilePrintingWrapper);
+    public void edit(@RequestBody TextilePrintingWrapper textilePrintingWrapper) {
+        this.textilePrintingController.edit(textilePrintingWrapper);
     }
 
+    @RequestMapping(value = Uris.ID, method = RequestMethod.GET)
+    public TextilePrinting findOne(@PathVariable(value = "id") long id) {
+       return this.textilePrintingController.findOne(id);    
+    }
 }

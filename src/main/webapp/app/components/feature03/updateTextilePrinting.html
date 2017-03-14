@@ -1,14 +1,14 @@
 <section>
     <div class="page-header">
-      <h2>New textile printing</h2>
+      <h2>Update Textile Printing</h2>
     </div>
-    <div class="container col-md-offset-3">
-       <form class="form-horizontal" role="form" name="formTextilePrinting" ng-submit="vm.addTextilePrinting()">
+    <div class="container col-md-offset-3" ng-init="vm.findOne()">
+       <form class="form-horizontal" role="form" name="formTextilePrinting" ng-submit="vm.editTextilePrinting()">
        
           <div class="form-group">
             <label class="control-label label-id col-md-1">Id</label>
             <div class="col-md-4">
-               <input type="number" class="form-control"  placeholder="id" ng-model='vm.textilePrinting.id' required>
+               <input type="number" class="form-control"  placeholder="id" ng-model='vm.textilePrinting.id' required readonly>
             </div>
           </div>
           
@@ -29,7 +29,7 @@
           <div class="form-group">
             <label class="control-label label-price col-md-1">Retail-Price</label>
              <div class="col-md-4">
-                <input type="number" class="form-control" placeholder="10,00" ng-model='vm.textilePrinting.retailPrice' ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>
+                <input type="number" class="form-control" name="price" placeholder="Retail Price (0,00)" ng-model='vm.textilePrinting.retailPrice' ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>
             </div>
           </div>
           
@@ -44,7 +44,9 @@
              <div class="col-md-offset-2 col-md-10">
                <input type="submit" class="btn btn-primary "  value="Guardar"> 
              </div>
-          </div>           
+          </div> 
+          
+                         
       </form>
     </div>
 </section>

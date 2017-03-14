@@ -27,11 +27,19 @@ public class Uris {
     public static final String INVOICES = "/invoices";
 
     public static final String EMBROIDERIES = "/embroideries";
-    
+
     public static final String PROVIDERS = "/providers";
+    
+    public static final String PROVIDERS_ID_COMPANY = "/idcompany";
 
     public static final String TEXTILE_PRINTINGS = "/textileprintings";
     
     public static final String VOUCHERS = "/vouchers";
+
+    public static final String STATISTIC = "/statistic";
+
+    public static final String BY_DATE = "/byDate";
+
+    public static final String POPULAR_PRODUCTS = "/poopularProducts";
 
 }

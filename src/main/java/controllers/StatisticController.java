@@ -11,6 +11,7 @@ import daos.core.ShoppingDao;
 import entities.core.Shopping;
 import services.SemiWrapperStatisticSold;
 import services.StatisticService;
+import wrappers.StatisticDataWrapper;
 import wrappers.StatisticProductByDateWrapper;
 import wrappers.TotalSoldProductWrapper;
 
@@ -33,7 +34,7 @@ public class StatisticController {
     
     public List<TotalSoldProductWrapper> getMostSoldProducts(){
         List<SemiWrapperStatisticSold> semiWrapperMostSoldProducts=statisticService.mostSoldProductsMapped();
-        List<TotalSoldProductWrapper> mostSoldProducts=new ArrayList<TotalSoldProductWrapper>();
+        List<TotalSoldProductWrapper> mostSoldProducts=new ArrayList<>();
         for (SemiWrapperStatisticSold sWMSP : semiWrapperMostSoldProducts) {
             TotalSoldProductWrapper soldProduct=new TotalSoldProductWrapper(sWMSP.getIdProduct(),sWMSP.getTotalAmountSold(),sWMSP.getDescription());
             mostSoldProducts.add(soldProduct);
@@ -41,8 +42,11 @@ public class StatisticController {
         return mostSoldProducts;
     }
     
-    public List<StatisticProductByDateWrapper> getSoldsOfProductByDate(long id, Calendar inicio,Calendar fin){
-        List<StatisticProductByDateWrapper> listStatisticProduct=new ArrayList<StatisticProductByDateWrapper>();
+    public List<StatisticProductByDateWrapper> getSoldsOfProductByDate(StatisticDataWrapper statisticData){
+        Long id=statisticData.getId();
+        Calendar inicio=statisticData.getInicio();
+        Calendar fin=statisticData.getFin();
+        List<StatisticProductByDateWrapper> listStatisticProduct=new ArrayList<>();
         List<Shopping> listShoppingByDate=shoppingDao.findShoppingsProductByDate(id, inicio, fin);
         for (Shopping shopping : listShoppingByDate) {
             StatisticProductByDateWrapper productByDateW=new StatisticProductByDateWrapper(shopping.getId(),shopping.getProductId(),shopping.getDescription(),shopping.getAmount());
