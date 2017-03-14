@@ -164,6 +164,16 @@ tpv.config(function ($routeProvider) {
             controller: "CreateInvoiceController",
             controllerAs: "vm"
         })
+        .when("/feature14/popular",{
+        	templateUrl: "app/components/feature14/popularProducts.html",
+            controller: "PopularProductsController",
+            controllerAs: "vm"
+        })
+        .when("/feature14/productByDate",{
+        	templateUrl: "app/components/feature14/productByDate.html",
+            controller: "ProductByDateController",
+            controllerAs: "vm"
+        })
         .otherwise({
             redirectTo: '/'
         });
