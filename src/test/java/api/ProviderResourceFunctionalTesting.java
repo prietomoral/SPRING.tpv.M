@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
 
+import wrappers.ProviderAddWrapper;
 import wrappers.ProviderIdCompanyWrapper;
 import wrappers.ProviderWrapper;
 
@@ -45,6 +47,25 @@ public class ProviderResourceFunctionalTesting {
         assertEquals(4, response.size());
         assertEquals("company0", response.get(0).getCompany());
     }
+	
+	@Test
+	public void testCreateProvider() {
+		ProviderAddWrapper provider = new ProviderAddWrapper();
+        provider.setCompany("Company");
+        provider.setAddress("Address");
+        provider.setMobile(666666666);
+        provider.setPhone(999999999);
+        provider.setPaymentConditions("Payment conditions");
+        provider.setNote("Note");
+
+        new RestBuilder<Object>(RestService.URL).path(Uris.PROVIDERS).body(provider).post().build();
+	}
+	
+	@After
+	public void resetData() {
+		new RestService().deleteAll();
+		new RestService().populate();
+	}
     
     @AfterClass
     public static void deleteAll() {
