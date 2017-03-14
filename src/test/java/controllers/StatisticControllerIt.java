@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import config.PersistenceConfig;
 import config.TestsControllerConfig;
 import config.TestsPersistenceConfig;
+import wrappers.StatisticDataWrapper;
 import wrappers.StatisticProductByDateWrapper;
 import wrappers.TotalSoldProductWrapper;
 
@@ -41,7 +42,8 @@ public class StatisticControllerIt {
         Calendar fin=Calendar.getInstance();
         int diaFin = fin.get(Calendar.DAY_OF_MONTH);
         fin.set(Calendar.DAY_OF_MONTH, diaFin+1);
-        List<StatisticProductByDateWrapper> statistByDate=statisticController.getSoldsOfProductByDate(id, inicio, fin);
+        StatisticDataWrapper statisticData=new StatisticDataWrapper(id,inicio,fin);
+        List<StatisticProductByDateWrapper> statistByDate=statisticController.getSoldsOfProductByDate(statisticData);
         assertTrue(statistByDate.size()>0);
         StatisticProductByDateWrapper statistic=statistByDate.get(0);
         assertEquals(statistic.getDescription(),"article0");
