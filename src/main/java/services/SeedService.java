@@ -11,6 +11,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.yaml.snakeyaml.Yaml;
 
+import daos.core.AlertDao;
 import daos.core.ArticleDao;
 import daos.core.EmbroideryDao;
 import daos.core.InvoiceDao;
@@ -58,9 +59,12 @@ public class SeedService {
 
     @Autowired
     private TicketDao ticketDao;
-    
+
     @Autowired
     private InvoiceDao invoiceDao;
+
+    @Autowired
+    private AlertDao alertDao;
 
     private static final String YAML_FILES_ROOT = "classpath:META-INF/";
 
@@ -80,6 +84,7 @@ public class SeedService {
         textilePrintingDao.save(tpvGraph.getTextilePrintingList());
         ticketDao.save(tpvGraph.getTicketList());
         invoiceDao.save(tpvGraph.getInvoiceList());
+        alertDao.save(tpvGraph.getAlertList());
     }
 
 }

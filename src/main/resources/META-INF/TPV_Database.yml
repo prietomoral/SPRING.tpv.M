@@ -68,7 +68,8 @@ providerList:
     note: No
     
 articleList:
-  - id: 84000001111
+  - &article84000001111
+    id: 84000001111
     reference: article0
     retailPrice: 20
     description: article0
@@ -275,3 +276,17 @@ invoiceList:
     ticket: *ticket1
   - id: 2017002
     ticket: *ticket3
+    
+alertList:
+  - warning: 0
+    critical: 0
+    article: *article84000001111
+  - warning: 1
+    critical: 2
+    article: *article84000001111
+  - warning: 2
+    critical: 4
+    article: *article84000001111
+  - warning: 3
+    critical: 6
+    article: *article84000001111

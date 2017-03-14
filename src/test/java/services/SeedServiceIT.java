@@ -1,10 +1,11 @@
 package services;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 
-import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import config.TestsPersistenceConfig;
 import daos.core.ArticleDao;
 import daos.core.ProviderDao;
 import daos.core.TextilePrintingDao;
-import entities.core.Provider;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PersistenceConfig.class, TestsPersistenceConfig.class})
@@ -35,8 +35,8 @@ public class SeedServiceIT {
     private TextilePrintingDao textilePrintingDao;
 
     @Test
+    @Ignore
     public void testTpvGraphShouldBeParsed() {
-        /*
         String tpvDatabaseYaml = "TPV_Database.yml";
         try {
             long oldProvidersNum = providerDao.count();
@@ -50,21 +50,5 @@ public class SeedServiceIT {
             System.err.println(e);
             fail();
         }
-        */
-    }
-
-    @After
-    public void tearDown() {
-        /*
-        articleDao.delete(85000002221L);
-        articleDao.delete(85000002222L);
-        textilePrintingDao.delete(85000001111L);
-        textilePrintingDao.delete(85000001112L);
-        for (Provider provider : providerDao.findAll()) {
-            if (provider.getPhone() == 7556842515L || provider.getPhone() == 7556842516L) {
-                providerDao.delete(provider);
-            }
-        }
-        */
     }
 }

@@ -3,6 +3,7 @@ package services;
 import java.util.ArrayList;
 import java.util.List;
 
+import entities.core.Alert;
 import entities.core.Article;
 import entities.core.Embroidery;
 import entities.core.Invoice;
@@ -33,8 +34,10 @@ public class TpvGraph {
     private List<TextilePrinting> textilePrintingList;
 
     private List<Ticket> ticketList;
-    
+
     private List<Invoice> invoiceList;
+
+    private List<Alert> alertList;
 
     public TpvGraph() {
         super();
@@ -48,6 +51,7 @@ public class TpvGraph {
         providerList = new ArrayList<>();
         ticketList = new ArrayList<>();
         invoiceList = new ArrayList<>();
+        alertList = new ArrayList<>();
     }
 
     public List<User> getUserList() {
@@ -128,6 +132,14 @@ public class TpvGraph {
 
     public void setInvoiceList(List<Invoice> invoiceList) {
         this.invoiceList = invoiceList;
+    }
+
+    public List<Alert> getAlertList() {
+        return alertList;
+    }
+
+    public void setAlertList(List<Alert> alertList) {
+        this.alertList = alertList;
     }
 
 }
