@@ -164,16 +164,19 @@ public class DaosServiceIntegrationTests {
             Product product = embroideryDao.findOne(84000002222L + i);
             ticket.addShopping(new Shopping(1 + i, 0, product.getId(), product.getDescription(), product.getRetailPrice()));
         }
+        User user2 = userDao.findByMobile(666000001);
+        ticket.setUser(user2);
         ticketDao.save(ticket);
 
-        ticket = new Ticket(3L, TicketState.OPENED);
+        ticket = new Ticket(3L, TicketState.CLOSED);
         for (int i = 0; i < 4; i++) {
             Product product = textilePrintingDao.findOne(84000003333L + i);
             ticket.addShopping(new Shopping(1 + i, 10, product.getId(), product.getDescription(), product.getRetailPrice()));
         }
+        ticket.setUser(user2);
         ticketDao.save(ticket);
         
-        ticket = new Ticket(4L, TicketState.OPENED);
+        ticket = new Ticket(4L, TicketState.CLOSED);
         for (int i = 0; i < 4; i++) {
             Product product = textilePrintingDao.findOne(84000003333L + i);
             ticket.addShopping(
@@ -182,11 +185,21 @@ public class DaosServiceIntegrationTests {
         User user = userDao.findByMobile(666000000);
         ticket.setUser(user);
         ticketDao.save(ticket);
+        
+        ticket = new Ticket(5L, TicketState.CLOSED);
+        for (int i = 0; i < 4; i++) {
+            Product product = textilePrintingDao.findOne(84000003333L + i);
+            ticket.addShopping(
+                    new Shopping(1 + i, 10, product.getId(), product.getDescription(), product.getRetailPrice()));
+        }
+        ticket.setUser(user);
+        ticketDao.save(ticket);
+    
     }
 
     public void createInvoices() {
-        invoiceDao.save(new Invoice(2017001, ticketDao.findOne(1L)));
-        invoiceDao.save(new Invoice(2017002, ticketDao.findOne(3L)));
+        invoiceDao.save(new Invoice(20170001, ticketDao.findOne(3L)));
+        invoiceDao.save(new Invoice(20170002, ticketDao.findOne(4L)));
     }
 
     public void deleteAll() {

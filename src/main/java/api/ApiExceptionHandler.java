@@ -15,8 +15,10 @@ import api.exceptions.MalformedHeaderException;
 import api.exceptions.MissingArticleIdException;
 import api.exceptions.NotFoundTicketIdException;
 import api.exceptions.NotFoundUserIdException;
+import api.exceptions.TicketHasInvoiceException;
 import api.exceptions.UnauthorizedException;
 import api.exceptions.TicketHasNoUserException;
+import api.exceptions.TicketIsNotClosedException;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
@@ -45,7 +47,7 @@ public class ApiExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.CONFLICT)
-    @ExceptionHandler({AlreadyExistUserFieldException.class, AlreadyExistUserFieldException.class})
+    @ExceptionHandler({AlreadyExistUserFieldException.class, AlreadyExistUserFieldException.class, TicketIsNotClosedException.class, TicketHasInvoiceException.class})
     @ResponseBody
     public ErrorMessage conflictRequest(ApiException exception) {
         ErrorMessage apiErrorMessage = new ErrorMessage(exception);

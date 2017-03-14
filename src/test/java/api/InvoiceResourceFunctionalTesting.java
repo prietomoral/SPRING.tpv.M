@@ -32,8 +32,20 @@ public class InvoiceResourceFunctionalTesting {
     }
     
     @Test
-    public void testCreateInvoice(){
+    public void testTicketIsNotClosed(){
+        thrown.expect(new HttpMatcher(HttpStatus.CONFLICT));
+        new RestBuilder<Object>(RestService.URL).path(Uris.INVOICES).body(new IdTicketWrapper(2)).post().build();
+    }
+    
+    @Test
+    public void testTicketHasAlreadyInvoice(){
+        thrown.expect(new HttpMatcher(HttpStatus.CONFLICT));
         new RestBuilder<Object>(RestService.URL).path(Uris.INVOICES).body(new IdTicketWrapper(4)).post().build();
+    }
+    
+    @Test
+    public void testCreateInvoice(){
+        new RestBuilder<Object>(RestService.URL).path(Uris.INVOICES).body(new IdTicketWrapper(5)).post().build();
     }
     
     @AfterClass
