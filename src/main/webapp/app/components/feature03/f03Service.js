@@ -29,6 +29,7 @@ function f03Service($http, $q) {
      
      function listAllArticles() {
     	 return $http({
+    		 headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
     		 method: 'GET',
     		 url: urlBase + '/articles'
     	 }).then(function successCallback(response) {
@@ -41,6 +42,7 @@ function f03Service($http, $q) {
      
      function findOneArticle(id) {
     	 return $http({
+    		 headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
     		 method: 'GET',
     		 url: urlBase + '/articles/'+id
     	 }).then(function successCallback(response) {
@@ -52,6 +54,7 @@ function f03Service($http, $q) {
      
      function createArticle(article) {
   	    return $http({
+  	      headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
   	      method: 'POST',
   	      url: urlBase + '/articles',
   	      data:{
@@ -71,6 +74,7 @@ function f03Service($http, $q) {
      
      function deleteOneArticle(id) {
     	 return $http({
+    		 headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
     		 method: 'DELETE',
     		 url: urlBase + '/articles/'+id
     	 }).then(function successCallback(response) {
@@ -83,6 +87,7 @@ function f03Service($http, $q) {
      
      function updateArticle(article) {
    	    return $http({
+   	      headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
    	      method: 'PUT',
    	      url: urlBase + '/articles',
    	      data:{
@@ -224,17 +229,6 @@ function f03Service($http, $q) {
     		 return $q.reject(response);
     	 });
      }
-
-	 function listAllArticles() {
-		return $http({
-			method: 'GET',
-			url: urlBase + '/articles'
-		}).then(function successCallback(response) {
-			return response.data;
-		}, function errorCallback(response) {
-			return $q.reject(response);
-		});
-	 }
 	 
      function editTextilePrinting(textilePrinting) {
    	    return $http({

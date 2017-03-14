@@ -15,7 +15,12 @@ function addArticleController(f03Service, f02Service, Alertify) {
 	          Alertify.success("The article has been created successfully!");
           },
 	      function error(errors){
-	          Alertify.error("A product with this Id already exist");
+        	  if (errors.status == 401 || errors.status == 403) {	    
+				  Alertify.error("User Unathorized. You must login with user Manager!");
+			  }else{
+				  Alertify.error("A product with this Id already exist");
+			  }
+	          
 	      });
   }
   
