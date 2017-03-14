@@ -15,11 +15,10 @@ import api.Uris;
 public class WebInitializer implements WebApplicationInitializer {
 
     // Se configura el dispatcher
-    @SuppressWarnings("resource")
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         
-        new ClassPathXmlApplicationContext("SpringBatchConfig.xml");
+        //new ClassPathXmlApplicationContext("SpringBatchConfig.xml");
         
         // Se crea un contexto basado en anotaciones
         AnnotationConfigWebApplicationContext annConWebAppCtx = new AnnotationConfigWebApplicationContext();
