@@ -172,11 +172,21 @@ public class DaosServiceIntegrationTests {
             ticket.addShopping(new Shopping(1 + i, 10, product.getId(), product.getDescription(), product.getRetailPrice()));
         }
         ticketDao.save(ticket);
+        
+        ticket = new Ticket(4L, TicketState.OPENED);
+        for (int i = 0; i < 4; i++) {
+            Product product = textilePrintingDao.findOne(84000003333L + i);
+            ticket.addShopping(
+                    new Shopping(1 + i, 10, product.getId(), product.getDescription(), product.getRetailPrice()));
+        }
+        User user = userDao.findByMobile(666000000);
+        ticket.setUser(user);
+        ticketDao.save(ticket);
     }
 
     public void createInvoices() {
-        invoiceDao.save(new Invoice(1, ticketDao.findOne(1L)));
-        invoiceDao.save(new Invoice(3, ticketDao.findOne(3L)));
+        invoiceDao.save(new Invoice(2017001, ticketDao.findOne(1L)));
+        invoiceDao.save(new Invoice(2017002, ticketDao.findOne(3L)));
     }
 
     public void deleteAll() {

@@ -3,35 +3,40 @@ tpv.controller('SearchTextilePrintingsController', function($route, f04Service) 
 	
 	var vm = this;
 	
-	vm.loading = true;
+	vm.authenticated = f04Service.isAuthenticated();
 	
-	vm.pageNumber = 0;
-	vm.pageSize = 3;
-	vm.totalTextilePrintings = 0;
+	vm.pageInfo = {
+		pageNumber: 0,
+		pageSize: 15,
+		totalArticles: 0,
+		sortParameter: "reference",
+		sortType: "asc"
+	};
 	
 	vm.advancedSearchVisibility = false;
 	
-	vm.reference = "";
-	vm.description = "";
-	vm.minRetailPrice = "";
-	vm.maxRetailPrice = "";
-	vm.type = "";
+	vm.searchValues = {
+		reference: "",
+		description: "",
+		minRetailPrice: "",
+		maxRetailPrice: "",
+		type: ""
+	}
 	
-	
-	vm.sortType = "reference";
-	vm.sortReverse = false;
+	vm.loading = true;
+	vm.error = false;
 	
 	vm.textilePrintings = [];
 	loadTextilePrintings();
 	
 	function loadTextilePrintings(){
 		formatEmptyNumbers();
-		f04Service.getTextilePrintings(vm.pageNumber, vm.pageSize, vm.reference, vm.description, vm.minRetailPrice, vm.maxRetailPrice, vm.type).then(result => {
+		f04Service.getTextilePrintings(vm.pageInfo, vm.searchValues).then(result => {
 			vm.loading = false;
 			vm.textilePrintings = result.content;
-			vm.pageNumber = result.number;
-			vm.totalTextilePrintings = result.totalElements;
-			vm.pageSize = result.size;
+			vm.pageInfo.pageNumber = result.number;
+			vm.pageInfo.totalTextilePrintings = result.totalElements;
+			vm.pageInfo.pageSize = result.size;
 			vm.error = false;
 		}, errors => {
 			vm.loading = false;
@@ -40,12 +45,12 @@ tpv.controller('SearchTextilePrintingsController', function($route, f04Service) 
 	}
 	
 	function formatEmptyNumbers(){
-		vm.minRetailPrice = f04Service.formatEmptyNumber(vm.minRetailPrice);
-		vm.maxRetailPrice = f04Service.formatEmptyNumber(vm.maxRetailPrice);
+		vm.searchValues.minRetailPrice = f04Service.formatEmptyNumber(vm.searchValues.minRetailPrice);
+		vm.searchValues.maxRetailPrice = f04Service.formatEmptyNumber(vm.searchValues.maxRetailPrice);
 	}
 	
 	vm.changeToPage = pageNumber => {
-		vm.pageNumber = pageNumber;
+		vm.pageInfo.pageNumber = pageNumber;
 		loadTextilePrintings();
 	}
 	
@@ -54,6 +59,16 @@ tpv.controller('SearchTextilePrintingsController', function($route, f04Service) 
 	}
 	
 	vm.onClickSearchButton = () => {
+		loadTextilePrintings();
+	}
+	
+	vm.sortBy = parameter => {
+		if (vm.pageInfo.sortType == "asc" && vm.pageInfo.sortParameter == parameter) {
+			vm.pageInfo.sortType = "desc";
+		} else {
+			vm.pageInfo.sortType = "asc";
+		}
+		vm.pageInfo.sortParameter = parameter;
 		loadTextilePrintings();
 	}
 	

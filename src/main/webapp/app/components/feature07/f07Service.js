@@ -31,4 +31,12 @@ tpv.service('f07Service', ['$http', '$q', function ($http, $q) {
 	  return this.request(config);
    }
    
+   this.getVouchers = function(){
+	  let config = {
+ 	      method: 'GET',
+	      url: urlBase+ "/" + resource
+	  };
+	  return this.request(config);    
+   }
+   
 }]);

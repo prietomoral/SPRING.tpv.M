@@ -2,6 +2,8 @@ tpv.service('f04Service', function ($http, $q) {
    "use strict"; 
    
    	const urlBase = "http://localhost:8080/SPRING.tpv.M.1.2.0-SNAPSHOT/api/v0";
+   	
+    var Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(e){var t="";var n,r,i,s,o,u,a;var f=0;e=Base64._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this._keyStr.charAt(s)+this._keyStr.charAt(o)+this._keyStr.charAt(u)+this._keyStr.charAt(a)}return t},decode:function(e){var t="";var n,r,i;var s,o,u,a;var f=0;e=e.replace(/[^A-Za-z0-9+/=]/g,"");while(f<e.length){s=this._keyStr.indexOf(e.charAt(f++));o=this._keyStr.indexOf(e.charAt(f++));u=this._keyStr.indexOf(e.charAt(f++));a=this._keyStr.indexOf(e.charAt(f++));n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;t=t+String.fromCharCode(n);if(u!=64){t=t+String.fromCharCode(r)}if(a!=64){t=t+String.fromCharCode(i)}}t=Base64._utf8_decode(t);return t},_utf8_encode:function(e){e=e.replace(/rn/g,"n");var t="";for(var n=0;n<e.length;n++){var r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t},_utf8_decode:function(e){var t="";var n=0;var r=c1=c2=0;while(n<e.length){r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r);n++}else if(r>191&&r<224){c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2}else{c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3}}return t}}
 	
 	this.request = config => {
 	      let deferred = $q.defer();
@@ -20,34 +22,44 @@ tpv.service('f04Service', function ($http, $q) {
 	      return deferred.promise;	   
 	}	
    
-	this.getArticles = (pageNumber, pageSize, reference, description, minRetailPrice, maxRetailPrice, onlyOnStock) => {
+	this.getArticles = (pageInfo, searchValues) => {
+		  $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode(sessionStorage.token + ':');
 		  let config = {
 		 	 method: 'GET',
-		 	 url: `${urlBase}/articles/search?page=${pageNumber}&size=${pageSize}&reference=${reference}&description=${description}` + 
-		 	 `&minRetailPrice=${minRetailPrice}&maxRetailPrice=${maxRetailPrice}&onlyOnStock=${onlyOnStock}`
+		 	 url: `${urlBase}/articles/search?page=${pageInfo.pageNumber}&size=${pageInfo.pageSize}` + 
+		 	 `&sort=${pageInfo.sortParameter},${pageInfo.sortType}&reference=${searchValues.reference}&description=${searchValues.description}` + 
+		 	 `&minRetailPrice=${searchValues.minRetailPrice}&maxRetailPrice=${searchValues.maxRetailPrice}&onlyOnStock=${searchValues.onlyOnStock}`
 		  };
 	      return this.request(config);
 	}
    
-	this.getEmbroideries = (pageNumber, pageSize, reference, description, minRetailPrice, maxRetailPrice, minStitches, maxStitches, 
-			minColors, maxColors, minSquareMillimeters, maxSquareMillimeters) => {
+	this.getEmbroideries = (pageInfo, searchValues) => {
+		$http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode(sessionStorage.token + ':');
 		let config = {
 			method: 'GET',
-			url: `${urlBase}/embroideries/search?page=${pageNumber}&size=${pageSize}&reference=${reference}&description=${description}` + 
-		 	 `&minRetailPrice=${minRetailPrice}&maxRetailPrice=${maxRetailPrice}&minStitches=${minStitches}` + 
-		 	 `&maxStitches=${maxStitches}&minColors=${minColors}&maxColors=${maxColors}` + 
-		 	 `&minSquareMillimeters=${minSquareMillimeters}&maxSquareMillimeters=${maxSquareMillimeters}`
+			url: `${urlBase}/embroideries/search?page=${pageInfo.pageNumber}&size=${pageInfo.pageSize}` + 
+			`&sort=${pageInfo.sortParameter},${pageInfo.sortType}&reference=${searchValues.reference}&description=${searchValues.description}` + 
+		 	 `&minRetailPrice=${searchValues.minRetailPrice}&maxRetailPrice=${searchValues.maxRetailPrice}&minStitches=${searchValues.minStitches}` + 
+		 	 `&maxStitches=${searchValues.maxStitches}&minColors=${searchValues.minColors}&maxColors=${searchValues.maxColors}` + 
+		 	 `&minSquareMillimeters=${searchValues.minSquareMillimeters}&maxSquareMillimeters=${searchValues.maxSquareMillimeters}`
 		};
 		return this.request(config);
 	}
 	
-	this.getTextilePrintings = (pageNumber, pageSize, reference, description, minRetailPrice, maxRetailPrice, type) => {
+	this.getTextilePrintings = (pageInfo, searchValues) => {
+		$http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode(sessionStorage.token + ':');
 		let config = {
 			method: 'GET',
-			url: `${urlBase}/textileprintings/search?page=${pageNumber}&size=${pageSize}&reference=${reference}&description=${description}` + 
-		 	 `&minRetailPrice=${minRetailPrice}&maxRetailPrice=${maxRetailPrice}&type=${type}`
+			url: `${urlBase}/textileprintings/search?page=${pageInfo.pageNumber}&size=${pageInfo.pageSize}` + 
+			`&sort=${pageInfo.sortParameter},${pageInfo.sortType}&reference=${searchValues.reference}` + 
+			`&description=${searchValues.description}&minRetailPrice=${searchValues.minRetailPrice}` + 
+			`&maxRetailPrice=${searchValues.maxRetailPrice}&type=${searchValues.type}`
 		};
 		return this.request(config);
+	}
+	
+	this.isAuthenticated = () => {
+		return sessionStorage.token != null && (sessionStorage.rol == 'MANAGER' || sessionStorage.rol == 'OPERATOR') ;
 	}
 	
 	this.formatEmptyNumber = emptyNumber => {

@@ -11,6 +11,7 @@
               <th>Reference</th>
               <th>Description</th>
               <th>Retail price</th>
+              <th>Type</th>
               <th>Options</th>
             </tr>
           </thead>
@@ -19,7 +20,11 @@
               <td>{{textilePrinting.reference}}</td>
               <td>{{textilePrinting.description}}</td>
               <td>{{textilePrinting.retailPrice}}</td>
-              <td><a ng-href="#feature03/{{textilePrinting.id}}">Edit</a> | <input type="button"  value="Delete" ng-click="vm.deleteTextilePrinting(textilePrinting.id)"></td>
+              <td>{{textilePrinting.type}}</td>
+              <td>
+	              <a class="btn btn-primary" ng-href="#feature03/update-textile-printing/{{textilePrinting.id}}">Edit</a>
+	              <input class="btn btn-danger" type="button"  value="Delete" ng-click="vm.deleteTextilePrinting(textilePrinting.id)">
+              </td>
             </tr>
           </tbody>
         </table>
