@@ -2,10 +2,12 @@ tpv.controller('SearchEmbroideriesController', function($route, f04Service) {
 	"use strict";
 	
 	var vm = this;
+	
+	vm.authenticated = f04Service.isAuthenticated();
 		
 	vm.pageInfo = {
 		pageNumber: 0,
-		pageSize: 3,
+		pageSize: 15,
 		totalArticles: 0,
 		sortParameter: "reference",
 		sortType: "asc"

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +41,7 @@ public class TextilePrintingResource {
     }
 
     @RequestMapping(value = Uris.SEARCH, method = RequestMethod.GET)
+    @PreAuthorize("hasRole('MANAGER') or hasRole('OPERATOR')")
     public Page<TextilePrintingWrapper> search(Pageable pageable, @RequestParam(required = false) String reference,
             @RequestParam(required = false) String description, @RequestParam(required = false) BigDecimal minRetailPrice,
             @RequestParam(required = false) BigDecimal maxRetailPrice, @RequestParam(required = false) String type) {
