@@ -85,6 +85,11 @@ tpv.config(function ($routeProvider) {
             controller: "addArticleController",
             controllerAs: "vm"
         })
+        .when("/feature03/update-article/:idArticle", {
+            templateUrl: "app/components/feature03/updateArticle.html",
+            controller: "updateArticleController",
+            controllerAs: "vm"
+        })
         .when("/feature04/search-articles", {
             templateUrl: "app/components/feature04/searchArticles.html",
             controller: "SearchArticlesController",

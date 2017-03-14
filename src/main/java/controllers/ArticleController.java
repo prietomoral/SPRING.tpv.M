@@ -72,9 +72,28 @@ public class ArticleController {
 		articleDao.delete(article);
 	}
 
-	public void edit(int id, Article article) {
-		// TODO Auto-generated method stub
 
-	}
+    public void update(CrudArticleWrapper article) {
+
+        Provider provider = providerDao.findOne(article.getProviderId());
+       
+        Article articleUpdate = articleDao.findOne(article.getId());
+        
+        articleUpdate.setId(article.getId());
+        articleUpdate.setReference(article.getReference());
+        articleUpdate.setDescription(article.getDescription());
+        articleUpdate.setRetailPrice(article.getRetailPrice());
+        articleUpdate.setWholesalePrice(article.getWholesalePrice());
+        articleUpdate.setProvider(provider);
+        articleUpdate.setStock(0);
+
+        this.articleDao.save(articleUpdate);
+        
+    }
+
+    public Article findOneArticle(long id) {
+        Article article = articleDao.findOne(id);
+        return article;
+    }
 
 }
