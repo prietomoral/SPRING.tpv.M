@@ -63,7 +63,7 @@ tpv.controller('SearchArticlesController', function($route, f04Service) {
 	}
 	
 	vm.sortBy = parameter => {
-		if (vm.pageInfo.sortType == "asc" && vm.pageInfo.sortParameter == parameter) {
+		if ((vm.pageInfo.sortType == "asc" && vm.pageInfo.sortParameter == parameter) || (vm.pageInfo.sortType == "desc" && vm.pageInfo.sortParameter != parameter)) {
 			vm.pageInfo.sortType = "desc";
 		} else {
 			vm.pageInfo.sortType = "asc";
