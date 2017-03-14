@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 import org.yaml.snakeyaml.Yaml;
 
 import daos.core.ArticleDao;
+import daos.core.EmbroideryDao;
 import daos.core.ProviderDao;
 import daos.core.TextilePrintingDao;
+import daos.core.VoucherDao;
 import daos.users.AuthorizationDao;
 import daos.users.TokenDao;
 import daos.users.UserDao;
@@ -38,10 +40,16 @@ public class SeedService {
     private TokenDao tokenDao;
 
     @Autowired
+    private VoucherDao voucherDao;
+
+    @Autowired
     private ProviderDao providerDao;
 
     @Autowired
     private ArticleDao articleDao;
+
+    @Autowired
+    private EmbroideryDao embroideryDao;
 
     @Autowired
     private TextilePrintingDao textilePrintingDao;
@@ -57,8 +65,10 @@ public class SeedService {
         userDao.save(tpvGraph.getUserList());
         authorizationDao.save(tpvGraph.getAuthorizationList());
         tokenDao.save(tpvGraph.getTokenList());
+        voucherDao.save(tpvGraph.getVoucherList());
         providerDao.save(tpvGraph.getProviderList());
         articleDao.save(tpvGraph.getArticleList());
+        embroideryDao.save(tpvGraph.getEmbroideryList());
         textilePrintingDao.save(tpvGraph.getTextilePrintingList());
     }
 

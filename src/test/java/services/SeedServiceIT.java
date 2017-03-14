@@ -62,6 +62,5 @@ public class SeedServiceIT {
                 providerDao.delete(provider);
             }
         }
-
     }
 }

@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entities.core.Article;
+import entities.core.Embroidery;
 import entities.core.Provider;
 import entities.core.TextilePrinting;
+import entities.core.Voucher;
 import entities.users.Authorization;
 import entities.users.Token;
 import entities.users.User;
@@ -18,20 +20,26 @@ public class TpvGraph {
 
     private List<Token> tokenList;
 
-    private List<TextilePrinting> textilePrintingList;
+    private List<Voucher> voucherList;
 
     private List<Provider> providerList;
 
     private List<Article> articleList;
+
+    private List<Embroidery> embroideryList;
+
+    private List<TextilePrinting> textilePrintingList;
 
     public TpvGraph() {
         super();
         userList = new ArrayList<>();
         authorizationList = new ArrayList<>();
         tokenList = new ArrayList<>();
+        voucherList = new ArrayList<>();
+        articleList = new ArrayList<>();
+        embroideryList = new ArrayList<>();
         textilePrintingList = new ArrayList<>();
         providerList = new ArrayList<>();
-        articleList = new ArrayList<>();
     }
 
     public List<User> getUserList() {
@@ -58,12 +66,12 @@ public class TpvGraph {
         this.tokenList = tokenList;
     }
 
-    public List<TextilePrinting> getTextilePrintingList() {
-        return textilePrintingList;
+    public List<Voucher> getVoucherList() {
+        return voucherList;
     }
 
-    public void setTextilePrintingList(List<TextilePrinting> textilePrintingList) {
-        this.textilePrintingList = textilePrintingList;
+    public void setVoucherList(List<Voucher> voucherList) {
+        this.voucherList = voucherList;
     }
 
     public List<Provider> getProviderList() {
@@ -80,6 +88,22 @@ public class TpvGraph {
 
     public void setArticleList(List<Article> articleList) {
         this.articleList = articleList;
+    }
+
+    public List<Embroidery> getEmbroideryList() {
+        return embroideryList;
+    }
+
+    public void setEmbroideryList(List<Embroidery> embroideryList) {
+        this.embroideryList = embroideryList;
+    }
+
+    public List<TextilePrinting> getTextilePrintingList() {
+        return textilePrintingList;
+    }
+
+    public void setTextilePrintingList(List<TextilePrinting> textilePrintingList) {
+        this.textilePrintingList = textilePrintingList;
     }
 
 }
