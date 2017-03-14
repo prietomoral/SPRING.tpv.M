@@ -35,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, Uris.SERVLET_MAP + Uris.VERSION + Uris.ADMINS).permitAll()//
                 .antMatchers(Uris.SERVLET_MAP + Uris.VERSION + Uris.TOKENS + "/**").authenticated()//
                 .antMatchers(Uris.SERVLET_MAP + Uris.VERSION + Uris.ADMINS + "/**").hasRole(Role.ADMIN.name())//
+                .antMatchers(Uris.SERVLET_MAP + Uris.VERSION + Uris.EMBROIDERIES + "/**").hasRole(Role.MANAGER.name())//
                 .antMatchers(HttpMethod.POST, Uris.SERVLET_MAP + Uris.VERSION + Uris.USERS + "/**").hasRole(Role.ADMIN.name())//
                 .antMatchers(HttpMethod.POST, Uris.SERVLET_MAP + Uris.VERSION + Uris.CUSTOMERS + "/**")
                 .hasAnyRole(Role.MANAGER.name(), Role.OPERATOR.name())//
