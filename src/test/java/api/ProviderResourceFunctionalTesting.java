@@ -15,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
 
+import wrappers.ProviderIdCompanyWrapper;
 import wrappers.ProviderWrapper;
 
 public class ProviderResourceFunctionalTesting {
@@ -31,6 +32,18 @@ public class ProviderResourceFunctionalTesting {
         assertNotNull(response);
         assertTrue(response.size() > 0);
         assertEquals(4, response.size());
+        assertEquals(666100000, response.get(0).getMobile());
+    }
+	
+	@Test
+    public void testGetIdCompanyProviders() {
+    	List<ProviderIdCompanyWrapper> response = Arrays.asList(
+                new RestTemplate().exchange(RestService.URL + Uris.PROVIDERS + Uris.PROVIDERS_ID_COMPANY, HttpMethod.GET, new HttpEntity<Object>(new HttpHeaders()), ProviderIdCompanyWrapper[].class).getBody());
+        
+        assertNotNull(response);
+        assertTrue(response.size() > 0);
+        assertEquals(4, response.size());
+        assertEquals("company0", response.get(0).getCompany());
     }
     
     @AfterClass
