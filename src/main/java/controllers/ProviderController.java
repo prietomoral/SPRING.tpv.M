@@ -21,7 +21,7 @@ public class ProviderController {
         this.providerDao = providerDao;
     }
     
-    public void add(ProviderAddWrapper providerWrapper) {
+    public Provider add(ProviderAddWrapper providerWrapper) {
         Provider provider = new Provider(
                 providerWrapper.getCompany(), 
                 providerWrapper.getAddress(), 
@@ -30,7 +30,7 @@ public class ProviderController {
                 providerWrapper.getPaymentConditions(),
                 providerWrapper.getNote());
         
-        this.providerDao.save(provider);
+        return this.providerDao.save(provider);
     }
     
     public List<ProviderWrapper> getAll() {
