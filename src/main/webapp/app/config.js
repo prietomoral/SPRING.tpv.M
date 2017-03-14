@@ -1,7 +1,7 @@
 var tpv = angular.module("tpv", ["ngRoute",
                                  'bw.paging',
                                  "Alertify",
-                                 "angucomplete",
+                                 "angucomplete-alt",
                                  "ngMessages"]);
 
 tpv.config(function ($routeProvider) {
@@ -40,6 +40,11 @@ tpv.config(function ($routeProvider) {
             controller: "ListProviderController",
             controllerAs: "vm"
         })
+        .when("/feature02/list-id-company-providers", {
+            templateUrl: "app/components/feature02/listIdCompanyProviders.html",
+            controller: "ListIdCompanyProviderController",
+            controllerAs: "vm"
+        })
         .when("/feature03/list-embroidery", {
             templateUrl: "app/components/feature03/indexEmbroidery.html",
             controller: "listEmbroideryController",
@@ -55,6 +60,11 @@ tpv.config(function ($routeProvider) {
             controller: "updateEmbroideryController",
             controllerAs: "vm"
         })
+        .when("/feature03/update-textile-printing/:idTextilePrinting", {
+            templateUrl: "app/components/feature03/updateTextilePrinting.html",
+            controller: "updateTextilePrintingController",
+            controllerAs: "vm"
+        })
         .when("/feature03/list-textile-printing", {
             templateUrl: "app/components/feature03/indexTextilePrinting.html",
             controller: "listTextilePrintingController",
@@ -68,6 +78,11 @@ tpv.config(function ($routeProvider) {
         .when("/feature03/list-articles", {
             templateUrl: "app/components/feature03/indexArticle.html",
             controller: "listArticleController",
+            controllerAs: "vm"
+        })
+        .when("/feature03/create-article", {
+            templateUrl: "app/components/feature03/newArticle.html",
+            controller: "addArticleController",
             controllerAs: "vm"
         })
         .when("/feature04/search-articles", {
@@ -125,7 +140,19 @@ tpv.config(function ($routeProvider) {
         .when("/feature10/:id/edit", {
             templateUrl: "app/components/feature10/edit.html",
             controller: "AlertsEditController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+            resolve: {
+              articles: function(f03Service, $location, Alertify){
+                return f03Service.listAllArticles().then(function success(response){
+                  if (response.length === 0) {
+                    $location.url('/feature10');
+                    Alertify.log('No existen artículos.\nNecesitas crear uno antes de crear alertas');
+                  }else{
+                    return response;
+                  }
+                });
+              }
+            }
         })
         .when("/feature15", {
             templateUrl: "app/components/feature15/generatePDF.html",

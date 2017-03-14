@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import api.exceptions.AlertNullValuesAreNotAllowedException;
 import api.exceptions.MissingArticleIdException;
+import api.exceptions.NotFoundAlertIdException;
 import daos.core.AlertDao;
 import daos.core.ArticleDao;
 import entities.core.Alert;
@@ -44,26 +46,34 @@ public class AlertController {
         return alerts;
     }
 
-    public AlertWrapper findOneAlert(Integer id) {
+    public AlertWrapper findOneAlert(Integer id) throws NotFoundAlertIdException {
 
         Alert alert = alertDao.findOne(id);
-        return new AlertWrapper(alert.getId(), alert.getWarning(), alert.getCritical(), alert.getArticle().getDescription());
+        if (alert == null) {
+            throw new NotFoundAlertIdException();
+        } else {
+            return new AlertWrapper(alert.getId(), alert.getWarning(), alert.getCritical(), alert.getArticle().getDescription(),
+                    alert.getArticle().getId());
+        }
 
     }
 
-    public AlertWrapper createAlert(AlertWrapperCreate alertWrapperCreate) throws MissingArticleIdException {
+    public AlertWrapper createAlert(AlertWrapperCreate alertWrapperCreate)
+            throws MissingArticleIdException, AlertNullValuesAreNotAllowedException {
         Alert alert = new Alert();
         Article article = articleDao.findOne(alertWrapperCreate.getProduct_id());
         if (article == null) {
             throw new MissingArticleIdException();
-        } else {
-            alert.setArticle(article);
-            alert.setCritical(alertWrapperCreate.getCritical());
-            alert.setWarning(alertWrapperCreate.getWarning());
-            alertDao.save(alert);
-            AlertWrapper alertWrapper = new AlertWrapper(alert.getId(), alert.getWarning(), alert.getCritical(), article.getDescription());
-            return alertWrapper;
         }
+
+        alert.setArticle(article);
+        alert.setCritical(alertWrapperCreate.getCritical());
+        alert.setWarning(alertWrapperCreate.getWarning());
+        alertDao.save(alert);
+        AlertWrapper alertWrapper = new AlertWrapper(alert.getId(), alert.getWarning(), alert.getCritical(), article.getDescription(),
+                article.getId());
+        return alertWrapper;
+
     }
 
     public void delete(int id) {
@@ -71,13 +81,17 @@ public class AlertController {
         alertDao.delete(alert);
     }
 
-    public void edit(int id, AlertWrapperCreate alertWrapperCreate) {
+    public void edit(int id, AlertWrapperCreate alertWrapperCreate) throws NotFoundAlertIdException {
         Alert alert = alertDao.findOne(id);
-        Article article = articleDao.findOne(alertWrapperCreate.getProduct_id());
-        alert.setArticle(article);
-        alert.setWarning(alertWrapperCreate.getWarning());
-        alert.setCritical(alertWrapperCreate.getCritical());
-        alertDao.save(alert);
+        if (alert == null) {
+            throw new NotFoundAlertIdException();
+        } else {
+            Article article = articleDao.findOne(alertWrapperCreate.getProduct_id());
+            alert.setArticle(article);
+            alert.setWarning(alertWrapperCreate.getWarning());
+            alert.setCritical(alertWrapperCreate.getCritical());
+            alertDao.save(alert);
+        }
     }
 
 }
