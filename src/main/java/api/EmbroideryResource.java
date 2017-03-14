@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +37,7 @@ public class EmbroideryResource {
     }
 
     @RequestMapping(value = Uris.SEARCH, method = RequestMethod.GET)
+    @PreAuthorize("hasRole('MANAGER') or hasRole('OPERATOR')")
     public Page<EmbroideryWrapper> search(Pageable pageable, @RequestParam(required = false) String reference,
             @RequestParam(required = false) String description, @RequestParam(required = false) BigDecimal minRetailPrice,
             @RequestParam(required = false) BigDecimal maxRetailPrice, @RequestParam(required = false) Integer minStitches,
@@ -52,9 +53,9 @@ public class EmbroideryResource {
     public void add(@RequestBody EmbroideryWrapper embroideryWrapper) throws AlreadyExistProductException {
         this.embroideryController.add(embroideryWrapper);
     }
-    
+
     @RequestMapping(method = RequestMethod.PUT)
-    public void update(@RequestBody EmbroideryWrapper embroideryWrapper){
+    public void update(@RequestBody EmbroideryWrapper embroideryWrapper) {
         this.embroideryController.update(embroideryWrapper);
     }
 
@@ -62,10 +63,10 @@ public class EmbroideryResource {
     public void deleteEmbroidery(@PathVariable(value = "id") long id) {
         embroideryController.deleteEmbroidery(id);
     }
-    
+
     @RequestMapping(value = Uris.ID, method = RequestMethod.GET)
     public Embroidery findOneEmbroidery(@PathVariable(value = "id") long id) {
-       return embroideryController.findOneEmbroidery(id);    
+        return embroideryController.findOneEmbroidery(id);
     }
 
 }
