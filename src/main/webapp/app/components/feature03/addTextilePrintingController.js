@@ -11,8 +11,12 @@ function addTextilePrintingController(f03Service, Alertify) {
 	        vm.textilePrinting = {};
 	        Alertify.success("The textile printing has been created successfully!");
         },
-	    function error(errors){
-	      Alertify.error("A product with this Id already exist");
+	    function error(errors){	      
+	      if (errors.status == 401 || errors.status == 403) {	    
+			  Alertify.error("User Unathorized. You must login with user Manager!");
+		  }else{
+			  Alertify.error("A product with this Id already exist");
+		  }
 	    });
   }
 	  

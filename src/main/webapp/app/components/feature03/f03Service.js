@@ -184,6 +184,7 @@ function f03Service($http, $q) {
      
      function listAllTextilePrinting() {
     	 return $http({
+    		 headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
     		 method: 'GET',
     		 url: urlBase + '/textileprintings'
     	 }).then(function successCallback(response) {
@@ -195,6 +196,7 @@ function f03Service($http, $q) {
 
      function addTextilePrinting(textilePrinting) {
    	    return $http({
+   	      headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
    	      method: 'POST',
    	      url: urlBase + '/textileprintings',
    	      data:{
@@ -213,6 +215,7 @@ function f03Service($http, $q) {
      
      function deleteOneTextilePrinting(id) {
     	 return $http({
+    		 headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
     		 method: 'DELETE',
     		 url: urlBase + '/textileprintings/'+id
     	 }).then(function successCallback(response) {
@@ -235,6 +238,7 @@ function f03Service($http, $q) {
 	 
      function editTextilePrinting(textilePrinting) {
    	    return $http({
+   	      headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
    	      method: 'PUT',
    	      url: urlBase + '/textileprintings/',
    	      data:{
@@ -253,6 +257,7 @@ function f03Service($http, $q) {
      
      function findOneTextilePrinting(id) {
     	 return $http({
+    		 headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
     		 method: 'GET',
     		 url: urlBase + '/textileprintings/'+id
     	 }).then(function successCallback(response) {
