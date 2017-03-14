@@ -14,7 +14,7 @@ import wrappers.StatisticDataWrapper;
 import wrappers.StatisticProductByDateWrapper;
 import wrappers.TotalSoldProductWrapper;
 
-public class StatisticResourceIT {
+public class StatisticResourceFunctionalTesting {
 
     @BeforeClass
     public static void populate() {

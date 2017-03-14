@@ -1,1 +1,57 @@
-<h4>editar</h4>
+
+<ol class="breadcrumb">
+  <li><a href="#/feature10">Alarmas</a></li>
+  <li class="active"><a ng-href="#/feature10/{{vn.alert.id}}/edit">Editar alarma</a></li>
+</ol>
+
+<div class="container">
+  <form name="vm.form" novalidate role="form" ng-submit="vm.editAlert()">
+
+    <div class="form-group" ng-class="{ 'has-error': vm.form.warning.$touched && vm.form.warning.$invalid }">
+      <label class="control-label" for="warning"><span class="label label-warning"> </span>&nbsp;Valor de advertencia</label>
+      <input type="number"
+             class="form-control"
+             name="warning"
+             placeholder="warning"
+             ng-model='vm.alert.warning'
+             required>
+      <div class="help-block" ng-messages="vm.form.warning.$error" ng-if="vm.form.warning.$touched">
+        <p ng-message="required">Campo requerido</p>
+        <p ng-message="number">Valor nó válido</p>
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error': vm.form.critical.$touched && vm.form.critical.$invalid }">
+	    <label class="control-label" for="critical"> <span class="label label-danger"> </span>&nbsp;Valor crítico</label>
+	    <input type="number"
+             class="form-control"
+             placeholder="critical"
+             name="critical"
+             ng-model='vm.alert.critical'
+             required>
+      <div class="help-block" ng-messages="vm.form.critical.$error" ng-if="vm.form.critical.$touched">
+        <p ng-message="required">Campo requerido</p>
+        <p ng-message="number">Valor nó válido</p>
+      </div>
+	  </div>
+
+    <div class="form-group">
+	    <label class="control-label">Producto</label>
+      <angucomplete-alt placeholder="Busca artículos"
+                        pause="100"
+                        selected-object="vm.alert.article"
+                        local-data="vm.articles"
+                        search-fields="description"
+                        title-field="description"
+                        minlength="1"
+                        required
+                        initial-value="vm.alert.article"
+                        input-class="form-control form-control-small"/>
+	  </div>
+
+	  <input type="submit"
+           class="btn btn-primary"
+           ng-disabled="!vm.alert.article.originalObject || vm.form.$invalid"
+           value="Guardar">
+    </form>
+</div>
