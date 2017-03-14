@@ -9,7 +9,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
         EmbroideryResourceFunctionalTesting.class, TextilePrintingResourceFunctionalTesting.class, AlertResourceFunctionalTesting.class,
         ProviderResourceFunctionalTesting.class, InvoiceResourceFunctionalTesting.class, VoucherResourceFunctionalTesting.class,
-        StatisticResourceIT.class})
+        StatisticResourceFunctionalTesting.class})
 
 public class AllFunctionalTesting {
 

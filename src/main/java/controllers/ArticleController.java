@@ -12,52 +12,69 @@ import org.springframework.stereotype.Controller;
 
 import api.exceptions.AlreadyExistProductException;
 import daos.core.ArticleDao;
+import daos.core.ProviderDao;
 import entities.core.Article;
+import entities.core.Provider;
 import wrappers.ArticleWrapper;
+import wrappers.CrudArticleWrapper;
 
 @Controller
 public class ArticleController {
 
-    private ArticleDao articleDao;
+	private ArticleDao articleDao;
+	@Autowired
+	private ProviderDao providerDao;
 
-    @Autowired
-    public void setArticleDao(ArticleDao articleDao) {
-        this.articleDao = articleDao;
-    }
+	@Autowired
+	public void setArticleDao(ArticleDao articleDao) {
+		this.articleDao = articleDao;
+	}
 
-    public Page<ArticleWrapper> search(Pageable pageable, String reference, String description, BigDecimal minRetailPrice,
-            BigDecimal maxRetailPrice, boolean onlyOnStock) {
-        Page<Article> page = articleDao.search(pageable, reference, description, minRetailPrice, maxRetailPrice, onlyOnStock);
-        List<ArticleWrapper> articleWrappers = new ArrayList<>();
-        for (Article article : page.getContent()) {
-            articleWrappers.add(new ArticleWrapper(article));
-        }
-        return new PageImpl<ArticleWrapper>(articleWrappers, pageable, page.getTotalElements());
-    }
+	public Page<ArticleWrapper> search(Pageable pageable, String reference, String description,
+			BigDecimal minRetailPrice, BigDecimal maxRetailPrice, boolean onlyOnStock) {
+		Page<Article> page = articleDao.search(pageable, reference, description, minRetailPrice, maxRetailPrice,
+				onlyOnStock);
+		List<ArticleWrapper> articleWrappers = new ArrayList<>();
+		for (Article article : page.getContent()) {
+			articleWrappers.add(new ArticleWrapper(article));
+		}
+		return new PageImpl<ArticleWrapper>(articleWrappers, pageable, page.getTotalElements());
+	}
 
-    public List<Article> all() {
+	public List<Article> all() {
+		List<Article> articles = articleDao.findAll();
+		return articles;
+	}
 
-        List<Article> articles = articleDao.findAll();
-        return articles;
-    }
+	public void add(CrudArticleWrapper article) throws AlreadyExistProductException {
 
-    public void add(Article article) throws AlreadyExistProductException {
-        Article articleDB = articleDao.findOne(article.getId());
-        if (articleDB != null) {
-            throw new AlreadyExistProductException();
-        } else {
-            this.articleDao.save(article);
-        }
-    }
+		Article articleDB = articleDao.findOne(article.getId());
+		if (articleDB != null) {
+			throw new AlreadyExistProductException();
+		} else {
+			Provider provider = providerDao.findOne(article.getProviderId());
+			Article newArticle = new Article();
 
-    public void delete(int id) {
-        Article article = articleDao.findOne(Long.valueOf(id));
-        articleDao.delete(article);
-    }
+			newArticle.setId(article.getId());
+			newArticle.setReference(article.getReference());
+			newArticle.setDescription(article.getDescription());
+			newArticle.setRetailPrice(article.getRetailPrice());
+			newArticle.setWholesalePrice(article.getWholesalePrice());
+			newArticle.setProvider(provider);
+			newArticle.setStock(0);
 
-    public void edit(int id, Article article) {
-        // TODO Auto-generated method stub
+			this.articleDao.save(newArticle);
+		}
+	}
 
-    }
+	public void delete(int id) {
+		Article article = articleDao.findOne(Long.valueOf(id));
+		articleDao.delete(article);
+	}
+
+	public void edit(int id, Article article) {
+		// TODO Auto-generated method stub
+
+	}
 
 }

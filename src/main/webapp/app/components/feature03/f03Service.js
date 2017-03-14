@@ -15,7 +15,10 @@ function f03Service($http, $q) {
     		 findOneEmbroidery: findOneEmbroidery,
     		 updateEmbroidery: updateEmbroidery,
     		 listAllArticles: listAllArticles,
-    		 deleteOneArticle: deleteOneArticle
+    		 deleteOneArticle: deleteOneArticle,
+    		 createArticle: createArticle,
+    		 editTextilePrinting: editTextilePrinting,
+    		 findOneTextilePrinting: findOneTextilePrinting
      };
 
      return feature03Service;
@@ -30,6 +33,25 @@ function f03Service($http, $q) {
     		 return $q.reject(response);
     	 });
      }
+     
+     function createArticle(article) {
+  	    return $http({
+  	      method: 'POST',
+  	      url: urlBase + '/articles',
+  	      data:{
+  	    	  'id': article.id, 
+  	    	  'reference': article.reference, 
+  	    	  'description': article.description,
+  	    	  'retailPrice': article.retailPrice,
+  	    	  'wholesalePrice': article.wholesalePrice,
+  	    	  'providerId': article.providerId
+  	    	  }
+  	    }).then(function successCallback(response) {
+  	        return response.data;
+  	      }, function errorCallback(response) {
+  	        return $q.reject(response);
+  	      });
+  	  }
      
      function deleteOneArticle(id) {
     	 return $http({
@@ -106,9 +128,6 @@ function f03Service($http, $q) {
   	      });
   	  }
      
-     
-
-     
      function deleteOneEmbroidery(id) {
     	 return $http({
     		 method: 'DELETE',
@@ -171,4 +190,33 @@ function f03Service($http, $q) {
 			return $q.reject(response);
 		});
 	 }
+	 
+     function editTextilePrinting(textilePrinting) {
+   	    return $http({
+   	      method: 'PUT',
+   	      url: urlBase + '/textileprintings/',
+   	      data:{
+   	    	'id': textilePrinting.id,
+   	    	 'reference':textilePrinting.reference, 
+   	    	 'description': textilePrinting.description,
+   	    	 'retailPrice': textilePrinting.retailPrice,
+   	    	 'type': textilePrinting.type
+   	    	  }
+   	    }).then(function successCallback(response) {
+   	        return response.data;
+   	      }, function errorCallback(response) {
+   	        return $q.reject(response);
+   	      });
+   	  }
+     
+     function findOneTextilePrinting(id) {
+    	 return $http({
+    		 method: 'GET',
+    		 url: urlBase + '/textileprintings/'+id
+    	 }).then(function successCallback(response) {
+    		 return response.data;
+    	 }, function errorCallback(response) {
+    		 return $q.reject(response);
+    	 });
+     }
 }

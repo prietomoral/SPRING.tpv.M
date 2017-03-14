@@ -60,6 +60,11 @@ tpv.config(function ($routeProvider) {
             controller: "updateEmbroideryController",
             controllerAs: "vm"
         })
+        .when("/feature03/update-textile-printing/:idTextilePrinting", {
+            templateUrl: "app/components/feature03/updateTextilePrinting.html",
+            controller: "updateTextilePrintingController",
+            controllerAs: "vm"
+        })
         .when("/feature03/list-textile-printing", {
             templateUrl: "app/components/feature03/indexTextilePrinting.html",
             controller: "listTextilePrintingController",
@@ -73,6 +78,11 @@ tpv.config(function ($routeProvider) {
         .when("/feature03/list-articles", {
             templateUrl: "app/components/feature03/indexArticle.html",
             controller: "listArticleController",
+            controllerAs: "vm"
+        })
+        .when("/feature03/create-article", {
+            templateUrl: "app/components/feature03/newArticle.html",
+            controller: "addArticleController",
             controllerAs: "vm"
         })
         .when("/feature04/search-articles", {
