@@ -14,9 +14,8 @@ import org.yaml.snakeyaml.Yaml;
 import daos.core.ArticleDao;
 import daos.core.ProviderDao;
 import daos.core.TextilePrintingDao;
-import entities.core.Article;
-import entities.core.Provider;
-import entities.core.TextilePrinting;
+import daos.users.AuthorizationDao;
+import daos.users.UserDao;
 
 @Service
 @Transactional
@@ -27,6 +26,12 @@ public class SeedService {
 
     @Autowired
     private ApplicationContext appContext;
+
+    @Autowired
+    private UserDao userDao;
+
+    @Autowired
+    private AuthorizationDao authorizationDao;
 
     @Autowired
     private ProviderDao providerDao;
@@ -40,21 +45,16 @@ public class SeedService {
     private static final String YAML_FILES_ROOT = "classpath:META-INF/";
 
     public void parseYaml(String fileName) throws IOException {
+        assert fileName != null && !fileName.isEmpty();
         Resource resource = appContext.getResource(YAML_FILES_ROOT + fileName);
         InputStream input = resource.getInputStream();
         TpvGraph tpvGraph = (TpvGraph) yamlParser.load(input);
 
-        for (Provider provider : tpvGraph.getProviderList()) {
-            providerDao.save(provider);
-        }
-
-        for (Article article : tpvGraph.getArticleList()) {
-            articleDao.save(article);
-        }
-
-        for (TextilePrinting textilePrinting : tpvGraph.getTextilePrintingList()) {
-            textilePrintingDao.save(textilePrinting);
-        }
+        userDao.save(tpvGraph.getUserList());
+        authorizationDao.save(tpvGraph.getAuthorizationList());
+        providerDao.save(tpvGraph.getProviderList());
+        articleDao.save(tpvGraph.getArticleList());
+        textilePrintingDao.save(tpvGraph.getTextilePrintingList());
     }
 
 }

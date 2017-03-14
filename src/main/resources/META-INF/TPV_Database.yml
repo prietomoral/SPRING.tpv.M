@@ -1,3 +1,31 @@
+userList:
+  - &user666000000
+    mobile: 666000000
+    username: customer0
+    password: pass
+  - &user666000001
+    mobile: 666000001
+    username: customer1
+    password: pass
+  - &user666000002
+    mobile: 666000002
+    username: customer2
+    password: pass
+  - &user666000003
+    mobile: 666000003
+    username: customer3
+    password: pass
+
+authorizationList:
+  - user: *user666000000
+    role: CUSTOMER
+  - user: *user666000001
+    role: CUSTOMER
+  - user: *user666000002
+    role: CUSTOMER
+  - user: *user666000003
+    role: CUSTOMER
+
 textilePrintingList:
   - id: 85000001111
     reference: test reference
@@ -9,6 +37,7 @@ textilePrintingList:
     retailPrice: 23.55
     description: test description 2
     type: test type 2
+    
 providerList:
   - &provider
     company: Prodivers Inc.
@@ -24,6 +53,7 @@ providerList:
     phone: 7556842516
     paymentConditions: 30 dias
     note: asd asdas dasd asdasdasd a
+    
 articleList:
   - id: 85000002221
     reference: article reference 1

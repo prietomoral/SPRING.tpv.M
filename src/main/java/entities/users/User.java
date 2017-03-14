@@ -37,6 +37,7 @@ public class User {
     private boolean active;
 
     public User() {
+        this(0, "", "");
     }
 
     public User(long mobile, String username, String password) {
@@ -47,16 +48,16 @@ public class User {
         this.active = true;
     }
 
-    public void changePassword(String password) {
-        this.password = new BCryptPasswordEncoder().encode(password);
-    }
-
     public int getId() {
         return id;
     }
 
     public long getMobile() {
         return mobile;
+    }
+
+    public void setMobile(long mobile) {
+        this.mobile = mobile;
     }
 
     public String getUsername() {
@@ -93,6 +94,10 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = new BCryptPasswordEncoder().encode(password);
     }
 
     public Calendar getRegistrationDate() {
