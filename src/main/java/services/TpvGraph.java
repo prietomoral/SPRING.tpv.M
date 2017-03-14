@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import entities.core.Article;
@@ -14,6 +15,9 @@ public class TpvGraph {
 
     public TpvGraph() {
         super();
+        textilePrintingList = new ArrayList<TextilePrinting>();
+        providerList = new ArrayList<Provider>();
+        articleList = new ArrayList<Article>();
     }
 
     public List<TextilePrinting> getTextilePrintingList() {
