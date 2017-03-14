@@ -14,7 +14,9 @@ function updateTextilePrintingController(f03Service, Alertify, $routeParams) {
       vm.textilePrinting = response;
     },
     function error(errors){
-      console.log(errors);
+	      if (errors.status == 401 || errors.status == 403) {	    
+			  Alertify.error("User Unathorized. You must login with user Manager!");
+		  }
     });
   }
   
@@ -26,7 +28,11 @@ function updateTextilePrintingController(f03Service, Alertify, $routeParams) {
 	          Alertify.success("The textile printing has been updated successfully!");
           },
 	      function error(errors){
-	          Alertify.error("Error");
+    	      if (errors.status == 401 || errors.status == 403) {	    
+    			  Alertify.error("User Unathorized. You must login with user Manager!");
+    		  }else{
+    			  Alertify.error("The textile printing has not been updated successfully.");
+    		  }
 	      });
   }
 	  
