@@ -1,5 +1,7 @@
 package api;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -11,6 +13,11 @@ public class InvoiceResourceFunctionalTesting {
     
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+    
+    @BeforeClass
+    public static void populate() {
+        new RestService().populate();
+    }
     
     @Test
     public void testIdTicketNotFound(){
@@ -29,4 +36,8 @@ public class InvoiceResourceFunctionalTesting {
         new RestBuilder<Object>(RestService.URL).path(Uris.INVOICES).body(new IdTicketWrapper(4)).post().build();
     }
     
+    @AfterClass
+    public static void deleteAll() {
+        new RestService().deleteAll();
+    }
 }
