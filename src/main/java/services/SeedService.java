@@ -13,6 +13,7 @@ import org.yaml.snakeyaml.Yaml;
 
 import daos.core.ArticleDao;
 import daos.core.EmbroideryDao;
+import daos.core.InvoiceDao;
 import daos.core.ProviderDao;
 import daos.core.TextilePrintingDao;
 import daos.core.TicketDao;
@@ -57,6 +58,9 @@ public class SeedService {
 
     @Autowired
     private TicketDao ticketDao;
+    
+    @Autowired
+    private InvoiceDao invoiceDao;
 
     private static final String YAML_FILES_ROOT = "classpath:META-INF/";
 
@@ -75,6 +79,7 @@ public class SeedService {
         embroideryDao.save(tpvGraph.getEmbroideryList());
         textilePrintingDao.save(tpvGraph.getTextilePrintingList());
         ticketDao.save(tpvGraph.getTicketList());
+        invoiceDao.save(tpvGraph.getInvoiceList());
     }
 
 }

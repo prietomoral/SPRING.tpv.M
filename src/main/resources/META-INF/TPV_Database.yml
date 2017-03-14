@@ -174,7 +174,8 @@ textilePrintingList:
     type: ploter
 
 ticketList:
-  - id: 1
+  - &ticket1
+    id: 1
     ticketState: CLOSED
     shoppingList:
       - amount: 1
@@ -220,7 +221,8 @@ ticketList:
         productId: 84000002225
         description: embroidery3
         retailPrice: 23
-  - id: 3
+  - &ticket3
+    id: 3
     ticketState: OPENED
     shoppingList:
       - amount: 1
@@ -267,3 +269,9 @@ ticketList:
         description: textilePrinting3
         retailPrice: 23
     user: *user666000000
+
+invoiceList:
+  - id: 2017001
+    ticket: *ticket1
+  - id: 2017002
+    ticket: *ticket3
