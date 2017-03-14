@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,7 @@ public class ArticleResource {
     }
 
     @RequestMapping(value = Uris.SEARCH, method = RequestMethod.GET)
+    @PreAuthorize("hasRole('MANAGER') or hasRole('OPERATOR')")
     public Page<ArticleWrapper> search(Pageable pageable, @RequestParam(required = false) String reference,
             @RequestParam(required = false) String description, @RequestParam(required = false) BigDecimal minRetailPrice,
             @RequestParam(required = false) BigDecimal maxRetailPrice,
@@ -46,7 +48,7 @@ public class ArticleResource {
     public void add(@RequestBody Article article) throws AlreadyExistProductException {
         this.articleController.add(article);
     }
-    
+
     @RequestMapping(value = Uris.ID, method = RequestMethod.DELETE)
     public void delete(@PathVariable(value = "id") int id) {
         this.articleController.delete(id);
