@@ -2,7 +2,7 @@ package api.wrappersForTest;
 
 import java.util.List;
 
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
 
 import wrappers.EmbroideryWrapper;
 
@@ -13,8 +13,8 @@ public class EmbroideryPageWrapper extends PageWrapper {
     public EmbroideryPageWrapper() {
     }
 
-    public EmbroideryPageWrapper(List<EmbroideryWrapper> content, int number, int size, Sort sort, long totalElements, int totalPages) {
-        super(content.size(), number, size, sort, totalElements, totalPages);
+    public EmbroideryPageWrapper(List<EmbroideryWrapper> content, Page<?> page) {
+        super(page);
         this.content = content;
     }
 

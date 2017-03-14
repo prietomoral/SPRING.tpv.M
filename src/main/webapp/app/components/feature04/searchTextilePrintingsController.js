@@ -3,46 +3,71 @@ tpv.controller('SearchTextilePrintingsController', function($route, f04Service) 
 	
 	var vm = this;
 	
-	vm.loading = true;
-	
-	vm.pageNumber = 0;
-	vm.pageSize = 3;
-	vm.totalTextilePrintings = 0;
-	
-	vm.exactRetailPrice = 0;
-	vm.minRetailPrice = 0;
-	vm.maxRetailPrice = 0;
+	vm.pageInfo = {
+		pageNumber: 0,
+		pageSize: 3,
+		totalArticles: 0,
+		sortParameter: "reference",
+		sortType: "asc"
+	};
 	
 	vm.advancedSearchVisibility = false;
 	
-	vm.sortType = "reference";
-	vm.sortReverse = false;
+	vm.searchValues = {
+		reference: "",
+		description: "",
+		minRetailPrice: "",
+		maxRetailPrice: "",
+		type: ""
+	}
+	
+	vm.loading = true;
+	vm.error = false;
 	
 	vm.textilePrintings = [];
 	loadTextilePrintings();
 	
 	function loadTextilePrintings(){
-		f04Service.getTextilePrintings(vm.pageNumber, vm.pageSize).then(result => {
+		formatEmptyNumbers();
+		f04Service.getTextilePrintings(vm.pageInfo, vm.searchValues).then(result => {
 			vm.loading = false;
 			vm.textilePrintings = result.content;
-			vm.pageNumber = result.number;
-			vm.totalTextilePrintings = result.totalElements;
-			vm.pageSize = result.size;
+			vm.pageInfo.pageNumber = result.number;
+			vm.pageInfo.totalTextilePrintings = result.totalElements;
+			vm.pageInfo.pageSize = result.size;
 			vm.error = false;
 		}, errors => {
 			vm.loading = false;
-			vm.errors = errors;
 			vm.error = true;
 		});
 	}
 	
+	function formatEmptyNumbers(){
+		vm.searchValues.minRetailPrice = f04Service.formatEmptyNumber(vm.searchValues.minRetailPrice);
+		vm.searchValues.maxRetailPrice = f04Service.formatEmptyNumber(vm.searchValues.maxRetailPrice);
+	}
+	
 	vm.changeToPage = pageNumber => {
-		vm.pageNumber = pageNumber;
+		vm.pageInfo.pageNumber = pageNumber;
 		loadTextilePrintings();
 	}
 	
 	vm.onClickAdvancedSearch = () => {
 		vm.advancedSearchVisibility = !vm.advancedSearchVisibility;
+	}
+	
+	vm.onClickSearchButton = () => {
+		loadTextilePrintings();
+	}
+	
+	vm.sortBy = parameter => {
+		if (vm.pageInfo.sortType == "asc" && vm.pageInfo.sortParameter == parameter) {
+			vm.pageInfo.sortType = "desc";
+		} else {
+			vm.pageInfo.sortType = "asc";
+		}
+		vm.pageInfo.sortParameter = parameter;
+		loadTextilePrintings();
 	}
 	
 	vm.clearFilters = () => {
