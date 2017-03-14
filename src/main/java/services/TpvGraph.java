@@ -7,6 +7,7 @@ import entities.core.Article;
 import entities.core.Embroidery;
 import entities.core.Provider;
 import entities.core.TextilePrinting;
+import entities.core.Ticket;
 import entities.core.Voucher;
 import entities.users.Authorization;
 import entities.users.Token;
@@ -30,6 +31,8 @@ public class TpvGraph {
 
     private List<TextilePrinting> textilePrintingList;
 
+    private List<Ticket> ticketList;
+
     public TpvGraph() {
         super();
         userList = new ArrayList<>();
@@ -40,6 +43,7 @@ public class TpvGraph {
         embroideryList = new ArrayList<>();
         textilePrintingList = new ArrayList<>();
         providerList = new ArrayList<>();
+        ticketList = new ArrayList<>();
     }
 
     public List<User> getUserList() {
@@ -104,6 +108,14 @@ public class TpvGraph {
 
     public void setTextilePrintingList(List<TextilePrinting> textilePrintingList) {
         this.textilePrintingList = textilePrintingList;
+    }
+
+    public List<Ticket> getTicketList() {
+        return ticketList;
+    }
+
+    public void setTicketList(List<Ticket> ticketList) {
+        this.ticketList = ticketList;
     }
 
 }

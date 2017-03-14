@@ -28,18 +28,17 @@ public class Voucher {
 
     public Voucher() {
         created = Calendar.getInstance();
+        dateOfUse = null;
     }
 
     public Voucher(BigDecimal value) {
+        this();
         setValue(value);
-        created = Calendar.getInstance();
-        dateOfUse = null;
     }
 
     public Voucher(BigDecimal value, Calendar date) {
-        setValue(value);
+        this(value);
         created = date;
-        dateOfUse = null;
     }
 
     public int getId() {

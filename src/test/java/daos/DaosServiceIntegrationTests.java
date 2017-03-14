@@ -77,7 +77,6 @@ public class DaosServiceIntegrationTests {
 
     @PostConstruct
     public void populate() {
-        /*
         this.createUsers(0, 4, Role.CUSTOMER);
         this.createToken(666000000);
         this.createVouchers();
@@ -86,7 +85,6 @@ public class DaosServiceIntegrationTests {
         this.createTickets();
         this.createInvoices();
         this.createAlerts();
-        */
     }
 
     public void createUsers(int initial, int size, Role role) {

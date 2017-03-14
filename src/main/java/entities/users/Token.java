@@ -31,9 +31,9 @@ public class Token {
     }
 
     public Token(User user) {
+        this();
         assert user != null;
         setUser(user);
-        this.creationDate = new Date();
     }
 
     public int getId() {

@@ -37,15 +37,15 @@ public class User {
     private boolean active;
 
     public User() {
-        this(0, "", "");
+        this.registrationDate = Calendar.getInstance();
+        this.active = true;
     }
 
     public User(long mobile, String username, String password) {
+        this();
         this.mobile = mobile;
         this.username = username;
-        this.password = new BCryptPasswordEncoder().encode(password);
-        this.registrationDate = Calendar.getInstance();
-        this.active = true;
+        setPassword(password);
     }
 
     public int getId() {

@@ -15,6 +15,7 @@ import daos.core.ArticleDao;
 import daos.core.EmbroideryDao;
 import daos.core.ProviderDao;
 import daos.core.TextilePrintingDao;
+import daos.core.TicketDao;
 import daos.core.VoucherDao;
 import daos.users.AuthorizationDao;
 import daos.users.TokenDao;
@@ -54,6 +55,9 @@ public class SeedService {
     @Autowired
     private TextilePrintingDao textilePrintingDao;
 
+    @Autowired
+    private TicketDao ticketDao;
+
     private static final String YAML_FILES_ROOT = "classpath:META-INF/";
 
     public void parseYaml(String fileName) throws IOException {
@@ -70,6 +74,7 @@ public class SeedService {
         articleDao.save(tpvGraph.getArticleList());
         embroideryDao.save(tpvGraph.getEmbroideryList());
         textilePrintingDao.save(tpvGraph.getTextilePrintingList());
+        ticketDao.save(tpvGraph.getTicketList());
     }
 
 }

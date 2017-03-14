@@ -172,3 +172,98 @@ textilePrintingList:
     retailPrice: 23
     description: textilePrinting3
     type: ploter
+
+ticketList:
+  - id: 1
+    ticketState: CLOSED
+    shoppingList:
+      - amount: 1
+        discount: 0
+        productId: 84000001111
+        description: article0
+        retailPrice: 20
+      - amount: 2
+        discount: 0
+        productId: 84000001112
+        description: article1
+        retailPrice: 21
+      - amount: 3
+        discount: 0
+        productId: 84000001113
+        description: article2
+        retailPrice: 22
+      - amount: 4
+        discount: 0
+        productId: 84000001114
+        description: article3
+        retailPrice: 23
+  - id: 2
+    ticketState: OPENED
+    shoppingList:
+      - amount: 1
+        discount: 0
+        productId: 84000002222
+        description: embroidery0
+        retailPrice: 20
+      - amount: 2
+        discount: 0
+        productId: 84000002223
+        description: embroidery1
+        retailPrice: 21
+      - amount: 3
+        discount: 0
+        productId: 84000002224
+        description: embroidery2
+        retailPrice: 22
+      - amount: 4
+        discount: 0
+        productId: 84000002225
+        description: embroidery3
+        retailPrice: 23
+  - id: 3
+    ticketState: OPENED
+    shoppingList:
+      - amount: 1
+        discount: 10
+        productId: 84000003333
+        description: textilePrinting0
+        retailPrice: 20
+      - amount: 2
+        discount: 10
+        productId: 84000003334
+        description: textilePrinting1
+        retailPrice: 21
+      - amount: 3
+        discount: 10
+        productId: 84000003335
+        description: textilePrinting2
+        retailPrice: 22
+      - amount: 4
+        discount: 10
+        productId: 84000003336
+        description: textilePrinting3
+        retailPrice: 23
+  - id: 4
+    ticketState: OPENED
+    shoppingList:
+      - amount: 1
+        discount: 10
+        productId: 84000003333
+        description: textilePrinting0
+        retailPrice: 20
+      - amount: 2
+        discount: 10
+        productId: 84000003334
+        description: textilePrinting1
+        retailPrice: 21
+      - amount: 3
+        discount: 10
+        productId: 84000003335
+        description: textilePrinting2
+        retailPrice: 22
+      - amount: 4
+        discount: 10
+        productId: 84000003336
+        description: textilePrinting3
+        retailPrice: 23
+    user: *user666000000
