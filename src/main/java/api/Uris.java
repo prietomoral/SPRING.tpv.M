@@ -29,6 +29,8 @@ public class Uris {
     public static final String EMBROIDERIES = "/embroideries";
     
     public static final String PROVIDERS = "/providers";
+    
+    public static final String PROVIDERS_ID_COMPANY = "/idcompany";
 
     public static final String TEXTILE_PRINTINGS = "/textileprintings";
     

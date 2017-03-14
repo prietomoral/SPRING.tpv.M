@@ -5,7 +5,8 @@ tpv.service('f02Service', ['$http', '$q', function ($http, $q) {
    
    	var feature02Service = {
    		createProvider:createProvider,
-   		listProviders:listProviders
+   		listProviders:listProviders,
+   		listIdCompanyProviders:listIdCompanyProviders
    	};
    
    	return feature02Service;
@@ -36,7 +37,7 @@ tpv.service('f02Service', ['$http', '$q', function ($http, $q) {
    	function listIdCompanyProviders() {
    		return $http({
    			method: 'GET',
-   			url: urlBase + '/idCompanyProviders'
+   			url: urlBase + '/providers/idcompany'
    		}).then(function successCallback(response) {
 	        return response.data;
    		}, function errorCallback(response) {

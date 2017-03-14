@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import controllers.ProviderController;
 import wrappers.ProviderAddWrapper;
+import wrappers.ProviderIdCompanyWrapper;
 import wrappers.ProviderWrapper;
 
 @RestController
@@ -30,5 +31,10 @@ public class ProviderResource {
     @RequestMapping(method = RequestMethod.GET)
     public List<ProviderWrapper> getAll() {
         return this.providerController.getAll();
+    }
+    
+    @RequestMapping(value = Uris.PROVIDERS_ID_COMPANY, method = RequestMethod.GET)
+    public List<ProviderIdCompanyWrapper> getAllIdCompany() {
+        return this.providerController.getAllIdCompany();
     }
 }
