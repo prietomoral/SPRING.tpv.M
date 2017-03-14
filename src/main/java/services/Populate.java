@@ -222,8 +222,8 @@ public class Populate {
     }
 
     public void createInvoices() {
-        invoiceDao.save(new Invoice(1, ticketDao.findOne(1L)));
-        invoiceDao.save(new Invoice(3, ticketDao.findOne(3L)));
+        invoiceDao.save(new Invoice(2017001, ticketDao.findOne(1L)));
+        invoiceDao.save(new Invoice(2017002, ticketDao.findOne(3L)));
     }
 
     public void createAlerts() {
