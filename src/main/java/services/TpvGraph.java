@@ -10,7 +10,9 @@ import entities.core.TextilePrinting;
 public class TpvGraph {
 
     private List<TextilePrinting> textilePrintingList;
+
     private List<Provider> providerList;
+
     private List<Article> articleList;
 
     public TpvGraph() {
@@ -43,5 +45,5 @@ public class TpvGraph {
     public void setArticleList(List<Article> articleList) {
         this.articleList = articleList;
     }
-    
+
 }

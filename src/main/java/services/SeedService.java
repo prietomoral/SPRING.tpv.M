@@ -27,10 +27,10 @@ public class SeedService {
 
     @Autowired
     private ApplicationContext appContext;
-    
+
     @Autowired
     private ProviderDao providerDao;
-    
+
     @Autowired
     private ArticleDao articleDao;
 
@@ -43,15 +43,15 @@ public class SeedService {
         Resource resource = appContext.getResource(YAML_FILES_ROOT + fileName);
         InputStream input = resource.getInputStream();
         TpvGraph tpvGraph = (TpvGraph) yamlParser.load(input);
-        
+
         for (Provider provider : tpvGraph.getProviderList()) {
             providerDao.save(provider);
         }
-        
+
         for (Article article : tpvGraph.getArticleList()) {
             articleDao.save(article);
         }
-        
+
         for (TextilePrinting textilePrinting : tpvGraph.getTextilePrintingList()) {
             textilePrintingDao.save(textilePrinting);
         }
