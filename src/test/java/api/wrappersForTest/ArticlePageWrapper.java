@@ -2,7 +2,7 @@ package api.wrappersForTest;
 
 import java.util.List;
 
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
 
 import wrappers.ArticleWrapper;
 
@@ -13,8 +13,8 @@ public class ArticlePageWrapper extends PageWrapper {
     public ArticlePageWrapper() {
     }
 
-    public ArticlePageWrapper(List<ArticleWrapper> content, int number, int size, Sort sort, long totalElements, int totalPages) {
-        super(content.size(), number, size, sort, totalElements, totalPages);
+    public ArticlePageWrapper(List<ArticleWrapper> content, Page<?> page) {
+        super(page);
         this.content = content;
     }
 
