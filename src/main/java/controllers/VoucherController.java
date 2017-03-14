@@ -37,7 +37,7 @@ public class VoucherController {
         
         List<VoucherWrapper> result = new ArrayList<>();
         for (Voucher voucher : vouchers) {
-            result.add(new VoucherWrapper(voucher.getReference(), voucher.getValue(), voucher.getCreated(), voucher.getDateOfUse()));
+            result.add(new VoucherWrapper(voucher.getId(), voucher.getReference(), voucher.getValue(), voucher.getCreated(), voucher.getDateOfUse()));
         }
         return result;
     }

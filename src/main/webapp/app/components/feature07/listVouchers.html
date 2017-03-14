@@ -22,9 +22,9 @@
 		          <tr ng-repeat="voucher in vm.vouchers">
                       <td>{{ voucher.id }}</td>
                       <td>{{ voucher.reference }}</td>
-                      <td>{{ voucher.value }}</td>
-                      <td>{{ voucher.creation }}</td>
-                      <td ng-if="voucher.dateOfUse">{{ voucher.dateOfUse }}</td>
+                      <td>{{ voucher.value| currency:"€ " }}</td>
+                      <td>{{ voucher.created | date:'dd/MM/yyyy' }}</td>
+                      <td ng-if="voucher.dateOfUse">{{ voucher.dateOfUse | date:'dd/MM/yyyy' }}</td>
                       <td ng-if="!voucher.dateOfUse">-</td>
 		          </tr>
 		      </tbody>
