@@ -2,10 +2,12 @@ tpv.controller('SearchEmbroideriesController', function($route, f04Service) {
 	"use strict";
 	
 	var vm = this;
+	
+	vm.authenticated = f04Service.isAuthenticated();
 		
 	vm.pageInfo = {
 		pageNumber: 0,
-		pageSize: 3,
+		pageSize: 15,
 		totalArticles: 0,
 		sortParameter: "reference",
 		sortType: "asc"
@@ -72,7 +74,7 @@ tpv.controller('SearchEmbroideriesController', function($route, f04Service) {
 	}
 	
 	vm.sortBy = parameter => {
-		if (vm.pageInfo.sortType == "asc" && vm.pageInfo.sortParameter == parameter) {
+		if ((vm.pageInfo.sortType == "asc" && vm.pageInfo.sortParameter == parameter) || (vm.pageInfo.sortType == "desc" && vm.pageInfo.sortParameter != parameter)) {
 			vm.pageInfo.sortType = "desc";
 		} else {
 			vm.pageInfo.sortType = "asc";

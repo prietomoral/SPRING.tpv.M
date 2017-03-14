@@ -1,6 +1,12 @@
 <section>
     <div class="page-header">
-      <h1>Article search</h1>
+	    <h1>
+		    Article search
+		    <small ng-show="!vm.authenticated" class="text-warning">
+		        <span class="glyphicon glyphicon-exclamation-sign"></span>
+		        No estás autorizado
+		    </small>
+	    </h1>
     </div>
     <div class="panel panel-primary">
         <div class="panel-heading clearfix">
@@ -60,7 +66,7 @@
             </div>
             <div class="row" ng-show="vm.advancedSearchVisibility">
                 <hr/>
-                <div class="form-group col-lg-4">
+                <div class="form-group col-md-4">
                     <div class="checkbox">
                         <label>
                             <input type="checkbox" ng-model="vm.searchValues.onlyOnStock">On stock
@@ -107,7 +113,7 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="panel" ng-hide="vm.articles.length > 0">
+            <div class="panel" ng-hide="vm.articles.length > 0 || vm.error">
                 <div class="panel-body">
                     No products found with this data
                 </div>
@@ -123,7 +129,7 @@
                 </div>
             </div>
         </div>
-        <div class="panel" ng-show="vm.articles.length>0">
+        <div class="panel" ng-show="vm.articles.length > 0">
             <div class="panel-body center">
                 <paging
                     class="small"

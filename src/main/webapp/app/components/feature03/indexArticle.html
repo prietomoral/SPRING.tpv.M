@@ -21,7 +21,10 @@
               <td>{{article.retailPrice}}</td>
               <td>{{article.wholesalePrice}}</td>
               <td>{{article.provider.company}}</td>
-              <td><a ng-href="#feature03/update-embroidery/{{article.id}}">Edit</a> | <input type="button"  value="Delete" ng-click="vm.deleteArticle(article.id)"></td>
+              <td>
+              	<a class="btn btn-primary" ng-href="#feature03/update-article/{{article.id}}">Edit</a>
+              	<input class="btn btn-danger" type="button"  value="Delete" ng-click="vm.deleteArticle(article.id)">
+              </td>
             </tr>
           </tbody>
         </table>
