@@ -1,10 +1,12 @@
 tpv.controller('addArticleController', addArticleController,'Alertify');
 
 
-function addArticleController(f03Service,Alertify) {
+function addArticleController(f03Service, f02Service, Alertify) {
   'use strict';
   var vm = this;
   vm.createArticle = createArticle;
+  vm.providerList = providerList;
+  vm.providers = [];
  
   function createArticle(){
 	  f03Service.createArticle(vm.article).then(
@@ -15,6 +17,19 @@ function addArticleController(f03Service,Alertify) {
 	      function error(errors){
 	          Alertify.error("A product with this Id already exist");
 	      });
+  }
+  
+  function providerList(){
+	  f02Service.listIdCompanyProviders().then(function success(response){
+      vm.data = response;
+      console.log(vm.data);
+    	    $.each(vm.data, function (i, item) {
+    	        vm.providers.push({"id": item['id'], "company": item['company']});
+    	    });
+    },
+    function error(errors){
+      console.log(errors);
+    });
   }
 	  
 }
