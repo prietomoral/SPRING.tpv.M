@@ -18,8 +18,6 @@ public class WebInitializer implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         
-        //new ClassPathXmlApplicationContext("SpringBatchConfig.xml");
-        
         // Se crea un contexto basado en anotaciones
         AnnotationConfigWebApplicationContext annConWebAppCtx = new AnnotationConfigWebApplicationContext();
 

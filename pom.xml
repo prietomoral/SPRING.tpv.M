@@ -228,6 +228,11 @@
             <artifactId>spring-batch-core</artifactId>
             <version>${spring.batch.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.batch</groupId>
+            <artifactId>spring-batch-test</artifactId>
+            <version>${spring.batch.version}</version>
+        </dependency>
 	</dependencies>
 	<build>
 		<finalName>${deploy}</finalName>

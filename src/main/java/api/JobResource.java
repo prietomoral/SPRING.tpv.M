@@ -1,4 +1,4 @@
-package controllers;
+package api;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
@@ -17,16 +17,16 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 @EnableScheduling
-public class JobController {
-
-    @Autowired
-    JobLauncher jobLauncher;
-
+public class JobResource {
+    
     @Autowired
     Job job;
 
-    //@Scheduled(cron = "0 1 * * * ?")
+    @Autowired
+    JobLauncher jobLauncher;
+    
     @Scheduled(cron="*/10 * * * * ?")
+    //@Scheduled(cron = "0 1 * * * ?")
     public void launch() throws JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException, JobParametersInvalidException {
         JobParameters jobParameters = new JobParametersBuilder().addLong("time", System.currentTimeMillis()).toJobParameters();
         JobExecution execution = jobLauncher.run(job, jobParameters);

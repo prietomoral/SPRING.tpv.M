@@ -12,9 +12,8 @@ import org.springframework.core.env.Environment;
 
 import daos.users.TokenDao;
 
-public class TokenControllerTasklet implements Tasklet {
+public class TokenTasklet implements Tasklet {
     
-    @Autowired
     private Environment environment;
 
     private TokenDao tokenDao;
@@ -22,6 +21,11 @@ public class TokenControllerTasklet implements Tasklet {
     @Autowired
     public void setTokenDao(TokenDao tokenDao) {
         this.tokenDao = tokenDao;
+    }
+    
+    @Autowired
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
     }
     
     @Override
