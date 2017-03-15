@@ -179,6 +179,11 @@ tpv.config(function ($routeProvider) {
             controller: "DetailsInvoiceController",
             controllerAs: "vm"
         })
+        .when("/feature08/populate", {
+            templateUrl: "app/components/feature08/populate.html",
+            controller: "PopulateController",
+            controllerAs: "vm"
+        })
         .otherwise({
             redirectTo: '/'
         });

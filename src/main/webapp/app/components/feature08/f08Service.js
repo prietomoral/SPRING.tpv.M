@@ -44,4 +44,12 @@ tpv.service('f08Service', ['$http', '$q', function ($http, $q) {
 	   };
 		  return this.request(config);
 	  }
+    
+    this.populate = function (){
+ 	   let config = {
+ 			   method: 'POST',
+ 			   url: urlBase+"/invoices/populate",
+ 	   };
+ 	  return this.request(config);
+   }
 }]);
