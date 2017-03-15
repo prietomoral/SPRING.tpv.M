@@ -15,6 +15,7 @@ import api.exceptions.NotFoundAlertIdException;
 import controllers.AlertController;
 import wrappers.AlertWrapper;
 import wrappers.AlertWrapperCreate;
+import wrappers.AlertWrapperWarningCritical;
 
 @RestController
 @RequestMapping(Uris.VERSION + Uris.ALERTS)
@@ -30,6 +31,11 @@ public class AlertResource {
 	@RequestMapping(method = RequestMethod.GET)
 	public List<AlertWrapper> index() {
 		return alertController.findAll();
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public List<AlertWrapperWarningCritical> getAlertWarningCritical() {
+		return alertController.findAlertWarningCritical();
 	}
 
 	@RequestMapping(value = Uris.ID, method = RequestMethod.GET)
