@@ -96,6 +96,7 @@ function f03Service($http, $q) {
 	    	  'description': article.description,
 	    	  'retailPrice': article.retailPrice,
 	    	  'wholesalePrice': article.wholesalePrice,
+	    	  'stock': article.stock,
 	    	  'providerId': article.providerId
    	    	  }
    	    }).then(function successCallback(response) {

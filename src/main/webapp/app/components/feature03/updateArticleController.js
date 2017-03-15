@@ -8,11 +8,12 @@ function updateArticleController(f03Service,f02Service,Alertify,$routeParams) {
   vm.id=$routeParams.idArticle;
   vm.updateArticle=updateArticle;
   vm.providerList = providerList;
-  vm.providers = [];
  
   function findOneArticle(id){
 	  f03Service.findOneArticle(vm.id).then(function success(response){
       vm.article = response;
+      vm.article.providerId=response.provider['id'];
+     
     },
     function error(errors){
     	 if (errors.status == 401 || errors.status == 403) {	    
@@ -41,10 +42,7 @@ function updateArticleController(f03Service,f02Service,Alertify,$routeParams) {
   function providerList(){
 	  f02Service.listIdCompanyProviders().then(function success(response){
       vm.data = response;
-      console.log(vm.data);
-    	    $.each(vm.data, function (i, item) {
-    	        vm.providers.push({"id": item['id'], "company": item['company']});
-    	    });
+      vm.providers=response;
     },
     function error(errors){
       console.log(errors);
