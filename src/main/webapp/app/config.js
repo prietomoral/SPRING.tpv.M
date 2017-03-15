@@ -183,8 +183,6 @@ tpv.config(function ($routeProvider) {
         .when("/feature14/productByDate",{
         	templateUrl: "app/components/feature14/productByDate.html",
             controller: "ProductByDateController",
-
-           
         })
         .otherwise({
             redirectTo: '/'
