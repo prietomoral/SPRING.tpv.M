@@ -6,6 +6,7 @@ function AlertsService($http, APP, $q) {
   var alertService = {
     getAll: getAll,
     getAlert: getAlert,
+    deletAlert: deletAlert,
     createAlert: createAlert
   };
 
@@ -32,6 +33,18 @@ function AlertsService($http, APP, $q) {
         return $q.reject(response);
       });
   }
+  
+  function deletAlert(id) {
+	    return $http({
+	      method: 'DELETE',
+	      url: APP.apiUrl + '/alerts/' + id
+	    }).then(function successCallback(response) {
+	        return response.data;
+	      }, function errorCallback(response) {
+	        return $q.reject(response);
+	      });
+	  }
+  
   function createAlert(alert) {
 	    return $http({
 	      method: 'POST',
