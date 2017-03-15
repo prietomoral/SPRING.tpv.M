@@ -9,9 +9,7 @@ import entities.core.Alert;
 
 public interface AlertDao extends JpaRepository<Alert, Integer> {
 
-    @Query("SELECT product.id, product.description, product.stock, alert.warning, alert.critical "
-            + "FROM alert INNER JOIN product ON product.id = alert.article_id " + "WHERE product.stock<=alert.warning "
-            + "OR product.stock<=alert.critical ")
-    public List<Alert> findAlertsWarningCritical();
+	@Query("SELECT a FROM Alert a JOIN a.article p where p.stock<=a.warning or p.stock<=a.critical")
+	public List<Alert> findAlertsWarningCritical();
 
 }
