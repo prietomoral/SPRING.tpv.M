@@ -28,4 +28,12 @@ tpv.service('f08Service', ['$http', '$q', function ($http, $q) {
 	   };
 	  return this.request(config);
   }
+   
+    this.initList = function (){
+    	let config = {
+			   method: 'GET',
+			   url: urlBase+"/invoices"
+	   };
+		  return this.request(config);
+	  }
 }]);
