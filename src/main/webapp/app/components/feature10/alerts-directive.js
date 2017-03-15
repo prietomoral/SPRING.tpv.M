@@ -22,6 +22,27 @@ function alertsTemplate() {
 
 function AlertsTemplateController(AlertsService){
   var alertsVm = this;
-  alertsVm.warnings = [];
-  alertsVm.criticals = [];
+
+  init();
+
+  function init(){
+    AlertsService.getAllActiveAlerts().then(function(response){
+      alertsVm.warnings = buildWarnings(response);
+      alertsVm.criticals = buildCriticals(response);
+    });
+  }
+
+  function buildWarnings(alerts){
+    return alerts.filter(function(row){
+      return row.stock <= row.warning;
+    });
+  }
+
+  function buildCriticals(alerts){
+    return alerts.filter(function(row){
+      return row.stock <= row.critical;
+    });
+  }
+
+
 }

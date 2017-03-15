@@ -21,43 +21,43 @@ import wrappers.AlertWrapperWarningCritical;
 @RequestMapping(Uris.VERSION + Uris.ALERTS)
 public class AlertResource {
 
-	private AlertController alertController;
+    private AlertController alertController;
 
-	@Autowired
-	public void setAlertController(AlertController alertController) {
-		this.alertController = alertController;
-	}
+    @Autowired
+    public void setAlertController(AlertController alertController) {
+        this.alertController = alertController;
+    }
 
-	@RequestMapping(method = RequestMethod.GET)
-	public List<AlertWrapper> index() {
-		return alertController.findAll();
-	}
+    @RequestMapping(method = RequestMethod.GET)
+    public List<AlertWrapper> index() {
+        return alertController.findAll();
+    }
 
-	@RequestMapping(value = "/products", method = RequestMethod.GET)
-	public List<AlertWrapperWarningCritical> getAlertWarningCritical() {
-		return alertController.findAlertWarningCritical();
-	}
+    @RequestMapping(value = "/articles", method = RequestMethod.GET)
+    public List<AlertWrapperWarningCritical> getAlertWarningCritical() {
+        return alertController.findAlertWarningCritical();
+    }
 
-	@RequestMapping(value = Uris.ID, method = RequestMethod.GET)
-	public AlertWrapper OneAlert(@PathVariable(value = "id") int id) throws NotFoundAlertIdException {
-		return alertController.findOneAlert(id);
-	}
+    @RequestMapping(value = Uris.ID, method = RequestMethod.GET)
+    public AlertWrapper OneAlert(@PathVariable(value = "id") int id) throws NotFoundAlertIdException {
+        return alertController.findOneAlert(id);
+    }
 
-	@RequestMapping(method = RequestMethod.POST)
-	public AlertWrapper createAlert(@RequestBody AlertWrapperCreate alertWrapperCreate)
-			throws MissingArticleIdException, AlertNullValuesAreNotAllowedException {
-		return alertController.createAlert(alertWrapperCreate);
-	}
+    @RequestMapping(method = RequestMethod.POST)
+    public AlertWrapper createAlert(@RequestBody AlertWrapperCreate alertWrapperCreate)
+            throws MissingArticleIdException, AlertNullValuesAreNotAllowedException {
+        return alertController.createAlert(alertWrapperCreate);
+    }
 
-	@RequestMapping(value = Uris.ID, method = RequestMethod.DELETE)
-	public void delete(@PathVariable(value = "id") int id) throws NotFoundAlertIdException {
-		alertController.delete(id);
-	}
+    @RequestMapping(value = Uris.ID, method = RequestMethod.DELETE)
+    public void delete(@PathVariable(value = "id") int id) throws NotFoundAlertIdException {
+        alertController.delete(id);
+    }
 
-	@RequestMapping(value = Uris.ID, method = RequestMethod.PUT)
-	public void edit(@PathVariable(value = "id") int id, @RequestBody AlertWrapperCreate alertWrapperCreate)
-			throws NotFoundAlertIdException {
-		alertController.edit(id, alertWrapperCreate);
-	}
+    @RequestMapping(value = Uris.ID, method = RequestMethod.PUT)
+    public void edit(@PathVariable(value = "id") int id, @RequestBody AlertWrapperCreate alertWrapperCreate)
+            throws NotFoundAlertIdException {
+        alertController.edit(id, alertWrapperCreate);
+    }
 
 }
