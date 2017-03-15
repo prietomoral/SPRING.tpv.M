@@ -17,7 +17,7 @@ import api.wrappersForTest.TextilePrintingPageWrapper;
 
 public class TextilePrintingResourceFunctionalTesting {
 
-    private static String token;
+    private static String tokenManager;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -25,13 +25,13 @@ public class TextilePrintingResourceFunctionalTesting {
     @BeforeClass
     public static void populate() {
         new RestService().populate();
-        token = new RestService().registerAndLoginManager();
+        tokenManager = new RestService().registerAndLoginManager();
     }
 
     @Test
     public void testSearchWithoutParameters() {
         TextilePrintingPageWrapper textilePrintingPage = new RestBuilder<TextilePrintingPageWrapper>(RestService.URL)
-                .path(Uris.TEXTILE_PRINTINGS + Uris.SEARCH).param("size", "2").param("page", "1").basicAuth(token, "")
+                .path(Uris.TEXTILE_PRINTINGS + Uris.SEARCH).param("size", "2").param("page", "1").basicAuth(tokenManager, "")
                 .clazz(TextilePrintingPageWrapper.class).get().build();
         assertNotNull(textilePrintingPage);
         assertTrue(textilePrintingPage.getNumberOfElements() > 0);
@@ -48,7 +48,7 @@ public class TextilePrintingResourceFunctionalTesting {
     public void testSearchWithParameters() {
         TextilePrintingPageWrapper textilePrintingPage = new RestBuilder<TextilePrintingPageWrapper>(RestService.URL)
                 .path(Uris.TEXTILE_PRINTINGS + Uris.SEARCH).param("size", "2").param("page", "1").param("description", "textileprinting")
-                .param("minRetailPrice", "20").param("maxRetailPrice", "22").param("type", "ploter").basicAuth(token, "")
+                .param("minRetailPrice", "20").param("maxRetailPrice", "22").param("type", "ploter").basicAuth(tokenManager, "")
                 .clazz(TextilePrintingPageWrapper.class).get().build();
         assertNotNull(textilePrintingPage);
         assertTrue(textilePrintingPage.getNumberOfElements() > 0);

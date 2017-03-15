@@ -17,7 +17,7 @@ import api.wrappersForTest.ArticlePageWrapper;
 
 public class ArticleResourceFunctionalTesting {
 
-    private static String token;
+    private static String tokenManager;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -25,13 +25,13 @@ public class ArticleResourceFunctionalTesting {
     @BeforeClass
     public static void populate() {
         new RestService().populate();
-        token = new RestService().registerAndLoginManager();
+        tokenManager = new RestService().registerAndLoginManager();
     }
 
     @Test
     public void testSearchWithoutParameters() {
         ArticlePageWrapper articlePage = new RestBuilder<ArticlePageWrapper>(RestService.URL).path(Uris.ARTICLES + Uris.SEARCH)
-                .param("size", "4").param("page", "1").basicAuth(token, "").clazz(ArticlePageWrapper.class).get().build();
+                .param("size", "4").param("page", "1").basicAuth(tokenManager, "").clazz(ArticlePageWrapper.class).get().build();
         assertNotNull(articlePage);
         assertTrue(articlePage.getNumberOfElements() > 0);
         assertEquals(8, articlePage.getTotalElements());
@@ -47,7 +47,7 @@ public class ArticleResourceFunctionalTesting {
     public void testSearchArticlesWithParameters() {
         ArticlePageWrapper articlePage = new RestBuilder<ArticlePageWrapper>(RestService.URL).path(Uris.ARTICLES + Uris.SEARCH)
                 .param("size", "4").param("page", "1").param("description", "article").param("minRetailPrice", "21")
-                .param("maxRetailPrice", "26").basicAuth(token, "").clazz(ArticlePageWrapper.class).get().build();
+                .param("maxRetailPrice", "26").basicAuth(tokenManager, "").clazz(ArticlePageWrapper.class).get().build();
         assertNotNull(articlePage);
         assertTrue(articlePage.getNumberOfElements() > 0);
         assertEquals(5, articlePage.getTotalElements());
@@ -62,8 +62,8 @@ public class ArticleResourceFunctionalTesting {
     @Test
     public void testSearchArticlesOnlyOnStock() {
         ArticlePageWrapper articlePage = new RestBuilder<ArticlePageWrapper>(RestService.URL).path(Uris.ARTICLES + Uris.SEARCH)
-                .param("size", "4").param("page", "1").param("onlyOnStock", "true").basicAuth(token, "").clazz(ArticlePageWrapper.class)
-                .get().build();
+                .param("size", "4").param("page", "1").param("onlyOnStock", "true").basicAuth(tokenManager, "")
+                .clazz(ArticlePageWrapper.class).get().build();
         assertNotNull(articlePage);
         assertEquals(0, articlePage.getTotalElements());
         assertFalse(articlePage.hasContent());
