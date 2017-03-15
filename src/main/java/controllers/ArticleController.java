@@ -85,7 +85,7 @@ public class ArticleController {
         articleUpdate.setRetailPrice(article.getRetailPrice());
         articleUpdate.setWholesalePrice(article.getWholesalePrice());
         articleUpdate.setProvider(provider);
-        articleUpdate.setStock(0);
+        articleUpdate.setStock(article.getStock());
 
         this.articleDao.save(articleUpdate);
         
