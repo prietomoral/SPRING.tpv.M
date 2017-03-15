@@ -87,5 +87,9 @@ public class InvoiceController {
         List <Invoice> invoices = invoiceDao.findAll();
         return invoices;
     }
+    
+    public Invoice getInvoiceById(int id){
+        return invoiceDao.findOne(id);
+    }
 
 }

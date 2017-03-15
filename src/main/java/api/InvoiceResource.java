@@ -3,6 +3,7 @@ package api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,7 +19,7 @@ import entities.core.Invoice;
 
 
 @RestController
-@RequestMapping(Uris.VERSION)
+@RequestMapping(Uris.VERSION + Uris.INVOICES)
 public class InvoiceResource {
 	
 	private InvoiceController invoiceController;
@@ -28,7 +29,7 @@ public class InvoiceResource {
 	    this.invoiceController = invoiceController;
 	}
 	
-	@RequestMapping(value = Uris.INVOICES, method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
     public void createInvoice(@RequestBody IdTicketWrapper ticketWrapper) throws NotFoundTicketIdException, TicketIsNotClosedException, TicketHasNoUserException, TicketHasInvoiceException{
 	    if (!this.invoiceController.validateIdTicket(ticketWrapper)){
             throw new NotFoundTicketIdException();
@@ -43,9 +44,14 @@ public class InvoiceResource {
         }
     }
 	
-    @RequestMapping(value = Uris.INVOICES, method = RequestMethod.GET)	
+    @RequestMapping(method = RequestMethod.GET)	
     public List<Invoice> listInvoices(){
 	    return invoiceController.getAll();
 	}
+    
+    @RequestMapping(value = Uris.ID, method = RequestMethod.GET)  
+    public Invoice getInvoicesById(@PathVariable(value = "id") int id){
+        return invoiceController.getInvoiceById(id);
+    }
 
 }

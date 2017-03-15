@@ -36,4 +36,12 @@ tpv.service('f08Service', ['$http', '$q', function ($http, $q) {
 	   };
 		  return this.request(config);
 	  }
+    
+    this.getInvoiceById = function (id){
+    	let config = {
+			   method: 'GET',
+			   url: urlBase+"/invoices/"+id
+	   };
+		  return this.request(config);
+	  }
 }]);
