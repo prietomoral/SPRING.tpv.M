@@ -1,5 +1,5 @@
 tpv.controller('PopularProductsController', [ '$timeout', 'f14Service',
-		function($timeout, f00Service) {
+		function($timeout, f14Service) {
 			"use strict";
 			var vm = this;
 
@@ -14,7 +14,7 @@ tpv.controller('PopularProductsController', [ '$timeout', 'f14Service',
 				f14Service.popular().then(function(result) {
 					// promise was fullfilled
 					vm.completed = true;
-					vm.response = result.popular;
+					vm.data = result;
 					$timeout(function() {
 						vm.completed = false;
 					}, delay)

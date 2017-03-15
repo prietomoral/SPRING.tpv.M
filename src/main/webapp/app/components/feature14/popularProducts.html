@@ -1,30 +1,59 @@
-<div class="col-md-2"></div>
+<section class="container">
+    <div class="jumbotron">
+        <fieldset>
+            <legend class="text-center">Popular products</legend>
+                
+                <div class="table-responsive">
+                   <table class="table table-striped">
+                     <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>Description</th>
+                          <th>Amount</th>
+                          
+                        </tr>
+                      </thead>
+                      <tbody ng-init="vm.popular()">
+                        <tr ng-repeat="shopping in vm.data">
+                          <td>{{shopping.idProduct}}</td>
+                          <td>{{shopping.description}}</td>
+                          <td>{{shopping.totalAmountSold}}</td>
+                          
+                        </tr>
+                      </tbody>
+                    </table>
+                        
+                    <div class="no-data" ng-if="vm.data.length === 0">
+                       <div class="panel-body"> No Popular products Found </div>
+                    </div>
+                </div>
+        </fieldset>
+    </div>
+</section>
 <div class="col-md-6">
-    <div id="dual_y_div" style="width: 900px; height: 500px;"></div>     
+	<div id="dual_y_div" style="width: 900px; height: 500px;"></div>
 </div>
-     <script>
-     google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawStuff);
+<script>
+	google.charts.load('current', {
+		'packages' : [ 'bar' ]
+	});
+	google.charts.setOnLoadCallback(drawStuff);
 
-      function drawStuff() {
-          var data = new google.visualization.arrayToDataTable([
-            ['Productos', 'Total Vendido'],
-            ['Article 1', 12],
-            ['Article 2', 13],
-            ['we', 7],
-            ['table', 4],
-            ['Bootes I', 5]
-          ]);
+	function drawStuff() {
+		var data = new google.visualization.arrayToDataTable([
+				[ 'Productos', 'Total Vendido' ], [ 'Article 1', 12 ],
+				[ 'Article 2', 13 ], [ 'we', 7 ], [ 'table', 4 ],
+				[ 'Bootes I', 5 ] ]);
 
-          var options = {
-            width: 700,
-            chart: {
-              title: 'Popular products',
-            }
-          };
+		var options = {
+			width : 700,
+			chart : {
+				title : 'Popular products',
+			}
+		};
 
-        var chart = new google.charts.Bar(document.getElementById('dual_y_div'));
-        chart.draw(data, options);
-      };
+		var chart = new google.charts.Bar(document.getElementById('dual_y_div'));
+		chart.draw(data, options);
+	};
 </script>
 

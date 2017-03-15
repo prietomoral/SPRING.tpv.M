@@ -21,7 +21,7 @@ tpv.service('f14Service', ['$http', '$q', function ($http, $q) {
    }
    
    this.popular = function () {
-      let config = {
+	   let config = {
  	     method: 'GET',
  	     url: urlBase+"/poopularProducts",
 	  };
