@@ -1,5 +1,6 @@
 <h4>Alertas</h4>
 <div class="container">
+  <alerts-template></alerts-template>
   <a href="#/feature10/new" class="btn btn-primary">
     Nueva alerta
   </a>
@@ -17,16 +18,16 @@
         <td>{{ row.productDescription }}</td>
         <td><span class="label label-warning">{{ row.warning }}</span></td>
         <td><span class="label label-danger">{{ row.critical }}</span></td>
-	    <td><a class="btn btn-success btn-xs" 
+	    <td><a class="btn btn-success btn-xs"
 	           ng-href="#feature10/{{row.id}}/show">Ver alerta
 	       <span class="glyphicon glyphicon-edit"></span></a>
            <a class="btn btn-danger btn-xs"
 			   ng-click="vm.popAlert(row.id, $index)"
-			   > Eliminar 
+			   > Eliminar
         	<span class="glyphicon glyphicon-trash"></span></a>
-        	
+
         <td>
-                                               
+
       </tr>
       <tr class="no-data" ng-if="vm.data.length === 0">
         <td>No hay datos</td>
