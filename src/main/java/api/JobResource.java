@@ -14,8 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @EnableScheduling
 public class JobResource {
     
@@ -25,8 +26,8 @@ public class JobResource {
     @Autowired
     JobLauncher jobLauncher;
     
-    @Scheduled(cron="*/10 * * * * ?")
-    //@Scheduled(cron = "0 1 * * * ?")
+    //@Scheduled(cron="*/10 * * * * ?")
+    @Scheduled(cron = "0 1 * * * ?")
     public void launch() throws JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException, JobParametersInvalidException {
         JobParameters jobParameters = new JobParametersBuilder().addLong("time", System.currentTimeMillis()).toJobParameters();
         JobExecution execution = jobLauncher.run(job, jobParameters);
