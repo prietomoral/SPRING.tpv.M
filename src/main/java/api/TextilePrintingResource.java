@@ -45,9 +45,7 @@ public class TextilePrintingResource {
     public Page<TextilePrintingWrapper> search(Pageable pageable, @RequestParam(required = false) String reference,
             @RequestParam(required = false) String description, @RequestParam(required = false) BigDecimal minRetailPrice,
             @RequestParam(required = false) BigDecimal maxRetailPrice, @RequestParam(required = false) String type) {
-        Page<TextilePrintingWrapper> page = textilePrintingController.search(pageable, reference, description, minRetailPrice,
-                maxRetailPrice, type);
-        return page;
+        return textilePrintingController.search(pageable, reference, description, minRetailPrice, maxRetailPrice, type);
     }
 
     @RequestMapping(value = Uris.ID, method = RequestMethod.DELETE)
@@ -62,6 +60,6 @@ public class TextilePrintingResource {
 
     @RequestMapping(value = Uris.ID, method = RequestMethod.GET)
     public TextilePrinting findOne(@PathVariable(value = "id") long id) {
-       return this.textilePrintingController.findOne(id);    
+        return this.textilePrintingController.findOne(id);
     }
 }

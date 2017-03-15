@@ -44,9 +44,8 @@ public class EmbroideryResource {
             @RequestParam(required = false) Integer maxStitches, @RequestParam(required = false) Integer minColors,
             @RequestParam(required = false) Integer maxColors, @RequestParam(required = false) Integer minSquareMillimeters,
             @RequestParam(required = false) Integer maxSquareMillimeters) {
-        Page<EmbroideryWrapper> page = embroideryController.search(pageable, reference, description, minRetailPrice, maxRetailPrice,
-                minStitches, maxStitches, minColors, maxColors, minSquareMillimeters, maxSquareMillimeters);
-        return page;
+        return embroideryController.search(pageable, reference, description, minRetailPrice, maxRetailPrice, minStitches, maxStitches,
+                minColors, maxColors, minSquareMillimeters, maxSquareMillimeters);
     }
 
     @RequestMapping(method = RequestMethod.POST)

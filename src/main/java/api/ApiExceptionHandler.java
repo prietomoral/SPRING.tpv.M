@@ -16,10 +16,13 @@ import api.exceptions.MalformedHeaderException;
 import api.exceptions.MissingArticleIdException;
 import api.exceptions.NotFoundAlertIdException;
 import api.exceptions.NotFoundTicketIdException;
+
 import api.exceptions.NotFoundUserIdException;
-import api.exceptions.NotFoundVouchers;
+import api.exceptions.TicketHasInvoiceException;
 import api.exceptions.UnauthorizedException;
+import api.exceptions.NotFoundVouchers;
 import api.exceptions.TicketHasNoUserException;
+import api.exceptions.TicketIsNotClosedException;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
@@ -50,13 +53,13 @@ public class ApiExceptionHandler {
 		return apiErrorMessage;
 	}
 
-	@ResponseStatus(HttpStatus.CONFLICT)
-	@ExceptionHandler({ AlreadyExistUserFieldException.class, AlreadyExistUserFieldException.class })
-	@ResponseBody
-	public ErrorMessage conflictRequest(ApiException exception) {
-		ErrorMessage apiErrorMessage = new ErrorMessage(exception);
-		return apiErrorMessage;
-	}
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler({AlreadyExistUserFieldException.class, AlreadyExistUserFieldException.class, TicketIsNotClosedException.class, TicketHasInvoiceException.class})
+    @ResponseBody
+    public ErrorMessage conflictRequest(ApiException exception) {
+        ErrorMessage apiErrorMessage = new ErrorMessage(exception);
+        return apiErrorMessage;
+    }
 
 	// @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	// @ExceptionHandler({Exception.class})

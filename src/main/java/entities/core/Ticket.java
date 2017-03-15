@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -33,7 +34,7 @@ public class Ticket {
     @Enumerated(EnumType.STRING)
     private TicketState ticketState;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Shopping> shoppingList;
 
     @ManyToOne
@@ -41,13 +42,18 @@ public class Ticket {
     private User user;
 
     public Ticket() {
+        created = Calendar.getInstance();
+        shoppingList = new ArrayList<>();
     }
 
     public Ticket(long id, TicketState ticketState) {
-        this.id = id;
-        created = Calendar.getInstance();
+        this();
+        setId(id);
         this.ticketState = ticketState;
-        shoppingList = new ArrayList<>();
+    }
+
+    public void setId(long id) {
+        this.id = id;
         reference = new Encrypting().encryptInBase64UrlSafe("" + this.getId() + Long.toString(new Date().getTime()));
     }
 
@@ -113,8 +119,13 @@ public class Ticket {
     @Override
     public String toString() {
         String createTime = new SimpleDateFormat("HH:00 dd-MMM-yyyy ").format(created.getTime());
-        return "Ticket[" + id + ": created=" + createTime + ", ticketState=" + ticketState + ", shoppingList=" + shoppingList + ", userId="
-                + user.getId() + "]";
+        String usuario = "none";
+        if(this.getUser() == null){
+            return "Ticket[" + id + ": created=" + createTime + ", ticketState=" + ticketState + ", shoppingList=" + shoppingList + ", userId="
+                    + user.getId() + "]";
+        }else{
+            return "Ticket[" + id + ": created=" + createTime + ", ticketState=" + ticketState + ", shoppingList=" + shoppingList + ", userId="
+                    + usuario + "]";
+        }
     }
-
 }

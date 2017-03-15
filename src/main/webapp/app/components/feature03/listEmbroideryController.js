@@ -12,7 +12,9 @@ function listEmbroideryController(f03Service,Alertify) {
       vm.data = response;
     },
     function error(errors){
-      console.log(errors);
+    	if (errors.status == 401 || errors.status == 403) {	    
+  		  Alertify.error("User Unathorized. You must login with user Manager!");
+  	  }
     });
   }
  
@@ -22,7 +24,12 @@ function listEmbroideryController(f03Service,Alertify) {
 			  initList();
 		  },
 		  function error(errors){
-			  Alertify.error("The embroidery has not been deleted successfully.");
+			  if (errors.status == 401 || errors.status == 403) {	    
+	    		  Alertify.error("User Unathorized. You must login with user Manager!");
+	    	  }else{
+	    		  Alertify.error("The embroidery has not been deleted successfully.");
+	    	  }	
+			 
 	  });
    }
 	  
