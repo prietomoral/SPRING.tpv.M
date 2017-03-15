@@ -2,55 +2,66 @@ package wrappers;
 
 public class AlertWrapper {
 
-	public AlertWrapper(int id, int warning, int critical, String productDescription) {
-		super();
-		this.id = id;
-		this.warning = warning;
-		this.critical = critical;
-		this.productDescription = productDescription;
-	}
+    public AlertWrapper(int id, int warning, int critical, String productDescription, long product_id) {
+        super();
+        this.id = id;
+        this.warning = warning;
+        this.critical = critical;
+        this.productDescription = productDescription;
+        this.product_id = product_id;
+    }
 
-	private int id;
+    private int id;
 
-	private int warning;
+    private int warning;
 
-	private int critical;
+    private int critical;
 
-	private String productDescription;
+    private String productDescription;
 
-	public AlertWrapper() {
-	}
+    private long product_id;
 
-	public int getId() {
-		return id;
-	}
+    public AlertWrapper() {
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public int getWarning() {
-		return warning;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setWarning(int warning) {
-		this.warning = warning;
-	}
+    public int getWarning() {
+        return warning;
+    }
 
-	public int getCritical() {
-		return critical;
-	}
+    public void setWarning(int warning) {
+        this.warning = warning;
+    }
 
-	public void setCritical(int critical) {
-		this.critical = critical;
-	}
+    public int getCritical() {
+        return critical;
+    }
 
-	public String getProductDescription() {
-		return productDescription;
-	}
+    public void setCritical(int critical) {
+        this.critical = critical;
+    }
 
-	public void setProductDescription(String productDescription) {
-		this.productDescription = productDescription;
-	}
+    public String getProductDescription() {
+        return productDescription;
+    }
+
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
+    }
+
+    public long getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(long product_id) {
+        this.product_id = product_id;
+    }
 
 }

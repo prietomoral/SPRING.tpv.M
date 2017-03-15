@@ -6,7 +6,10 @@ function AlertsService($http, APP, $q) {
   var alertService = {
     getAll: getAll,
     getAlert: getAlert,
-    createAlert: createAlert
+    deletAlert: deletAlert,
+    createAlert: createAlert,
+    editAlert: editAlert
+
   };
 
   return alertService;
@@ -32,6 +35,18 @@ function AlertsService($http, APP, $q) {
         return $q.reject(response);
       });
   }
+ 
+  function deletAlert(id) {
+	    return $http({
+	      method: 'DELETE',
+	      url: APP.apiUrl + '/alerts/' + id
+	    }).then(function successCallback(response) {
+	        return response.data;
+	      }, function errorCallback(response) {
+	        return $q.reject(response);
+	      });
+	  }
+  
   function createAlert(alert) {
 	    return $http({
 	      method: 'POST',
@@ -45,4 +60,18 @@ function AlertsService($http, APP, $q) {
 	        return $q.reject(response);
 	      });
 	  }
+
+    function editAlert(id, alert) {
+        return $http({
+          method: 'PUT',
+          url: APP.apiUrl + '/alerts/' + id,
+          data:{'warning': alert.warning,
+                'critical': alert.critical,
+                'product_id': alert.product_id}
+        }).then(function successCallback(response) {
+            return response.data;
+          }, function errorCallback(response) {
+            return $q.reject(response);
+          });
+      }
 }

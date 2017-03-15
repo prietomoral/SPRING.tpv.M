@@ -42,13 +42,18 @@ public class Ticket {
     private User user;
 
     public Ticket() {
+        created = Calendar.getInstance();
+        shoppingList = new ArrayList<>();
     }
 
     public Ticket(long id, TicketState ticketState) {
-        this.id = id;
-        created = Calendar.getInstance();
+        this();
+        setId(id);
         this.ticketState = ticketState;
-        shoppingList = new ArrayList<>();
+    }
+
+    public void setId(long id) {
+        this.id = id;
         reference = new Encrypting().encryptInBase64UrlSafe("" + this.getId() + Long.toString(new Date().getTime()));
     }
 
@@ -123,5 +128,4 @@ public class Ticket {
                     + usuario + "]";
         }
     }
-
 }

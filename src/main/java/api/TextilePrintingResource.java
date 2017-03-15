@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import api.exceptions.AlreadyExistProductException;
 import controllers.TextilePrintingController;
+import entities.core.TextilePrinting;
 import wrappers.TextilePrintingWrapper;
 
 @RestController
@@ -39,12 +41,11 @@ public class TextilePrintingResource {
     }
 
     @RequestMapping(value = Uris.SEARCH, method = RequestMethod.GET)
+    @PreAuthorize("hasRole('MANAGER') or hasRole('OPERATOR')")
     public Page<TextilePrintingWrapper> search(Pageable pageable, @RequestParam(required = false) String reference,
             @RequestParam(required = false) String description, @RequestParam(required = false) BigDecimal minRetailPrice,
             @RequestParam(required = false) BigDecimal maxRetailPrice, @RequestParam(required = false) String type) {
-        Page<TextilePrintingWrapper> page = textilePrintingController.search(pageable, reference, description, minRetailPrice,
-                maxRetailPrice, type);
-        return page;
+        return textilePrintingController.search(pageable, reference, description, minRetailPrice, maxRetailPrice, type);
     }
 
     @RequestMapping(value = Uris.ID, method = RequestMethod.DELETE)
@@ -53,8 +54,12 @@ public class TextilePrintingResource {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public void edit(int id, @RequestBody TextilePrintingWrapper textilePrintingWrapper) {
-        this.textilePrintingController.edit(id, textilePrintingWrapper);
+    public void edit(@RequestBody TextilePrintingWrapper textilePrintingWrapper) {
+        this.textilePrintingController.edit(textilePrintingWrapper);
     }
 
+    @RequestMapping(value = Uris.ID, method = RequestMethod.GET)
+    public TextilePrinting findOne(@PathVariable(value = "id") long id) {
+        return this.textilePrintingController.findOne(id);
+    }
 }
