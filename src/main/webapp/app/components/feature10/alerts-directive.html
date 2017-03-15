@@ -1,0 +1,11 @@
+<div class="alert alert-warning"
+     role="alert"
+     ng-if="!alertVm.warnings.length === 0">
+  <span ng-repeat="alert in vm.warnings"></span>
+</div>
+
+<div class="alert alert-danger"
+     role="alert"
+     ng-if="!alertVm.criticals.length === 0">
+  <span ng-repeat="alert in vm.criticals"></span>
+</div>
