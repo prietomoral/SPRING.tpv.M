@@ -1,0 +1,68 @@
+<section class="container">
+    <div class="jumbotron">
+		<fieldset>
+			<legend class="text-center" ng-init="vm.getInvoiceById()">Detailed Invoice</legend>                    
+			     
+			     <!-- <div class="table-responsive">
+                    <table class="table table-striped">
+                        <tr>
+                           <th>Invoice Id:</th>
+                           <td>{{vm.data.id}}</td>
+                           <td>|</td>
+                           <th>Ticket Id:</th>
+                           <td>{{vm.data.ticket.id}}</td>
+                        </tr>
+                    </table>
+                </div> -->
+                
+                <div class="table-responsive">
+                <b>Invoice:</b>
+                    <table class="table table-striped">
+                        <tr>
+                           <td>{{vm.data.id}}</td>
+                        </tr>
+                    </table>
+                </div> 
+                
+                <div class="table-responsive">
+                <b>Ticket:</b>
+                    <table class="table table-striped">
+                        <tr>
+                           <td>{{vm.data.ticket.id}}</td>
+                        </tr>
+                    </table>
+                </div> 
+                
+                <div class="table-responsive">
+                <b>Customer:</b>
+                    <table class="table table-striped">
+                        <tr>
+                           <td>{{vm.data.ticket.user.username}}</td>
+                           <td>|</td>
+                           <td>{{vm.data.ticket.user.mobile}}</td>
+                           <td>|</td>
+                           <td>Address: TODO </td>
+                           <td>|</td>
+                           <td>Email: TODO </td>
+                        </tr>
+                    </table>
+                </div> 
+
+				<div class="table-responsive">
+				<b>Shopping List:</b>
+					<table class="table table-striped">
+					    <tr>
+					       <th></th>
+					        <th ng-repeat="(key, val) in vm.data.ticket.shoppingList[0]">{{key}}</th>
+					    </tr>
+					    <tr ng-repeat="id in vm.data.ticket.shoppingList">
+					       <td></td>
+					       <td ng-repeat="(key, val) in id">{{val}}</td>
+					    </tr>
+					</table>
+                </div>
+                
+                <a class="btn btn-danger" ng-href="#feature08/list-invoices">Back</a>
+		</fieldset>
+	</div>
+</section>
