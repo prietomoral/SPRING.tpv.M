@@ -10,6 +10,7 @@ import daos.core.TicketDao;
 import entities.core.Invoice;
 import entities.core.Ticket;
 import entities.core.TicketState;
+import entities.users.User;
 import wrappers.IdTicketWrapper;
 
 @Controller
@@ -37,18 +38,22 @@ public class InvoiceController {
 		}
 	}
 	
-	public boolean ticketHasUser(IdTicketWrapper ticketWrapper){
+	public boolean ticketHasValidUser(IdTicketWrapper ticketWrapper){
 	    if (validateIdTicket(ticketWrapper)){
-	        Ticket ticket = ticketDao.findById(ticketWrapper.getId());
-	        if (ticket.getUser() == null){
+	        User user = ticketDao.findById(ticketWrapper.getId()).getUser();
+	        if (user == null){
 	            return false;
 	        }else{
-	            return true;
+	            if(user.getAddress() == null || user.getDni() == null || user.getEmail() == null){
+	                return false;
+	            }else{
+	                return true;
+	            }
 	        }
 	    }
 	    return false;
 	}
-	
+
 	public boolean ticketHasInvoice(IdTicketWrapper ticketWrapper){
         List <Invoice> invoices = invoiceDao.findAll();
         for (Invoice invoice : invoices){

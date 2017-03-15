@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import api.exceptions.NotFoundTicketIdException;
 import api.exceptions.TicketHasInvoiceException;
-import api.exceptions.TicketHasNoUserException;
+import api.exceptions.TicketHasInvalidUserException;
 import api.exceptions.TicketIsNotClosedException;
 import controllers.InvoiceController;
 import wrappers.IdTicketWrapper;
@@ -30,15 +30,15 @@ public class InvoiceResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-    public void createInvoice(@RequestBody IdTicketWrapper ticketWrapper) throws NotFoundTicketIdException, TicketIsNotClosedException, TicketHasNoUserException, TicketHasInvoiceException{
+    public void createInvoice(@RequestBody IdTicketWrapper ticketWrapper) throws NotFoundTicketIdException, TicketIsNotClosedException, TicketHasInvalidUserException, TicketHasInvoiceException{
 	    if (!this.invoiceController.validateIdTicket(ticketWrapper)){
             throw new NotFoundTicketIdException();
 	    }else if (!this.invoiceController.ticketHasInvoice(ticketWrapper)){
 	        throw new TicketHasInvoiceException();
 	    }else if (!this.invoiceController.isTicketClosed(ticketWrapper)){
 	        throw new TicketIsNotClosedException();
-        }else if (!this.invoiceController.ticketHasUser(ticketWrapper)){
-            throw new TicketHasNoUserException();
+        }else if (!this.invoiceController.ticketHasValidUser(ticketWrapper)){
+            throw new TicketHasInvalidUserException();
         }else{
             this.invoiceController.createInvoice(ticketWrapper);
         }

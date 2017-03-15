@@ -37,13 +37,18 @@
                 <b>Customer:</b>
                     <table class="table table-striped">
                         <tr>
-                           <td>{{vm.data.ticket.user.username}}</td>
-                           <td>|</td>
-                           <td>{{vm.data.ticket.user.mobile}}</td>
-                           <td>|</td>
-                           <td>Address: TODO </td>
-                           <td>|</td>
-                           <td>Email: TODO </td>
+                            <th>Name</th>
+                            <th>Mobile</th>
+                            <th>DNI</th>
+                            <th>Address</th>
+                            <th>Email</th>
+                        </tr>
+                        <tr>
+                            <td>{{vm.data.ticket.user.username}}</td>
+                            <td>{{vm.data.ticket.user.mobile}}</td>
+                            <td>{{vm.data.ticket.user.dni}} </td>
+                            <td>{{vm.data.ticket.user.address}} </td>
+                            <td>{{vm.data.ticket.user.email}} </td>
                         </tr>
                     </table>
                 </div> 

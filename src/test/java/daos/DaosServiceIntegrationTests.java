@@ -79,6 +79,7 @@ public class DaosServiceIntegrationTests {
     public void populate() {
         this.createUsers(0, 4, Role.CUSTOMER);
         this.createToken(666000000);
+        this.completeUsers();
         this.createVouchers();
         this.createProviders();
         this.createProducts();
@@ -102,6 +103,20 @@ public class DaosServiceIntegrationTests {
         token = new Token(user);
         tokenDao.save(token);
         return token;
+    }
+    
+    public void completeUsers(){
+        User user = userDao.findByMobile(666000003);
+        user.setAddress("Calle Gran Vía, 23. Madrid");
+        user.setDni("1235678X");
+        user.setEmail("user@user.com");
+        userDao.save(user);
+        
+        User user2 = userDao.findByMobile(666000002);
+        user2.setAddress("Calle Goya, 102. Madrid");
+        user2.setDni("1235678X");
+        user2.setEmail("user2@user2.com");
+        userDao.save(user2);
     }
 
     public void createVouchers() {
@@ -164,7 +179,7 @@ public class DaosServiceIntegrationTests {
             Product product = embroideryDao.findOne(84000002222L + i);
             ticket.addShopping(new Shopping(1 + i, 0, product.getId(), product.getDescription(), product.getRetailPrice()));
         }
-        User user2 = userDao.findByMobile(666000001);
+        User user2 = userDao.findByMobile(666000003);
         ticket.setUser(user2);
         ticketDao.save(ticket);
 
@@ -182,7 +197,7 @@ public class DaosServiceIntegrationTests {
             ticket.addShopping(
                     new Shopping(1 + i, 10, product.getId(), product.getDescription(), product.getRetailPrice()));
         }
-        User user = userDao.findByMobile(666000000);
+        User user = userDao.findByMobile(666000002);
         ticket.setUser(user);
         ticketDao.save(ticket);
         
