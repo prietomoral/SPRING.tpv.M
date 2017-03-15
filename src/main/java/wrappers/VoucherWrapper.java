@@ -4,7 +4,8 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 
 public class VoucherWrapper {
-
+    private Integer id;
+    
     private String reference;
 
     private BigDecimal value;
@@ -17,7 +18,8 @@ public class VoucherWrapper {
     public VoucherWrapper() {
     }
 
-    public VoucherWrapper(String reference, BigDecimal value, Calendar created, Calendar dateOfUse) {
+    public VoucherWrapper(Integer id, String reference, BigDecimal value, Calendar created, Calendar dateOfUse) {
+        this.id = id;
         this.reference = reference;
         this.value = value;
         this.created = created;
@@ -54,6 +56,14 @@ public class VoucherWrapper {
 
     public void setDateOfUse(Calendar dateOfUse) {
         this.dateOfUse = dateOfUse;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     } 
     
     

@@ -17,6 +17,7 @@ public class Article extends Product {
     private Provider provider;
 
     public Article() {
+        this.stock = 0;
     }
 
     public Article(long id, String reference, BigDecimal retailPrice, String description, BigDecimal wholesalePrice, Provider provider) {
