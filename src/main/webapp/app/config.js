@@ -174,6 +174,11 @@ tpv.config(function ($routeProvider) {
             controller: "ListInvoicesController",
             controllerAs: "vm"
         })
+        .when("/feature08/details-invoice/:idInvoice", {
+            templateUrl: "app/components/feature08/details.html",
+            controller: "DetailsInvoiceController",
+            controllerAs: "vm"
+        })
 
         .when("/feature14/popular",{
         	templateUrl: "app/components/feature14/popularProducts.html",
@@ -183,7 +188,10 @@ tpv.config(function ($routeProvider) {
         .when("/feature14/productByDate",{
         	templateUrl: "app/components/feature14/productByDate.html",
             controller: "ProductByDateController",
+            controllerAs: "vm"
         })
+
+       
         .otherwise({
             redirectTo: '/'
         });

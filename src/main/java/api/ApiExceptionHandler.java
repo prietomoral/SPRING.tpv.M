@@ -21,7 +21,7 @@ import api.exceptions.NotFoundUserIdException;
 import api.exceptions.TicketHasInvoiceException;
 import api.exceptions.UnauthorizedException;
 import api.exceptions.NotFoundVouchers;
-import api.exceptions.TicketHasNoUserException;
+import api.exceptions.TicketHasInvalidUserException;
 import api.exceptions.TicketIsNotClosedException;
 
 @ControllerAdvice
@@ -29,7 +29,7 @@ public class ApiExceptionHandler {
 
 
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	@ExceptionHandler({ NotFoundUserIdException.class, NotFoundTicketIdException.class, TicketHasNoUserException.class,
+	@ExceptionHandler({ NotFoundUserIdException.class, NotFoundTicketIdException.class, TicketHasInvalidUserException.class,
 			NotFoundAlertIdException.class, NotFoundVouchers.class })
 	@ResponseBody
 	public ErrorMessage notFoundRequest(ApiException exception) {
