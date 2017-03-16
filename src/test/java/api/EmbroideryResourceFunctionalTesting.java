@@ -4,16 +4,22 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import java.math.BigDecimal;
+
+import org.apache.logging.log4j.LogManager;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpClientErrorException;
 
 import api.Uris;
 import api.wrappersForTest.EmbroideryPageWrapper;
+import wrappers.EmbroideryWrapper;
 
 public class EmbroideryResourceFunctionalTesting {
 
@@ -78,6 +84,33 @@ public class EmbroideryResourceFunctionalTesting {
                 .clazz(EmbroideryPageWrapper.class).get().build();
     }
 
+    @Test
+    public void testEmbroiederyNotFound(){
+        try{
+        	new RestBuilder<Object>(RestService.URL).path(Uris.EMBROIDERIES+ '/' + "100").basicAuth(tokenManager, "").get().build();
+        } catch (HttpClientErrorException httpError) {
+            assertEquals(HttpStatus.NOT_FOUND, httpError.getStatusCode());
+            LogManager.getLogger(this.getClass())
+                    .info("testEmbroiederyNotFound (" + httpError.getMessage() + "):\n    " + httpError.getResponseBodyAsString());
+        }
+    }
+
+    @Test
+    public void testCreateEmbroideryForbidden() {
+        try {
+            String token = new RestService().loginAdmin();
+            
+            EmbroideryWrapper embroidery = new EmbroideryWrapper(84000002222L, "reference", "description", new BigDecimal(20), 1000, 1, 10);
+            
+            new RestBuilder<Object>(RestService.URL).path(Uris.EMBROIDERIES).body(embroidery).basicAuth(token, "").post().build();
+            fail();
+        } catch (HttpClientErrorException httpError) {
+            assertEquals(HttpStatus.FORBIDDEN, httpError.getStatusCode());
+            LogManager.getLogger(this.getClass())
+                    .info("testCreateEmbroideryForbidden (" + httpError.getMessage() + "):\n " + httpError.getResponseBodyAsString());
+        }
+    }
+    
     @AfterClass
     public static void deleteAll() {
         new RestService().deleteAll();
