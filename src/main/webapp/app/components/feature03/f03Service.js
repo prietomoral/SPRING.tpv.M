@@ -26,10 +26,9 @@ function f03Service($http, $q) {
      };
 
      return feature03Service;
-     
+
      function listAllArticles() {
     	 return $http({
-    		 headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
     		 method: 'GET',
     		 url: urlBase + '/articles'
     	 }).then(function successCallback(response) {
@@ -38,8 +37,8 @@ function f03Service($http, $q) {
     		 return $q.reject(response);
     	 });
      }
-     
-     
+
+
      function findOneArticle(id) {
     	 return $http({
     		 headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
@@ -51,15 +50,15 @@ function f03Service($http, $q) {
     		 return $q.reject(response);
     	 });
      }
-     
+
      function createArticle(article) {
   	    return $http({
   	      headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
   	      method: 'POST',
   	      url: urlBase + '/articles',
   	      data:{
-  	    	  'id': article.id, 
-  	    	  'reference': article.reference, 
+  	    	  'id': article.id,
+  	    	  'reference': article.reference,
   	    	  'description': article.description,
   	    	  'retailPrice': article.retailPrice,
   	    	  'wholesalePrice': article.wholesalePrice,
@@ -71,7 +70,7 @@ function f03Service($http, $q) {
   	        return $q.reject(response);
   	      });
   	  }
-     
+
      function deleteOneArticle(id) {
     	 return $http({
     		 headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
@@ -83,16 +82,16 @@ function f03Service($http, $q) {
     		 return $q.reject(response);
     	 });
      }
-     
-     
+
+
      function updateArticle(article) {
    	    return $http({
    	      headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
    	      method: 'PUT',
    	      url: urlBase + '/articles',
    	      data:{
-   	    	  'id': article.id, 
-	    	  'reference': article.reference, 
+   	    	  'id': article.id,
+	    	  'reference': article.reference,
 	    	  'description': article.description,
 	    	  'retailPrice': article.retailPrice,
 	    	  'wholesalePrice': article.wholesalePrice,
@@ -105,7 +104,7 @@ function f03Service($http, $q) {
    	        return $q.reject(response);
    	      });
    	  }
-     
+
 
      function listAllEmbroideries() {
     	 return $http({
@@ -118,7 +117,7 @@ function f03Service($http, $q) {
     		 return $q.reject(response);
     	 });
      }
-     
+
      function findOneEmbroidery(id) {
     	 return $http({
     		 headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
@@ -138,8 +137,8 @@ function f03Service($http, $q) {
  	      method: 'POST',
  	      url: urlBase + '/embroideries',
  	      data:{
- 	    	  'id': embroidery.id, 
- 	    	  'reference':embroidery.reference, 
+ 	    	  'id': embroidery.id,
+ 	    	  'reference':embroidery.reference,
  	    	  'description': embroidery.description,
  	    	  'retailPrice':embroidery.price,
  	    	  'stitches':embroidery.stitches,
@@ -152,8 +151,8 @@ function f03Service($http, $q) {
  	        return $q.reject(response);
  	      });
  	  }
-     
-     
+
+
      function updateEmbroidery(embroidery) {
   	    return $http({
   	    	headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
@@ -161,7 +160,7 @@ function f03Service($http, $q) {
   	      url: urlBase + '/embroideries',
   	      data:{
   	    	'id': embroidery.id,
-  	    	 'reference':embroidery.reference, 
+  	    	 'reference':embroidery.reference,
   	    	 'description': embroidery.description,
   	    	 'retailPrice':embroidery.retailPrice,
   	    	 'stitches':embroidery.stitches,
@@ -174,7 +173,7 @@ function f03Service($http, $q) {
   	        return $q.reject(response);
   	      });
   	  }
-     
+
      function deleteOneEmbroidery(id) {
     	 return $http({
     		 headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
@@ -186,8 +185,8 @@ function f03Service($http, $q) {
     		 return $q.reject(response);
     	 });
      }
-        
-     
+
+
      function listAllTextilePrinting() {
     	 return $http({
     		 headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
@@ -218,7 +217,7 @@ function f03Service($http, $q) {
    	        return $q.reject(response);
    	      });
    	  }
-     
+
      function deleteOneTextilePrinting(id) {
     	 return $http({
     		 headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
@@ -230,7 +229,7 @@ function f03Service($http, $q) {
     		 return $q.reject(response);
     	 });
      }
-	 
+
      function editTextilePrinting(textilePrinting) {
    	    return $http({
    	      headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
@@ -238,7 +237,7 @@ function f03Service($http, $q) {
    	      url: urlBase + '/textileprintings/',
    	      data:{
    	    	'id': textilePrinting.id,
-   	    	 'reference':textilePrinting.reference, 
+   	    	 'reference':textilePrinting.reference,
    	    	 'description': textilePrinting.description,
    	    	 'retailPrice': textilePrinting.retailPrice,
    	    	 'type': textilePrinting.type
@@ -249,7 +248,7 @@ function f03Service($http, $q) {
    	        return $q.reject(response);
    	      });
    	  }
-     
+
      function findOneTextilePrinting(id) {
     	 return $http({
     		 headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},

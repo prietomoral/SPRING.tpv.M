@@ -21,97 +21,98 @@ import wrappers.AlertWrapperWarningCritical;
 @Controller
 public class AlertController {
 
-	private AlertDao alertDao;
+    private AlertDao alertDao;
 
-	private ArticleDao articleDao;
+    private ArticleDao articleDao;
 
-	@Autowired
-	public void setAlertDao(AlertDao alertDao) {
-		this.alertDao = alertDao;
-	}
+    @Autowired
+    public void setAlertDao(AlertDao alertDao) {
+        this.alertDao = alertDao;
+    }
 
-	@Autowired
-	public void setProductDao(ArticleDao articleDao) {
-		this.articleDao = articleDao;
-	}
+    @Autowired
+    public void setProductDao(ArticleDao articleDao) {
+        this.articleDao = articleDao;
+    }
 
-	public List<AlertWrapper> findAll() {
-		List<AlertWrapper> alerts = new ArrayList<AlertWrapper>();
-		for (Alert alert : alertDao.findAll()) {
-			AlertWrapper alertWrapper = new AlertWrapper();
-			alertWrapper.setId(alert.getId());
-			alertWrapper.setWarning(alert.getWarning());
-			alertWrapper.setCritical(alert.getCritical());
-			alertWrapper.setProductDescription(alert.getArticle().getDescription());
-			alerts.add(alertWrapper);
-		}
-		return alerts;
-	}
+    public List<AlertWrapper> findAll() {
+        List<AlertWrapper> alerts = new ArrayList<AlertWrapper>();
+        for (Alert alert : alertDao.findAll()) {
+            AlertWrapper alertWrapper = new AlertWrapper();
+            alertWrapper.setId(alert.getId());
+            alertWrapper.setWarning(alert.getWarning());
+            alertWrapper.setCritical(alert.getCritical());
+            alertWrapper.setProductDescription(alert.getArticle().getDescription());
+            alerts.add(alertWrapper);
+        }
+        return alerts;
+    }
 
-	public List<AlertWrapperWarningCritical> findAlertWarningCritical() {
-		List<AlertWrapperWarningCritical> alerts = new ArrayList<AlertWrapperWarningCritical>();
+    public List<AlertWrapperWarningCritical> findAlertWarningCritical() {
+        List<AlertWrapperWarningCritical> alerts = new ArrayList<AlertWrapperWarningCritical>();
 
-		for (Alert alert : alertDao.findAlertsWarningCritical()) {
-			AlertWrapperWarningCritical alertWrapperWarningCritical = new AlertWrapperWarningCritical();
-			alertWrapperWarningCritical.setId(alert.getId());
-			alertWrapperWarningCritical.setDescripcion(alert.getArticle().getDescription());
-			alertWrapperWarningCritical.setStock(alert.getArticle().getStock());
-			alertWrapperWarningCritical.setWarning(alert.getWarning());
-			alertWrapperWarningCritical.setCritical(alert.getCritical());
-			alerts.add(alertWrapperWarningCritical);
-		}
-		return alerts;
-	}
+        for (Alert alert : alertDao.findAlertsWarningCritical()) {
+            AlertWrapperWarningCritical alertWrapperWarningCritical = new AlertWrapperWarningCritical();
+            alertWrapperWarningCritical.setId(alert.getId());
+            alertWrapperWarningCritical.setDescripcion(alert.getArticle().getDescription());
+            alertWrapperWarningCritical.setStock(alert.getArticle().getStock());
+            alertWrapperWarningCritical.setWarning(alert.getWarning());
+            alertWrapperWarningCritical.setCritical(alert.getCritical());
+            alertWrapperWarningCritical.setProduct_id(alert.getArticle().getId());
+            alerts.add(alertWrapperWarningCritical);
+        }
+        return alerts;
+    }
 
-	public AlertWrapper findOneAlert(Integer id) throws NotFoundAlertIdException {
+    public AlertWrapper findOneAlert(Integer id) throws NotFoundAlertIdException {
 
-		Alert alert = alertDao.findOne(id);
-		if (alert == null) {
-			throw new NotFoundAlertIdException();
-		} else {
-			return new AlertWrapper(alert.getId(), alert.getWarning(), alert.getCritical(),
-					alert.getArticle().getDescription(), alert.getArticle().getId());
-		}
+        Alert alert = alertDao.findOne(id);
+        if (alert == null) {
+            throw new NotFoundAlertIdException();
+        } else {
+            return new AlertWrapper(alert.getId(), alert.getWarning(), alert.getCritical(), alert.getArticle().getDescription(),
+                    alert.getArticle().getId());
+        }
 
-	}
+    }
 
-	public AlertWrapper createAlert(AlertWrapperCreate alertWrapperCreate)
-			throws MissingArticleIdException, AlertNullValuesAreNotAllowedException, WarningNotCanLessCritical {
-		Alert alert = new Alert();
-		Article article = articleDao.findOne(alertWrapperCreate.getProduct_id());
-		if (article == null) {
-			throw new MissingArticleIdException();
-		}
-		if(alertWrapperCreate.getWarning()<alertWrapperCreate.getCritical()){
-			throw new WarningNotCanLessCritical();
-		} 
+    public AlertWrapper createAlert(AlertWrapperCreate alertWrapperCreate)
+            throws MissingArticleIdException, AlertNullValuesAreNotAllowedException, WarningNotCanLessCritical {
+        Alert alert = new Alert();
+        Article article = articleDao.findOne(alertWrapperCreate.getProduct_id());
+        if (article == null) {
+            throw new MissingArticleIdException();
+        }
+        if (alertWrapperCreate.getWarning() <= alertWrapperCreate.getCritical()) {
+            throw new WarningNotCanLessCritical();
+        }
 
-		alert.setArticle(article);
-		alert.setCritical(alertWrapperCreate.getCritical());
-		alert.setWarning(alertWrapperCreate.getWarning());
-		alertDao.save(alert);
-		AlertWrapper alertWrapper = new AlertWrapper(alert.getId(), alert.getWarning(), alert.getCritical(),
-				article.getDescription(), article.getId());
-		return alertWrapper;
+        alert.setArticle(article);
+        alert.setCritical(alertWrapperCreate.getCritical());
+        alert.setWarning(alertWrapperCreate.getWarning());
+        alertDao.save(alert);
+        AlertWrapper alertWrapper = new AlertWrapper(alert.getId(), alert.getWarning(), alert.getCritical(), article.getDescription(),
+                article.getId());
+        return alertWrapper;
 
-	}
+    }
 
-	public void delete(int id) {
-		Alert alert = alertDao.findOne(id);
-		alertDao.delete(alert);
-	}
+    public void delete(int id) {
+        Alert alert = alertDao.findOne(id);
+        alertDao.delete(alert);
+    }
 
-	public void edit(int id, AlertWrapperCreate alertWrapperCreate) throws NotFoundAlertIdException {
-		Alert alert = alertDao.findOne(id);
-		if (alert == null) {
-			throw new NotFoundAlertIdException();
-		} else {
-			Article article = articleDao.findOne(alertWrapperCreate.getProduct_id());
-			alert.setArticle(article);
-			alert.setWarning(alertWrapperCreate.getWarning());
-			alert.setCritical(alertWrapperCreate.getCritical());
-			alertDao.save(alert);
-		}
-	}
+    public void edit(int id, AlertWrapperCreate alertWrapperCreate) throws NotFoundAlertIdException {
+        Alert alert = alertDao.findOne(id);
+        if (alert == null) {
+            throw new NotFoundAlertIdException();
+        } else {
+            Article article = articleDao.findOne(alertWrapperCreate.getProduct_id());
+            alert.setArticle(article);
+            alert.setWarning(alertWrapperCreate.getWarning());
+            alert.setCritical(alertWrapperCreate.getCritical());
+            alertDao.save(alert);
+        }
+    }
 
 }
