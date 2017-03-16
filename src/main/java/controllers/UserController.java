@@ -43,5 +43,9 @@ public class UserController {
 	public List<User> getAll() {
 		return userDao.findAll();
 	}
+	
+	public User getUserById (int id){
+		return userDao.findOne(id);
+	}
 
 }

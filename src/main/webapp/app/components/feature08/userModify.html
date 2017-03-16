@@ -1,0 +1,49 @@
+<section class="container">
+    <div class="jumbotron">
+		<fieldset>
+            <legend class="text-center" ng-init="vm.getUserById()"><b>MODIFY USER</b></legend>
+            <div class="panel panel-primary col-md-8 col-md-offset-2">
+                <form class="form-horizontal" role="form" name="formUser" ng-submit="vm.modifyUser()">
+		          <div class="form-group" style="margin-top:20px;">
+		            <label class="control-label label-id col-md-4">Username</label>
+		            <div class="col-md-4">
+		               <input type="text" class="form-control"  placeholder={{vm.data.username}} ng-model='vm.data.username' required>
+		            </div>
+		          </div>
+		          <div class="form-group">
+                    <label class="control-label label-id col-md-4">Address</label>
+                    <div class="col-md-4">
+                       <input type="text" class="form-control"  placeholder={{vm.data.address}} ng-model='vm.data.address'>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label label-id col-md-4">DNI</label>
+                    <div class="col-md-4">
+                       <input type="text" class="form-control"  placeholder={{vm.data.dni}} ng-model='vm.data.dni'>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label label-id col-md-4">Email</label>
+                    <div class="col-md-4">
+                       <input type="email" class="form-control"  placeholder={{vm.data.email}} ng-model='vm.data.email'>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label label-id col-md-4">Mobile</label>
+                    <div class="col-md-4">
+                       <input type="number" class="form-control"  placeholder={{vm.data.mobile}} ng-model='vm.data.mobile' required>
+                    </div>
+                  </div>  
+		          <div class="form-group"> 
+                    <div class="col-md-offset-5 col-md-10">
+                        <input type="submit" class="btn btn-success" value="Save"> 
+                    </div>
+                 </div> 
+                </form>
+              </div>
+		</fieldset>
+		
+		<a class="btn btn-danger col-md-offset-2" ng-href="#feature08/list-users">
+        <span class="glyphicon glyphicon-chevron-left"></span>Back</a>
+	</div>
+</section>
