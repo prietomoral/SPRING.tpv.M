@@ -29,6 +29,7 @@ function f03Service($http, $q) {
 
      function listAllArticles() {
     	 return $http({
+    		 headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
     		 method: 'GET',
     		 url: urlBase + '/articles'
     	 }).then(function successCallback(response) {
