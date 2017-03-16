@@ -108,4 +108,9 @@ public class InvoiceController {
     public void populate(){
         dataService.populate();
     }
+
+	public Invoice getInvoiceByTicketID(IdTicketWrapper ticketWrapper) {
+		Invoice invoice = invoiceDao.findInvoiceByTicket_id(ticketWrapper.getId());
+		return invoice;
+	}
 }

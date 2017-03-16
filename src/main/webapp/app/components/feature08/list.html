@@ -1,9 +1,36 @@
 <section class="container">
     <div class="jumbotron">
 		<fieldset>
-			<legend class="text-center">INVOICES</legend>
+            <legend class="text-center"><b>INVOICES</b></legend>
+                <div class="panel panel-primary col-md-3">
+                    <div class="row">
+                        
+                        <div style="padding:10px;">
+                            <div class="form-group">
+                                <label for="search">Search by ticket</label>
+			                    <input ng-model="vm.ticket_id" id="ticket_id" placeholder="Insert Ticket Id" class="form-control">
+			                </div>
+			                		                
+			                <button class="btn btn-warning col-md-offset-7" ng-click="vm.search()">
+	                            <span class="glyphicon glyphicon-search"></span> Search
+	                        </button> 
+		                </div>
+		                
+		                <div ng-if="!!vm.data2" class="panel panel-primary" style="padding:10px; margin:10px;">
+                            <b>Invoice ID:</b> {{vm.data2.id}} <br>
+                            <b>Ticket ID:</b> {{vm.data2.ticket.id}}<br>
+                            <b>Customer:</b> {{vm.data2.ticket.user.username}}<br>
+                            <a class="btn btn-info btn-xs col-md-offset-9" ng-href="#feature08/details-invoice/{{vm.data2.id}}">Details</a></td>
+                       </div>
+	                    <div class="no-data" ng-if="vm.data2.length === 0">
+	                       <div class="panel-body"> No Invoices Found </div>
+	                    </div>
+                    
+                    </div>
+		          </div>
+
 				
-				<div class="table-responsive">
+				<div class="panel panel-primary table-responsive col-md-8 col-md-offset-1">
 			       <table class="table table-striped">
 			         <thead>
 			            <tr>
