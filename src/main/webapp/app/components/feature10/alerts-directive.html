@@ -4,11 +4,17 @@
 <div class="alert alert-warning"
      role="alert"
      ng-if="alertsVm.warnings.length > 0">
-  <span ng-repeat="alert in alertsVm.warnings">Artículo {{alert.descripcion}} con stock {{alert.stock}}</span>
+  <li ng-repeat="alert in alertsVm.warnings">
+    Artículo <a ng-href="#/feature03/update-article/{{alert.product_id}}"
+                class="alert-link">{{alert.descripcion}}</a> con stock {{alert.stock}}
+  </li>
 </div>
 
 <div class="alert alert-danger"
      role="alert"
      ng-if="alertsVm.criticals.length > 0">
-  <span ng-repeat="alert in alertsVm.criticals">Artículo {{alert.descripcion}} con stock {{alert.stock}}</span>
+  <li ng-repeat="alert in alertsVm.criticals">
+    Artículo <a ng-href="#/feature03/update-article/{{alert.product_id}}"
+                class="alert-link">{{alert.descripcion}}</a> con stock {{alert.stock}}
+  </li>
 </div>
