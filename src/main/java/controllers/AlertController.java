@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import api.exceptions.AlertNullValuesAreNotAllowedException;
 import api.exceptions.MissingArticleIdException;
 import api.exceptions.NotFoundAlertIdException;
+import api.exceptions.WarningNotCanLessCritical;
 import daos.core.AlertDao;
 import daos.core.ArticleDao;
 import entities.core.Alert;
@@ -75,12 +76,15 @@ public class AlertController {
 	}
 
 	public AlertWrapper createAlert(AlertWrapperCreate alertWrapperCreate)
-			throws MissingArticleIdException, AlertNullValuesAreNotAllowedException {
+			throws MissingArticleIdException, AlertNullValuesAreNotAllowedException, WarningNotCanLessCritical {
 		Alert alert = new Alert();
 		Article article = articleDao.findOne(alertWrapperCreate.getProduct_id());
 		if (article == null) {
 			throw new MissingArticleIdException();
 		}
+		if(alertWrapperCreate.getWarning()<alertWrapperCreate.getCritical()){
+			throw new WarningNotCanLessCritical();
+		} 
 
 		alert.setArticle(article);
 		alert.setCritical(alertWrapperCreate.getCritical());
