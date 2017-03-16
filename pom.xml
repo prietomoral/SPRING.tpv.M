@@ -233,6 +233,17 @@
             <artifactId>spring-batch-test</artifactId>
             <version>${spring.batch.version}</version>
         </dependency>
+        <!-- IText PDF -->
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>kernel</artifactId>
+            <version>7.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>layout</artifactId>
+            <version>7.0.2</version>
+        </dependency>
 	</dependencies>
 	<build>
 		<finalName>${deploy}</finalName>
