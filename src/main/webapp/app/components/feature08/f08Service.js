@@ -60,5 +60,13 @@ tpv.service('f08Service', ['$http', '$q', function ($http, $q) {
  			   url: urlBase+"/invoices/populate",
  	   };
  	  return this.request(config);
-   }
+    }
+    
+    this.userList = function (){
+    	let config = {
+			   method: 'GET',
+			   url: urlBase+"/users"
+	   };
+		  return this.request(config);
+	  }
 }]);

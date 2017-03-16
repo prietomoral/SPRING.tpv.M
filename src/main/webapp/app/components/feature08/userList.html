@@ -1,0 +1,38 @@
+<section class="container">
+    <div class="jumbotron">
+		<fieldset>
+            <legend class="text-center"><b>USERS</b></legend>
+            
+				<div class="panel panel-primary table-responsive col-md-12">
+			       <table class="table table-striped">
+			         <thead>
+			            <tr>
+			              <th>Username</th>
+			              <th>Email</th>
+			              <th>Mobile</th>
+			              <th>Address</th>
+			              <th>DNI</th>
+			              <th>Active</th>
+			              <th></th>
+			            </tr>
+			          </thead>
+			          <tbody ng-init="vm.userList()">
+			            <tr ng-repeat="user in vm.data">
+			              <td>{{user.username}}</td>
+			              <td>{{user.email}}</td>
+			              <td>{{user.mobile}}</td>
+			              <td>{{user.address}}</td>
+			              <td>{{user.dni}}</td>
+			              <td>{{user.active}}</td>
+			              <td><a class="btn btn-primary" ng-href="#feature08/modify-user/{{user.id}}">Modify</a></td>
+			            </tr>
+			          </tbody>
+			        </table>
+			            
+			        <div class="no-data" ng-if="vm.data.length === 0">
+			           <div class="panel-body"> No Users Found </div>
+			        </div>
+			    </div>
+		</fieldset>
+	</div>
+</section>
