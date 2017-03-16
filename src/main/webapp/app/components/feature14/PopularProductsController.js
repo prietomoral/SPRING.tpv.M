@@ -27,4 +27,6 @@ tpv.controller('PopularProductsController', [ '$timeout', 'f14Service',
 					}, delay)
 				});
 			}
+						
+			
 		} ]);
