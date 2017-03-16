@@ -145,7 +145,7 @@ public class Populate {
         
         User user2 = userDao.findByMobile(666000002);
         user2.setAddress("Calle Goya, 102. Madrid");
-        user2.setDni("1235678X");
+        user2.setDni("1235678Z");
         user2.setEmail("user2@user2.com");  
         userDao.save(user2);
     }

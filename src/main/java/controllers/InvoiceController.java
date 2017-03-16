@@ -11,6 +11,7 @@ import entities.core.Invoice;
 import entities.core.Ticket;
 import entities.core.TicketState;
 import entities.users.User;
+import services.DataService;
 import wrappers.IdTicketWrapper;
 
 @Controller
@@ -20,6 +21,8 @@ public class InvoiceController {
     
     private TicketDao ticketDao;
     
+    private DataService dataService;
+    
     @Autowired
     public void setInvoiceDao (InvoiceDao invoiceDao){
         this.invoiceDao = invoiceDao;
@@ -28,6 +31,11 @@ public class InvoiceController {
     @Autowired
     public void setTicketDao (TicketDao ticketDao){
         this.ticketDao = ticketDao;
+    }
+    
+    @Autowired
+    public void setDataService (DataService dataService){
+        this.dataService = dataService;
     }
 	
 	public boolean validateIdTicket(IdTicketWrapper ticketWrapper){
@@ -96,5 +104,8 @@ public class InvoiceController {
     public Invoice getInvoiceById(int id){
         return invoiceDao.findOne(id);
     }
-
+    
+    public void populate(){
+        dataService.populate();
+    }
 }
