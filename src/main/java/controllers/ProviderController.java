@@ -99,4 +99,19 @@ public class ProviderController {
         
         providerDao.delete(id);
     }
+    
+    public void deleteAll() {
+        List<Provider> providers = providerDao.findAll();
+        
+        if(!providers.isEmpty()) {
+            List<Article> articles = articleDao.findAll();
+            
+            for(Article a: articles) {
+                a.setProvider(null);
+                articleDao.save(a);
+            }
+            
+            providerDao.deleteAll();
+        }
+    }
 }

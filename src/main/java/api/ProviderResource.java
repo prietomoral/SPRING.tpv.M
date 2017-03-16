@@ -49,4 +49,9 @@ public class ProviderResource {
     public void delete(@PathVariable(value = "id") int id) throws NotFoundProviderIdException {
         this.providerController.delete(id);
     }
+    
+    @RequestMapping(method = RequestMethod.DELETE)
+    public void deleteAll() {
+        this.providerController.deleteAll();
+    }
 }
