@@ -84,6 +84,16 @@ public class ProviderResourceFunctionalTesting {
         assertEquals(providersBefore.size() - 1, providersAfter.size());
     }
 	
+	@Test
+    public void testDeleteAllProvider() {
+        new RestTemplate().exchange(RestService.URL + Uris.PROVIDERS, HttpMethod.DELETE, new HttpEntity<Object>(new HttpHeaders()), ProviderWrapper.class).getBody();
+        
+        List<ProviderWrapper> providersAfter = Arrays.asList(
+                new RestTemplate().exchange(RestService.URL + Uris.PROVIDERS, HttpMethod.GET, new HttpEntity<Object>(new HttpHeaders()), ProviderWrapper[].class).getBody());
+        
+        assertEquals(0, providersAfter.size());
+    }
+	
 	@After
 	public void resetData() {
 		new RestService().deleteAll();
