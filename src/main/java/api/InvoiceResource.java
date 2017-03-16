@@ -53,5 +53,10 @@ public class InvoiceResource {
     public Invoice getInvoicesById(@PathVariable(value = "id") int id){
         return invoiceController.getInvoiceById(id);
     }
+    
+    @RequestMapping(value = Uris.POPULATE, method = RequestMethod.POST)  
+    public void populate(){
+        invoiceController.populate();
+    }
 
 }

@@ -42,4 +42,6 @@ public class Uris {
 
     public static final String POPULAR_PRODUCTS = "/poopularProducts";
 
+    public static final String POPULATE = "/populate";
+
 }
