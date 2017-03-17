@@ -23,6 +23,7 @@ import api.exceptions.TicketHasInvoiceException;
 import api.exceptions.TicketIsNotClosedException;
 import api.exceptions.UnauthorizedException;
 import api.exceptions.WarningNotCanLessCritical;
+import api.exceptions.InvalidFieldModifyUserException;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
@@ -54,7 +55,7 @@ public class ApiExceptionHandler {
 	}
 
 	@ResponseStatus(HttpStatus.CONFLICT)
-	@ExceptionHandler({ AlreadyExistUserFieldException.class, AlreadyExistUserFieldException.class,
+	@ExceptionHandler({ AlreadyExistUserFieldException.class, InvalidFieldModifyUserException.class, AlreadyExistUserFieldException.class,
 			TicketIsNotClosedException.class, TicketHasInvoiceException.class })
 	@ResponseBody
 	public ErrorMessage conflictRequest(ApiException exception) {

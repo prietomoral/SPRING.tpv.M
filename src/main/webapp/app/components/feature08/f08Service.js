@@ -45,6 +45,14 @@ tpv.service('f08Service', ['$http', '$q', function ($http, $q) {
 		  return this.request(config);
 	  }
     
+    this.getUserById = function (id){
+    	let config = {
+			   method: 'GET',
+			   url: urlBase+"/users/"+id
+	   };
+		  return this.request(config);
+	}
+    
     this.search = function (ticket_id){
   	   let config = {
   			   method: 'POST',
@@ -68,5 +76,19 @@ tpv.service('f08Service', ['$http', '$q', function ($http, $q) {
 			   url: urlBase+"/users"
 	   };
 		  return this.request(config);
-	  }
+	}
+    
+    this.modifyUser = function (user) {
+    	let config = {
+ 			   method: 'PUT',
+ 			   url: urlBase+"/users",
+ 			   data:{
+ 				   'id': user.id, 'mobile':user.mobile, 'username': user.username,
+ 				   'email':user.email, 'dni': user.dni, 'address': user.address,
+ 				   'password': user.password    
+ 			   }
+ 	   };
+ 		  return this.request(config);
+ 	}
+    
 }]);
