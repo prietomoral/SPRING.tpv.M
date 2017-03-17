@@ -64,7 +64,7 @@ public class AlertResourceFunctionalTesting {
     public void testCreateAlert() {
         String token = new RestService().loginAdmin();
         for (int i = 0; i < 4; i++) {
-            new RestBuilder<Object>(RestService.URL).path(Uris.ALERTS).body(new AlertWrapperCreate(1, 1, 84000001111L + 0))
+            new RestBuilder<Object>(RestService.URL).path(Uris.ALERTS).body(new AlertWrapperCreate(5, 2, 84000001111L + 0))
                     .basicAuth(token, "").post().build();
         }
     }

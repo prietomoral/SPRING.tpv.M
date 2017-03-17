@@ -1,5 +1,7 @@
 package api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +12,7 @@ import api.exceptions.AlreadyExistUserFieldException;
 import api.exceptions.InvalidUserFieldException;
 import controllers.UserController;
 import entities.users.Role;
+import entities.users.User;
 import wrappers.UserWrapper;
 
 @RestController
@@ -45,5 +48,10 @@ public class UserResource {
             throw new InvalidUserFieldException(msg);
         }
     }
-
+    
+    @RequestMapping(value = Uris.USERS, method = RequestMethod.GET)
+    public List<User> userList(){
+	    return userController.getAll();
+	}
+   
 }

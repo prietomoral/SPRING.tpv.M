@@ -45,11 +45,28 @@ tpv.service('f08Service', ['$http', '$q', function ($http, $q) {
 		  return this.request(config);
 	  }
     
+    this.search = function (ticket_id){
+  	   let config = {
+  			   method: 'POST',
+  			   url: urlBase+"/invoices/search",
+  			   data:{'id': ticket_id}
+  	   };
+  	  return this.request(config);
+    }
+    
     this.populate = function (){
  	   let config = {
  			   method: 'POST',
  			   url: urlBase+"/invoices/populate",
  	   };
  	  return this.request(config);
-   }
+    }
+    
+    this.userList = function (){
+    	let config = {
+			   method: 'GET',
+			   url: urlBase+"/users"
+	   };
+		  return this.request(config);
+	  }
 }]);

@@ -1,20 +1,19 @@
-tpv.controller('CreateInvoiceController', [ '$timeout', 'f08Service',
+tpv.controller('UserListController', [ '$timeout', 'f08Service',
 	function($timeout, f08Service) {
 		"use strict";
 		var vm = this;
 
 		vm.completed = false;
 		vm.error = false;
-		vm.create = create;
-		vm.id_ticket;
-		vm.respuesta = "";
-		
-		function create() {
-			const delay = 4000;
-			f08Service.create(vm.id_ticket).then(function(result) {
+		vm.userList = userList;
+			
+		function userList() {
+			const
+			delay = 2000;
+			f08Service.userList().then(function(result) {
 				// promise was fullfilled
 				vm.completed = true;
-				vm.response = "Invoice created";
+				vm.data = result;
 				$timeout(function() {
 					vm.completed = false;
 				}, delay)

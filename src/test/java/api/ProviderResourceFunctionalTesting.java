@@ -70,6 +70,30 @@ public class ProviderResourceFunctionalTesting {
         new RestBuilder<Object>(RestService.URL).path(Uris.PROVIDERS).body(provider).post().build();
 	}
 	
+	@Test
+    public void testDeleteProvider() {
+        List<ProviderWrapper> providersBefore = Arrays.asList(
+                new RestTemplate().exchange(RestService.URL + Uris.PROVIDERS, HttpMethod.GET, new HttpEntity<Object>(new HttpHeaders()), ProviderWrapper[].class).getBody());
+        
+        int id = providersBefore.get(0).getId();
+        new RestTemplate().exchange(RestService.URL + Uris.PROVIDERS + "/" + id, HttpMethod.DELETE, new HttpEntity<Object>(new HttpHeaders()), ProviderWrapper.class).getBody();
+        
+        List<ProviderWrapper> providersAfter = Arrays.asList(
+                new RestTemplate().exchange(RestService.URL + Uris.PROVIDERS, HttpMethod.GET, new HttpEntity<Object>(new HttpHeaders()), ProviderWrapper[].class).getBody());
+        
+        assertEquals(providersBefore.size() - 1, providersAfter.size());
+    }
+	
+	@Test
+    public void testDeleteAllProvider() {
+        new RestTemplate().exchange(RestService.URL + Uris.PROVIDERS, HttpMethod.DELETE, new HttpEntity<Object>(new HttpHeaders()), ProviderWrapper.class).getBody();
+        
+        List<ProviderWrapper> providersAfter = Arrays.asList(
+                new RestTemplate().exchange(RestService.URL + Uris.PROVIDERS, HttpMethod.GET, new HttpEntity<Object>(new HttpHeaders()), ProviderWrapper[].class).getBody());
+        
+        assertEquals(0, providersAfter.size());
+    }
+	
 	@After
 	public void resetData() {
 		new RestService().deleteAll();

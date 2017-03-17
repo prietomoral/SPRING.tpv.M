@@ -184,6 +184,11 @@ tpv.config(function ($routeProvider) {
             controller: "PopulateController",
             controllerAs: "vm"
         })
+        .when("/feature08/list-users", {
+            templateUrl: "app/components/feature08/userList.html",
+            controller: "UserListController",
+            controllerAs: "vm"
+        })
         .when("/feature14/popular",{
         	templateUrl: "app/components/feature14/popularProducts.html",
             controller: "PopularProductsController",

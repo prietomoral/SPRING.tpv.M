@@ -12,9 +12,9 @@
 		          <tr>
                       <th>Id:</th>
                       <th>Reference:</th>
-                      <th>Value:</th>
                       <th>Created:</th>
                       <th>Used:</th>
+                      <th>Value:</th>
 		          </tr>
 		      </thead>
 		      <tbody>
@@ -22,13 +22,23 @@
 		          <tr ng-repeat="voucher in vm.vouchers">
                       <td>{{ voucher.id }}</td>
                       <td>{{ voucher.reference }}</td>
-                      <td>{{ voucher.value| currency:"€ " }}</td>
                       <td>{{ voucher.created | date:'dd/MM/yyyy' }}</td>
                       <td ng-if="voucher.dateOfUse">{{ voucher.dateOfUse | date:'dd/MM/yyyy' }}</td>
                       <td ng-if="!voucher.dateOfUse">-</td>
+                      <td>{{ voucher.value| currency:"€ " }}</td>
 		          </tr>
 		      </tbody>
+		      <tfoot>
+		      	<tr>
+		      		<td>Total*:</td>
+		      		<td></td>
+		      		<td></td>
+		      		<td></td>
+		      		<td>{{vm.total| currency:"€ " }}</td>
+		      	</tr>
+		      </tfoot>
 			</table>
 		</div>
 	</div>
+	<small ng-if="vm.vouchers.length > 0">*This is the total in active vouchers</small>
 </section>

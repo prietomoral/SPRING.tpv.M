@@ -34,7 +34,7 @@ function AlertsTemplateController(AlertsService){
 
   function buildWarnings(alerts){
     return alerts.filter(function(row){
-      return row.stock <= row.warning;
+      return row.stock <= row.warning && row.stock > row.critical;
     });
   }
 

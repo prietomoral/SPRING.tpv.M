@@ -6,7 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import api.exceptions.NotFoundProviderIdException;
+import daos.core.ArticleDao;
 import daos.core.ProviderDao;
+import entities.core.Article;
 import entities.core.Provider;
 import wrappers.ProviderAddWrapper;
 import wrappers.ProviderIdCompanyWrapper;
@@ -15,10 +18,16 @@ import wrappers.ProviderWrapper;
 @Controller
 public class ProviderController {
     private ProviderDao providerDao;
+    private ArticleDao articleDao;
     
     @Autowired
     public void setProviderDao(ProviderDao providerDao) {
         this.providerDao = providerDao;
+    }
+    
+    @Autowired
+    public void setArticleDao(ArticleDao articleDao) {
+        this.articleDao = articleDao;
     }
     
     public Provider add(ProviderAddWrapper providerWrapper) {
@@ -70,5 +79,39 @@ public class ProviderController {
 				provider.getPhone(),
 				provider.getPaymentConditions(),
 				provider.getNote());
+    }
+    
+    public void delete(int id) throws NotFoundProviderIdException {
+        Provider provider = providerDao.findOne(id);
+
+        if (provider == null) {
+            throw new NotFoundProviderIdException();
+        }
+        
+        List<Article> articles = articleDao.findAll();
+        
+        for(Article a: articles) {
+            if(a.getProvider().equals(provider)) {
+                a.setProvider(null);
+                articleDao.save(a);
+            }
+        }
+        
+        providerDao.delete(id);
+    }
+    
+    public void deleteAll() {
+        List<Provider> providers = providerDao.findAll();
+        
+        if(!providers.isEmpty()) {
+            List<Article> articles = articleDao.findAll();
+            
+            for(Article a: articles) {
+                a.setProvider(null);
+                articleDao.save(a);
+            }
+            
+            providerDao.deleteAll();
+        }
     }
 }
