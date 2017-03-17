@@ -27,4 +27,12 @@ tpv.service('f14Service', ['$http', '$q', function ($http, $q) {
 	  };
       return this.request(config);
    }
+   this.productDate = function () {
+	   let config = {
+ 	     method: 'POST',
+ 	     url: urlBase+"/byDate",
+ 	     data:{'id':product_id,'inicio':fecha_inicio,'fin':fecha_fin}
+	  };
+      return this.request(config);
+   }
 }]);
