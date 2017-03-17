@@ -68,23 +68,29 @@ public class SeedService {
 
     private static final String YAML_FILES_ROOT = "classpath:META-INF/";
 
-    public void parseYaml(String fileName) throws IOException {
+    public void parseYaml(String fileName) {
         assert fileName != null && !fileName.isEmpty();
         Resource resource = appContext.getResource(YAML_FILES_ROOT + fileName);
-        InputStream input = resource.getInputStream();
-        TpvGraph tpvGraph = (TpvGraph) yamlParser.load(input);
+        InputStream input;
+        try {
+            input = resource.getInputStream();
+            TpvGraph tpvGraph = (TpvGraph) yamlParser.load(input);
 
-        userDao.save(tpvGraph.getUserList());
-        authorizationDao.save(tpvGraph.getAuthorizationList());
-        tokenDao.save(tpvGraph.getTokenList());
-        voucherDao.save(tpvGraph.getVoucherList());
-        providerDao.save(tpvGraph.getProviderList());
-        articleDao.save(tpvGraph.getArticleList());
-        embroideryDao.save(tpvGraph.getEmbroideryList());
-        textilePrintingDao.save(tpvGraph.getTextilePrintingList());
-        ticketDao.save(tpvGraph.getTicketList());
-        invoiceDao.save(tpvGraph.getInvoiceList());
-        alertDao.save(tpvGraph.getAlertList());
+            userDao.save(tpvGraph.getUserList());
+            authorizationDao.save(tpvGraph.getAuthorizationList());
+            tokenDao.save(tpvGraph.getTokenList());
+            voucherDao.save(tpvGraph.getVoucherList());
+            providerDao.save(tpvGraph.getProviderList());
+            articleDao.save(tpvGraph.getArticleList());
+            embroideryDao.save(tpvGraph.getEmbroideryList());
+            textilePrintingDao.save(tpvGraph.getTextilePrintingList());
+            ticketDao.save(tpvGraph.getTicketList());
+            invoiceDao.save(tpvGraph.getInvoiceList());
+            alertDao.save(tpvGraph.getAlertList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
     }
 
 }

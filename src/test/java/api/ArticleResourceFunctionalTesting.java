@@ -1,19 +1,22 @@
 package api;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
+
+import org.apache.logging.log4j.LogManager;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpClientErrorException;
 
 import api.Uris;
 import api.wrappersForTest.ArticlePageWrapper;
+import entities.core.Provider;
+import wrappers.CrudArticleWrapper;
 
 public class ArticleResourceFunctionalTesting {
 
@@ -83,7 +86,35 @@ public class ArticleResourceFunctionalTesting {
         new RestBuilder<ArticlePageWrapper>(RestService.URL).path(Uris.ARTICLES + Uris.SEARCH).param("size", "4").param("page", "1")
                 .param("onlyOnStock", "true").basicAuth("1234", "").clazz(ArticlePageWrapper.class).get().build();
     }
+    
+    @Test
+    public void testArticleNotFound(){
+        try{
+        	new RestBuilder<Object>(RestService.URL).path(Uris.ARTICLES+ '/' + "100").basicAuth(tokenManager, "").get().build();
+        } catch (HttpClientErrorException httpError) {
+            assertEquals(HttpStatus.NOT_FOUND, httpError.getStatusCode());
+            LogManager.getLogger(this.getClass())
+                    .info("testArticleNotFound (" + httpError.getMessage() + "):\n    " + httpError.getResponseBodyAsString());
+        }
+    }
 
+    @Test
+    public void testCreateArticleForbidden() {
+        try {
+            String token = new RestService().loginAdmin();
+            
+            Provider provider = new Provider("company", "address", 666100000, 916661000, "No", "No");
+            CrudArticleWrapper article = new CrudArticleWrapper(84000001111L, "article", new BigDecimal(20), "article", new BigDecimal(10), provider.getId());
+            
+            new RestBuilder<Object>(RestService.URL).path(Uris.ARTICLES).body(article).basicAuth(token, "").post().build();
+            fail();
+        } catch (HttpClientErrorException httpError) {
+            assertEquals(HttpStatus.FORBIDDEN, httpError.getStatusCode());
+            LogManager.getLogger(this.getClass())
+                    .info("testCreateArticleForbidden (" + httpError.getMessage() + "):\n " + httpError.getResponseBodyAsString());
+        }
+    }
+    
     @AfterClass
     public static void deleteAll() {
         new RestService().deleteAll();
