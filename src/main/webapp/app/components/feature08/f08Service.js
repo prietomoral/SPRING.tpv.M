@@ -78,13 +78,14 @@ tpv.service('f08Service', ['$http', '$q', function ($http, $q) {
 		  return this.request(config);
 	}
     
-    function modifyUser(id) {
+    this.modifyUser = function (user) {
     	let config = {
- 			   method: 'POST',
- 			   url: urlBase+"/users/"+id,
- 			   data:{'address': address,
- 				   'dni': dni,
- 				   'username': username
+ 			   method: 'PUT',
+ 			   url: urlBase+"/users",
+ 			   data:{
+ 				   'id': user.id, 'mobile':user.mobile, 'username': user.username,
+ 				   'email':user.email, 'dni': user.dni, 'address': user.address,
+ 				   'password': user.password    
  			   }
  	   };
  		  return this.request(config);

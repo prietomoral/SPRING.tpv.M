@@ -1,10 +1,9 @@
 tpv.controller('UserModifyController', UserModifyController, 'Alertify', '$routeParams');
 
-function UserModifyController (f08Service, $routeParams) {
+function UserModifyController (f08Service, Alertify, $routeParams) {
 	"use strict";
 	var vm = this;
-	vm.completed = false;
-	vm.error = false;
+
 	vm.id = $routeParams.idUser;
 	vm.getUserById = getUserById;
 	vm.modifyUser = modifyUser;
@@ -12,7 +11,7 @@ function UserModifyController (f08Service, $routeParams) {
 	function getUserById() {
 		f08Service.getUserById(vm.id).then(function(result) {
 			vm.completed = true;
-			vm.data = result;
+			vm.user = result;
 		}, function(errors) {
 			vm.error = true;
 			vm.response = errors;
@@ -20,12 +19,12 @@ function UserModifyController (f08Service, $routeParams) {
 	}
 	
 	function modifyUser() {
-		f08Service.modifyUser(vm.id).then(function(result) {
+		f08Service.modifyUser(vm.user).then(function(result) {
 			vm.completed = true;
-			vm.data2 = result;
+			vm.user = {};
+	        Alertify.success("User has been updated successfully!");
 		}, function(errors) {
-			vm.error = true;
-			vm.response = errors;
+			Alertify.error(errors);
 		});
 	}
 }
