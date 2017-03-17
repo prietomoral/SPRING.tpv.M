@@ -2,63 +2,78 @@ package wrappers;
 
 public class AlertWrapperWarningCritical {
 
-	private long id;
-	private String descripcion;
-	private int stock;
-	private int warning;
-	private int critical;
+    private long id;
 
-	public AlertWrapperWarningCritical(long id, String descripcion, int stock, int warning, int critical) {
-		super();
-		this.id = id;
-		this.descripcion = descripcion;
-		this.stock = stock;
-		this.warning = warning;
-		this.critical = critical;
-	}
+    private String descripcion;
 
-	public AlertWrapperWarningCritical() {
-		// TODO Auto-generated constructor stub
-	}
+    private int stock;
 
-	public long getId() {
-		return id;
-	}
+    private int warning;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    private int critical;
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    private long product_id;
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    public long getProduct_id() {
+        return product_id;
+    }
 
-	public int getStock() {
-		return stock;
-	}
+    public void setProduct_id(long product_id) {
+        this.product_id = product_id;
+    }
 
-	public void setStock(int stock) {
-		this.stock = stock;
-	}
+    public AlertWrapperWarningCritical(long id, String descripcion, int stock, int warning, int critical, long product_id) {
+        super();
+        this.id = id;
+        this.descripcion = descripcion;
+        this.stock = stock;
+        this.warning = warning;
+        this.critical = critical;
+        this.product_id = product_id;
+    }
 
-	public int getWarning() {
-		return warning;
-	}
+    public AlertWrapperWarningCritical() {
+        // TODO Auto-generated constructor stub
+    }
 
-	public void setWarning(int warning) {
-		this.warning = warning;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public int getCritical() {
-		return critical;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public void setCritical(int critical) {
-		this.critical = critical;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public int getWarning() {
+        return warning;
+    }
+
+    public void setWarning(int warning) {
+        this.warning = warning;
+    }
+
+    public int getCritical() {
+        return critical;
+    }
+
+    public void setCritical(int critical) {
+        this.critical = critical;
+    }
 
 }
