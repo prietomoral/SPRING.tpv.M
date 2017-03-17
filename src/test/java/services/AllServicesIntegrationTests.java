@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({StatisticServiceIT.class, SeedServiceIT.class, DataServiceIT.class})
+@SuiteClasses({StatisticServiceIT.class, SeedServiceIT.class, DataServiceIT.class, PdfGenerationServiceTest.class})
 public class AllServicesIntegrationTests {
 
 }
