@@ -54,4 +54,9 @@ public class ProviderResource {
     public void deleteAll() {
         this.providerController.deleteAll();
     }
+    
+    @RequestMapping(method = RequestMethod.PUT)
+    public void update(@RequestBody ProviderWrapper providerWrapper) {
+        this.providerController.update(providerWrapper);
+    }
 }
