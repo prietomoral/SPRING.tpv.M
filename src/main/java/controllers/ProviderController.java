@@ -18,100 +18,97 @@ import wrappers.ProviderWrapper;
 @Controller
 public class ProviderController {
     private ProviderDao providerDao;
+
     private ArticleDao articleDao;
-    
+
     @Autowired
     public void setProviderDao(ProviderDao providerDao) {
         this.providerDao = providerDao;
     }
-    
+
     @Autowired
     public void setArticleDao(ArticleDao articleDao) {
         this.articleDao = articleDao;
     }
-    
+
     public Provider add(ProviderAddWrapper providerWrapper) {
-        Provider provider = new Provider(
-                providerWrapper.getCompany(), 
-                providerWrapper.getAddress(), 
-                providerWrapper.getMobile(), 
-                providerWrapper.getPhone(),
-                providerWrapper.getPaymentConditions(),
-                providerWrapper.getNote());
-        
-        return this.providerDao.save(provider);
+        Provider provider = new Provider(providerWrapper.getCompany(), providerWrapper.getAddress(), providerWrapper.getMobile(),
+                providerWrapper.getPhone(), providerWrapper.getPaymentConditions(), providerWrapper.getNote());
+
+        return providerDao.save(provider);
     }
-    
+
     public List<ProviderWrapper> getAll() {
-    	List<ProviderWrapper> providerList = new ArrayList<>();
-    	
-    	for(Provider provider: providerDao.findAll()) {
-    		providerList.add(new ProviderWrapper(
-    							provider.getId(),
-    							provider.getCompany(),
-    							provider.getAddress(),
-    							provider.getMobile(),
-    							provider.getPhone(),
-    							provider.getPaymentConditions(),
-    							provider.getNote()));
-    	}
-    	
-    	return providerList;
+        List<ProviderWrapper> providerList = new ArrayList<>();
+
+        for (Provider provider : providerDao.findAll()) {
+            providerList.add(new ProviderWrapper(provider.getId(), provider.getCompany(), provider.getAddress(), provider.getMobile(),
+                    provider.getPhone(), provider.getPaymentConditions(), provider.getNote()));
+        }
+
+        return providerList;
     }
-    
+
     public List<ProviderIdCompanyWrapper> getAllIdCompany() {
-    	List<ProviderIdCompanyWrapper> providerList = new ArrayList<>();
-    	
-    	for(Provider provider: providerDao.findAll()) {
-    		providerList.add(new ProviderIdCompanyWrapper(provider.getId(), provider.getCompany()));
-    	}
-    	
-    	return providerList;
+        List<ProviderIdCompanyWrapper> providerList = new ArrayList<>();
+
+        for (Provider provider : providerDao.findAll()) {
+            providerList.add(new ProviderIdCompanyWrapper(provider.getId(), provider.getCompany()));
+        }
+
+        return providerList;
     }
-    
+
     public ProviderWrapper getOneById(int id) {
-    	Provider provider = providerDao.findOne(id);
-    	return new ProviderWrapper(
-				provider.getId(),
-				provider.getCompany(),
-				provider.getAddress(),
-				provider.getMobile(),
-				provider.getPhone(),
-				provider.getPaymentConditions(),
-				provider.getNote());
+        Provider provider = providerDao.findOne(id);
+        return new ProviderWrapper(provider.getId(), provider.getCompany(), provider.getAddress(), provider.getMobile(),
+                provider.getPhone(), provider.getPaymentConditions(), provider.getNote());
     }
-    
+
     public void delete(int id) throws NotFoundProviderIdException {
         Provider provider = providerDao.findOne(id);
 
         if (provider == null) {
             throw new NotFoundProviderIdException();
         }
-        
+
         List<Article> articles = articleDao.findAll();
-        
-        for(Article a: articles) {
-            if(a.getProvider().equals(provider)) {
+
+        for (Article a : articles) {
+            if (a.getProvider().equals(provider)) {
                 a.setProvider(null);
                 articleDao.save(a);
             }
         }
-        
+
         providerDao.delete(id);
     }
-    
+
     public void deleteAll() {
         List<Provider> providers = providerDao.findAll();
-        
-        if(!providers.isEmpty()) {
+
+        if (!providers.isEmpty()) {
             List<Article> articles = articleDao.findAll();
-            
-            for(Article a: articles) {
+
+            for (Article a : articles) {
                 a.setProvider(null);
                 articleDao.save(a);
             }
-            
+
             providerDao.deleteAll();
         }
+    }
+
+    public void update(ProviderWrapper providerWrapper) {
+        Provider providerDB = providerDao.findOne(providerWrapper.getId());
+
+        providerDB.setAddress(providerWrapper.getAddress());
+        providerDB.setCompany(providerWrapper.getCompany());
+        providerDB.setMobile(providerWrapper.getMobile());
+        providerDB.setNote(providerWrapper.getNote());
+        providerDB.setPaymentConditions(providerWrapper.getPaymentConditions());
+        providerDB.setPhone(providerWrapper.getPhone());
+        
+        providerDao.save(providerDB);
     }
 }
