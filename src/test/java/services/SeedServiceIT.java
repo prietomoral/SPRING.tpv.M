@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,9 @@ public class SeedServiceIT {
 
     @Autowired
     private AlertDao alertDao;
+    
+    @Autowired
+    private DataService dataService;
 
     @Test
     public void testTpvTestDatabaseShouldBeParsed() {
@@ -117,8 +121,8 @@ public class SeedServiceIT {
 
     @Test
     public void testNotAllEntitiesYaml() {
-        //YAML which only contains 2 users, 1 token, 1 embroidery
-        //2 textilePrintings and 1 ticket
+        // YAML which only contains 2 users, 1 token, 1 embroidery
+        // 2 textilePrintings and 1 ticket
         String notAllEntitiesYaml = "TPV_Test_Not_All_Entities.yml";
         long previousUserCount = userDao.count();
         long previousAuthorizationCount = authorizationDao.count();
@@ -166,5 +170,11 @@ public class SeedServiceIT {
         assertEquals(invoiceDao.count(), previousInvoiceCount);
 
         assertEquals(alertDao.count(), previousAlertCount);
+    }
+
+    @After
+    public void tearDown() {
+        dataService.deleteAllExceptAdmin();
+        dataService.populate();
     }
 }
