@@ -118,18 +118,25 @@ tpv.config(function ($routeProvider) {
         .when("/feature10", {
             templateUrl: "app/components/feature10/index.html",
             controller: "AlertsController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+            resolve: {
+              notAutorized: resolverAlerts
+            }
         })
         .when("/feature10/:id/show", {
             templateUrl: "app/components/feature10/show.html",
             controller: "AlertsShowController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+            resolve: {
+              notAutorized: resolverAlerts
+            }
         })
         .when("/feature10/new", {
             templateUrl: "app/components/feature10/new.html",
             controller: "AlertsNewController",
             controllerAs: "vm",
             resolve: {
+              notAutorized: resolverAlerts,
               articles: function(f03Service, $location, Alertify){
                 return f03Service.listAllArticles().then(function success(response){
                   if (response.length === 0) {
@@ -147,6 +154,7 @@ tpv.config(function ($routeProvider) {
             controller: "AlertsEditController",
             controllerAs: "vm",
             resolve: {
+              notAutorized: resolverAlerts,
               articles: function(f03Service, $location, Alertify){
                 return f03Service.listAllArticles().then(function success(response){
                   if (response.length === 0) {
@@ -208,6 +216,14 @@ tpv.config(function ($routeProvider) {
         .otherwise({
             redirectTo: '/'
         });
+
+        function resolverAlerts($window, $location, Alertify){
+          var rol = $window.sessionStorage.getItem('rol');
+          if (!rol || rol !== "MANAGER" ) {
+            $location.url('/feature00/login');
+            Alertify.error('Debes iniciar sesión como Mánager para acceder a Alertas');
+          }
+        }
 
 });
 
