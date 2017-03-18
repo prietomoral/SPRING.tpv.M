@@ -1,5 +1,7 @@
 package services;
 
+import static config.ResourceNames.DEFAULT_POPULATE_FILE;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,7 @@ import daos.users.UserDao;
 public class DataService {
 
     @Autowired
-    private Populate populate;
+    private SeedService seedService;
 
     @Autowired
     private AuthorizationDao authorizationDao;
@@ -70,11 +72,14 @@ public class DataService {
         textilePrintingDao.deleteAll();
         providerDao.deleteAll();
 
-        populate.createDefaultAdmin();
+        seedService.createDefaultAdmin();
     }
 
     public void populate() {
-        populate.populate();
+        populate(DEFAULT_POPULATE_FILE);
     }
 
+    public void populate(String yamlFile) {
+        seedService.parseYaml(yamlFile);
+    }
 }

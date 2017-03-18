@@ -86,7 +86,6 @@ articleList:
     retailPrice: 21
     description: article1
     wholesalePrice: 11
-    stock: 5
     provider: *provider666100000
   - id: 84000001113
     reference: article2
@@ -99,20 +98,12 @@ articleList:
     retailPrice: 23
     description: article3
     wholesalePrice: 13
-    stock: 2
     provider: *provider666100000
-  - id: 84000001115
-    reference: article4
-    retailPrice: 24
-    description: article4
-    wholesalePrice: 14
-    provider: *provider666100001
   - id: 84000001116
     reference: article5
     retailPrice: 25
     description: article5
     wholesalePrice: 15
-    stock: 22
     provider: *provider666100001
   - id: 84000001117
     reference: article6
@@ -121,11 +112,16 @@ articleList:
     wholesalePrice: 16
     provider: *provider666100001
   - id: 84000001118
-    reference: article9
-    retailPrice: 29
-    description: article9
-    wholesalePrice: 19
-    stock: 39
+    reference: article7
+    retailPrice: 27
+    description: article7
+    wholesalePrice: 17
+    provider: *provider666100001
+  - id: 84000001119
+    reference: article8
+    retailPrice: 28
+    description: article8
+    wholesalePrice: 18
     provider: *provider666100001
     
 embroideryList:
@@ -152,7 +148,7 @@ embroideryList:
     squareMillimeters: 20
   - id: 84000002225
     reference: embroidery3
-    retailPrice: 30
+    retailPrice: 23
     description: embroidery3
     stitches: 3000
     colors: 3
