@@ -25,6 +25,7 @@ import daos.core.VoucherDao;
 import daos.users.AuthorizationDao;
 import daos.users.TokenDao;
 import daos.users.UserDao;
+import entities.users.Role;
 import entities.users.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -66,9 +67,27 @@ public class SeedServiceIT {
 
     @Autowired
     private AlertDao alertDao;
-    
+
     @Autowired
     private DataService dataService;
+
+    @Test
+    public void testCreateDefaultAdmin() {
+        dataService.deleteAllExceptAdmin();
+        authorizationDao.deleteAll();
+        tokenDao.deleteAll();
+        userDao.deleteAll();
+        
+        assertEquals(0, userDao.count());
+        
+        seedService.createDefaultAdmin();
+        
+        assertEquals(1, userDao.count());
+        User admin = userDao.findByUsername("admin");
+        
+        assertNotNull(admin);
+        assertEquals(Role.ADMIN, authorizationDao.findRoleByUser(admin).get(0));
+    }
 
     @Test
     public void testTpvTestDatabaseShouldBeParsed() {
