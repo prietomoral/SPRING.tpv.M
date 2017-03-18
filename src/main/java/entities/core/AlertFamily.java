@@ -3,6 +3,7 @@ package entities.core;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,7 +16,7 @@ public class AlertFamily {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Alert> alerts;
 
     private String name;
