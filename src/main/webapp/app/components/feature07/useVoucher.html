@@ -1,18 +1,18 @@
 <section class="container">
 	 <fieldset>
-	     <legend>Feature 07. Create Voucher. Autor: Mariana Salcedo</legend>
+	     <legend>Feature 07. Use Voucher. Autor: Mariana Salcedo</legend>
 	     <form class="form-horizontal">
 	         <div class="form-group">
-	             <label class="control-label col-sm-2 " for="value">Value:</label>
+	             <label class="control-label col-sm-2 " for="value">Id or Reference:</label>
 	             <div class='col-sm-10'>
-	                 <input type='text' class="form-control" ng-model='vm.value'
+	                 <input type='text' class="form-control" ng-model='vm.identification'
 	                     required />
 	             </div>
 	         </div>
 	         <div class="form-group">
 	             <div class="col-sm-offset-2 col-sm-2 ">
 	                 <button class="btn btn-primary btn-sm"
-	                     ng-click="vm.create()">Enviar</button>
+	                     ng-click="vm.useVoucher()">Enviar</button>
 	             </div>
 	         </div>
 	     </form>

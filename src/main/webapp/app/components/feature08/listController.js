@@ -1,30 +1,30 @@
-tpv.controller('ListInvoicesController', [ '$timeout', 'f08Service',
-	function($timeout, f08Service) {
+tpv.controller('ListInvoicesController', [ '$timeout', 'Alertify', 'f08Service',
+
+	function($timeout, Alertify, f08Service) {
 		"use strict";
 		var vm = this;
 
 		vm.completed = false;
 		vm.error = false;
-		vm.mobile_user;
+		vm.ticket_id;
 		vm.initList = initList;
+		vm.search = search;
 			
 		function initList() {
-			const
-			delay = 2000;
 			f08Service.initList().then(function(result) {
-				// promise was fullfilled
 				vm.completed = true;
 				vm.data = result;
-				$timeout(function() {
-					vm.completed = false;
-				}, delay)
 			}, function(errors) {
-				// handle errors
-				vm.error = true;
-				vm.response = errors;
-				$timeout(function() {
-					vm.error = false;
-				}, delay)
+				Alertify.error(errors);
+			});
+		}
+		
+		function search() {
+			f08Service.search(vm.ticket_id).then(function(result) {
+				vm.completed = true;
+				vm.data2 = result;
+			}, function(errors) {
+				Alertify.error(errors);
 			});
 		}
 	} 

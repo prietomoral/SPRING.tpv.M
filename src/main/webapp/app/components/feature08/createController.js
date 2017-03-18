@@ -10,17 +10,14 @@ tpv.controller('CreateInvoiceController', [ '$timeout', 'f08Service',
 		vm.respuesta = "";
 		
 		function create() {
-			const
-			delay = 2000;
+			const delay = 4000;
 			f08Service.create(vm.id_ticket).then(function(result) {
-				// promise was fullfilled
 				vm.completed = true;
-				vm.response = "Factura creada";
+				vm.response = "Invoice created";
 				$timeout(function() {
 					vm.completed = false;
 				}, delay)
 			}, function(errors) {
-				// handle errors
 				vm.error = true;
 				vm.response = errors;
 				$timeout(function() {

@@ -1,27 +1,27 @@
 <section class="container">
     <div class="jumbotron text-center">
 		<fieldset>
-			<legend>Feature08. Create Invoice. Autor Corina Cabrera</legend>
-			<form class="form-horizontal">
-				<div class="form-group">					
-					<label class="control-label col-sm-2 " for="id_ticket">ID del ticket:</label>
-					<div class='col-sm-8'>
-						<input type='text' class="form-control" name='id_ticket'
-							ng-model='vm.id_ticket' required />
-					</div>
-					<div class="col-sm-2">
-						<button class="btn btn-primary btn-sm" ng-click="vm.create()">Crear</button>
-					</div>
+			<legend><b>CREATE INVOICE</b></legend>
+			 <form class="form-horizontal">
+			    <div class="panel panel-primary col-sm-6 col-sm-offset-3" style="padding:10px;">
+			        <div class="row">
+                        <div class="form-group">                    
+                            <label class="control-label col-sm-3" for="id_ticket">Ticket ID:</label>
+		                         <div class='col-sm-8'>
+		                             <input type='text' placeholder="Introduce Ticket ID To Create Its Invoice" class="form-control" name='id_ticket' ng-model='vm.id_ticket' required />
+		                         </div>
+		                </div>
+		            </div>
+                    <div class="col-sm-2 col-sm-offset-4">
+                        <button class="btn btn-primary" ng-click="vm.create()">Create Invoice</button>
+                    </div>
+                    <br>
+                    <div class="form-group" style="margin-top:30px;">
+                        <label style="white-space:pre-wrap;" class="col-sm-10 col-sm-offset-1 bg-danger" ng-show="vm.error" ng-bind='vm.response'></label>
+                        <label class="col-sm-10 col-sm-offset-1 bg-success" ng-show="vm.completed" ng-bind='vm.response'></label>
+                    </div>
 				</div>
-				<div class="form-group">
-					<label class="col-sm-offset-4 bg-success col-sm-6" ng-show="vm.completed">Petición correcta</label> 
-					<label class="col-sm-offset-4 bg-danger col-sm-6" ng-show="vm.error">Error!!!</label>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-2" >Respuesta:</label>
-					<label class="col-sm-4" ng-bind='vm.response'></label>
-				</div>
-				</form>
+			</form>
 		</fieldset>
 	</div>
 </section>

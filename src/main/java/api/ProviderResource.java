@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import api.exceptions.NotFoundProviderIdException;
 import controllers.ProviderController;
 import wrappers.ProviderAddWrapper;
 import wrappers.ProviderIdCompanyWrapper;
@@ -42,5 +43,20 @@ public class ProviderResource {
     @RequestMapping(value = Uris.ID, method = RequestMethod.GET)
     public ProviderWrapper getOneById(@PathVariable(value = "id") int id) {
         return this.providerController.getOneById(id);
+    }
+    
+    @RequestMapping(value = Uris.ID, method = RequestMethod.DELETE)
+    public void delete(@PathVariable(value = "id") int id) throws NotFoundProviderIdException {
+        this.providerController.delete(id);
+    }
+    
+    @RequestMapping(method = RequestMethod.DELETE)
+    public void deleteAll() {
+        this.providerController.deleteAll();
+    }
+    
+    @RequestMapping(method = RequestMethod.PUT)
+    public void update(@RequestBody ProviderWrapper providerWrapper) {
+        this.providerController.update(providerWrapper);
     }
 }

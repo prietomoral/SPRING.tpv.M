@@ -20,8 +20,10 @@ public class User {
     @Column(unique = true, nullable = false)
     private long mobile;
 
+    @Column(unique = true)
     private String username;
-
+    
+    @Column(unique = true)
     private String dni;
 
     private String address;
@@ -71,7 +73,7 @@ public class User {
     public String getDni() {
         return dni;
     }
-
+    
     public void setDni(String dni) {
         this.dni = dni;
     }

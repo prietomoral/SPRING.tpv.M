@@ -58,5 +58,9 @@ public class InvoiceResource {
     public void populate(){
         invoiceController.populate();
     }
-
+    
+    @RequestMapping(value = Uris.SEARCH, method = RequestMethod.POST)
+    public Invoice searchInvoice (@RequestBody IdTicketWrapper ticketWrapper){
+    	return invoiceController.getInvoiceByTicketID(ticketWrapper);
+    }
 }

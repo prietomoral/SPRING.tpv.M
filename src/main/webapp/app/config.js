@@ -115,21 +115,33 @@ tpv.config(function ($routeProvider) {
             controller: "ListVouchersController",
             controllerAs: "vm"
         })
+        .when("/feature07/use-voucher", {
+            templateUrl: "app/components/feature07/useVoucher.html",
+            controller: "UseVoucherController",
+            controllerAs: "vm"
+        })
         .when("/feature10", {
             templateUrl: "app/components/feature10/index.html",
             controller: "AlertsController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+            resolve: {
+              notAutorized: resolverAlerts
+            }
         })
         .when("/feature10/:id/show", {
             templateUrl: "app/components/feature10/show.html",
             controller: "AlertsShowController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+            resolve: {
+              notAutorized: resolverAlerts
+            }
         })
         .when("/feature10/new", {
             templateUrl: "app/components/feature10/new.html",
             controller: "AlertsNewController",
             controllerAs: "vm",
             resolve: {
+              notAutorized: resolverAlerts,
               articles: function(f03Service, $location, Alertify){
                 return f03Service.listAllArticles().then(function success(response){
                   if (response.length === 0) {
@@ -147,6 +159,7 @@ tpv.config(function ($routeProvider) {
             controller: "AlertsEditController",
             controllerAs: "vm",
             resolve: {
+              notAutorized: resolverAlerts,
               articles: function(f03Service, $location, Alertify){
                 return f03Service.listAllArticles().then(function success(response){
                   if (response.length === 0) {
@@ -184,6 +197,16 @@ tpv.config(function ($routeProvider) {
             controller: "PopulateController",
             controllerAs: "vm"
         })
+        .when("/feature08/list-users", {
+            templateUrl: "app/components/feature08/userList.html",
+            controller: "UserListController",
+            controllerAs: "vm"
+        })
+        .when("/feature08/modify-user/:idUser", {
+            templateUrl: "app/components/feature08/userModify.html",
+            controller: "UserModifyController",
+            controllerAs: "vm"
+        })
         .when("/feature14/popular",{
         	templateUrl: "app/components/feature14/popularProducts.html",
             controller: "PopularProductsController",
@@ -203,6 +226,14 @@ tpv.config(function ($routeProvider) {
         .otherwise({
             redirectTo: '/'
         });
+
+        function resolverAlerts($window, $location, Alertify){
+          var rol = $window.sessionStorage.getItem('rol');
+          if (!rol || rol !== "MANAGER" ) {
+            $location.url('/feature00/login');
+            Alertify.error('Debes iniciar sesión como Mánager para acceder a Alertas');
+          }
+        }
 
 });
 

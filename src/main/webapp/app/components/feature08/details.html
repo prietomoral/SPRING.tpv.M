@@ -1,41 +1,29 @@
 <section class="container">
     <div class="jumbotron">
 		<fieldset>
-			<legend class="text-center" ng-init="vm.getInvoiceById()">Detailed Invoice</legend>                    
-			     
-			     <!-- <div class="table-responsive">
-                    <table class="table table-striped">
-                        <tr>
-                           <th>Invoice Id:</th>
-                           <td>{{vm.data.id}}</td>
-                           <td>|</td>
-                           <th>Ticket Id:</th>
-                           <td>{{vm.data.ticket.id}}</td>
-                        </tr>
-                    </table>
-                </div> -->
-                
+			<legend class="text-center" ng-init="vm.getInvoiceById()"><b>DETAILED INVOICE</b></legend>                    
+			 
                 <div class="table-responsive">
                 <b>Invoice:</b>
-                    <table class="table table-striped">
+                    <table class="table table-striped panel panel-default">
                         <tr>
                            <td>{{vm.data.id}}</td>
                         </tr>
                     </table>
                 </div> 
-                
+
                 <div class="table-responsive">
                 <b>Ticket:</b>
-                    <table class="table table-striped">
+                    <table class="table table-striped panel panel-default">
                         <tr>
                            <td>{{vm.data.ticket.id}}</td>
                         </tr>
                     </table>
                 </div> 
-                
+
                 <div class="table-responsive">
                 <b>Customer:</b>
-                    <table class="table table-striped">
+                    <table class="table table-striped panel panel-default">
                         <tr>
                             <th>Name</th>
                             <th>Mobile</th>
@@ -51,11 +39,11 @@
                             <td>{{vm.data.ticket.user.email}} </td>
                         </tr>
                     </table>
-                </div> 
+                </div>
 
 				<div class="table-responsive">
 				<b>Shopping List:</b>
-					<table class="table table-striped">
+					<table class="table table-striped panel panel-default" style="padding:20px;">
 					    <tr>
 					       <th></th>
 					        <th ng-repeat="(key, val) in vm.data.ticket.shoppingList[0]">{{key}}</th>
@@ -66,8 +54,9 @@
 					    </tr>
 					</table>
                 </div>
-                
-                <a class="btn btn-danger" ng-href="#feature08/list-invoices">Back</a>
+              
+                <a class="btn btn-danger" ng-href="#feature08/list-invoices">
+                <span class="glyphicon glyphicon-chevron-left"></span>Back</a>
 		</fieldset>
 	</div>
 </section>

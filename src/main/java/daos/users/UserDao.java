@@ -13,5 +13,11 @@ public interface UserDao extends JpaRepository<User, Integer> {
     public User findByTokenValue(String tokenValue, Date ahoraMenosTiempoExpiracion);
 
     public User findByMobile(long mobile);
+    
+    public User findByDni (String dni);
+    
+    public User findByEmail (String email);
+    
+    public User findByUsername(String username);
 
 }

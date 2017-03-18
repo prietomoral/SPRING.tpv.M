@@ -16,11 +16,12 @@ public class AlertResourceFunctionalTesting {
     @BeforeClass
     public static void populate() {
         new RestService().populate();
+        new RestService().registerAndLoginManager();
     }
 
     @Test
     public void testGetAllAlerts() {
-        String token = new RestService().loginAdmin();
+        String token = new RestService().loginManager();
         AlertListWrapper alerts = new RestBuilder<AlertListWrapper>(RestService.URL).path(Uris.ALERTS).basicAuth(token, "")
                 .clazz(AlertListWrapper.class).get().build();
         assertEquals(7, alerts.size());
@@ -28,7 +29,7 @@ public class AlertResourceFunctionalTesting {
 
     @Test
     public void testGetOneAlert() {
-        String token = new RestService().loginAdmin();
+        String token = new RestService().loginManager();
         AlertListWrapper alerts = new RestBuilder<AlertListWrapper>(RestService.URL).path(Uris.ALERTS).basicAuth(token, "")
                 .clazz(AlertListWrapper.class).get().build();
         AlertWrapper alert = new RestBuilder<AlertWrapper>(RestService.URL).path(Uris.ALERTS + "/" + alerts.get(0).getId())
@@ -38,7 +39,7 @@ public class AlertResourceFunctionalTesting {
 
     @Test
     public void testUpdateAlert() {
-        String token = new RestService().loginAdmin();
+        String token = new RestService().loginManager();
         AlertListWrapper alerts = new RestBuilder<AlertListWrapper>(RestService.URL).path(Uris.ALERTS).basicAuth(token, "")
                 .clazz(AlertListWrapper.class).get().build();
         new RestBuilder<Object>(RestService.URL).path(Uris.ALERTS + '/' + alerts.get(0).getId())
@@ -50,7 +51,7 @@ public class AlertResourceFunctionalTesting {
 
     @Test
     public void testDeleteAlert() {
-        String token = new RestService().loginAdmin();
+        String token = new RestService().loginManager();
         AlertListWrapper alerts = new RestBuilder<AlertListWrapper>(RestService.URL).path(Uris.ALERTS).basicAuth(token, "")
                 .clazz(AlertListWrapper.class).get().build();
         assertEquals(4, alerts.size());
@@ -62,9 +63,9 @@ public class AlertResourceFunctionalTesting {
 
     @Test
     public void testCreateAlert() {
-        String token = new RestService().loginAdmin();
+        String token = new RestService().loginManager();
         for (int i = 0; i < 4; i++) {
-            new RestBuilder<Object>(RestService.URL).path(Uris.ALERTS).body(new AlertWrapperCreate(1, 1, 84000001111L + 0))
+            new RestBuilder<Object>(RestService.URL).path(Uris.ALERTS).body(new AlertWrapperCreate(5, 2, 84000001111L + 0))
                     .basicAuth(token, "").post().build();
         }
     }
