@@ -26,4 +26,6 @@ public class ResourceNames {
     
     public static final String DEFAULT_POPULATE_FILE = "TPV_Database.yml";
     
+    public static final String ADMIN_FILE = "admin.yml";
+    
 }

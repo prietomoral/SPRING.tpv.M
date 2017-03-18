@@ -1,5 +1,6 @@
 package services;
 
+import static config.ResourceNames.ADMIN_FILE;
 import static config.ResourceNames.YAML_FILES_ROOT;
 
 import java.io.IOException;
@@ -10,13 +11,10 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.yaml.snakeyaml.Yaml;
 
-import config.ResourceNames;
 import daos.core.AlertDao;
 import daos.core.ArticleDao;
 import daos.core.EmbroideryDao;
@@ -34,16 +32,7 @@ import entities.users.User;
 
 @Service
 @Transactional
-@PropertySource(ResourceNames.PROPERTIES)
 public class SeedService {
-
-    private String adminUsername;
-
-    private String adminEmail;
-
-    private String adminPassword;
-
-    private long adminMobile;
 
     @Autowired
     private Yaml yamlParser;
@@ -85,22 +74,22 @@ public class SeedService {
     private AlertDao alertDao;
 
     @PostConstruct
-    public void readAdmin() {
-        Environment environment = appContext.getEnvironment();
-        adminMobile = Long.valueOf(environment.getProperty("admin.mobile"));
-        adminUsername = environment.getProperty("admin.username");
-        adminEmail = environment.getProperty("admin.email");
-        adminPassword = environment.getProperty("admin.password");
-        createDefaultAdmin();
-    }
-
     public void createDefaultAdmin() {
-        User adminSaved = userDao.findByMobile(adminMobile);
-        if (adminSaved == null) {
-            User admin = new User(adminMobile, adminUsername, adminPassword);
-            admin.setEmail(adminEmail);
-            userDao.save(admin);
-            authorizationDao.save(new Authorization(admin, Role.ADMIN));
+        Yaml adminYaml = new Yaml();
+        Resource resource = appContext.getResource(YAML_FILES_ROOT + ADMIN_FILE);
+        InputStream input;
+        try {
+            input = resource.getInputStream();
+            User admin = adminYaml.loadAs(input, User.class);
+
+            User adminSaved = userDao.findByMobile(admin.getMobile());
+            if (adminSaved == null) {
+                userDao.save(admin);
+                authorizationDao.save(new Authorization(admin, Role.ADMIN));
+            }
+        } catch (IOException e) {
+            System.err.println("ERROR: File " + ADMIN_FILE + " doesn't exist or can't be opened");
+            e.printStackTrace();
         }
     }
 
@@ -124,6 +113,7 @@ public class SeedService {
             invoiceDao.save(tpvGraph.getInvoiceList());
             alertDao.save(tpvGraph.getAlertList());
         } catch (IOException e) {
+            System.err.println("ERROR: File " + fileName + " doesn't exist or can't be opened");
             e.printStackTrace();
         }
 
