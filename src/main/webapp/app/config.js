@@ -115,6 +115,11 @@ tpv.config(function ($routeProvider) {
             controller: "ListVouchersController",
             controllerAs: "vm"
         })
+        .when("/feature07/use-voucher", {
+            templateUrl: "app/components/feature07/useVoucher.html",
+            controller: "UseVoucherController",
+            controllerAs: "vm"
+        })
         .when("/feature10", {
             templateUrl: "app/components/feature10/index.html",
             controller: "AlertsController",
