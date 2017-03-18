@@ -46,7 +46,7 @@ public class ProviderResource {
     }
     
     @RequestMapping(value = Uris.ID, method = RequestMethod.DELETE)
-    public void delete(@PathVariable(value = "id") int id) throws NotFoundProviderIdException {
+    public void delete(@PathVariable(value = "id") int id) {
         this.providerController.delete(id);
     }
     
