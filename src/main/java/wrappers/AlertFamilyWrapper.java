@@ -1,6 +1,10 @@
 package wrappers;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import entities.core.Alert;
+import entities.core.AlertFamily;
 
 public class AlertFamilyWrapper {
 
@@ -16,6 +20,17 @@ public class AlertFamilyWrapper {
     public AlertFamilyWrapper(int id, String name, List<AlertWrapper> alerts) {
         this.id = id;
         this.name = name;
+        this.alerts = alerts;
+    }
+
+    public AlertFamilyWrapper(AlertFamily alertFamily) {
+        this.id = alertFamily.getId();
+        this.name = alertFamily.getName();
+        List<AlertWrapper> alerts = new ArrayList<AlertWrapper>();
+        for (Alert alert : alertFamily.getAlerts()) {
+            AlertWrapper alertWrapper = new AlertWrapper(alert);
+            alerts.add(alertWrapper);
+        }
         this.alerts = alerts;
     }
 

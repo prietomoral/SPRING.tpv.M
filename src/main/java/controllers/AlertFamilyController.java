@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import api.exceptions.NotFoundAlertFamilyIdException;
 import daos.core.AlertDao;
 import daos.core.AlertFamilyDao;
 import entities.core.Alert;
@@ -58,6 +59,36 @@ public class AlertFamilyController {
         alertFamily.setName(alertFamilyWrapper.getName());
         alertFamily.setAlerts(alerts);
         alertFamilyDao.save(alertFamily);
+    }
+
+    public AlertFamilyWrapper findOneAlertFamily(Integer id) throws NotFoundAlertFamilyIdException {
+        AlertFamily alertFamily = alertFamilyDao.findOne(id);
+        if (alertFamily == null) {
+            throw new NotFoundAlertFamilyIdException();
+        } else {
+            return new AlertFamilyWrapper(alertFamily);
+        }
+    }
+
+    public void delete(int id) {
+        AlertFamily alertFamily = alertFamilyDao.findOne(id);
+        alertFamilyDao.delete(alertFamily);
+    }
+
+    public void edit(int id, AlertFamilyWrapperCreate alertFamilyWrapperCreate) throws NotFoundAlertFamilyIdException {
+        AlertFamily alertFamily = alertFamilyDao.findOne(id);
+        if (alertFamily == null) {
+            throw new NotFoundAlertFamilyIdException();
+        } else {
+            alertFamily.setName(alertFamilyWrapperCreate.getName());
+            List<Alert> alerts = new ArrayList<Alert>();
+            for (int i = 0; i < alertFamilyWrapperCreate.getAlerts().length; i++) {
+                Alert alert = alertDao.findOne(alertFamilyWrapperCreate.getAlerts()[i]);
+                alerts.add(alert);
+            }
+            alertFamily.setAlerts(alerts);
+            alertFamilyDao.save(alertFamily);
+        }
     }
 
 }
