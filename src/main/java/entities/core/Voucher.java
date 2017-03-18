@@ -7,6 +7,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import entities.users.Encrypting;
@@ -15,7 +16,7 @@ import entities.users.Encrypting;
 public class Voucher {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
 
     private String reference;

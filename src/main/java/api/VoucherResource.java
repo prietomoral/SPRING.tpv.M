@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import api.exceptions.NotFoundVouchers;
+import api.exceptions.NotFoundVoucherException;
+import api.exceptions.NotFoundVouchersException;
+import api.exceptions.VoucherAlreadyUsedException;
 import controllers.VoucherController;
 import entities.core.Voucher;
+import wrappers.IdentificationVoucherWrapper;
 import wrappers.VoucherWrapper;
 
 @RestController
@@ -34,8 +37,13 @@ public class VoucherResource {
     }
     
     @RequestMapping(value = Uris.VOUCHERS, method = RequestMethod.GET)
-    public List<VoucherWrapper> getVouchers() throws NotFoundVouchers {
+    public List<VoucherWrapper> getVouchers() throws NotFoundVouchersException {
        return voucherController.getVouchers();
+    }
+    
+    @RequestMapping(value = Uris.VOUCHERS + "/use", method = RequestMethod.PUT)
+    public Voucher useVoucher(@RequestBody IdentificationVoucherWrapper identification) throws NotFoundVoucherException, VoucherAlreadyUsedException {
+       return voucherController.useVoucher(identification.getIdentification());
     }
     
 }

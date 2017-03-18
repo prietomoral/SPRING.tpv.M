@@ -31,18 +31,14 @@ tpv.service('f07Service', ['$http', '$q', function ($http, $q) {
    }
 
    this.useVoucher = function(value){
-//	  let config = {
-//	 	 method: 'PUT',
-//	     url: urlBase+ "/" + resource + "/use",
-//	     data: {
-//	   	 	identification: value
-//	   	 }
-//	  };
-//		  return this.request(config);
-	      
-	   let deferred = $q.defer();
-	  deferred.resolve("Ok");
-	  return deferred.promise; 
+	  let config = {
+	 	 method: 'PUT',
+	     url: urlBase+ "/" + resource + "/use",
+	     data: {
+	   	 	identification: value
+	   	 }
+	  };
+	  return this.request(config);
    }
    
    this.getVouchers = function(){
