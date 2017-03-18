@@ -108,7 +108,10 @@ tpv.config(function ($routeProvider) {
         .when("/feature07/create-voucher", {
             templateUrl: "app/components/feature07/createVoucher.html",
             controller: "CreateVoucherController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+            resolve: {
+                notAutorized: checkAuthVouchers
+              }
         })
         .when("/feature07/list-vouchers", {
             templateUrl: "app/components/feature07/listVouchers.html",
@@ -118,7 +121,10 @@ tpv.config(function ($routeProvider) {
         .when("/feature07/use-voucher", {
             templateUrl: "app/components/feature07/useVoucher.html",
             controller: "UseVoucherController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+            resolve: {
+                notAutorized: checkAuthVouchers
+              }
         })
         .when("/feature10", {
             templateUrl: "app/components/feature10/index.html",
@@ -227,6 +233,14 @@ tpv.config(function ($routeProvider) {
             redirectTo: '/'
         });
 
+    function checkAuthVouchers($window, $location, Alertify){
+        var role = $window.sessionStorage.getItem('rol');
+        if (!role || role !== "MANAGER" || role !== "OPERATOR") {
+          $location.url('/feature00/login');
+          Alertify.error('You must be logged as Manager or Operator to create or used a Voucher.');
+        }
+      }
+    
         function resolverAlerts($window, $location, Alertify){
           var rol = $window.sessionStorage.getItem('rol');
           if (!rol || rol !== "MANAGER" ) {
