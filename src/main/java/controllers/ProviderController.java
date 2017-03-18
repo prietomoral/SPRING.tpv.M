@@ -65,22 +65,19 @@ public class ProviderController {
                 provider.getPhone(), provider.getPaymentConditions(), provider.getNote());
     }
 
-    public void delete(int id) throws NotFoundProviderIdException {
+    public void delete(int id) {
         Provider provider = providerDao.findOne(id);
 
-        if (provider == null) {
-            throw new NotFoundProviderIdException();
+        if (provider != null) {
+            List<Article> articles = articleDao.findAll();
+            for (Article a : articles) {
+                Provider p = a.getProvider();
+                if (p != null && p.equals(provider)) {
+                    a.setProvider(null);
+                    articleDao.save(a);
+                }
+            } 
         }
-
-        List<Article> articles = articleDao.findAll();
-
-        for (Article a : articles) {
-            if (a.getProvider().equals(provider)) {
-                a.setProvider(null);
-                articleDao.save(a);
-            }
-        }
-
         providerDao.delete(id);
     }
 

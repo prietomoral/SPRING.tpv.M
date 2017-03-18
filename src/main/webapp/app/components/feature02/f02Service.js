@@ -6,7 +6,8 @@ tpv.service('f02Service', ['$http', '$q', function ($http, $q) {
    	var feature02Service = {
    		createProvider:createProvider,
    		listProviders:listProviders,
-   		listIdCompanyProviders:listIdCompanyProviders
+   		listIdCompanyProviders:listIdCompanyProviders,
+   		deleteProvider:deleteProvider
    	};
    
    	return feature02Service;
@@ -43,5 +44,16 @@ tpv.service('f02Service', ['$http', '$q', function ($http, $q) {
    		}, function errorCallback(response) {
 	        return $q.reject(response);
    		});
+	}
+   	
+   	function deleteProvider(id) {
+		return $http({
+			method : 'DELETE',
+			url : urlBase + '/providers/' + id
+		}).then(function successCallback(response) {
+			return response.data;
+		}, function errorCallback(response) {
+			return $q.reject(response);
+		});
 	}
 }]);

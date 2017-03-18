@@ -14,6 +14,7 @@
                         <th>Phone</th>
                         <th>Payment conditions</th>
                         <th>Note</th>
+                        <th>Options</th>
                     </tr>
                 </thead>
                 <tbody ng-init="vm.listProviders()">
@@ -25,6 +26,9 @@
                         <td>{{provider.phone}}</td>
                         <td>{{provider.paymentConditions}}</td>
                         <td>{{provider.note}}</td>
+                        <td>
+                            <input class="btn btn-danger" type="button" value="Delete" ng-click="vm.deleteProvider(provider.id)">
+                        </td>
                     </tr>
                 </tbody>
             </table>
