@@ -179,8 +179,8 @@ tpv.config(function ($routeProvider) {
             }
         })
         .when("/feature15", {
-            templateUrl: "app/components/feature15/generatePDF.html",
-            controller: "PDFGenerationController",
+            templateUrl: "app/components/feature15/pdfGeneration.html",
+            controller: "PdfGenerationController",
             controllerAs: "vm"
         })
         .when("/feature08/create-invoice", {
