@@ -55,6 +55,7 @@ tpv.service('f08Service', ['$http', '$q', function ($http, $q) {
     
     this.getUserById = function (id){
     	let config = {
+     		   headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
 			   method: 'GET',
 			   url: urlBase+"/users/"+id
 	   };
@@ -81,7 +82,8 @@ tpv.service('f08Service', ['$http', '$q', function ($http, $q) {
     
     this.userList = function (){
     	let config = {
-			   method: 'GET',
+     		   headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
+    		   method: 'GET',
 			   url: urlBase+"/users"
 	   };
 		  return this.request(config);
@@ -89,11 +91,16 @@ tpv.service('f08Service', ['$http', '$q', function ($http, $q) {
     
     this.modifyUser = function (user) {
     	let config = {
+     		   headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
  			   method: 'PUT',
  			   url: urlBase+"/users",
  			   data:{
- 				   'id': user.id, 'mobile':user.mobile, 'username': user.username,
- 				   'email':user.email, 'dni': user.dni, 'address': user.address,
+ 				   'id': user.id, 
+ 				   'mobile':user.mobile, 
+ 				   'username': user.username,
+ 				   'email':user.email, 
+ 				   'dni': user.dni, 
+ 				   'address': user.address,
  				   'password': user.password    
  			   }
  	   };
