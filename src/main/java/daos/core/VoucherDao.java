@@ -12,4 +12,5 @@ public interface VoucherDao extends JpaRepository<Voucher, Integer> {
     @Query("select SUM(v.value) from Voucher v where v.dateOfUse IS NULL")
     BigDecimal sumValueInVouchersActive();
     
+    Voucher findByReference(String reference);
 }
