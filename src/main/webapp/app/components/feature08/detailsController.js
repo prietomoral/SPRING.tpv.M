@@ -10,11 +10,9 @@ function DetailsInvoiceController (f08Service, $routeParams) {
 		
 	function getInvoiceById() {
 		f08Service.getInvoiceById(vm.id).then(function(result) {
-			// promise was fullfilled
 			vm.completed = true;
 			vm.data = result;
 		}, function(errors) {
-			// handle errors
 			vm.error = true;
 			vm.response = errors;
 		});
