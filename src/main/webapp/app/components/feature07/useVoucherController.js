@@ -6,7 +6,7 @@ tpv.controller('UseVoucherController', [ 'f07Service','Alertify',
 		
 		
 		function useVoucher(){
-			f07Service.useVoucher(value).then(function(result){
+			f07Service.useVoucher(vm.identification).then(function(result){
 				Alertify.success("Voucher used successfully!");
 				vm.value = "";
 			},function(errors){
