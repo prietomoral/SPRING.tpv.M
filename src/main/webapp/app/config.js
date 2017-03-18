@@ -217,6 +217,11 @@ tpv.config(function ($routeProvider) {
             controller: "ProductByDateController",
             controllerAs: "vm"
         })
+        .when("/feature13",{
+        	templateUrl: "app/components/feature13/jobIndex.html",
+            controller: "JobController",
+            controllerAs: "vm"
+        })
 
         .otherwise({
             redirectTo: '/'
