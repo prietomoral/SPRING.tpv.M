@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,6 +33,7 @@ public class VoucherResource {
 
     
     @RequestMapping(value = Uris.VOUCHERS, method = RequestMethod.POST)
+    @PreAuthorize("hasRole('MANAGER') or hasRole('OPERATOR')")
     public Voucher createVoucher(@RequestBody BigDecimal value) {
        return voucherController.createVoucher(value, Calendar.getInstance());
     }
@@ -42,6 +44,7 @@ public class VoucherResource {
     }
     
     @RequestMapping(value = Uris.VOUCHERS + "/use", method = RequestMethod.PUT)
+    @PreAuthorize("hasRole('MANAGER') or hasRole('OPERATOR')")
     public Voucher useVoucher(@RequestBody IdentificationVoucherWrapper identification) throws NotFoundVoucherException, VoucherAlreadyUsedException {
        return voucherController.useVoucher(identification.getIdentification());
     }
