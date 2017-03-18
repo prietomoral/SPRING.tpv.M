@@ -23,7 +23,10 @@ tpv.service('f15Service', function ($http, $q) {
 	 this.generatePdf = function () {
 	    let config = {
 		     method: 'GET',
-		     url: urlBase+"/pdfs",
+		     url: urlBase + "/pdfs",
+		     params : {
+		    	 fileName : "pdfTesting"
+		     }
 		  };
 	    return this.request(config);
 	 }
