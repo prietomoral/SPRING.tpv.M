@@ -1,8 +1,12 @@
 package services;
 
+import static config.ResourceNames.ADMIN_FILE;
+import static config.ResourceNames.YAML_FILES_ROOT;
+
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,9 @@ import daos.core.VoucherDao;
 import daos.users.AuthorizationDao;
 import daos.users.TokenDao;
 import daos.users.UserDao;
+import entities.users.Authorization;
+import entities.users.Role;
+import entities.users.User;
 
 @Service
 @Transactional
@@ -66,31 +73,52 @@ public class SeedService {
     @Autowired
     private AlertDao alertDao;
 
-    private static final String YAML_FILES_ROOT = "classpath:META-INF/";
-
-    public void parseYaml(String fileName) {
-        assert fileName != null && !fileName.isEmpty();
-        Resource resource = appContext.getResource(YAML_FILES_ROOT + fileName);
+    @PostConstruct
+    public void createDefaultAdmin() {
+        Yaml adminYaml = new Yaml();
+        Resource resource = appContext.getResource(YAML_FILES_ROOT + ADMIN_FILE);
         InputStream input;
         try {
             input = resource.getInputStream();
-            TpvGraph tpvGraph = (TpvGraph) yamlParser.load(input);
+            User admin = adminYaml.loadAs(input, User.class);
 
-            userDao.save(tpvGraph.getUserList());
-            authorizationDao.save(tpvGraph.getAuthorizationList());
-            tokenDao.save(tpvGraph.getTokenList());
-            voucherDao.save(tpvGraph.getVoucherList());
-            providerDao.save(tpvGraph.getProviderList());
-            articleDao.save(tpvGraph.getArticleList());
-            embroideryDao.save(tpvGraph.getEmbroideryList());
-            textilePrintingDao.save(tpvGraph.getTextilePrintingList());
-            ticketDao.save(tpvGraph.getTicketList());
-            invoiceDao.save(tpvGraph.getInvoiceList());
-            alertDao.save(tpvGraph.getAlertList());
+            User adminSaved = userDao.findByMobile(admin.getMobile());
+            if (adminSaved == null) {
+                userDao.save(admin);
+                authorizationDao.save(new Authorization(admin, Role.ADMIN));
+            }
         } catch (IOException e) {
+            System.err.println("ERROR: File " + ADMIN_FILE + " doesn't exist or can't be opened");
             e.printStackTrace();
         }
+    }
+
+    public void parseYaml(String fileName) {
+        assert fileName != null && !fileName.isEmpty();
         
+        if (!fileName.equals(ADMIN_FILE)) {
+            Resource resource = appContext.getResource(YAML_FILES_ROOT + fileName);
+            InputStream input;
+            try {
+                input = resource.getInputStream();
+                TpvGraph tpvGraph = (TpvGraph) yamlParser.load(input);
+
+                userDao.save(tpvGraph.getUserList());
+                authorizationDao.save(tpvGraph.getAuthorizationList());
+                tokenDao.save(tpvGraph.getTokenList());
+                voucherDao.save(tpvGraph.getVoucherList());
+                providerDao.save(tpvGraph.getProviderList());
+                articleDao.save(tpvGraph.getArticleList());
+                embroideryDao.save(tpvGraph.getEmbroideryList());
+                textilePrintingDao.save(tpvGraph.getTextilePrintingList());
+                ticketDao.save(tpvGraph.getTicketList());
+                invoiceDao.save(tpvGraph.getInvoiceList());
+                alertDao.save(tpvGraph.getAlertList());
+            } catch (IOException e) {
+                System.err.println("ERROR: File " + fileName + " doesn't exist or can't be opened");
+                e.printStackTrace();
+            }
+        }
     }
 
 }
