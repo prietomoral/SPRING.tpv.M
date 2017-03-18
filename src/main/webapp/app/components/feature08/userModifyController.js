@@ -13,8 +13,7 @@ function UserModifyController (f08Service, Alertify, $routeParams) {
 			vm.completed = true;
 			vm.user = result;
 		}, function(errors) {
-			vm.error = true;
-			vm.response = errors;
+			Alertify.error(errors);
 		});
 	}
 	
