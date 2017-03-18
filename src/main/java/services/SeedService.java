@@ -95,28 +95,30 @@ public class SeedService {
 
     public void parseYaml(String fileName) {
         assert fileName != null && !fileName.isEmpty();
-        Resource resource = appContext.getResource(YAML_FILES_ROOT + fileName);
-        InputStream input;
-        try {
-            input = resource.getInputStream();
-            TpvGraph tpvGraph = (TpvGraph) yamlParser.load(input);
+        
+        if (!fileName.equals(ADMIN_FILE)) {
+            Resource resource = appContext.getResource(YAML_FILES_ROOT + fileName);
+            InputStream input;
+            try {
+                input = resource.getInputStream();
+                TpvGraph tpvGraph = (TpvGraph) yamlParser.load(input);
 
-            userDao.save(tpvGraph.getUserList());
-            authorizationDao.save(tpvGraph.getAuthorizationList());
-            tokenDao.save(tpvGraph.getTokenList());
-            voucherDao.save(tpvGraph.getVoucherList());
-            providerDao.save(tpvGraph.getProviderList());
-            articleDao.save(tpvGraph.getArticleList());
-            embroideryDao.save(tpvGraph.getEmbroideryList());
-            textilePrintingDao.save(tpvGraph.getTextilePrintingList());
-            ticketDao.save(tpvGraph.getTicketList());
-            invoiceDao.save(tpvGraph.getInvoiceList());
-            alertDao.save(tpvGraph.getAlertList());
-        } catch (IOException e) {
-            System.err.println("ERROR: File " + fileName + " doesn't exist or can't be opened");
-            e.printStackTrace();
+                userDao.save(tpvGraph.getUserList());
+                authorizationDao.save(tpvGraph.getAuthorizationList());
+                tokenDao.save(tpvGraph.getTokenList());
+                voucherDao.save(tpvGraph.getVoucherList());
+                providerDao.save(tpvGraph.getProviderList());
+                articleDao.save(tpvGraph.getArticleList());
+                embroideryDao.save(tpvGraph.getEmbroideryList());
+                textilePrintingDao.save(tpvGraph.getTextilePrintingList());
+                ticketDao.save(tpvGraph.getTicketList());
+                invoiceDao.save(tpvGraph.getInvoiceList());
+                alertDao.save(tpvGraph.getAlertList());
+            } catch (IOException e) {
+                System.err.println("ERROR: File " + fileName + " doesn't exist or can't be opened");
+                e.printStackTrace();
+            }
         }
-
     }
 
 }
