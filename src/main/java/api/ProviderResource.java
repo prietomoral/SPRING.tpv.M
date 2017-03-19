@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import api.exceptions.NotFoundProviderIdException;
 import controllers.ProviderController;
 import wrappers.ProviderAddWrapper;
 import wrappers.ProviderIdCompanyWrapper;
