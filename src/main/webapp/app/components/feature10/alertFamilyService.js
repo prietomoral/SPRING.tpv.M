@@ -10,7 +10,9 @@ function AlertFamilyService($http, APP, $q) {
   var service = {
     getAll: getAll,
     getAlertFamily: getAlertFamily,
-    edit: edit
+    edit: edit,
+    create: create,
+    deleteAlertFamily: deleteAlertFamily
   };
 
   return service;
@@ -54,4 +56,30 @@ function AlertFamilyService($http, APP, $q) {
         return $q.reject(response);
       });
   }
+
+  function create(alertFamily){
+    return $http({
+      headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
+      method: 'POST',
+      url: APP.apiUrl + '/alerts-family',
+      data:{'name': alertFamily.name,
+            'alerts': alertFamily.alerts}
+    }).then(function successCallback(response) {
+        return response.data;
+      }, function errorCallback(response) {
+        return $q.reject(response);
+      });
+  }
+
+  function deleteAlertFamily(id) {
+      return $http({
+        headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
+        method: 'DELETE',
+        url: APP.apiUrl + '/alerts-family/' + id
+      }).then(function successCallback(response) {
+          return response.data;
+        }, function errorCallback(response) {
+          return $q.reject(response);
+        });
+    }
 }

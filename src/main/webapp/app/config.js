@@ -192,6 +192,24 @@ tpv.config(function ($routeProvider) {
               notAutorized: resolverAlerts
             }
         })
+        .when("/feature10/families/new", {
+            templateUrl: "app/components/feature10/new-family.html",
+            controller: "AlertFamilyNewController",
+            controllerAs: "vm",
+            resolve: {
+              notAutorized: resolverAlerts,
+              alerts: function(AlertsService, $location, Alertify){
+                return AlertsService.getAll().then(function success(response){
+                  if (response.length === 0) {
+                    $location.url('/feature10');
+                    Alertify.log('No existen alertas.\nNecesitas crear una antes de crear una familia');
+                  }else{
+                    return response;
+                  }
+                });
+              }
+            }
+        })
         .when("/feature10/families/:id/show", {
             templateUrl: "app/components/feature10/show-family.html",
             controller: "AlertFamilyShowController",
@@ -280,7 +298,7 @@ tpv.config(function ($routeProvider) {
           Alertify.error('You must be logged as Manager or Operator to create or used a Voucher.');
         }
       }
-    
+
         function resolverAlerts($window, $location, Alertify){
           var rol = $window.sessionStorage.getItem('rol');
           if (!rol || rol !== "MANAGER" ) {

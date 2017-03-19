@@ -1,0 +1,31 @@
+
+<div class="container">
+  <form name="vm.form" novalidate role="form" ng-submit="vm.saveAlert()">
+
+    <div class="form-group" ng-class="{ 'has-error': vm.form.warning.$touched && vm.form.warning.$invalid }">
+      <label class="control-label" for="warning">Nombre:</label>
+      <input type="text"
+             class="form-control"
+             name="warning"
+             placeholder="warning"
+             ng-model='vm.alertFamily.name'
+             required>
+      <div class="help-block" ng-messages="vm.form.warning.$error" ng-if="vm.form.warning.$touched">
+        <p ng-message="required">Campo requerido</p>
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error': vm.form.warning.$touched && vm.form.warning.$invalid }">
+      <label class="control-label" for="warning">Alertas:</label>
+      <div ng-repeat="alert in vm.alerts">
+        <input type="checkbox" checklist-model="vm.selectedAlerts" checklist-value="alert.id">
+        {{alert.productDescription}} <span class="label label-warning">{{alert.warning}}</span> <span class="label label-danger">{{alert.critical}}</span>
+      </div>
+    </div>
+
+	  <input type="submit"
+           class="btn btn-primary"
+           ng-disabled="!vm.selectedAlerts || vm.form.$invalid"
+           value="Guardar">
+    </form>
+</div>
