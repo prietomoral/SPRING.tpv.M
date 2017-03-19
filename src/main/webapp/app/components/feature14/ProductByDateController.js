@@ -9,14 +9,17 @@ tpv.controller('ProductByDateController', [
 			vm.error = false;
 			vm.response = "";
 			vm.data = [];
-			vm.popular = popular;
+			vm.product_id;
+			vm.fecha_inicio;
+			vm.fecha_fin;
+			vm.productDate = productDate;
 			vm.draw = draw;
 
-			function popular() {
+			function productDate() {
 				const
 				delay = 2000;
 
-				f14Service.popular().then(function(result) {
+				f14Service.productDate(vm.product_id,vm.fecha_inicio,vm.fecha_fin).then(function(result) {
 					// promise was fullfilled
 					vm.completed = true;
 					vm.data = result;
@@ -40,22 +43,21 @@ tpv.controller('ProductByDateController', [
 				google.charts.setOnLoadCallback(drawBasic);
 
 				function drawBasic() {
-
+					
 					var data = new google.visualization.DataTable();
 					data.addColumn('number', 'X');
-					data.addColumn('number', 'article');
-
-					data.addRows([ [ 0, 0 ], [ 1, 10 ], [ 2, 23 ], [ 3, 17 ],
-							[ 4, 18 ], [ 5, 9 ], [ 6, 11 ], [ 7, 27 ],
-							[ 8, 33 ], [ 9, 40 ], [ 10, 32 ], [ 11, 35 ],
-							[ 12, 30 ], [ 13, 40 ] ]);
+					data.addColumn('number',vm.data[0].description);
+					for(var i=0;i<vm.data.length;i++){
+						data.addRows([[i+1,vm.data[i].amount]]);
+					}
+					
 
 					var options = {
 						hAxis : {
-							title : 'Time'
+							title : 'Solds'
 						},
 						vAxis : {
-							title : 'Sold'
+							title : 'Amount'
 						}
 					};
 

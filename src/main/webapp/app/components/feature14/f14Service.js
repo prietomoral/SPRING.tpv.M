@@ -27,7 +27,7 @@ tpv.service('f14Service', ['$http', '$q', function ($http, $q) {
 	  };
       return this.request(config);
    }
-   this.productDate = function () {
+   this.productDate = function (product_id,fecha_inicio,fecha_fin) {
 	   let config = {
  	     method: 'POST',
  	     url: urlBase+"/byDate",
