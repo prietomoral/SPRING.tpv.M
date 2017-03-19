@@ -59,8 +59,13 @@ public class ProviderController {
         return providerList;
     }
 
-    public ProviderWrapper getOneById(int id) {
+    public ProviderWrapper getOneById(int id) throws NotFoundProviderIdException {
         Provider provider = providerDao.findOne(id);
+        
+        if(provider == null) {
+            throw new NotFoundProviderIdException();
+        }
+        
         return new ProviderWrapper(provider.getId(), provider.getCompany(), provider.getAddress(), provider.getMobile(),
                 provider.getPhone(), provider.getPaymentConditions(), provider.getNote());
     }

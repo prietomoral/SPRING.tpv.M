@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import api.exceptions.NotFoundProviderIdException;
 import config.PersistenceConfig;
 import config.TestsControllerConfig;
 import config.TestsPersistenceConfig;
@@ -38,8 +39,12 @@ public class ProviderControllerIT {
 	
 	@Test
 	public void testGetOneById() {
-		List<ProviderWrapper> providers = providerController.getAll();
-		ProviderWrapper resultProvider = providerController.getOneById(providers.get(0).getId());
-		assertEquals(providers.get(0).getAddress(), resultProvider.getAddress());
+	    try {
+	        List<ProviderWrapper> providers = providerController.getAll();
+	        ProviderWrapper resultProvider = providerController.getOneById(providers.get(0).getId());
+	        assertEquals(providers.get(0).getAddress(), resultProvider.getAddress());
+	    } catch(NotFoundProviderIdException nfpe) {
+	        
+	    }
 	}
 }
