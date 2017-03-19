@@ -25,7 +25,7 @@ tpv.service('f15Service', function ($http, $q) {
 		     method: 'GET',
 		     url: urlBase + "/pdfs",
 		     params : {
-		    	 fileName : "pdfTesting"
+		    	 fileName : "pdfTestinggg"
 		     }
 		  };
 	    return this.request(config);
