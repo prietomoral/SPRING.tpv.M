@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import api.exceptions.NotFoundVouchers;
+import api.exceptions.NotFoundVoucherException;
+import api.exceptions.NotFoundVouchersException;
+import api.exceptions.VoucherAlreadyUsedException;
 import config.PersistenceConfig;
 import config.TestsControllerConfig;
 import config.TestsPersistenceConfig;
@@ -53,7 +55,7 @@ public class VoucherControllerIT {
         try {
             result = voucherController.getVouchers();
             assertEquals(bdVouchers.size(), result.size());
-        } catch (NotFoundVouchers e) {
+        } catch (NotFoundVouchersException e) {
             e.printStackTrace();
         }
     }
@@ -63,10 +65,48 @@ public class VoucherControllerIT {
         voucherDao.deleteAll();
         try {
             voucherController.getVouchers();
-        } catch (NotFoundVouchers e) {
+        } catch (NotFoundVouchersException e) {
             assertEquals("No existen Vouchers en el sistema. ", e.getMessage());
-            e.printStackTrace();
         }
         
     }
+    
+    @Test
+    public void testUseVoucherSuccessfully() {
+    	String id = "2";
+        try {
+            Voucher result = voucherController.useVoucher(id);
+            assertEquals(2, result.getId());
+            assertEquals(new BigDecimal(20).setScale(2, BigDecimal.ROUND_HALF_UP), result.getValue());
+        } catch (NotFoundVoucherException e) {
+		} catch (VoucherAlreadyUsedException e) {
+		}
+        
+    }
+
+
+	@Test
+	public void testUseVoucherNotFound() {
+		String id = "8";
+	    try {
+	        voucherController.useVoucher(id);
+	    } catch (NotFoundVoucherException e) {
+            assertEquals("No se encontro un Voucher con ese identificador. ", e.getMessage());
+		} catch (VoucherAlreadyUsedException e) {
+		}
+	    
+	}
+
+
+	@Test
+	public void testUseVoucherAlreadyUse() {
+		String id = "5";
+	    try {
+	        voucherController.useVoucher(id);
+	    } catch (NotFoundVoucherException e) {
+		} catch (VoucherAlreadyUsedException e) {
+            assertEquals("Voucher ya utilizado. ", e.getMessage());
+		}
+	    
+	}
 }

@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
 import api.Uris;
+import api.wrappersForTest.EmbroideryListWrapper;
 import api.wrappersForTest.EmbroideryPageWrapper;
 import wrappers.EmbroideryWrapper;
 
@@ -85,9 +86,9 @@ public class EmbroideryResourceFunctionalTesting {
     }
 
     @Test
-    public void testEmbroiederyNotFound(){
-        try{
-        	new RestBuilder<Object>(RestService.URL).path(Uris.EMBROIDERIES+ '/' + "100").basicAuth(tokenManager, "").get().build();
+    public void testEmbroideryNotFound() {
+        try {
+            new RestBuilder<Object>(RestService.URL).path(Uris.EMBROIDERIES + '/' + "100").basicAuth(tokenManager, "").get().build();
         } catch (HttpClientErrorException httpError) {
             assertEquals(HttpStatus.NOT_FOUND, httpError.getStatusCode());
             LogManager.getLogger(this.getClass())
@@ -99,9 +100,7 @@ public class EmbroideryResourceFunctionalTesting {
     public void testCreateEmbroideryForbidden() {
         try {
             String token = new RestService().loginAdmin();
-            
             EmbroideryWrapper embroidery = new EmbroideryWrapper(84000002222L, "reference", "description", new BigDecimal(20), 1000, 1, 10);
-            
             new RestBuilder<Object>(RestService.URL).path(Uris.EMBROIDERIES).body(embroidery).basicAuth(token, "").post().build();
             fail();
         } catch (HttpClientErrorException httpError) {
@@ -110,7 +109,76 @@ public class EmbroideryResourceFunctionalTesting {
                     .info("testCreateEmbroideryForbidden (" + httpError.getMessage() + "):\n " + httpError.getResponseBodyAsString());
         }
     }
-    
+
+    @Test
+    public void testGetAllEmbroideries() {
+        String token = new RestService().loginManager();
+        EmbroideryListWrapper embroideries = new RestBuilder<EmbroideryListWrapper>(RestService.URL).path(Uris.EMBROIDERIES)
+                .basicAuth(token, "").clazz(EmbroideryListWrapper.class).get().build();
+        assertEquals(4, embroideries.size());
+    }
+
+    @Test
+    public void testGetOneEmbroidery() {
+        String token = new RestService().loginManager();
+        EmbroideryListWrapper embroideries = new RestBuilder<EmbroideryListWrapper>(RestService.URL).path(Uris.EMBROIDERIES)
+                .basicAuth(token, "").clazz(EmbroideryListWrapper.class).get().build();
+        EmbroideryWrapper embroidery = new RestBuilder<EmbroideryWrapper>(RestService.URL)
+                .path(Uris.EMBROIDERIES + "/" + embroideries.get(0).getId()).basicAuth(token, "").clazz(EmbroideryWrapper.class).get()
+                .build();
+        assertNotNull(embroidery);
+    }
+
+    @Test
+    public void testCreateEmbroidery() {
+        String token = new RestService().loginManager();
+        new RestBuilder<Object>(RestService.URL).path(Uris.EMBROIDERIES)
+                .body(new EmbroideryWrapper(840000022224L, "reference", "description", new BigDecimal(20), 1000, 1, 10))
+                .basicAuth(token, "").post().build();
+
+        EmbroideryListWrapper embroideries = new RestBuilder<EmbroideryListWrapper>(RestService.URL).path(Uris.EMBROIDERIES)
+                .basicAuth(token, "").clazz(EmbroideryListWrapper.class).get().build();
+
+        new RestBuilder<Object>(RestService.URL).path(Uris.EMBROIDERIES + '/' + embroideries.get(4).getId()).basicAuth(token, "").delete()
+                .build();
+
+        EmbroideryListWrapper listEmbroideries = new RestBuilder<EmbroideryListWrapper>(RestService.URL).path(Uris.EMBROIDERIES)
+                .basicAuth(token, "").clazz(EmbroideryListWrapper.class).get().build();
+        assertEquals(4, listEmbroideries.size());
+    }
+
+    @Test
+    public void testUpdateEmbroidery() {
+        String token = new RestService().loginManager();
+        new RestBuilder<Object>(RestService.URL).path(Uris.EMBROIDERIES)
+                .body(new EmbroideryWrapper(84000002222L, "reference", "descriptionUpdate", new BigDecimal(20), 1000, 1, 10))
+                .basicAuth(token, "").put().build();
+
+        EmbroideryListWrapper embroideries = new RestBuilder<EmbroideryListWrapper>(RestService.URL).path(Uris.EMBROIDERIES)
+                .basicAuth(token, "").clazz(EmbroideryListWrapper.class).get().build();
+
+        EmbroideryWrapper embroidery = new RestBuilder<EmbroideryWrapper>(RestService.URL)
+                .path(Uris.EMBROIDERIES + "/" + embroideries.get(0).getId()).basicAuth(token, "").clazz(EmbroideryWrapper.class).get()
+                .build();
+        assertEquals("descriptionUpdate", embroidery.getDescription());
+    }
+
+    @Test
+    public void testDeleteEmbroidery() {
+        String token = new RestService().loginManager();
+        EmbroideryListWrapper embroideries = new RestBuilder<EmbroideryListWrapper>(RestService.URL).path(Uris.EMBROIDERIES)
+                .basicAuth(token, "").clazz(EmbroideryListWrapper.class).get().build();
+        assertEquals(4, embroideries.size());
+        new RestBuilder<Object>(RestService.URL).path(Uris.EMBROIDERIES + '/' + embroideries.get(0).getId()).basicAuth(token, "").delete()
+                .build();
+        EmbroideryListWrapper newEmbroideryList = new RestBuilder<EmbroideryListWrapper>(RestService.URL).path(Uris.EMBROIDERIES)
+                .basicAuth(token, "").clazz(EmbroideryListWrapper.class).get().build();
+        assertEquals(3, newEmbroideryList.size());
+        new RestBuilder<Object>(RestService.URL).path(Uris.EMBROIDERIES)
+                .body(new EmbroideryWrapper(84000002222L, "reference", "description", new BigDecimal(20), 1000, 1, 10)).basicAuth(token, "")
+                .post().build();
+    }
+
     @AfterClass
     public static void deleteAll() {
         new RestService().deleteAll();

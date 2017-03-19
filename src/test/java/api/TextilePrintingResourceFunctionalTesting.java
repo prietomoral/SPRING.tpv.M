@@ -18,7 +18,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
 import api.Uris;
+import api.wrappersForTest.TextilePrintingListWrapper;
 import api.wrappersForTest.TextilePrintingPageWrapper;
+import wrappers.EmbroideryWrapper;
 import wrappers.TextilePrintingWrapper;
 
 public class TextilePrintingResourceFunctionalTesting {
@@ -84,9 +86,9 @@ public class TextilePrintingResourceFunctionalTesting {
     }
 
     @Test
-    public void testTextilePrintingNotFound(){
-        try{
-        	new RestBuilder<Object>(RestService.URL).path(Uris.TEXTILE_PRINTINGS+ '/' + "100").basicAuth(tokenManager, "").get().build();
+    public void testTextilePrintingNotFound() {
+        try {
+            new RestBuilder<Object>(RestService.URL).path(Uris.TEXTILE_PRINTINGS + '/' + "100").basicAuth(tokenManager, "").get().build();
         } catch (HttpClientErrorException httpError) {
             assertEquals(HttpStatus.NOT_FOUND, httpError.getStatusCode());
             LogManager.getLogger(this.getClass())
@@ -98,8 +100,9 @@ public class TextilePrintingResourceFunctionalTesting {
     public void testCreateTextilePrintingForbidden() {
         try {
             String token = new RestService().loginAdmin();
-            
-            TextilePrintingWrapper textilePrinting = new TextilePrintingWrapper(84000002222L, "reference", "description", new BigDecimal(20), "type");
+
+            TextilePrintingWrapper textilePrinting = new TextilePrintingWrapper(84000002222L, "reference", "description",
+                    new BigDecimal(20), "type");
             new RestBuilder<Object>(RestService.URL).path(Uris.TEXTILE_PRINTINGS).body(textilePrinting).basicAuth(token, "").post().build();
             fail();
         } catch (HttpClientErrorException httpError) {
@@ -108,8 +111,76 @@ public class TextilePrintingResourceFunctionalTesting {
                     .info("testCreateTextilePrintingForbidden (" + httpError.getMessage() + "):\n " + httpError.getResponseBodyAsString());
         }
     }
-    
-    
+
+    @Test
+    public void testGetAllTextilePrinting() {
+        String token = new RestService().loginManager();
+        TextilePrintingListWrapper textilePrinting = new RestBuilder<TextilePrintingListWrapper>(RestService.URL)
+                .path(Uris.TEXTILE_PRINTINGS).basicAuth(token, "").clazz(TextilePrintingListWrapper.class).get().build();
+        assertEquals(4, textilePrinting.size());
+    }
+
+    @Test
+    public void testGetOneTextilePrinting() {
+        String token = new RestService().loginManager();
+        TextilePrintingListWrapper textilePrintings = new RestBuilder<TextilePrintingListWrapper>(RestService.URL)
+                .path(Uris.TEXTILE_PRINTINGS).basicAuth(token, "").clazz(TextilePrintingListWrapper.class).get().build();
+        TextilePrintingWrapper textilePrinting = new RestBuilder<TextilePrintingWrapper>(RestService.URL)
+                .path(Uris.TEXTILE_PRINTINGS + "/" + textilePrintings.get(0).getId()).basicAuth(token, "")
+                .clazz(TextilePrintingWrapper.class).get().build();
+        assertNotNull(textilePrinting);
+    }
+
+    @Test
+    public void testCreateTextilePrinting() {
+        String token = new RestService().loginManager();
+        new RestBuilder<Object>(RestService.URL).path(Uris.TEXTILE_PRINTINGS)
+                .body(new TextilePrintingWrapper(840000022224L, "reference", "description", new BigDecimal(20), "type"))
+                .basicAuth(token, "").post().build();
+
+        TextilePrintingListWrapper textilePrintings = new RestBuilder<TextilePrintingListWrapper>(RestService.URL)
+                .path(Uris.TEXTILE_PRINTINGS).basicAuth(token, "").clazz(TextilePrintingListWrapper.class).get().build();
+
+        new RestBuilder<Object>(RestService.URL).path(Uris.TEXTILE_PRINTINGS + '/' + textilePrintings.get(4).getId()).basicAuth(token, "")
+                .delete().build();
+
+        TextilePrintingListWrapper listTextilePrintings = new RestBuilder<TextilePrintingListWrapper>(RestService.URL)
+                .path(Uris.TEXTILE_PRINTINGS).basicAuth(token, "").clazz(TextilePrintingListWrapper.class).get().build();
+        assertEquals(4, listTextilePrintings.size());
+    }
+
+    @Test
+    public void testUpdateTextilePrinting() {
+        String token = new RestService().loginManager();
+        new RestBuilder<Object>(RestService.URL).path(Uris.TEXTILE_PRINTINGS)
+                .body(new TextilePrintingWrapper(84000003333L, "textileprintingUpdate", "textileprinting", new BigDecimal(20), "ploter"))
+                .basicAuth(token, "").put().build();
+
+        TextilePrintingListWrapper textilePrintings = new RestBuilder<TextilePrintingListWrapper>(RestService.URL)
+                .path(Uris.TEXTILE_PRINTINGS).basicAuth(token, "").clazz(TextilePrintingListWrapper.class).get().build();
+
+        TextilePrintingWrapper textilePrinting = new RestBuilder<TextilePrintingWrapper>(RestService.URL)
+                .path(Uris.TEXTILE_PRINTINGS + "/" + textilePrintings.get(0).getId()).basicAuth(token, "")
+                .clazz(TextilePrintingWrapper.class).get().build();
+        assertEquals("textileprintingUpdate", textilePrinting.getReference());
+    }
+
+    @Test
+    public void testDeleteTextilePrinting() {
+        String token = new RestService().loginManager();
+        TextilePrintingListWrapper textilePrintings = new RestBuilder<TextilePrintingListWrapper>(RestService.URL)
+                .path(Uris.TEXTILE_PRINTINGS).basicAuth(token, "").clazz(TextilePrintingListWrapper.class).get().build();
+        assertEquals(4, textilePrintings.size());
+        new RestBuilder<Object>(RestService.URL).path(Uris.TEXTILE_PRINTINGS + '/' + textilePrintings.get(0).getId()).basicAuth(token, "")
+                .delete().build();
+        TextilePrintingListWrapper newTextilePrintingList = new RestBuilder<TextilePrintingListWrapper>(RestService.URL)
+                .path(Uris.TEXTILE_PRINTINGS).basicAuth(token, "").clazz(TextilePrintingListWrapper.class).get().build();
+        assertEquals(3, newTextilePrintingList.size());
+        new RestBuilder<Object>(RestService.URL).path(Uris.TEXTILE_PRINTINGS)
+                .body(new EmbroideryWrapper(84000003333L, "reference", "description", new BigDecimal(20), 1000, 1, 10)).basicAuth(token, "")
+                .post().build();
+    }
+
     @AfterClass
     public static void deleteAll() {
         new RestService().deleteAll();

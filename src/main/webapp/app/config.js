@@ -45,6 +45,11 @@ tpv.config(function ($routeProvider) {
             controller: "ListIdCompanyProviderController",
             controllerAs: "vm"
         })
+        .when("/feature02/edit-provider/:idProvider", {
+            templateUrl: "app/components/feature02/editProvider.html",
+            controller: "EditProviderController",
+            controllerAs: "vm"
+        })
         .when("/feature03/list-embroidery", {
             templateUrl: "app/components/feature03/indexEmbroidery.html",
             controller: "listEmbroideryController",
@@ -108,12 +113,23 @@ tpv.config(function ($routeProvider) {
         .when("/feature07/create-voucher", {
             templateUrl: "app/components/feature07/createVoucher.html",
             controller: "CreateVoucherController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+            resolve: {
+                notAutorized: checkAuthVouchers
+              }
         })
         .when("/feature07/list-vouchers", {
             templateUrl: "app/components/feature07/listVouchers.html",
             controller: "ListVouchersController",
             controllerAs: "vm"
+        })
+        .when("/feature07/use-voucher", {
+            templateUrl: "app/components/feature07/useVoucher.html",
+            controller: "UseVoucherController",
+            controllerAs: "vm",
+            resolve: {
+                notAutorized: checkAuthVouchers
+              }
         })
         .when("/feature10", {
             templateUrl: "app/components/feature10/index.html",
@@ -168,8 +184,8 @@ tpv.config(function ($routeProvider) {
             }
         })
         .when("/feature15", {
-            templateUrl: "app/components/feature15/generatePDF.html",
-            controller: "PDFGenerationController",
+            templateUrl: "app/components/feature15/pdfGeneration.html",
+            controller: "PdfGenerationController",
             controllerAs: "vm"
         })
         .when("/feature08/create-invoice", {
@@ -212,11 +228,24 @@ tpv.config(function ($routeProvider) {
             controller: "ProductByDateController",
             controllerAs: "vm"
         })
+        .when("/feature13",{
+        	templateUrl: "app/components/feature13/jobIndex.html",
+            controller: "JobController",
+            controllerAs: "vm"
+        })
 
         .otherwise({
             redirectTo: '/'
         });
 
+    function checkAuthVouchers($window, $location, Alertify){
+        var role = $window.sessionStorage.getItem('rol');
+        if (!role || role !== "MANAGER" || role !== "OPERATOR") {
+          $location.url('/feature00/login');
+          Alertify.error('You must be logged as Manager or Operator to create or used a Voucher.');
+        }
+      }
+    
         function resolverAlerts($window, $location, Alertify){
           var rol = $window.sessionStorage.getItem('rol');
           if (!rol || rol !== "MANAGER" ) {

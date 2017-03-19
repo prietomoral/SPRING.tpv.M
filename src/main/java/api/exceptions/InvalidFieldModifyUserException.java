@@ -13,7 +13,7 @@ public class InvalidFieldModifyUserException extends ApiException {
     }
 
     public InvalidFieldModifyUserException(String detail) {
-        super(DESCRIPTION + ". " + detail, CODE);
+        super(DESCRIPTION + "" + detail, CODE);
     }
 
 }
