@@ -1,5 +1,7 @@
 package wrappers;
 
+import entities.core.Alert;
+
 public class AlertWrapper {
 
     public AlertWrapper(int id, int warning, int critical, String productDescription, long product_id) {
@@ -9,6 +11,14 @@ public class AlertWrapper {
         this.critical = critical;
         this.productDescription = productDescription;
         this.product_id = product_id;
+    }
+
+    public AlertWrapper(Alert alert) {
+        this.id = alert.getId();
+        this.warning = alert.getWarning();
+        this.critical = alert.getCritical();
+        this.product_id = alert.getArticle().getId();
+        this.productDescription = alert.getArticle().getDescription();
     }
 
     private int id;

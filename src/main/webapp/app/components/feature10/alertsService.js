@@ -9,7 +9,7 @@ function AlertsService($http, APP, $q) {
   var alertService = {
     getAll: getAll,
     getAlert: getAlert,
-    deletAlert: deletAlert,
+    deleteAlert: deleteAlert,
     createAlert: createAlert,
     editAlert: editAlert,
     getAllActiveAlerts: getAllActiveAlerts
@@ -54,7 +54,7 @@ function AlertsService($http, APP, $q) {
       });
   }
 
-  function deletAlert(id) {
+  function deleteAlert(id) {
 	    return $http({
         headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
 	      method: 'DELETE',
