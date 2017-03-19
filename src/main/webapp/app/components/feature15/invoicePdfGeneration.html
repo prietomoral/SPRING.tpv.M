@@ -1,7 +1,6 @@
 <div class="form-group">
     <label for="invoice-select">Invoices:</label>
-    <select class="form-control" id="invoice-select">
-        <option data-ng-repeat="invoice in vm.invoices" value = "{{invoice}}">{{invoice}}</option>
+    <select class="form-control" id="invoice-select" data-ng-init="vm.listInvoices()" data-ng-model="vm.invoice" data-ng-options="item.id for item in vm.invoices">
     </select>
     <input type="submit" class="btn btn-primary" value="Generate invoice pdf" data-ng-click="vm.generateInvoicePdf()">  
 </div>
