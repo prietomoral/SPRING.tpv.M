@@ -25,4 +25,6 @@ public class PdfGenerationResource {
     public void generatePdf(@RequestParam(required = true) String fileName) throws FileNotFoundException {
         pdfGenerationController.generatePdf(fileName);
     }
+    
+    
 }

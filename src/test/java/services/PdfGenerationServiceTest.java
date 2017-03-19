@@ -27,18 +27,29 @@ public class PdfGenerationServiceTest {
 
     private final static String PDF_FILE_EXT = ".pdf";
     
-    private final static String FILENAME = "pdftest";
-    
-    private final static String PATH = USER_HOME + PDF_FILES_ROOT + FILENAME + PDF_FILE_EXT;
-    
     @Autowired
     private PdfGenerationService pdfGenerationService;
     
     @Test
     public void testIfPdfDocumentHasBeenGenerated() {
+        String fileName = "pdftest";
+        String path = USER_HOME + PDF_FILES_ROOT + fileName + PDF_FILE_EXT;
         try {
-            pdfGenerationService.makePdf(FILENAME, PageSize.A4);
-            assertTrue(new File(PATH).exists());
+            pdfGenerationService.makePdf(fileName, PageSize.A4);
+            assertTrue(new File(path).exists());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+    
+    @Test
+    public void testMakeInvoicePdf(){
+        String fileName = "INVOICE_20170001";
+        String path = USER_HOME + PDF_FILES_ROOT + "/invoices/" + fileName + PDF_FILE_EXT;
+        try {
+            pdfGenerationService.makeInvoicePdf(20170001);
+            assertTrue(new File(path).exists());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             fail();
@@ -46,8 +57,11 @@ public class PdfGenerationServiceTest {
     }
     
     @After
-    public void reset(){
-        new File(PATH).delete();      
+    public void reset(){      
+        String path = USER_HOME + PDF_FILES_ROOT + "pdftest" + PDF_FILE_EXT;
+        new File(path).delete();      
+        path = USER_HOME + PDF_FILES_ROOT + "/invoices/" + "INVOICE_20170001" + PDF_FILE_EXT;
+        new File(path).delete();  
     }
 
 }
