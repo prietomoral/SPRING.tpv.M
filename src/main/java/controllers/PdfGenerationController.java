@@ -22,4 +22,8 @@ public class PdfGenerationController {
     public void generatePdf(String fileName) throws FileNotFoundException{
         pdfGenerationService.makePdf(fileName, PageSize.A4);       
     }
+    
+    public void generateInvoicePdf(int invoiceId) throws FileNotFoundException{
+        pdfGenerationService.makeInvoicePdf(invoiceId);
+    }
 }
