@@ -27,6 +27,7 @@
                         <td>{{provider.paymentConditions}}</td>
                         <td>{{provider.note}}</td>
                         <td>
+                            <a class="btn btn-primary" ng-href="#feature02/edit-provider/{{provider.id}}">Edit</a>
                             <input class="btn btn-danger" type="button" value="Delete" ng-click="vm.deleteProvider(provider.id)">
                         </td>
                     </tr>
