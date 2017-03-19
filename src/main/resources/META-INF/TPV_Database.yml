@@ -244,7 +244,7 @@ ticketList:
         productId: 84000003335
         description: textilePrinting2
         retailPrice: 22
-      - amount: 4
+      - amount: 6
         discount: 10
         productId: 84000003336
         description: textilePrinting3
@@ -269,7 +269,7 @@ ticketList:
         productId: 84000003335
         description: textilePrinting2
         retailPrice: 22
-      - amount: 4
+      - amount: 3
         discount: 10
         productId: 84000003336
         description: textilePrinting3
@@ -293,7 +293,7 @@ ticketList:
         productId: 84000003335
         description: textilePrinting2
         retailPrice: 22
-      - amount: 4
+      - amount: 5
         discount: 10
         productId: 84000003336
         description: textilePrinting3
