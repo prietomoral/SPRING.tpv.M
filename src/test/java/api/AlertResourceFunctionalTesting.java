@@ -24,7 +24,7 @@ public class AlertResourceFunctionalTesting {
         String token = new RestService().loginManager();
         AlertListWrapper alerts = new RestBuilder<AlertListWrapper>(RestService.URL).path(Uris.ALERTS).basicAuth(token, "")
                 .clazz(AlertListWrapper.class).get().build();
-        assertEquals(7, alerts.size());
+        assertEquals(5, alerts.size());
     }
 
     @Test
@@ -54,11 +54,11 @@ public class AlertResourceFunctionalTesting {
         String token = new RestService().loginManager();
         AlertListWrapper alerts = new RestBuilder<AlertListWrapper>(RestService.URL).path(Uris.ALERTS).basicAuth(token, "")
                 .clazz(AlertListWrapper.class).get().build();
-        assertEquals(4, alerts.size());
+        assertEquals(2, alerts.size());
         new RestBuilder<Object>(RestService.URL).path(Uris.ALERTS + '/' + alerts.get(0).getId()).basicAuth(token, "").delete().build();
         AlertListWrapper alertsUpdated = new RestBuilder<AlertListWrapper>(RestService.URL).path(Uris.ALERTS).basicAuth(token, "")
                 .clazz(AlertListWrapper.class).get().build();
-        assertEquals(3, alertsUpdated.size());
+        assertEquals(1, alertsUpdated.size());
     }
 
     @Test
