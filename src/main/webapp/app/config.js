@@ -2,7 +2,8 @@ var tpv = angular.module("tpv", ["ngRoute",
                                  'bw.paging',
                                  "Alertify",
                                  "angucomplete-alt",
-                                 "ngMessages"]);
+                                 "ngMessages",
+                                 "checklist-model"]);
 
 tpv.config(function ($routeProvider) {
     "use strict";
@@ -176,6 +177,40 @@ tpv.config(function ($routeProvider) {
                   if (response.length === 0) {
                     $location.url('/feature10');
                     Alertify.log('No existen artículos.\nNecesitas crear uno antes de crear alertas');
+                  }else{
+                    return response;
+                  }
+                });
+              }
+            }
+        })
+        .when("/feature10/families", {
+            templateUrl: "app/components/feature10/index-families.html",
+            controller: "AlertFamilyController",
+            controllerAs: "vm",
+            resolve: {
+              notAutorized: resolverAlerts
+            }
+        })
+        .when("/feature10/families/:id/show", {
+            templateUrl: "app/components/feature10/show-family.html",
+            controller: "AlertFamilyShowController",
+            controllerAs: "vm",
+            resolve: {
+              notAutorized: resolverAlerts
+            }
+        })
+        .when("/feature10/families/:id/edit", {
+            templateUrl: "app/components/feature10/edit-family.html",
+            controller: "AlertFamilyEditController",
+            controllerAs: "vm",
+            resolve: {
+              notAutorized: resolverAlerts,
+              alerts: function(AlertsService, $location, Alertify){
+                return AlertsService.getAll().then(function success(response){
+                  if (response.length === 0) {
+                    $location.url('/feature10');
+                    Alertify.log('No existen alertas.\nNecesitas crear una antes de crear una familia');
                   }else{
                     return response;
                   }
