@@ -1,21 +1,22 @@
-tpv.controller('CreateProviderController', [ 'f02Service',
-	function(f02Service) {
-		"use strict";
-		var vm = this;
-		
-		vm.completed = false;
-		vm.error = false;
-		vm.createProvider = createProvider;
-		
-		function createProvider(){
-			f02Service.createProvider(vm.provider).then(function success(response){
-				vm.data = response;
-				vm.completed = true;
-		    },
-		    function error(errors){
-		    	vm.error = true;
-		    	console.log(errors);
-		    });
-		}
-	} 
-]);
+tpv.controller('CreateProviderController', CreateProviderController, 'Alertify', '$location');
+
+function CreateProviderController(f02Service, Alertify, $location) {
+	"use strict";
+	var vm = this;
+	
+	vm.createProvider = createProvider;
+
+	function createProvider(){
+		f02Service.createProvider(vm.provider).then(function success(response){
+			Alertify.success("The provider has been created successfully!");
+			$location.path('/feature02/list-providers');
+	    },
+	    function error(errors){
+	    	if (errors.status == 401 || errors.status == 403) {	    
+				  Alertify.error("User Unathorized. You must login with user Manager!");
+			  }else{
+				  Alertify.error("The provider has not been created successfully!");
+			  }
+	    });
+	}
+}
