@@ -26,7 +26,7 @@ public class PdfGenerationResource {
         pdfGenerationController.generatePdf(fileName);
     }
     
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = Uris.INVOICES, method = RequestMethod.GET)
     public void generateInvoicePdf(@RequestParam(required = true) int invoiceId) throws FileNotFoundException {
         pdfGenerationController.generateInvoicePdf(invoiceId);
     }

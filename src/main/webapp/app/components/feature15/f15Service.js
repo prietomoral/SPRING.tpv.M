@@ -30,4 +30,15 @@ tpv.service('f15Service', function ($http, $q) {
 		  };
 	    return this.request(config);
 	 }
+	 
+	 this.generateInvoicePdf = function (invoiceId) {
+		 let config = {
+				 method: 'GET',
+				 url: urlBase + "/pdfs/invoices",
+				 params : {
+					 id : invoiceId
+				 }
+		 };
+		 return this.request(config);
+	 }
 });
