@@ -1,0 +1,28 @@
+<section>
+    <div class="page-header">
+      <h1>Edit provider</h1>
+    </div>
+    <div class="container" ng-init="vm.findOneProvider()">
+        <form role="form">
+            <div class="form-group">
+                <input type="text" class="form-control"  placeholder={{vm.provider.company}}  ng-model='vm.provider.company'>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control"  placeholder={{vm.provider.address}} ng-model='vm.provider.address'>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control"  placeholder={{vm.provider.mobile}} ng-model='vm.provider.mobile'>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control"  placeholder={{vm.provider.phone}} ng-model='vm.provider.phone'>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control"  placeholder={{vm.provider.paymentConditions}} ng-model='vm.provider.paymentConditions'>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control"  placeholder={{vm.provider.note}} ng-model='vm.provider.note'>
+            </div>
+            <a class="btn btn-primary" ng-href="#feature02/list-providers">Back</a> <input type="submit" class="btn btn-primary" value="Save"  ng-click="vm.editProvider()">  
+        </form>
+    </div>
+</section>

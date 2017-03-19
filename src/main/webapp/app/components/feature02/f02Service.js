@@ -6,7 +6,10 @@ tpv.service('f02Service', ['$http', '$q', function ($http, $q) {
    	var feature02Service = {
    		createProvider:createProvider,
    		listProviders:listProviders,
-   		listIdCompanyProviders:listIdCompanyProviders
+   		listIdCompanyProviders:listIdCompanyProviders,
+   		deleteProvider:deleteProvider,
+   		findOneProvider:findOneProvider,
+   		updateProvider:updateProvider
    	};
    
    	return feature02Service;
@@ -44,4 +47,46 @@ tpv.service('f02Service', ['$http', '$q', function ($http, $q) {
 	        return $q.reject(response);
    		});
 	}
+   	
+   	function deleteProvider(id) {
+		return $http({
+			method : 'DELETE',
+			url : urlBase + '/providers/' + id
+		}).then(function successCallback(response) {
+			return response.data;
+		}, function errorCallback(response) {
+			return $q.reject(response);
+		});
+	}
+   	
+   	function findOneProvider(id) {
+   		return $http({
+			method : 'GET',
+			url : urlBase + '/providers/' + id
+		}).then(function successCallback(response) {
+			return response.data;
+		}, function errorCallback(response) {
+			return $q.reject(response);
+		});
+   	}
+   	
+   	function updateProvider(provider) {
+   	    return $http({
+   	      method: 'PUT',
+   	      url: urlBase + '/providers',
+   	      data:{
+   	    	  'id': provider.id,
+	    	  'company': provider.company,
+	    	  'address': provider.address,
+	    	  'mobile': provider.mobile,
+	    	  'phone': provider.phone,
+	    	  'paymentConditions': provider.paymentConditions,
+	    	  'note': provider.note
+   	    	  }
+   	    }).then(function successCallback(response) {
+   	        return response.data;
+   	      }, function errorCallback(response) {
+   	        return $q.reject(response);
+   	      });
+   	  }
 }]);

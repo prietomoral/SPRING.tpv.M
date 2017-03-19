@@ -17,7 +17,7 @@ tpv.service('f08Service', ['$http', '$q', function ($http, $q) {
 	    		  errorMsg = response.data.description;
 	    	  }
 		    	  if (response.status == 401 || response.status == 403){
-		    		  deferred.reject("ERROR: User Unathorized.\n Login as Manager, Operator or Admin")
+		    		  deferred.reject("ERROR: User Unathorized.\n Login as Manager or Admin")
 		    	  }else{
 		    		  deferred.reject("ERROR: "+ errorMsg );
 		    	  }
