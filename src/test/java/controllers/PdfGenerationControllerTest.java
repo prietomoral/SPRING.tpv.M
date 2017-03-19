@@ -32,5 +32,17 @@ public class PdfGenerationControllerTest {
             fail();
         }
     }
+    
+    @Test
+    public void testGenerateInvoicePdf() {
+        assertFalse(pdfGenerationServiceMock.isMakeInvoicePdfExecuted());
+        try {
+            pdfGenerationController.generateInvoicePdf(123456);
+            assertTrue(pdfGenerationServiceMock.isMakeInvoicePdfExecuted());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
 
 }
