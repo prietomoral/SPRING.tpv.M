@@ -2,7 +2,8 @@ var tpv = angular.module("tpv", ["ngRoute",
                                  'bw.paging',
                                  "Alertify",
                                  "angucomplete-alt",
-                                 "ngMessages"]);
+                                 "ngMessages",
+                                 "checklist-model"]);
 
 tpv.config(function ($routeProvider) {
     "use strict";
@@ -183,6 +184,58 @@ tpv.config(function ($routeProvider) {
               }
             }
         })
+        .when("/feature10/families", {
+            templateUrl: "app/components/feature10/index-families.html",
+            controller: "AlertFamilyController",
+            controllerAs: "vm",
+            resolve: {
+              notAutorized: resolverAlerts
+            }
+        })
+        .when("/feature10/families/new", {
+            templateUrl: "app/components/feature10/new-family.html",
+            controller: "AlertFamilyNewController",
+            controllerAs: "vm",
+            resolve: {
+              notAutorized: resolverAlerts,
+              alerts: function(AlertsService, $location, Alertify){
+                return AlertsService.getAll().then(function success(response){
+                  if (response.length === 0) {
+                    $location.url('/feature10');
+                    Alertify.log('No existen alertas.\nNecesitas crear una antes de crear una familia');
+                  }else{
+                    return response;
+                  }
+                });
+              }
+            }
+        })
+        .when("/feature10/families/:id/show", {
+            templateUrl: "app/components/feature10/show-family.html",
+            controller: "AlertFamilyShowController",
+            controllerAs: "vm",
+            resolve: {
+              notAutorized: resolverAlerts
+            }
+        })
+        .when("/feature10/families/:id/edit", {
+            templateUrl: "app/components/feature10/edit-family.html",
+            controller: "AlertFamilyEditController",
+            controllerAs: "vm",
+            resolve: {
+              notAutorized: resolverAlerts,
+              alerts: function(AlertsService, $location, Alertify){
+                return AlertsService.getAll().then(function success(response){
+                  if (response.length === 0) {
+                    $location.url('/feature10');
+                    Alertify.log('No existen alertas.\nNecesitas crear una antes de crear una familia');
+                  }else{
+                    return response;
+                  }
+                });
+              }
+            }
+        })
         .when("/feature15", {
             templateUrl: "app/components/feature15/pdfGeneration.html",
             controller: "PdfGenerationController",
@@ -245,7 +298,7 @@ tpv.config(function ($routeProvider) {
           Alertify.error('You must be logged as Manager or Operator to create or used a Voucher.');
         }
       }
-    
+
         function resolverAlerts($window, $location, Alertify){
           var rol = $window.sessionStorage.getItem('rol');
           if (!rol || rol !== "MANAGER" ) {

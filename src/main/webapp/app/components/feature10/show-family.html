@@ -1,0 +1,17 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">{{vm.alertFamily.name}}</div>
+  <div class="panel-body">
+    <div class="col-md-12">
+      <li ng-repeat="alert in vm.alertFamily.alerts">
+        <span>{{alert.productDescription}}</span>
+        <span class="label label-warning">{{ alert.warning }}</span>
+        <span class="label label-danger">{{ alert.critical }}</span>
+      </li>
+    </div>
+  </div>
+</div>
+
+<div>
+  <a class="btn btn-success" href="#/feature10/families">Regresar a la lista</a>
+  <a class="btn btn-default" ng-href="#/feature10/families/{{vm.alertFamily.id}}/edit">Editar</a>
+</div>
