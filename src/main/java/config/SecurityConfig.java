@@ -37,6 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(Uris.SERVLET_MAP + Uris.VERSION + Uris.ADMINS + "/**").hasRole(Role.ADMIN.name())//
                 .antMatchers(Uris.SERVLET_MAP + Uris.VERSION + Uris.EMBROIDERIES + "/**").hasRole(Role.MANAGER.name())//
                 .antMatchers(Uris.SERVLET_MAP + Uris.VERSION + Uris.TEXTILE_PRINTINGS + "/**").hasRole(Role.MANAGER.name())//
+                .antMatchers(HttpMethod.GET,Uris.SERVLET_MAP + Uris.VERSION + Uris.STATISTIC + Uris.POPULAR_PRODUCTS)
+                .hasAnyRole(Role.ADMIN.name(), Role.MANAGER.name())//
+                .antMatchers(Uris.SERVLET_MAP + Uris.VERSION + Uris.STATISTIC + Uris.BY_DATE)
+                .hasAnyRole(Role.ADMIN.name(), Role.MANAGER.name())//
                 .antMatchers(Uris.SERVLET_MAP + Uris.VERSION + Uris.ARTICLES + "/**").hasRole(Role.MANAGER.name())//
                 .antMatchers(Uris.SERVLET_MAP + Uris.VERSION + Uris.ALERTS + "/**").hasRole(Role.MANAGER.name())//
                 .antMatchers(Uris.SERVLET_MAP + Uris.VERSION + Uris.ALERTSFAMILY + "/**").hasRole(Role.MANAGER.name())//
