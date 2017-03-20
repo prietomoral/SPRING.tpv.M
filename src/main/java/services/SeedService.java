@@ -121,4 +121,9 @@ public class SeedService {
         }
     }
 
+    public boolean checkYamlFileExists(String fileName) {
+        Resource resource = appContext.getResource(YAML_FILES_ROOT + fileName);
+        return resource.exists();
+    }
+
 }

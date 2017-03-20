@@ -1,9 +1,12 @@
 package services;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+
+import static config.ResourceNames.DEFAULT_SEED_FILE;
 
 import org.junit.After;
 import org.junit.Test;
@@ -77,14 +80,14 @@ public class SeedServiceIT {
         authorizationDao.deleteAll();
         tokenDao.deleteAll();
         userDao.deleteAll();
-        
+
         assertEquals(0, userDao.count());
-        
+
         seedService.createDefaultAdmin();
-        
+
         assertEquals(1, userDao.count());
         User admin = userDao.findByUsername("admin");
-        
+
         assertNotNull(admin);
         assertEquals(Role.ADMIN, authorizationDao.findRoleByUser(admin).get(0));
     }
@@ -189,6 +192,16 @@ public class SeedServiceIT {
         assertEquals(invoiceDao.count(), previousInvoiceCount);
 
         assertEquals(alertDao.count(), previousAlertCount);
+    }
+
+    @Test
+    public void checkExistentFile() {
+        assertTrue(seedService.checkYamlFileExists(DEFAULT_SEED_FILE));
+    }
+
+    @Test
+    public void checkNonexistentFile() {
+        assertFalse(seedService.checkYamlFileExists("nonexistent.yml"));
     }
 
     @After
