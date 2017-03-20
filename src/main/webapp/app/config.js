@@ -236,9 +236,14 @@ tpv.config(function ($routeProvider) {
               }
             }
         })
-        .when("/feature15", {
+        .when("/feature15/test", {
             templateUrl: "app/components/feature15/pdfGeneration.html",
             controller: "PdfGenerationController",
+            controllerAs: "vm"
+        })
+        .when("/feature15/invoices", {
+            templateUrl: "app/components/feature15/invoicePdfGeneration.html",
+            controller: "InvoicePdfGenerationController",
             controllerAs: "vm"
         })
         .when("/feature08/create-invoice", {
