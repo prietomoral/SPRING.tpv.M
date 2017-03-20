@@ -11,28 +11,22 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.web.client.RestTemplate;
-
 import wrappers.ProviderAddWrapper;
 import wrappers.ProviderIdCompanyWrapper;
 import wrappers.ProviderWrapper;
 
 public class ProviderResourceFunctionalTesting {
-    private static String token;
-    
     @BeforeClass
     public static void populate() {
         new RestService().populate();
-        token = new RestService().registerAndLoginManager();
     }
 
     @Test
     public void testGetAllProviders() {
-        List<ProviderWrapper> response = Arrays.asList(new RestTemplate().exchange(RestService.URL + Uris.PROVIDERS, HttpMethod.GET,
-                new HttpEntity<Object>(new HttpHeaders()), ProviderWrapper[].class).getBody());
+        String token = new RestService().loginAdmin();
+
+        List<ProviderWrapper> response = Arrays.asList(new RestBuilder<ProviderWrapper[]>(RestService.URL).path(Uris.PROVIDERS).get()
+                .clazz(ProviderWrapper[].class).basicAuth(token, "").build());
 
         assertNotNull(response);
         assertTrue(response.size() > 0);
@@ -42,9 +36,11 @@ public class ProviderResourceFunctionalTesting {
 
     @Test
     public void testGetIdCompanyProviders() {
+        String token = new RestService().loginAdmin();
+
         List<ProviderIdCompanyWrapper> response = Arrays
-                .asList(new RestTemplate().exchange(RestService.URL + Uris.PROVIDERS + Uris.PROVIDERS_ID_COMPANY, HttpMethod.GET,
-                        new HttpEntity<Object>(new HttpHeaders()), ProviderIdCompanyWrapper[].class).getBody());
+                .asList(new RestBuilder<ProviderIdCompanyWrapper[]>(RestService.URL).path(Uris.PROVIDERS + Uris.PROVIDERS_ID_COMPANY).get()
+                        .clazz(ProviderIdCompanyWrapper[].class).basicAuth(token, "").build());
 
         assertNotNull(response);
         assertTrue(response.size() > 0);
@@ -54,17 +50,22 @@ public class ProviderResourceFunctionalTesting {
 
     @Test
     public void testGetOneById() {
-        List<ProviderWrapper> providers = Arrays.asList(new RestTemplate().exchange(RestService.URL + Uris.PROVIDERS, HttpMethod.GET,
-                new HttpEntity<Object>(new HttpHeaders()), ProviderWrapper[].class).getBody());
+        String token = new RestService().loginAdmin();
+
+        List<ProviderWrapper> providers = Arrays.asList(new RestBuilder<ProviderWrapper[]>(RestService.URL).path(Uris.PROVIDERS).get()
+                .clazz(ProviderWrapper[].class).basicAuth(token, "").build());
+
         int id = providers.get(0).getId();
-        ProviderWrapper response = new RestTemplate().exchange(RestService.URL + Uris.PROVIDERS + "/" + id, HttpMethod.GET,
-                new HttpEntity<Object>(new HttpHeaders()), ProviderWrapper.class).getBody();
+
+        ProviderWrapper response = new RestBuilder<ProviderWrapper>(RestService.URL).path(Uris.PROVIDERS + "/" + id).get()
+                .clazz(ProviderWrapper.class).basicAuth(token, "").build();
+
         assertEquals(providers.get(0).getCompany(), response.getCompany());
     }
 
     @Test
     public void testCreateProvider() {
-        token = new RestService().registerAndLoginManager();
+        String token = new RestService().loginAdmin();
         ProviderAddWrapper provider = new ProviderAddWrapper();
         provider.setCompany("Company");
         provider.setAddress("Address");
@@ -78,50 +79,52 @@ public class ProviderResourceFunctionalTesting {
 
     @Test
     public void testUpdateProvider() {
-        List<ProviderWrapper> providersBefore = Arrays.asList(new RestTemplate().exchange(RestService.URL + Uris.PROVIDERS, HttpMethod.GET,
-                new HttpEntity<Object>(new HttpHeaders()), ProviderWrapper[].class).getBody());
-
+        String token = new RestService().loginAdmin();
+        
+        List<ProviderWrapper> providersBefore = Arrays.asList(new RestBuilder<ProviderWrapper[]>(RestService.URL).path(Uris.PROVIDERS).get()
+                .clazz(ProviderWrapper[].class).basicAuth(token, "").build());
+        
         ProviderWrapper provider = providersBefore.get(0);
         provider.setAddress("Address");
-        new RestBuilder<Object>(RestService.URL).path(Uris.PROVIDERS).body(provider).put().build();
-
-        List<ProviderWrapper> providersAfter = Arrays.asList(new RestTemplate().exchange(RestService.URL + Uris.PROVIDERS, HttpMethod.GET,
-                new HttpEntity<Object>(new HttpHeaders()), ProviderWrapper[].class).getBody());
+        new RestBuilder<Object>(RestService.URL).path(Uris.PROVIDERS).body(provider).put().basicAuth(token, "").build();
+        
+        List<ProviderWrapper> providersAfter = Arrays.asList(new RestBuilder<ProviderWrapper[]>(RestService.URL).path(Uris.PROVIDERS).get()
+                .clazz(ProviderWrapper[].class).basicAuth(token, "").build());
         
         assertEquals("Address", providersAfter.get(0).getAddress());
     }
 
     @Test
     public void testDeleteProvider() {
-        List<ProviderWrapper> providersBefore = Arrays.asList(new RestTemplate().exchange(RestService.URL + Uris.PROVIDERS, HttpMethod.GET,
-                new HttpEntity<Object>(new HttpHeaders()), ProviderWrapper[].class).getBody());
+        String token = new RestService().loginAdmin();
+        List<ProviderWrapper> providersBefore = Arrays.asList(new RestBuilder<ProviderWrapper[]>(RestService.URL).path(Uris.PROVIDERS).get()
+                .clazz(ProviderWrapper[].class).basicAuth(token, "").build());
 
         int id = providersBefore.get(0).getId();
-        new RestTemplate().exchange(RestService.URL + Uris.PROVIDERS + "/" + id, HttpMethod.DELETE,
-                new HttpEntity<Object>(new HttpHeaders()), ProviderWrapper.class).getBody();
-
-        List<ProviderWrapper> providersAfter = Arrays.asList(new RestTemplate().exchange(RestService.URL + Uris.PROVIDERS, HttpMethod.GET,
-                new HttpEntity<Object>(new HttpHeaders()), ProviderWrapper[].class).getBody());
+        new RestBuilder<Object>(RestService.URL).path(Uris.PROVIDERS + "/" + id).delete().basicAuth(token, "").build();
+        
+        List<ProviderWrapper> providersAfter = Arrays.asList(new RestBuilder<ProviderWrapper[]>(RestService.URL).path(Uris.PROVIDERS).get()
+                .clazz(ProviderWrapper[].class).basicAuth(token, "").build());
 
         assertEquals(providersBefore.size() - 1, providersAfter.size());
     }
 
     @Test
     public void testDeleteAllProvider() {
-        new RestTemplate().exchange(RestService.URL + Uris.PROVIDERS, HttpMethod.DELETE, new HttpEntity<Object>(new HttpHeaders()),
-                ProviderWrapper.class).getBody();
+        String token = new RestService().loginAdmin();
+        new RestBuilder<Object>(RestService.URL).path(Uris.PROVIDERS).delete().basicAuth(token, "").build();
 
-        List<ProviderWrapper> providersAfter = Arrays.asList(new RestTemplate().exchange(RestService.URL + Uris.PROVIDERS, HttpMethod.GET,
-                new HttpEntity<Object>(new HttpHeaders()), ProviderWrapper[].class).getBody());
+        List<ProviderWrapper> providersAfter = Arrays.asList(new RestBuilder<ProviderWrapper[]>(RestService.URL).path(Uris.PROVIDERS).get()
+                .clazz(ProviderWrapper[].class).basicAuth(token, "").build());
 
         assertEquals(0, providersAfter.size());
     }
 
-    /*@After
+    @After
     public void resetData() {
         new RestService().deleteAll();
         new RestService().populate();
-    }*/
+    }
 
     @AfterClass
     public static void deleteAll() {
