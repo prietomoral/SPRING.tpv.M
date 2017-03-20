@@ -10,7 +10,9 @@ tpv.controller('ListIdCompanyProviderController', [ 'f02Service',
 				vm.data = response;
 		    },
 		    function error(errors){
-		      console.log(errors);
+		    	if (errors.status == 401 || errors.status == 403) {	    
+		    		Alertify.error("User Unathorized. You must login with user Admin or Manager!");
+		    	}
 		    });
 		}
 	} 

@@ -13,7 +13,7 @@ function EditProviderController(f02Service, Alertify, $routeParams, $location) {
 	    },
 	    function error(errors){
 	    	 if (errors.status == 401 || errors.status == 403) {	    
-				  Alertify.error("User Unathorized. You must login with user Manager!");
+				  Alertify.error("User Unathorized. You must login with user Admin or Manager!");
 			  }
 	    });
 	  } 
@@ -26,7 +26,7 @@ function EditProviderController(f02Service, Alertify, $routeParams, $location) {
 	          },
 		      function error(errors){
 	        	  if (errors.status == 401 || errors.status == 403) {	    
-					  Alertify.error("User Unathorized. You must login with user Manager!");
+					  Alertify.error("User Unathorized. You must login with user Admin or Manager!");
 				  }else{
 					  Alertify.error("The provider has not been updated successfully!");
 				  }

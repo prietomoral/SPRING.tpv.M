@@ -21,9 +21,12 @@ import wrappers.ProviderIdCompanyWrapper;
 import wrappers.ProviderWrapper;
 
 public class ProviderResourceFunctionalTesting {
+    private static String token;
+    
     @BeforeClass
     public static void populate() {
         new RestService().populate();
+        token = new RestService().registerAndLoginManager();
     }
 
     @Test
@@ -61,6 +64,7 @@ public class ProviderResourceFunctionalTesting {
 
     @Test
     public void testCreateProvider() {
+        token = new RestService().registerAndLoginManager();
         ProviderAddWrapper provider = new ProviderAddWrapper();
         provider.setCompany("Company");
         provider.setAddress("Address");
@@ -69,7 +73,7 @@ public class ProviderResourceFunctionalTesting {
         provider.setPaymentConditions("Payment conditions");
         provider.setNote("Note");
 
-        new RestBuilder<Object>(RestService.URL).path(Uris.PROVIDERS).body(provider).post().build();
+        new RestBuilder<Object>(RestService.URL).path(Uris.PROVIDERS).basicAuth(token, "").body(provider).post().build();
     }
 
     @Test
@@ -113,11 +117,11 @@ public class ProviderResourceFunctionalTesting {
         assertEquals(0, providersAfter.size());
     }
 
-    @After
+    /*@After
     public void resetData() {
         new RestService().deleteAll();
         new RestService().populate();
-    }
+    }*/
 
     @AfterClass
     public static void deleteAll() {
