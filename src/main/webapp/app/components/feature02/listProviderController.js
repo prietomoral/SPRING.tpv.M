@@ -12,8 +12,10 @@ function ListProviderController (f02Service, Alertify) {
 			vm.data = response;
 	    },
 	    function error(errors){
-	      console.log(errors);
-	    });
+			if (errors.status == 401 || errors.status == 403) {	    
+				Alertify.error("User Unathorized. You must login with user Admin or Manager!");
+			}
+		});
 	}
 	
 	function deleteProvider(id) {
@@ -23,8 +25,8 @@ function ListProviderController (f02Service, Alertify) {
 		},
 		function error(errors){
 			if (errors.status == 401 || errors.status == 403) {	    
-				Alertify.error("User Unathorized. You must login with user Manager!");
-			}else{
+				Alertify.error("User Unathorized. You must login with user Admin or Manager!");
+			} else{
 				Alertify.error("The provider has not been deleted successfully.");
 			}
 		});

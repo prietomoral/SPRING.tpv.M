@@ -13,10 +13,10 @@ function CreateProviderController(f02Service, Alertify, $location) {
 	    },
 	    function error(errors){
 	    	if (errors.status == 401 || errors.status == 403) {	    
-				  Alertify.error("User Unathorized. You must login with user Manager!");
-			  }else{
-				  Alertify.error("The provider has not been created successfully!");
-			  }
+	    		Alertify.error("User Unathorized. You must login with user Admin or Manager!");
+	    	}else{
+	    		Alertify.error("The provider has not been created successfully!");
+	    	}
 	    });
 	}
 }
