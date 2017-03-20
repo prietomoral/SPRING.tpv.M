@@ -296,6 +296,11 @@ tpv.config(function ($routeProvider) {
             controller: "JobController",
             controllerAs: "vm"
         })
+        .when("/feature12",{
+        	templateUrl: "app/components/feature12/seedDatabase.html",
+            controller: "SeedController",
+            controllerAs: "vm"
+        })
 
         .otherwise({
             redirectTo: '/'
