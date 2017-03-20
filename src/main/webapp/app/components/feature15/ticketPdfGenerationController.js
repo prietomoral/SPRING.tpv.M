@@ -7,7 +7,7 @@ tpv.controller('TicketPdfGenerationController', [
 
 			vm.completed = false;
 			vm.error = false;
-			vm.generateInvoicePdf = generateInvoicePdf;
+			vm.generateTicketPdf = generateTicketPdf;
 			vm.listTickets = listTickets;
 			vm.response = "";
 			vm.tickets = {};
@@ -16,7 +16,7 @@ tpv.controller('TicketPdfGenerationController', [
 			function generateTicketPdf() {
 				const
 				delay = 2000;
-				f15Service.generateInvoicePdf(vm.selectedTicket.id).then(
+				f15Service.generateTicketPdf(vm.selectedTicket.id).then(
 						function(result) {
 							vm.completed = true;
 							vm.response = result.token + ":" + result.rol;
@@ -37,7 +37,7 @@ tpv.controller('TicketPdfGenerationController', [
 			function listTickets() {
 				f15Service.findAllTickets().then(function success(response) {
 					console.log(response);
-					vm.invoices = response;
+					vm.tickets = response;
 				}, function error(errors) {
 					console.log(errors);
 				});

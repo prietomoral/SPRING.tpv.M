@@ -21,7 +21,7 @@ public class TicketResource {
         this.ticketController = ticketController;
     }
 
-    @RequestMapping(value = Uris.TICKETS, method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public List<Ticket> findAllTickets() {
         return ticketController.findAllTickets();
     }

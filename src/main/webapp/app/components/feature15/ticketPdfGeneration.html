@@ -1,5 +1,6 @@
 <div class="form-group">
-    <label for="ticket-select">Invoices:</label>
+    <label for="ticket-select">Tickets:</label>
     <select class="form-control" id="ticket-select" data-ng-init="vm.listTickets()" data-ng-model="vm.selectedTicket" data-ng-options="item.id for item in vm.tickets">
     </select>
+    <input type="submit" class="btn btn-primary" value="Generate ticket pdf" data-ng-click="vm.generateTicketPdf()">  
 </div>
