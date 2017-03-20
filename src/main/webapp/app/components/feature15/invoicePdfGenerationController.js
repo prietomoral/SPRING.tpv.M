@@ -5,13 +5,14 @@ tpv.controller('InvoicePdfGenerationController', [
 			"use strict";
 			var vm = this;
 
+			vm.authorized = f15Service.isAuthorized();
+			
 			vm.completed = false;
 			vm.error = false;
 			vm.generateInvoicePdf = generateInvoicePdf;
 			vm.listInvoices = listInvoices;
-			vm.response = "";
-			vm.invoices = {};
-			vm.invoice = {};
+			vm.invoices = [];
+			vm.invoice = [];
 
 			function generateInvoicePdf() {
 				const
@@ -19,9 +20,6 @@ tpv.controller('InvoicePdfGenerationController', [
 				f15Service.generateInvoicePdf(vm.invoice.id).then(
 						function(result) {
 							vm.completed = true;
-							vm.response = result.token + ":" + result.rol;
-							sessionStorage.token = result.token;
-							sessionStorage.rol = result.rol;
 							$timeout(function() {
 								vm.completed = false;
 							}, delay)
@@ -38,6 +36,7 @@ tpv.controller('InvoicePdfGenerationController', [
 				f15Service.findAllInvoices().then(function success(response) {
 					console.log(response);
 					vm.invoices = response;
+					vm.invoice = vm.invoices[0];
 				}, function error(errors) {
 					console.log(errors);
 				});

@@ -1,6 +1,30 @@
-<div class="form-group">
-    <label for="invoice-select">Invoices:</label>
-    <select class="form-control" id="invoice-select" data-ng-init="vm.listInvoices()" data-ng-model="vm.invoice" data-ng-options="item.id for item in vm.invoices">
-    </select>
-    <input type="submit" class="btn btn-primary" value="Generate invoice pdf" data-ng-click="vm.generateInvoicePdf()">  
+<div class="page-header">
+	<h1>
+		Invoice PDF Generation <small data-ng-show="!vm.authorized"
+			class="text-warning"> <span
+			class="glyphicon glyphicon-exclamation-sign"></span> You are not
+			allowed to generate pdfs!
+		</small>
+	</h1>
+</div>
+<div data-ng-show="vm.authorized" class="panel panel-default">
+	<div class="panel-heading">Invoice selection panel</div>
+	<div class="panel-body">
+		<h2>
+
+			<small data-ng-show="vm.invoices.length == 0" class="text-warning">
+				<span class="glyphicon glyphicon-exclamation-sign"></span> There are
+				no invoices! Create one first!
+			</small>
+		</h2>
+		<div class="form-group">
+			<label for="invoice-select">Invoices:</label> <select
+				class="form-control" id="invoice-select"
+				data-ng-init="vm.listInvoices()" data-ng-model="vm.invoice"
+				data-ng-options="item.id for item in vm.invoices">
+			</select> <input type="submit" class="btn btn-primary"
+				value="Generate invoice pdf" data-ng-click="vm.generateInvoicePdf()">
+		</div>
+	</div>
+	<div class="panel-footer">Author: Francisco Javier Reyes Mangas</div>
 </div>

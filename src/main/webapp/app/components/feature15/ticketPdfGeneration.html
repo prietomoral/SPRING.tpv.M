@@ -1,6 +1,31 @@
-<div class="form-group">
-    <label for="ticket-select">Tickets:</label>
-    <select class="form-control" id="ticket-select" data-ng-init="vm.listTickets()" data-ng-model="vm.selectedTicket" data-ng-options="item.id for item in vm.tickets">
-    </select>
-    <input type="submit" class="btn btn-primary" value="Generate ticket pdf" data-ng-click="vm.generateTicketPdf()">  
+<div class="page-header">
+	<h1>
+		Ticket PDF Generation <small data-ng-show="!vm.authorized"
+			class="text-warning"> <span
+			class="glyphicon glyphicon-exclamation-sign"></span> You are not
+			allowed to generate pdfs!
+		</small>
+	</h1>
+</div>
+
+
+<div data-ng-show="vm.authorized" class="panel panel-default">
+	<div class="panel-heading">Ticket selection panel</div>
+	<div class="panel-body">
+		<h2>
+			<small data-ng-show="vm.tickets.length == 0" class="text-warning">
+				<span class="glyphicon glyphicon-exclamation-sign"></span> There are
+				no tickets! Create one first!
+			</small>
+		</h2>
+		<div class="form-group">
+			<label for="ticket-select">Tickets:</label> <select
+				class="form-control" id="ticket-select"
+				data-ng-init="vm.listTickets()" data-ng-model="vm.selectedTicket"
+				data-ng-options="item.id for item in vm.tickets">
+			</select> <input type="submit" class="btn btn-primary"
+				value="Generate ticket pdf" data-ng-click="vm.generateTicketPdf()">
+		</div>
+	</div>
+	<div class="panel-footer">Author: Francisco Javier Reyes Mangas</div>
 </div>
