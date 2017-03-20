@@ -10,28 +10,43 @@ import org.junit.rules.ExpectedException;
 import org.springframework.http.HttpStatus;
 
 public class SeedResourceFunctionalTesting {
-    
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Before
-    public void setUpOnce() {
+    public void setUp() {
         new RestService().deleteAll();
     }
 
     @Test
     public void testNonexistentFile() {
         thrown.expect(new HttpMatcher(HttpStatus.NOT_FOUND));
-        new RestBuilder<Object>(RestService.URL).path(Uris.SEED).body("nonexistent.yml").post().build();
+        String token = new RestService().loginAdmin();
+        new RestBuilder<Object>(RestService.URL).path(Uris.SEED).body("nonexistent.yml").basicAuth(token, "").post().build();
     }
 
     @Test
     public void testSeedDatabase() {
+        String token = new RestService().loginAdmin();
+        new RestBuilder<Object>(RestService.URL).path(Uris.SEED).body(DEFAULT_SEED_FILE).basicAuth(token, "").post().build();
+    }
+
+    @Test
+    public void testSeedDatabaseUnauthorized() {
+        thrown.expect(new HttpMatcher(HttpStatus.UNAUTHORIZED));
         new RestBuilder<Object>(RestService.URL).path(Uris.SEED).body(DEFAULT_SEED_FILE).post().build();
     }
 
+    @Test
+    public void testSeedDatabaseForbidden() {
+        thrown.expect(new HttpMatcher(HttpStatus.FORBIDDEN));
+        String token = new RestService().registerAndLoginManager();
+        new RestBuilder<Object>(RestService.URL).path(Uris.SEED).body(DEFAULT_SEED_FILE).basicAuth(token, "").post().build();
+    }
+
     @After
-    public void tearDownOnce() {
+    public void tearDown() {
         new RestService().deleteAll();
     }
 }
