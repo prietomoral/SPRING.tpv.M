@@ -44,7 +44,7 @@ tpv.service('f15Service', function($http, $q) {
 	this.generateInvoicePdf = function(invoiceId) {
 		let
 		config = {
-			method : 'GET',
+			method : 'POST',
 			url : urlBase + "/pdfs/invoices",
 			params : {
 				id : invoiceId
@@ -56,7 +56,7 @@ tpv.service('f15Service', function($http, $q) {
 	this.generateTicketPdf = function(ticketId) {
 		let
 		config = {
-			method : 'GET',
+			method : 'POST',
 			url : urlBase + "/pdfs/tickets",
 			params : {
 				id : ticketId

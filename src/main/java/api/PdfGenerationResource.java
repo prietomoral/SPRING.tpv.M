@@ -28,7 +28,7 @@ public class PdfGenerationResource {
         pdfGenerationController.generatePdf(fileName);
     }
     
-    @RequestMapping(value = Uris.INVOICES, method = RequestMethod.GET)
+    @RequestMapping(value = Uris.INVOICES, method = RequestMethod.POST)
     public void generateInvoicePdf(@RequestParam(required = true) int id) throws FileNotFoundException, InvoiceNotFoundException {
         if(pdfGenerationController.invoiceExists(id)){
             pdfGenerationController.generateInvoicePdf(id);
@@ -37,7 +37,7 @@ public class PdfGenerationResource {
         }
     }
     
-    @RequestMapping(value = Uris.TICKETS, method = RequestMethod.GET)
+    @RequestMapping(value = Uris.TICKETS, method = RequestMethod.POST)
     public void generateTicketPdf(@RequestParam(required = true) long id) throws FileNotFoundException, TicketNotFoundException {
         if(pdfGenerationController.ticketExists(id)){
             pdfGenerationController.generateTicketPdf(id);
