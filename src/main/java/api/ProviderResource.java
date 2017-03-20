@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import api.exceptions.NotFoundProviderIdException;
 import controllers.ProviderController;
 import wrappers.ProviderAddWrapper;
 import wrappers.ProviderIdCompanyWrapper;
@@ -40,7 +41,7 @@ public class ProviderResource {
     }
     
     @RequestMapping(value = Uris.ID, method = RequestMethod.GET)
-    public ProviderWrapper getOneById(@PathVariable(value = "id") int id) {
+    public ProviderWrapper getOneById(@PathVariable(value = "id") int id) throws NotFoundProviderIdException {
         return this.providerController.getOneById(id);
     }
     

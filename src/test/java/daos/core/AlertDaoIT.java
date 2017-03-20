@@ -20,7 +20,7 @@ public class AlertDaoIT {
 
 	@Test
 	public void testCreate() {
-		assertEquals(4, alertDao.count());
+		assertEquals(2, alertDao.count());
 	}
 
 }
