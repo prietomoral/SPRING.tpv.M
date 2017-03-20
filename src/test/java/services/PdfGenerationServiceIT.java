@@ -1,5 +1,6 @@
 package services;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -18,6 +19,7 @@ import com.itextpdf.kernel.geom.PageSize;
 import config.PersistenceConfig;
 import config.TestsPersistenceConfig;
 import daos.core.InvoiceDao;
+import entities.core.Invoice;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PersistenceConfig.class, TestsPersistenceConfig.class})
@@ -27,10 +29,10 @@ public class PdfGenerationServiceIT {
     private final static String PDF_FILES_ROOT = "/tpv/pdfs/";
 
     private final static String PDF_FILE_EXT = ".pdf";
-    
+
     @Autowired
     private PdfGenerationService pdfGenerationService;
-    
+
     @Autowired
     private InvoiceDao invoiceDao;
     
@@ -46,26 +48,32 @@ public class PdfGenerationServiceIT {
             fail();
         }
     }
-    
+
     @Test
-    public void testMakeInvoicePdf(){
+    public void testMakeInvoicePdf() {
         String fileName = "INVOICE_20170001";
         String path = USER_HOME + PDF_FILES_ROOT + "/invoices/" + fileName + PDF_FILE_EXT;
         try {
-            pdfGenerationService.makeInvoicePdf(invoiceDao.findOne(20170001));
-            assertTrue(new File(path).exists());
+            Invoice invoice = invoiceDao.findOne(20170001);
+            if (invoice != null) {
+                pdfGenerationService.makeInvoicePdf(invoice);
+                assertTrue(new File(path).exists());
+            } else {
+                assertFalse(new File(path).exists());
+            }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             fail();
         }
     }
-    
+
     @After
-    public void reset(){      
+    public void reset() {
         String path = USER_HOME + PDF_FILES_ROOT + "pdftest" + PDF_FILE_EXT;
-        new File(path).delete();      
+        new File(path).delete();
         path = USER_HOME + PDF_FILES_ROOT + "/invoices/" + "INVOICE_20170001" + PDF_FILE_EXT;
-        new File(path).delete();  
+        new File(path).delete();
     }
 
 }

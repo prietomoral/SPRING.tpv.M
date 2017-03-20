@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.Calendar;
 import java.util.Locale;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itextpdf.kernel.geom.PageSize;
@@ -16,7 +15,6 @@ import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 
-import daos.core.InvoiceDao;
 import entities.core.Invoice;
 import entities.core.Shopping;
 import entities.core.Ticket;
@@ -29,9 +27,6 @@ public class PdfGenerationService {
 
     private final static String PDF_FILE_EXT = ".pdf";
     
-    @Autowired
-    private InvoiceDao invoiceDao;
-
     private void makeDirectories(String path) {
         File file = new File(path);
         if (!file.exists()) {
