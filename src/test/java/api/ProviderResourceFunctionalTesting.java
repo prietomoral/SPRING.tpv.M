@@ -3,14 +3,19 @@ package api;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpClientErrorException;
+
 import wrappers.ProviderAddWrapper;
 import wrappers.ProviderIdCompanyWrapper;
 import wrappers.ProviderWrapper;
@@ -78,19 +83,39 @@ public class ProviderResourceFunctionalTesting {
     }
 
     @Test
+    public void testCreateProviderUnauthorized() {
+        try {
+            ProviderAddWrapper provider = new ProviderAddWrapper();
+            provider.setCompany("Company");
+            provider.setAddress("Address");
+            provider.setMobile(666666666);
+            provider.setPhone(999999999);
+            provider.setPaymentConditions("Payment conditions");
+            provider.setNote("Note");
+
+            new RestBuilder<Object>(RestService.URL).path(Uris.PROVIDERS).body(provider).post().build();
+            fail();
+        } catch (HttpClientErrorException httpError) {
+            assertEquals(HttpStatus.UNAUTHORIZED, httpError.getStatusCode());
+            LogManager.getLogger(this.getClass())
+                    .info("testCreateProviderUnauthorized (" + httpError.getMessage() + "):\n     " + httpError.getResponseBodyAsString());
+        }
+    }
+
+    @Test
     public void testUpdateProvider() {
         String token = new RestService().loginAdmin();
-        
+
         List<ProviderWrapper> providersBefore = Arrays.asList(new RestBuilder<ProviderWrapper[]>(RestService.URL).path(Uris.PROVIDERS).get()
                 .clazz(ProviderWrapper[].class).basicAuth(token, "").build());
-        
+
         ProviderWrapper provider = providersBefore.get(0);
         provider.setAddress("Address");
         new RestBuilder<Object>(RestService.URL).path(Uris.PROVIDERS).body(provider).put().basicAuth(token, "").build();
-        
+
         List<ProviderWrapper> providersAfter = Arrays.asList(new RestBuilder<ProviderWrapper[]>(RestService.URL).path(Uris.PROVIDERS).get()
                 .clazz(ProviderWrapper[].class).basicAuth(token, "").build());
-        
+
         assertEquals("Address", providersAfter.get(0).getAddress());
     }
 
@@ -102,7 +127,7 @@ public class ProviderResourceFunctionalTesting {
 
         int id = providersBefore.get(0).getId();
         new RestBuilder<Object>(RestService.URL).path(Uris.PROVIDERS + "/" + id).delete().basicAuth(token, "").build();
-        
+
         List<ProviderWrapper> providersAfter = Arrays.asList(new RestBuilder<ProviderWrapper[]>(RestService.URL).path(Uris.PROVIDERS).get()
                 .clazz(ProviderWrapper[].class).basicAuth(token, "").build());
 
@@ -118,6 +143,18 @@ public class ProviderResourceFunctionalTesting {
                 .clazz(ProviderWrapper[].class).basicAuth(token, "").build());
 
         assertEquals(0, providersAfter.size());
+    }
+
+    @Test
+    public void testDeleteAllProviderUnauthorized() {
+        try {
+            new RestBuilder<Object>(RestService.URL).path(Uris.PROVIDERS).delete().build();
+            fail();
+        } catch (HttpClientErrorException httpError) {
+            assertEquals(HttpStatus.UNAUTHORIZED, httpError.getStatusCode());
+            LogManager.getLogger(this.getClass()).info(
+                    "testDeleteAllProviderUnauthorized (" + httpError.getMessage() + "):\n     " + httpError.getResponseBodyAsString());
+        }
     }
 
     @After
