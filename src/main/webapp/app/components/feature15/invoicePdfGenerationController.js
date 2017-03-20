@@ -5,11 +5,12 @@ tpv.controller('InvoicePdfGenerationController', [
 			"use strict";
 			var vm = this;
 
+			vm.authorized = f15Service.isAuthorized();
+			
 			vm.completed = false;
 			vm.error = false;
 			vm.generateInvoicePdf = generateInvoicePdf;
 			vm.listInvoices = listInvoices;
-			vm.response = "";
 			vm.invoices = {};
 			vm.invoice = {};
 
@@ -19,9 +20,6 @@ tpv.controller('InvoicePdfGenerationController', [
 				f15Service.generateInvoicePdf(vm.invoice.id).then(
 						function(result) {
 							vm.completed = true;
-							vm.response = result.token + ":" + result.rol;
-							sessionStorage.token = result.token;
-							sessionStorage.rol = result.rol;
 							$timeout(function() {
 								vm.completed = false;
 							}, delay)

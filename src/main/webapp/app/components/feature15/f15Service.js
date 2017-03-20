@@ -82,4 +82,8 @@ tpv.service('f15Service', function($http, $q) {
 		};
 		return this.request(config);
 	}
+	
+	this.isAuthorized = function () {
+		return sessionStorage.token != null && sessionStorage.token !== undefined && (sessionStorage.rol == 'MANAGER' || sessionStorage.rol == 'OPERATOR' || sessionStorage.rol == 'ADMIN') ;
+	}
 });
