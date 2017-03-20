@@ -17,10 +17,11 @@ import com.itextpdf.kernel.geom.PageSize;
 
 import config.PersistenceConfig;
 import config.TestsPersistenceConfig;
+import daos.core.InvoiceDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PersistenceConfig.class, TestsPersistenceConfig.class})
-public class PdfGenerationServiceTest {
+public class PdfGenerationServiceIT {
     private final static String USER_HOME = System.getProperty("user.home");
 
     private final static String PDF_FILES_ROOT = "/tpv/pdfs/";
@@ -29,6 +30,9 @@ public class PdfGenerationServiceTest {
     
     @Autowired
     private PdfGenerationService pdfGenerationService;
+    
+    @Autowired
+    private InvoiceDao invoiceDao;
     
     @Test
     public void testIfPdfDocumentHasBeenGenerated() {
@@ -48,7 +52,7 @@ public class PdfGenerationServiceTest {
         String fileName = "INVOICE_20170001";
         String path = USER_HOME + PDF_FILES_ROOT + "/invoices/" + fileName + PDF_FILE_EXT;
         try {
-            pdfGenerationService.makeInvoicePdf(20170001);
+            pdfGenerationService.makeInvoicePdf(invoiceDao.findOne(20170001));
             assertTrue(new File(path).exists());
         } catch (FileNotFoundException e) {
             e.printStackTrace();

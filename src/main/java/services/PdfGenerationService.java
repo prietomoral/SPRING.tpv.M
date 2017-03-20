@@ -53,8 +53,7 @@ public class PdfGenerationService {
         pdfDocument.close();
     }
     
-    public void makeInvoicePdf(int id) throws FileNotFoundException{
-        Invoice invoice = invoiceDao.findOne(id);
+    public void makeInvoicePdf(Invoice invoice) throws FileNotFoundException{
         String ownPath = "/invoices/";
         String fileName = "INVOICE_" + invoice.getId();
         String path = USER_HOME + PDF_FILES_ROOT + ownPath + fileName + PDF_FILE_EXT;
@@ -64,7 +63,7 @@ public class PdfGenerationService {
         Ticket ticket = invoice.getTicket();
         pdfDocument.add(new Paragraph("Reference: " + ticket.getReference()));
         pdfDocument.add(new Paragraph("Ticket state: " + ticket.getTicketState().toString()));
-        pdfDocument.add(new Paragraph("Created: " + ticket.getCreated().getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())));
+        pdfDocument.add(new Paragraph("Created: " + ticket.getCreated().getDisplayName(Calendar.SHORT_FORMAT, Calendar.LONG, Locale.getDefault())));
         pdfDocument.add(new Paragraph("Shopping list:"));
         List shoppingList = new List();
         for(Shopping shopping : ticket.getShoppingList()){

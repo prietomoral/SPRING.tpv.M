@@ -86,7 +86,7 @@ public class InvoiceController {
         if (count == 0){
             return 20170001;
         }else{
-            return invoiceDao.findFirstByOrderByIdDesc().getId() +1;
+            return invoiceDao.findFirstByOrderByIdDesc().getId() + 1;
         }
     }
 	

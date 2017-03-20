@@ -2,6 +2,7 @@ package controllers;
 
 import com.itextpdf.kernel.geom.PageSize;
 
+import entities.core.Invoice;
 import services.PdfGenerationService;
 
 public class PdfGenerationServiceMock extends PdfGenerationService{
@@ -15,7 +16,7 @@ public class PdfGenerationServiceMock extends PdfGenerationService{
     }
     
     @Override
-    public void makeInvoicePdf(int id){
+    public void makeInvoicePdf(Invoice invoice){
         invoiceExecuted = true;
     }
 
