@@ -11,8 +11,8 @@ tpv.controller('InvoicePdfGenerationController', [
 			vm.error = false;
 			vm.generateInvoicePdf = generateInvoicePdf;
 			vm.listInvoices = listInvoices;
-			vm.invoices = {};
-			vm.invoice = {};
+			vm.invoices = [];
+			vm.invoice = [];
 
 			function generateInvoicePdf() {
 				const
@@ -36,6 +36,7 @@ tpv.controller('InvoicePdfGenerationController', [
 				f15Service.findAllInvoices().then(function success(response) {
 					console.log(response);
 					vm.invoices = response;
+					vm.invoice = vm.invoices[0];
 				}, function error(errors) {
 					console.log(errors);
 				});

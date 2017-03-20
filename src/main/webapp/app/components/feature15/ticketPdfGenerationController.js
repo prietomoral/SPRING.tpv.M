@@ -36,6 +36,7 @@ tpv.controller('TicketPdfGenerationController', [
 				f15Service.findAllTickets().then(function success(response) {
 					console.log(response);
 					vm.tickets = response;
+					vm.selectedTicket = vm.tickets[0];
 				}, function error(errors) {
 					console.log(errors);
 				});
