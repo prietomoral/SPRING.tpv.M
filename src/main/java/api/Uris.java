@@ -50,4 +50,5 @@ public class Uris {
     
     public static final String GENERATE_PDF = "/pdfs";
 
+    public static final String TICKETS = "/tickets";
 }

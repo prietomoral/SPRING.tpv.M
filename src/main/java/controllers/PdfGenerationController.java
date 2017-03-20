@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import com.itextpdf.kernel.geom.PageSize;
 
 import daos.core.InvoiceDao;
+import daos.core.TicketDao;
 import entities.core.Invoice;
+import entities.core.Ticket;
 import services.PdfGenerationService;
 
 @Controller
@@ -16,6 +18,7 @@ public class PdfGenerationController {
 
     private PdfGenerationService pdfGenerationService;
     private InvoiceDao invoiceDao;
+    private TicketDao ticketDao;
     
     @Autowired
     public void setPdfGenerationService(PdfGenerationService pdfGenerationService){
@@ -25,6 +28,11 @@ public class PdfGenerationController {
     @Autowired
     public void setInvoiceDao(InvoiceDao invoiceDao){
         this.invoiceDao = invoiceDao;
+    }
+    
+    @Autowired
+    public void setTicketDao(TicketDao ticketDao){
+        this.ticketDao = ticketDao;
     }
  
     public void generatePdf(String fileName) throws FileNotFoundException{
@@ -36,5 +44,12 @@ public class PdfGenerationController {
         if(invoice != null){
             pdfGenerationService.makeInvoicePdf(invoice);
         }        
+    }
+    
+    public void generateTicketPdf(long ticketId) throws FileNotFoundException{
+        Ticket ticket = ticketDao.findOne(ticketId);
+        if(ticket != null){
+            pdfGenerationService.makeTicketPdf(ticket);
+        }
     }
 }
