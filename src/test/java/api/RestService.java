@@ -1,6 +1,5 @@
 package api;
 
-import api.Uris;
 import wrappers.TokenWrapper;
 import wrappers.UserWrapper;
 
@@ -27,6 +26,12 @@ public class RestService {
         new RestBuilder<Object>(URL).path(Uris.USERS).body(manager).basicAuth(this.loginAdmin(), "").post().build();
         TokenWrapper token = new RestBuilder<TokenWrapper>(URL).path(Uris.TOKENS)
                 .basicAuth(Long.toString(manager.getMobile()), manager.getPassword()).clazz(TokenWrapper.class).post().build();
+        return token.getToken();
+    }
+
+    public String loginManager() {
+        TokenWrapper token = new RestBuilder<TokenWrapper>(URL).path(Uris.TOKENS).basicAuth("666000666", "pass").clazz(TokenWrapper.class)
+                .post().build();
         return token.getToken();
     }
 

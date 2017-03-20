@@ -16,6 +16,7 @@
     <script src="assets/js/alertify.js"></script>
     <script src="assets/js/autocomplete.js"></script>
     <script src="assets/js/angular-messages.js"></script>
+    <script src="assets/js/checklist.js"></script>
 
     <!-- Configuración -->
     <script src="app/config.js"></script>
@@ -34,6 +35,7 @@
     <script src="app/components/feature02/createProviderController.js"></script>
     <script src="app/components/feature02/listProviderController.js"></script>
     <script src="app/components/feature02/listIdCompanyProviderController.js"></script>
+    <script src="app/components/feature02/editProviderController.js"></script>
 
      <!-- Autor: Hector Lozano y Abraham Montas -->
     <script src="app/components/feature03/f03Service.js"></script>
@@ -60,11 +62,17 @@
     <script src="app/components/feature10/alertsNewController.js"></script>
     <script src="app/components/feature10/alertsShowController.js"></script>
     <script src="app/components/feature10/alerts-directive.js"></script>
+    <script src="app/components/feature10/alertFamilyService.js"></script>
+    <script src="app/components/feature10/alertFamilyController.js"></script>
+    <script src="app/components/feature10/alertFamilyShowController.js"></script>
+    <script src="app/components/feature10/alertFamilyEditController.js"></script>
+    <script src="app/components/feature10/alertFamilyNewController.js"></script>
 
     <!-- Autor: Mariana Salcedo -->
     <script src="app/components/feature07/f07Service.js"></script>
     <script src="app/components/feature07/createVoucherController.js"></script>
     <script src="app/components/feature07/listVoucherController.js"></script>
+    <script src="app/components/feature07/useVoucherController.js"></script>
 
     <!-- Autor: Corina Cabrera. -->
     <script src="app/components/feature08/f08Service.js"></script>
@@ -74,11 +82,21 @@
     <script src="app/components/feature08/userListController.js"></script>
     <script src="app/components/feature08/userModifyController.js"></script>
     <script src="app/components/feature08/populateController.js"></script>
-        
+
     <!-- Autor: Javier Ruiz -->
     <script src="app/components/feature14/PopularProductsController.js"></script>
+    <script src="app/components/feature14/ProductByDateController.js"></script>
     <script src="app/components/feature14/f14Service.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <!-- Autor: Francisco Javier Reyes Mangas -->
+    <script src="app/components/feature15/f15Service.js"></script>
+    <script src="app/components/feature15/pdfGenerationController.js"></script>
+    <script src="app/components/feature15/invoicePdfGenerationController.js"></script>
+
+    <!--  Autor: Jorge Martinez -->
+    <script src="app/components/feature13/f13Service.js"></script>
+    <script src="app/components/feature13/jobController.js"></script>
 
 
 </head>
@@ -141,10 +159,11 @@
            </li>
 
            <!-- Autor: Mariana Salcedo. -->
-           <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">F07<b class="caret"></b></a>
+           <li class="dropdown"><a href class="dropdown-toggle" data-toggle="dropdown">F07<b class="caret"></b></a>
              <ul class="dropdown-menu">
                <li><a href="#/feature07/create-voucher">Create Voucher</a></li>
                <li><a href="#/feature07/list-vouchers">List Vouchers</a></li>
+               <li><a href="#/feature07/use-voucher">Use Voucher</a></li>
              </ul>
            </li>
 
@@ -161,7 +180,8 @@
            <!-- Autor: Fco. Javier R. M. -->
            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">F15<b class="caret"></b></a>
              <ul class="dropdown-menu">
-               <li><a href="#/feature15">Generate PDF</a></li>
+                <li><a href="#/feature15/invoices">Generate Invoice PDF</a></li>
+               <li><a href="#/feature15/test">Generate PDF (test)</a></li>
              </ul>
            </li>
 
@@ -171,7 +191,14 @@
                <li><a href="#/feature10/new">Nuevo</a></li>
              </ul>
            </li>
-           
+
+           <!-- Autor: Jorge Martinez -->
+           <li class="dropdown"><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">F13<b class="caret"></b></a>
+             <ul class="dropdown-menu">
+               <li><a href="#/feature13">Lanzar Trabajo Limpieza Tokens</a></li>
+             </ul>
+           </li>
+
            <!-- Autor: Javier Ruiz -->
             <li class="dropdown"><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">F14<b class="caret"></b></a>
              <ul class="dropdown-menu">

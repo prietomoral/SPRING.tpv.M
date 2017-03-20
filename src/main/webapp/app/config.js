@@ -2,7 +2,8 @@ var tpv = angular.module("tpv", ["ngRoute",
                                  'bw.paging',
                                  "Alertify",
                                  "angucomplete-alt",
-                                 "ngMessages"]);
+                                 "ngMessages",
+                                 "checklist-model"]);
 
 tpv.config(function ($routeProvider) {
     "use strict";
@@ -43,6 +44,11 @@ tpv.config(function ($routeProvider) {
         .when("/feature02/list-id-company-providers", {
             templateUrl: "app/components/feature02/listIdCompanyProviders.html",
             controller: "ListIdCompanyProviderController",
+            controllerAs: "vm"
+        })
+        .when("/feature02/edit-provider/:idProvider", {
+            templateUrl: "app/components/feature02/editProvider.html",
+            controller: "EditProviderController",
             controllerAs: "vm"
         })
         .when("/feature03/list-embroidery", {
@@ -108,28 +114,46 @@ tpv.config(function ($routeProvider) {
         .when("/feature07/create-voucher", {
             templateUrl: "app/components/feature07/createVoucher.html",
             controller: "CreateVoucherController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+            resolve: {
+                notAutorized: checkAuthVouchers
+              }
         })
         .when("/feature07/list-vouchers", {
             templateUrl: "app/components/feature07/listVouchers.html",
             controller: "ListVouchersController",
             controllerAs: "vm"
         })
+        .when("/feature07/use-voucher", {
+            templateUrl: "app/components/feature07/useVoucher.html",
+            controller: "UseVoucherController",
+            controllerAs: "vm",
+            resolve: {
+                notAutorized: checkAuthVouchers
+              }
+        })
         .when("/feature10", {
             templateUrl: "app/components/feature10/index.html",
             controller: "AlertsController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+            resolve: {
+              notAutorized: resolverAlerts
+            }
         })
         .when("/feature10/:id/show", {
             templateUrl: "app/components/feature10/show.html",
             controller: "AlertsShowController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+            resolve: {
+              notAutorized: resolverAlerts
+            }
         })
         .when("/feature10/new", {
             templateUrl: "app/components/feature10/new.html",
             controller: "AlertsNewController",
             controllerAs: "vm",
             resolve: {
+              notAutorized: resolverAlerts,
               articles: function(f03Service, $location, Alertify){
                 return f03Service.listAllArticles().then(function success(response){
                   if (response.length === 0) {
@@ -147,6 +171,7 @@ tpv.config(function ($routeProvider) {
             controller: "AlertsEditController",
             controllerAs: "vm",
             resolve: {
+              notAutorized: resolverAlerts,
               articles: function(f03Service, $location, Alertify){
                 return f03Service.listAllArticles().then(function success(response){
                   if (response.length === 0) {
@@ -159,9 +184,66 @@ tpv.config(function ($routeProvider) {
               }
             }
         })
-        .when("/feature15", {
-            templateUrl: "app/components/feature15/generatePDF.html",
-            controller: "PDFGenerationController",
+        .when("/feature10/families", {
+            templateUrl: "app/components/feature10/index-families.html",
+            controller: "AlertFamilyController",
+            controllerAs: "vm",
+            resolve: {
+              notAutorized: resolverAlerts
+            }
+        })
+        .when("/feature10/families/new", {
+            templateUrl: "app/components/feature10/new-family.html",
+            controller: "AlertFamilyNewController",
+            controllerAs: "vm",
+            resolve: {
+              notAutorized: resolverAlerts,
+              alerts: function(AlertsService, $location, Alertify){
+                return AlertsService.getAll().then(function success(response){
+                  if (response.length === 0) {
+                    $location.url('/feature10');
+                    Alertify.log('No existen alertas.\nNecesitas crear una antes de crear una familia');
+                  }else{
+                    return response;
+                  }
+                });
+              }
+            }
+        })
+        .when("/feature10/families/:id/show", {
+            templateUrl: "app/components/feature10/show-family.html",
+            controller: "AlertFamilyShowController",
+            controllerAs: "vm",
+            resolve: {
+              notAutorized: resolverAlerts
+            }
+        })
+        .when("/feature10/families/:id/edit", {
+            templateUrl: "app/components/feature10/edit-family.html",
+            controller: "AlertFamilyEditController",
+            controllerAs: "vm",
+            resolve: {
+              notAutorized: resolverAlerts,
+              alerts: function(AlertsService, $location, Alertify){
+                return AlertsService.getAll().then(function success(response){
+                  if (response.length === 0) {
+                    $location.url('/feature10');
+                    Alertify.log('No existen alertas.\nNecesitas crear una antes de crear una familia');
+                  }else{
+                    return response;
+                  }
+                });
+              }
+            }
+        })
+        .when("/feature15/test", {
+            templateUrl: "app/components/feature15/pdfGeneration.html",
+            controller: "PdfGenerationController",
+            controllerAs: "vm"
+        })
+        .when("/feature15/invoices", {
+            templateUrl: "app/components/feature15/invoicePdfGeneration.html",
+            controller: "InvoicePdfGenerationController",
             controllerAs: "vm"
         })
         .when("/feature08/create-invoice", {
@@ -204,10 +286,31 @@ tpv.config(function ($routeProvider) {
             controller: "ProductByDateController",
             controllerAs: "vm"
         })
+        .when("/feature13",{
+        	templateUrl: "app/components/feature13/jobIndex.html",
+            controller: "JobController",
+            controllerAs: "vm"
+        })
 
         .otherwise({
             redirectTo: '/'
         });
+
+    function checkAuthVouchers($window, $location, Alertify){
+        var role = $window.sessionStorage.getItem('rol');
+        if (!role || role !== "MANAGER" || role !== "OPERATOR") {
+          $location.url('/feature00/login');
+          Alertify.error('You must be logged as Manager or Operator to create or used a Voucher.');
+        }
+      }
+
+        function resolverAlerts($window, $location, Alertify){
+          var rol = $window.sessionStorage.getItem('rol');
+          if (!rol || rol !== "MANAGER" ) {
+            $location.url('/feature00/login');
+            Alertify.error('Debes iniciar sesión como Mánager para acceder a Alertas');
+          }
+        }
 
 });
 

@@ -41,17 +41,22 @@ public class ProviderResource {
     }
     
     @RequestMapping(value = Uris.ID, method = RequestMethod.GET)
-    public ProviderWrapper getOneById(@PathVariable(value = "id") int id) {
+    public ProviderWrapper getOneById(@PathVariable(value = "id") int id) throws NotFoundProviderIdException {
         return this.providerController.getOneById(id);
     }
     
     @RequestMapping(value = Uris.ID, method = RequestMethod.DELETE)
-    public void delete(@PathVariable(value = "id") int id) throws NotFoundProviderIdException {
+    public void delete(@PathVariable(value = "id") int id) {
         this.providerController.delete(id);
     }
     
     @RequestMapping(method = RequestMethod.DELETE)
     public void deleteAll() {
         this.providerController.deleteAll();
+    }
+    
+    @RequestMapping(method = RequestMethod.PUT)
+    public void update(@RequestBody ProviderWrapper providerWrapper) {
+        this.providerController.update(providerWrapper);
     }
 }

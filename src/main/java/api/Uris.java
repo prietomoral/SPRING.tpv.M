@@ -20,6 +20,8 @@ public class Uris {
 
     public static final String ALERTS = "/alerts";
 
+    public static final String ALERTSFAMILY = "/alerts-family";
+
     public static final String ARTICLES = "/articles";
 
     public static final String SEARCH = "/search";
@@ -29,11 +31,11 @@ public class Uris {
     public static final String EMBROIDERIES = "/embroideries";
 
     public static final String PROVIDERS = "/providers";
-    
+
     public static final String PROVIDERS_ID_COMPANY = "/idcompany";
 
     public static final String TEXTILE_PRINTINGS = "/textileprintings";
-    
+
     public static final String VOUCHERS = "/vouchers";
 
     public static final String STATISTIC = "/statistic";
@@ -43,5 +45,9 @@ public class Uris {
     public static final String POPULAR_PRODUCTS = "/poopularProducts";
 
     public static final String POPULATE = "/populate";
+    
+    public static final String JOB = "/job";
+    
+    public static final String GENERATE_PDF = "/pdfs";
 
 }

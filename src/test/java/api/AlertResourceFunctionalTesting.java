@@ -16,19 +16,20 @@ public class AlertResourceFunctionalTesting {
     @BeforeClass
     public static void populate() {
         new RestService().populate();
+        new RestService().registerAndLoginManager();
     }
 
     @Test
     public void testGetAllAlerts() {
-        String token = new RestService().loginAdmin();
+        String token = new RestService().loginManager();
         AlertListWrapper alerts = new RestBuilder<AlertListWrapper>(RestService.URL).path(Uris.ALERTS).basicAuth(token, "")
                 .clazz(AlertListWrapper.class).get().build();
-        assertEquals(7, alerts.size());
+        assertEquals(5, alerts.size());
     }
 
     @Test
     public void testGetOneAlert() {
-        String token = new RestService().loginAdmin();
+        String token = new RestService().loginManager();
         AlertListWrapper alerts = new RestBuilder<AlertListWrapper>(RestService.URL).path(Uris.ALERTS).basicAuth(token, "")
                 .clazz(AlertListWrapper.class).get().build();
         AlertWrapper alert = new RestBuilder<AlertWrapper>(RestService.URL).path(Uris.ALERTS + "/" + alerts.get(0).getId())
@@ -38,7 +39,7 @@ public class AlertResourceFunctionalTesting {
 
     @Test
     public void testUpdateAlert() {
-        String token = new RestService().loginAdmin();
+        String token = new RestService().loginManager();
         AlertListWrapper alerts = new RestBuilder<AlertListWrapper>(RestService.URL).path(Uris.ALERTS).basicAuth(token, "")
                 .clazz(AlertListWrapper.class).get().build();
         new RestBuilder<Object>(RestService.URL).path(Uris.ALERTS + '/' + alerts.get(0).getId())
@@ -50,19 +51,19 @@ public class AlertResourceFunctionalTesting {
 
     @Test
     public void testDeleteAlert() {
-        String token = new RestService().loginAdmin();
+        String token = new RestService().loginManager();
         AlertListWrapper alerts = new RestBuilder<AlertListWrapper>(RestService.URL).path(Uris.ALERTS).basicAuth(token, "")
                 .clazz(AlertListWrapper.class).get().build();
-        assertEquals(4, alerts.size());
+        assertEquals(2, alerts.size());
         new RestBuilder<Object>(RestService.URL).path(Uris.ALERTS + '/' + alerts.get(0).getId()).basicAuth(token, "").delete().build();
         AlertListWrapper alertsUpdated = new RestBuilder<AlertListWrapper>(RestService.URL).path(Uris.ALERTS).basicAuth(token, "")
                 .clazz(AlertListWrapper.class).get().build();
-        assertEquals(3, alertsUpdated.size());
+        assertEquals(1, alertsUpdated.size());
     }
 
     @Test
     public void testCreateAlert() {
-        String token = new RestService().loginAdmin();
+        String token = new RestService().loginManager();
         for (int i = 0; i < 4; i++) {
             new RestBuilder<Object>(RestService.URL).path(Uris.ALERTS).body(new AlertWrapperCreate(5, 2, 84000001111L + 0))
                     .basicAuth(token, "").post().build();

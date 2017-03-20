@@ -31,10 +31,10 @@ authorizationList:
     role: CUSTOMER
   - user: *user666000003
     role: CUSTOMER
-    
+
 tokenList:
   - user: *user666000000
-  
+
 voucherList:
   - value: 0
   - value: 20
@@ -44,7 +44,7 @@ voucherList:
   - value: 80
     created: 2016-12-20 12:58:37.00 +1
     dateOfUse: 2017-03-14 11:00:00.00 +1
-    
+
 providerList:
   - &provider666100000
     company: company0
@@ -72,7 +72,7 @@ providerList:
     phone: 916661003
     paymentConditions: No
     note: No
-    
+
 articleList:
   - &article84000001111
     id: 84000001111
@@ -81,12 +81,12 @@ articleList:
     description: article0
     wholesalePrice: 10
     provider: *provider666100000
-  - id: 84000001112
+  - &article84000001112
+    id: 84000001112
     reference: article1
     retailPrice: 21
     description: article1
     wholesalePrice: 11
-    stock: 5
     provider: *provider666100000
   - id: 84000001113
     reference: article2
@@ -99,20 +99,12 @@ articleList:
     retailPrice: 23
     description: article3
     wholesalePrice: 13
-    stock: 2
     provider: *provider666100000
-  - id: 84000001115
-    reference: article4
-    retailPrice: 24
-    description: article4
-    wholesalePrice: 14
-    provider: *provider666100001
   - id: 84000001116
     reference: article5
     retailPrice: 25
     description: article5
     wholesalePrice: 15
-    stock: 22
     provider: *provider666100001
   - id: 84000001117
     reference: article6
@@ -121,13 +113,18 @@ articleList:
     wholesalePrice: 16
     provider: *provider666100001
   - id: 84000001118
-    reference: article9
-    retailPrice: 29
-    description: article9
-    wholesalePrice: 19
-    stock: 39
+    reference: article7
+    retailPrice: 27
+    description: article7
+    wholesalePrice: 17
     provider: *provider666100001
-    
+  - id: 84000001119
+    reference: article8
+    retailPrice: 28
+    description: article8
+    wholesalePrice: 18
+    provider: *provider666100001
+
 embroideryList:
   - id: 84000002222
     reference: embroidery0
@@ -152,12 +149,12 @@ embroideryList:
     squareMillimeters: 20
   - id: 84000002225
     reference: embroidery3
-    retailPrice: 30
+    retailPrice: 23
     description: embroidery3
     stitches: 3000
     colors: 3
     squareMillimeters: 30
-    
+
 textilePrintingList:
   - id: 84000003333
     reference: textilePrinting0
@@ -247,7 +244,7 @@ ticketList:
         productId: 84000003335
         description: textilePrinting2
         retailPrice: 22
-      - amount: 4
+      - amount: 6
         discount: 10
         productId: 84000003336
         description: textilePrinting3
@@ -272,7 +269,7 @@ ticketList:
         productId: 84000003335
         description: textilePrinting2
         retailPrice: 22
-      - amount: 4
+      - amount: 3
         discount: 10
         productId: 84000003336
         description: textilePrinting3
@@ -296,29 +293,23 @@ ticketList:
         productId: 84000003335
         description: textilePrinting2
         retailPrice: 22
-      - amount: 4
+      - amount: 5
         discount: 10
         productId: 84000003336
         description: textilePrinting3
         retailPrice: 23
-    user: *user666000000
+    user: *user666000002
 
 invoiceList:
   - id: 20170001
     ticket: *ticket3
   - id: 20170002
     ticket: *ticket4
-    
+
 alertList:
-  - warning: 0
-    critical: 0
+  - warning: 10
+    critical: 5
     article: *article84000001111
-  - warning: 1
-    critical: 2
-    article: *article84000001111
-  - warning: 2
-    critical: 4
-    article: *article84000001111
-  - warning: 3
+  - warning: 4
     critical: 6
-    article: *article84000001111
+    article: *article84000001112
