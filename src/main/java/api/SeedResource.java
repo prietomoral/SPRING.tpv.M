@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import api.exceptions.NotFoundYamlFileException;
 import controllers.SeedController;
+import wrappers.FileNameWrapper;
 
 @RestController
 @RequestMapping(Uris.VERSION + Uris.SEED)
@@ -21,7 +22,8 @@ public class SeedResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void seedDatabase(@RequestBody String fileName) throws NotFoundYamlFileException {
+    public void seedDatabase(@RequestBody FileNameWrapper fileNameWrapper) throws NotFoundYamlFileException {
+        String fileName = fileNameWrapper.getFileName();
         if (!seedController.yamlFileExists(fileName)) {
             throw new NotFoundYamlFileException();
         } else {
