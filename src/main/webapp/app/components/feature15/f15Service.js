@@ -52,12 +52,33 @@ tpv.service('f15Service', function($http, $q) {
 		};
 		return this.request(config);
 	}
+	
+	this.generateTicketPdf = function(ticketId) {
+		let
+		config = {
+			method : 'GET',
+			url : urlBase + "/pdfs/tickets",
+			params : {
+				id : ticketId
+			}
+		};
+		return this.request(config);
+	}
 
 	this.findAllInvoices = function() {
 		let
 		config = {
 			method : 'GET',
 			url : urlBase + "/invoices"
+		};
+		return this.request(config);
+	}
+	
+	this.findAllTickets = function(){
+		let
+		config = {
+			method : 'GET',
+			url : urlBase + "/tickets"
 		};
 		return this.request(config);
 	}

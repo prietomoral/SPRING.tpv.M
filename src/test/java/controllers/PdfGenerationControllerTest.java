@@ -40,5 +40,15 @@ public class PdfGenerationControllerTest {
             fail();
         }
     }
+    
+    @Test
+    public void testGenerateTicketPdf() {
+        try {
+            pdfGenerationController.generateTicketPdf(3);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
 
 }

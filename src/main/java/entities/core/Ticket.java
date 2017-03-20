@@ -120,7 +120,7 @@ public class Ticket {
     public String toString() {
         String createTime = new SimpleDateFormat("HH:00 dd-MMM-yyyy ").format(created.getTime());
         String usuario = "none";
-        if(this.getUser() == null){
+        if(this.getUser() != null){
             return "Ticket[" + id + ": created=" + createTime + ", ticketState=" + ticketState + ", shoppingList=" + shoppingList + ", userId="
                     + user.getId() + "]";
         }else{

@@ -1,4 +1,4 @@
-tpv.controller('InvoicePdfGenerationController', [
+tpv.controller('TicketPdfGenerationController', [
 		'$timeout',
 		'f15Service',
 		function($timeout, f15Service) {
@@ -7,16 +7,16 @@ tpv.controller('InvoicePdfGenerationController', [
 
 			vm.completed = false;
 			vm.error = false;
-			vm.generateInvoicePdf = generateInvoicePdf;
-			vm.listInvoices = listInvoices;
+			vm.generateTicketPdf = generateTicketPdf;
+			vm.listTickets = listTickets;
 			vm.response = "";
-			vm.invoices = {};
-			vm.invoice = {};
+			vm.tickets = {};
+			vm.selectedTicket = {};
 
-			function generateInvoicePdf() {
+			function generateTicketPdf() {
 				const
 				delay = 2000;
-				f15Service.generateInvoicePdf(vm.invoice.id).then(
+				f15Service.generateTicketPdf(vm.selectedTicket.id).then(
 						function(result) {
 							vm.completed = true;
 							vm.response = result.token + ":" + result.rol;
@@ -34,10 +34,10 @@ tpv.controller('InvoicePdfGenerationController', [
 						});
 			}
 
-			function listInvoices() {
-				f15Service.findAllInvoices().then(function success(response) {
+			function listTickets() {
+				f15Service.findAllTickets().then(function success(response) {
 					console.log(response);
-					vm.invoices = response;
+					vm.tickets = response;
 				}, function error(errors) {
 					console.log(errors);
 				});

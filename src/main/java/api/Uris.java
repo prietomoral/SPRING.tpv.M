@@ -52,4 +52,5 @@ public class Uris {
     
     public static final String SEED = "/seed";
 
+    public static final String TICKETS = "/tickets";
 }
