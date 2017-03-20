@@ -24,6 +24,7 @@ tpv.service('f14Service', ['$http', '$q', function ($http, $q) {
    
    this.popular = function () {
 	   let config = {
+	     headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
  	     method: 'GET',
  	     url: urlBase+"/poopularProducts",
 	  };
@@ -31,9 +32,11 @@ tpv.service('f14Service', ['$http', '$q', function ($http, $q) {
    }
    this.productDate = function (product_id,fecha_inicio,fecha_fin) {
 	   let config = {
+	     headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
  	     method: 'POST',
  	     url: urlBase+"/byDate",
  	     data:{'id':product_id,'inicio':fecha_inicio,'fin':fecha_fin}
 	  };
       return this.request(config);
    }
+}]);

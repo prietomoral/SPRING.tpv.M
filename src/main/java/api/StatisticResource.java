@@ -25,13 +25,13 @@ public class StatisticResource {
         this.statisticController = statisticController;
     }
 
-    @PreAuthorize("hasRole('MANAGER') or hasRole('OPERATOR')")
+    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
     @RequestMapping(value = Uris.POPULAR_PRODUCTS, method = RequestMethod.GET)
     public List<TotalSoldProductWrapper> getPopularProducts() {
         return this.statisticController.getMostSoldProducts();
     }
 
-    @PreAuthorize("hasRole('MANAGER') or hasRole('OPERATOR')")
+    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
     @RequestMapping(value = Uris.BY_DATE, method = RequestMethod.POST)
     public List<StatisticProductByDateWrapper> getProductSalesInTime(@RequestBody StatisticDataWrapper statisticData) {
         return statisticController.getSoldsOfProductByDate(statisticData);
