@@ -246,6 +246,11 @@ tpv.config(function ($routeProvider) {
             controller: "InvoicePdfGenerationController",
             controllerAs: "vm"
         })
+        .when("/feature15/tickets", {
+            templateUrl: "app/components/feature15/ticketPdfGeneration.html",
+            controller: "TicketPdfGenerationController",
+            controllerAs: "vm"
+        })
         .when("/feature08/create-invoice", {
             templateUrl: "app/components/feature08/create.html",
             controller: "CreateInvoiceController",

@@ -2,8 +2,7 @@ package services;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Calendar;
-import java.util.Locale;
+import java.text.SimpleDateFormat;
 
 import org.springframework.stereotype.Service;
 
@@ -11,9 +10,8 @@ import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.List;
-import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
 
 import entities.core.Invoice;
 import entities.core.Shopping;
@@ -26,6 +24,10 @@ public class PdfGenerationService {
     private final static String PDF_FILES_ROOT = "/tpv/pdfs/";
 
     private final static String PDF_FILE_EXT = ".pdf";
+    
+    private final static float[] SHOPPING_LIST_COLUMNS_WIDTHS = new float[]{
+            10.0f, 30.0f, 30.0f, 10.0f, 40.0f, 30.0f
+    };
     
     private void makeDirectories(String path) {
         File file = new File(path);
@@ -56,19 +58,59 @@ public class PdfGenerationService {
         Document pdfDocument = getPdfDocument(path, PageSize.A4);
         pdfDocument.add(new Paragraph(fileName));
         Ticket ticket = invoice.getTicket();
+        pdfDocument.add(new Paragraph("====================== Ticket ======================"));
         pdfDocument.add(new Paragraph("Reference: " + ticket.getReference()));
         pdfDocument.add(new Paragraph("Ticket state: " + ticket.getTicketState().toString()));
-        pdfDocument.add(new Paragraph("Created: " + ticket.getCreated().getDisplayName(Calendar.SHORT_FORMAT, Calendar.LONG, Locale.getDefault())));
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        pdfDocument.add(new Paragraph("Created on: " + formatter.format(ticket.getCreated().getTime())));
         pdfDocument.add(new Paragraph("Shopping list:"));
-        List shoppingList = new List();
+        Table shoppingListTable = new Table(SHOPPING_LIST_COLUMNS_WIDTHS);
+        shoppingListTable.addCell("Id");
+        shoppingListTable.addCell("Amount");
+        shoppingListTable.addCell("Discount");
+        shoppingListTable.addCell("ProductId");
+        shoppingListTable.addCell("Description");
+        shoppingListTable.addCell("Retail price");
         for(Shopping shopping : ticket.getShoppingList()){
-            String line = shopping.getDescription() + " "
-                    + shopping.getAmount() + " "
-                    + shopping.getDiscount() + " "
-                    + shopping.getRetailPrice();
-            shoppingList.add(new ListItem(line));
+            shoppingListTable.addCell(String.valueOf(shopping.getId()));
+            shoppingListTable.addCell(String.valueOf(shopping.getAmount()));
+            shoppingListTable.addCell(String.valueOf(shopping.getDiscount() + "%"));
+            shoppingListTable.addCell(String.valueOf(shopping.getProductId()));
+            shoppingListTable.addCell(String.valueOf(shopping.getDescription()));
+            shoppingListTable.addCell(String.valueOf(shopping.getRetailPrice() + "€"));
         }
-        pdfDocument.add(shoppingList);
+        pdfDocument.add(shoppingListTable);
+        pdfDocument.close();
+    }
+    
+    public void makeTicketPdf(Ticket ticket) throws FileNotFoundException{
+        String ownPath = "/tickets/";
+        String fileName = "TICKET_" + ticket.getId();
+        String path = USER_HOME + PDF_FILES_ROOT + ownPath + fileName + PDF_FILE_EXT;
+        makeDirectories(path);
+        Document pdfDocument = getPdfDocument(path, PageSize.A7);
+        pdfDocument.setFontSize(3.0f);
+        pdfDocument.add(new Paragraph("Reference: " + ticket.getReference()));
+        pdfDocument.add(new Paragraph("Ticket state: " + ticket.getTicketState().toString()));
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        pdfDocument.add(new Paragraph("Created on: " + formatter.format(ticket.getCreated().getTime())));
+        pdfDocument.add(new Paragraph("Shopping list:"));
+        Table shoppingListTable = new Table(SHOPPING_LIST_COLUMNS_WIDTHS);
+        shoppingListTable.addCell("Id");
+        shoppingListTable.addCell("Amount");
+        shoppingListTable.addCell("Discount");
+        shoppingListTable.addCell("ProductId");
+        shoppingListTable.addCell("Description");
+        shoppingListTable.addCell("Retail price");
+        for(Shopping shopping : ticket.getShoppingList()){
+            shoppingListTable.addCell(String.valueOf(shopping.getId()));
+            shoppingListTable.addCell(String.valueOf(shopping.getAmount()));
+            shoppingListTable.addCell(String.valueOf(shopping.getDiscount() + "%"));
+            shoppingListTable.addCell(String.valueOf(shopping.getProductId()));
+            shoppingListTable.addCell(String.valueOf(shopping.getDescription()));
+            shoppingListTable.addCell(String.valueOf(shopping.getRetailPrice() + "€"));
+        }
+        pdfDocument.add(shoppingListTable);
         pdfDocument.close();
     }
 }

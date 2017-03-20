@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import api.exceptions.InvoiceNotFoundException;
+import api.exceptions.TicketNotFoundException;
 import controllers.PdfGenerationController;
 
 @RestController
@@ -26,9 +28,22 @@ public class PdfGenerationResource {
         pdfGenerationController.generatePdf(fileName);
     }
     
-    @RequestMapping(value = Uris.INVOICES, method = RequestMethod.GET)
-    public void generateInvoicePdf(@RequestParam(required = true) int id) throws FileNotFoundException {
-        pdfGenerationController.generateInvoicePdf(id);
+    @RequestMapping(value = Uris.INVOICES, method = RequestMethod.POST)
+    public void generateInvoicePdf(@RequestParam(required = true) int id) throws FileNotFoundException, InvoiceNotFoundException {
+        if(pdfGenerationController.invoiceExists(id)){
+            pdfGenerationController.generateInvoicePdf(id);
+        }else{
+            throw new InvoiceNotFoundException("Invoice: " + id);
+        }
+    }
+    
+    @RequestMapping(value = Uris.TICKETS, method = RequestMethod.POST)
+    public void generateTicketPdf(@RequestParam(required = true) long id) throws FileNotFoundException, TicketNotFoundException {
+        if(pdfGenerationController.ticketExists(id)){
+            pdfGenerationController.generateTicketPdf(id);
+        }else{
+            throw new TicketNotFoundException("Ticket: " + id);
+        }    
     }
     
     

@@ -1,5 +1,7 @@
 package api;
 
+import java.io.FileNotFoundException;
+
 import org.apache.logging.log4j.LogManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -17,10 +19,13 @@ import api.exceptions.MalformedHeaderException;
 import api.exceptions.MissingArticleIdException;
 import api.exceptions.NotFoundAlertFamilyIdException;
 import api.exceptions.NotFoundAlertIdException;
+import api.exceptions.InvoiceNotFoundException;
+import api.exceptions.TicketNotFoundException;
 import api.exceptions.NotFoundTicketIdException;
 import api.exceptions.NotFoundUserIdException;
 import api.exceptions.NotFoundVoucherException;
 import api.exceptions.NotFoundVouchersException;
+import api.exceptions.NotFoundYamlFileException;
 import api.exceptions.TicketHasInvalidUserException;
 import api.exceptions.TicketHasInvoiceException;
 import api.exceptions.TicketIsNotClosedException;
@@ -34,7 +39,8 @@ public class ApiExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler({NotFoundUserIdException.class, NotFoundTicketIdException.class, TicketHasInvalidUserException.class,
             NotFoundAlertIdException.class, NotFoundVouchersException.class, NotFoundVoucherException.class,
-            NotFoundAlertFamilyIdException.class})
+            NotFoundAlertFamilyIdException.class, NotFoundYamlFileException.class, 
+            TicketNotFoundException.class, InvoiceNotFoundException.class, FileNotFoundException.class})
     @ResponseBody
     public ErrorMessage notFoundRequest(ApiException exception) {
         ErrorMessage apiErrorMessage = new ErrorMessage(exception);

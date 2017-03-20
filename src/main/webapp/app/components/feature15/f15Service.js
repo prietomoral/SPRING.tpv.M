@@ -44,10 +44,22 @@ tpv.service('f15Service', function($http, $q) {
 	this.generateInvoicePdf = function(invoiceId) {
 		let
 		config = {
-			method : 'GET',
+			method : 'POST',
 			url : urlBase + "/pdfs/invoices",
 			params : {
 				id : invoiceId
+			}
+		};
+		return this.request(config);
+	}
+	
+	this.generateTicketPdf = function(ticketId) {
+		let
+		config = {
+			method : 'POST',
+			url : urlBase + "/pdfs/tickets",
+			params : {
+				id : ticketId
 			}
 		};
 		return this.request(config);
@@ -60,5 +72,18 @@ tpv.service('f15Service', function($http, $q) {
 			url : urlBase + "/invoices"
 		};
 		return this.request(config);
+	}
+	
+	this.findAllTickets = function(){
+		let
+		config = {
+			method : 'GET',
+			url : urlBase + "/tickets"
+		};
+		return this.request(config);
+	}
+	
+	this.isAuthorized = function () {
+		return sessionStorage.token != null && sessionStorage.token !== undefined && (sessionStorage.rol == 'MANAGER' || sessionStorage.rol == 'OPERATOR' || sessionStorage.rol == 'ADMIN') ;
 	}
 });

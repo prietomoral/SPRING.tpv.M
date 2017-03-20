@@ -19,7 +19,9 @@ import com.itextpdf.kernel.geom.PageSize;
 import config.PersistenceConfig;
 import config.TestsPersistenceConfig;
 import daos.core.InvoiceDao;
+import daos.core.TicketDao;
 import entities.core.Invoice;
+import entities.core.Ticket;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PersistenceConfig.class, TestsPersistenceConfig.class})
@@ -35,6 +37,9 @@ public class PdfGenerationServiceIT {
 
     @Autowired
     private InvoiceDao invoiceDao;
+    
+    @Autowired
+    private TicketDao ticketDao;
     
     @Test
     public void testIfPdfDocumentHasBeenGenerated() {
@@ -67,12 +72,33 @@ public class PdfGenerationServiceIT {
             fail();
         }
     }
+    
+    @Test
+    public void testMakeTicketPdf(){
+        String fileName = "TICKET_3";
+        String path = USER_HOME + PDF_FILES_ROOT + "/tickets/" + fileName + PDF_FILE_EXT;
+        try {
+            Ticket ticket = ticketDao.findOne((long) 3);
+            if (ticket != null) {
+                pdfGenerationService.makeTicketPdf(ticket);
+                assertTrue(new File(path).exists());
+            } else {
+                assertFalse(new File(path).exists());
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
 
     @After
     public void reset() {
         String path = USER_HOME + PDF_FILES_ROOT + "pdftest" + PDF_FILE_EXT;
         new File(path).delete();
         path = USER_HOME + PDF_FILES_ROOT + "/invoices/" + "INVOICE_20170001" + PDF_FILE_EXT;
+        new File(path).delete();
+        path = USER_HOME + PDF_FILES_ROOT + "/tickets/" + "TICKET_3" + PDF_FILE_EXT;
         new File(path).delete();
     }
 
