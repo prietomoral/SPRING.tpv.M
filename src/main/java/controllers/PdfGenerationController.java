@@ -41,15 +41,19 @@ public class PdfGenerationController {
     
     public void generateInvoicePdf(int invoiceId) throws FileNotFoundException{
         Invoice invoice = invoiceDao.findOne(invoiceId);
-        if(invoice != null){
-            pdfGenerationService.makeInvoicePdf(invoice);
-        }        
+        pdfGenerationService.makeInvoicePdf(invoice);  
     }
     
     public void generateTicketPdf(long ticketId) throws FileNotFoundException{
         Ticket ticket = ticketDao.findOne(ticketId);
-        if(ticket != null){
-            pdfGenerationService.makeTicketPdf(ticket);
-        }
+        pdfGenerationService.makeTicketPdf(ticket);
+    }
+    
+    public boolean ticketExists(long ticketId){
+        return ticketDao.findOne(ticketId) != null;
+    }
+    
+    public boolean invoiceExists(int invoiceId){
+        return invoiceDao.findOne(invoiceId) != null;
     }
 }

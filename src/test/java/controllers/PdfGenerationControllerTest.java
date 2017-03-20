@@ -34,7 +34,7 @@ public class PdfGenerationControllerTest {
     @Test
     public void testGenerateInvoicePdf() {
         try {
-            pdfGenerationController.generateInvoicePdf(123456);
+            pdfGenerationController.generateInvoicePdf(20170001);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             fail();
