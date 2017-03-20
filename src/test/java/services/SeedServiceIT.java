@@ -195,12 +195,12 @@ public class SeedServiceIT {
     }
 
     @Test
-    public void checkExistentFile() {
+    public void testExistentFile() {
         assertTrue(seedService.checkYamlFileExists(DEFAULT_SEED_FILE));
     }
 
     @Test
-    public void checkNonexistentFile() {
+    public void testNonexistentFile() {
         assertFalse(seedService.checkYamlFileExists("nonexistent.yml"));
     }
 
