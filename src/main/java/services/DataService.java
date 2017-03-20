@@ -1,6 +1,6 @@
 package services;
 
-import static config.ResourceNames.DEFAULT_POPULATE_FILE;
+import static config.ResourceNames.DEFAULT_SEED_FILE;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,7 +76,7 @@ public class DataService {
     }
 
     public void populate() {
-        populate(DEFAULT_POPULATE_FILE);
+        populate(DEFAULT_SEED_FILE);
     }
 
     public void populate(String yamlFile) {
