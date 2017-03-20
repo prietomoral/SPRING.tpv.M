@@ -31,5 +31,10 @@ public class PdfGenerationResource {
         pdfGenerationController.generateInvoicePdf(id);
     }
     
+    @RequestMapping(value = Uris.TICKETS, method = RequestMethod.GET)
+    public void generateTicketPdf(@RequestParam(required = true) long id) throws FileNotFoundException {
+        pdfGenerationController.generateTicketPdf(id);
+    }
+    
     
 }
