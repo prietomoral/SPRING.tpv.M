@@ -53,4 +53,18 @@ public class CashierBalanceResourceFunctionalTesting {
         new RestBuilder<CashierBalanceWrapper>(RestService.URL).path(Uris.CASHIER_BALANCES + "/1")
                 .basicAuth(token, "").clazz(CashierBalanceWrapper.class).get().build();
     }
+
+    @Test
+    public void testCreateCashierBalance() {
+        CashierBalanceWrapper cashierBalanceWrapper = new CashierBalanceWrapper(400, 200, 150, 140, 1010);
+
+        new RestBuilder<CashierBalanceWrapper>(RestService.URL).path(Uris.CASHIER_BALANCES).clazz(CashierBalanceWrapper.class)
+                .body(cashierBalanceWrapper).basicAuth(token, "").post().build();
+
+        CashierBalancesListWrapper cashierBalanceWrappers =
+                new RestBuilder<CashierBalancesListWrapper>(RestService.URL).path(Uris.CASHIER_BALANCES)
+                        .basicAuth(token, "").clazz(CashierBalancesListWrapper.class).get().build();
+
+        assertEquals(3, cashierBalanceWrappers.size());
+    }
 }

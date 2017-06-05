@@ -1,5 +1,6 @@
 package controllers;
 
+import api.exceptions.AlreadyExistCashierBalanceException;
 import api.exceptions.NotFoundCashierBalanceException;
 import api.exceptions.NotFoundCashierBalancesException;
 import daos.core.CashierBalanceDao;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import wrappers.CashierBalanceWrapper;
 import wrappers.CashierBalancesListWrapper;
 
+import java.text.ParseException;
+import java.util.Calendar;
 import java.util.List;
 
 @Controller
@@ -43,5 +46,21 @@ public class CashierBalanceController {
                 cashierBalance.getTotalCash(), cashierBalance.getTotalChange(),
                 cashierBalance.getTotalCheck(), cashierBalance.getTotalSales(),
                 cashierBalance.getBalance(), cashierBalance.getDay());
+    }
+
+    public void createCashierBalance(CashierBalanceWrapper cashierBalanceWrapper) throws ParseException, AlreadyExistCashierBalanceException {
+        if (cashierBalanceDao.findOneByDay(Calendar.getInstance()) != null) {
+            throw new AlreadyExistCashierBalanceException();
+        }
+
+        CashierBalance cashierBalance = new CashierBalance(
+            cashierBalanceWrapper.getTotalCard(),
+            cashierBalanceWrapper.getTotalCash(),
+            cashierBalanceWrapper.getTotalChange(),
+            cashierBalanceWrapper.getTotalCheck(),
+            cashierBalanceWrapper.getTotalSales()
+        );
+
+        cashierBalanceDao.save(cashierBalance);
     }
 }
