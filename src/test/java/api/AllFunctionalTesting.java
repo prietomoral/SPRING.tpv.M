@@ -11,7 +11,9 @@ import org.junit.runners.Suite.SuiteClasses;
 		EmbroideryResourceFunctionalTesting.class, TextilePrintingResourceFunctionalTesting.class,
 		AlertResourceFunctionalTesting.class, ProviderResourceFunctionalTesting.class,
 		InvoiceResourceFunctionalTesting.class, VoucherResourceFunctionalTesting.class,
-		StatisticResourceFunctionalTesting.class, SeedResourceFunctionalTesting.class, JobResourceTesting.class })
+		StatisticResourceFunctionalTesting.class, SeedResourceFunctionalTesting.class, JobResourceTesting.class,
+		CashierBalanceResourceFunctionalTesting.class
+})
 
 public class AllFunctionalTesting {
 

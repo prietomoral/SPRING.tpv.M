@@ -3,6 +3,7 @@ package entities.core;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -37,7 +38,7 @@ public class CashierBalanceTest {
     }
 
     @Test
-    public void testCashierBalanceConstructorDay() {
+    public void testCashierBalanceConstructorDay() throws ParseException {
         Calendar day = Calendar.getInstance();
         day.setTimeInMillis(1489446000000L);
         BigDecimal totalCard = new BigDecimal(300);

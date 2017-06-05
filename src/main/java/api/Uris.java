@@ -45,12 +45,14 @@ public class Uris {
     public static final String POPULAR_PRODUCTS = "/poopularProducts";
 
     public static final String POPULATE = "/populate";
-    
+
     public static final String JOB = "/job";
-    
+
     public static final String GENERATE_PDF = "/pdfs";
-    
+
     public static final String SEED = "/seed";
 
     public static final String TICKETS = "/tickets";
+
+    public static final String CASHIER_BALANCES = "/cashier_balances";
 }

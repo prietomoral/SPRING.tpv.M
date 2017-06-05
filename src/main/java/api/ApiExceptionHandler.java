@@ -1,26 +1,18 @@
 package api;
 
-import java.io.FileNotFoundException;
-
-import org.apache.logging.log4j.LogManager;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
 import api.exceptions.AlertNullValuesAreNotAllowedException;
 import api.exceptions.AlreadyExistUserFieldException;
 import api.exceptions.ApiException;
 import api.exceptions.ErrorMessage;
 import api.exceptions.InvalidFieldModifyUserException;
 import api.exceptions.InvalidUserFieldException;
+import api.exceptions.InvoiceNotFoundException;
 import api.exceptions.MalformedHeaderException;
 import api.exceptions.MissingArticleIdException;
 import api.exceptions.NotFoundAlertFamilyIdException;
 import api.exceptions.NotFoundAlertIdException;
-import api.exceptions.InvoiceNotFoundException;
-import api.exceptions.TicketNotFoundException;
+import api.exceptions.NotFoundCashierBalanceException;
+import api.exceptions.NotFoundCashierBalancesException;
 import api.exceptions.NotFoundTicketIdException;
 import api.exceptions.NotFoundUserIdException;
 import api.exceptions.NotFoundVoucherException;
@@ -29,9 +21,18 @@ import api.exceptions.NotFoundYamlFileException;
 import api.exceptions.TicketHasInvalidUserException;
 import api.exceptions.TicketHasInvoiceException;
 import api.exceptions.TicketIsNotClosedException;
+import api.exceptions.TicketNotFoundException;
 import api.exceptions.UnauthorizedException;
 import api.exceptions.VoucherAlreadyUsedException;
 import api.exceptions.WarningNotCanLessCritical;
+import org.apache.logging.log4j.LogManager;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+import java.io.FileNotFoundException;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
@@ -39,8 +40,9 @@ public class ApiExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler({NotFoundUserIdException.class, NotFoundTicketIdException.class, TicketHasInvalidUserException.class,
             NotFoundAlertIdException.class, NotFoundVouchersException.class, NotFoundVoucherException.class,
-            NotFoundAlertFamilyIdException.class, NotFoundYamlFileException.class, 
-            TicketNotFoundException.class, InvoiceNotFoundException.class, FileNotFoundException.class})
+            NotFoundAlertFamilyIdException.class, NotFoundYamlFileException.class,
+            TicketNotFoundException.class, InvoiceNotFoundException.class, FileNotFoundException.class,
+            NotFoundCashierBalancesException.class, NotFoundCashierBalanceException.class})
     @ResponseBody
     public ErrorMessage notFoundRequest(ApiException exception) {
         ErrorMessage apiErrorMessage = new ErrorMessage(exception);
