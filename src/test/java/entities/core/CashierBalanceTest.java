@@ -13,21 +13,20 @@ public class CashierBalanceTest {
 
     @Test
     public void testCashierBalance() {
-        CashierBalance cBalance = new CashierBalance();
+        CashierBalance cashierBalance = new CashierBalance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
-        assertEquals(dateFormat.format(Calendar.getInstance().getTime()), dateFormat.format(cBalance.getDay().getTime()));
+        assertEquals(dateFormat.format(Calendar.getInstance().getTime()), dateFormat.format(cashierBalance.getDay().getTime()));
     }
 
     @Test
     public void testCashierBalanceConstructor() {
-        Calendar day = Calendar.getInstance();
         BigDecimal totalCard = new BigDecimal(300);
         BigDecimal totalCash = new BigDecimal(100);
         BigDecimal totalChange = new BigDecimal(50);
         BigDecimal totalCheck = new BigDecimal(40);
         BigDecimal totalSales = new BigDecimal(910);
         BigDecimal expectedBalance = new BigDecimal(420);
-        CashierBalance cashierBalance = new CashierBalance(day, totalCard, totalCash, totalChange, totalCheck, totalSales);
+        CashierBalance cashierBalance = new CashierBalance(totalCard, totalCash, totalChange, totalCheck, totalSales);
 
         assertEquals(totalCard, cashierBalance.getTotalCard());
         assertEquals(totalCash, cashierBalance.getTotalCash());
@@ -39,14 +38,14 @@ public class CashierBalanceTest {
 
     @Test
     public void testEquals() {
-        Calendar day = Calendar.getInstance();
         BigDecimal totalCard = new BigDecimal(300);
         BigDecimal totalCash = new BigDecimal(100);
         BigDecimal totalChange = new BigDecimal(50);
         BigDecimal totalCheck = new BigDecimal(40);
         BigDecimal totalSales = new BigDecimal(910);
-        CashierBalance cashierBalance = new CashierBalance(day, totalCard, totalCash, totalChange, totalCheck, totalSales);
-        CashierBalance cashierBalanceNew = new CashierBalance(day, totalCard, totalCash, totalChange, totalCheck, totalSales);
+        CashierBalance cashierBalance = new CashierBalance(totalCard, totalCash, totalChange, totalCheck, totalSales);
+        CashierBalance cashierBalanceNew = new CashierBalance(totalCard, totalCash, totalChange, totalCheck, totalSales);
+        cashierBalanceNew.setDay(cashierBalance.getDay());
         assertTrue(cashierBalance.equals(cashierBalanceNew));
     }
 }

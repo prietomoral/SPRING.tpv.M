@@ -35,10 +35,10 @@ public class CashierBalance {
         day = Calendar.getInstance();
     }
 
-    public CashierBalance(Calendar day, BigDecimal totalCard,
+    public CashierBalance(BigDecimal totalCard,
             BigDecimal totalCash, BigDecimal totalChange, BigDecimal totalCheck, BigDecimal totalSales) {
         super();
-        this.day = day;
+        day = Calendar.getInstance();
         this.totalCard = totalCard;
         this.totalCash = totalCash;
         this.totalChange = totalChange;
