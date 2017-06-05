@@ -47,6 +47,18 @@ public class CashierBalance {
         this.balance = this.calculateBalance();
     }
 
+    public CashierBalance(Calendar day, BigDecimal totalCard,
+            BigDecimal totalCash, BigDecimal totalChange, BigDecimal totalCheck, BigDecimal totalSales) {
+        super();
+        this.day = day;
+        this.totalCard = totalCard;
+        this.totalCash = totalCash;
+        this.totalChange = totalChange;
+        this.totalCheck = totalCheck;
+        this.totalSales = totalSales;
+        this.balance = this.calculateBalance();
+    }
+
     public int getId() {
         return id;
     }

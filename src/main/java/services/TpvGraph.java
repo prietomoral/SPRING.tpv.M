@@ -1,10 +1,8 @@
 package services;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import entities.core.Alert;
 import entities.core.Article;
+import entities.core.CashierBalance;
 import entities.core.Embroidery;
 import entities.core.Invoice;
 import entities.core.Provider;
@@ -14,6 +12,9 @@ import entities.core.Voucher;
 import entities.users.Authorization;
 import entities.users.Token;
 import entities.users.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TpvGraph {
 
@@ -39,6 +40,8 @@ public class TpvGraph {
 
     private List<Alert> alertList;
 
+    private List<CashierBalance> cashierBalanceList;
+
     public TpvGraph() {
         super();
         userList = new ArrayList<>();
@@ -52,6 +55,7 @@ public class TpvGraph {
         ticketList = new ArrayList<>();
         invoiceList = new ArrayList<>();
         alertList = new ArrayList<>();
+        cashierBalanceList = new ArrayList<>();
     }
 
     public List<User> getUserList() {
@@ -140,6 +144,14 @@ public class TpvGraph {
 
     public void setAlertList(List<Alert> alertList) {
         this.alertList = alertList;
+    }
+
+    public List<CashierBalance> getCashierBalanceList() {
+        return cashierBalanceList;
+    }
+
+    public void setCashierBalanceList(List<CashierBalance> cashierBalanceList) {
+        this.cashierBalanceList = cashierBalanceList;
     }
 
 }

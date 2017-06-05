@@ -37,6 +37,27 @@ public class CashierBalanceTest {
     }
 
     @Test
+    public void testCashierBalanceConstructorDay() {
+        Calendar day = Calendar.getInstance();
+        day.setTimeInMillis(1489446000000L);
+        BigDecimal totalCard = new BigDecimal(300);
+        BigDecimal totalCash = new BigDecimal(100);
+        BigDecimal totalChange = new BigDecimal(50);
+        BigDecimal totalCheck = new BigDecimal(40);
+        BigDecimal totalSales = new BigDecimal(910);
+        BigDecimal expectedBalance = new BigDecimal(420);
+        CashierBalance cashierBalance = new CashierBalance(day, totalCard, totalCash, totalChange, totalCheck, totalSales);
+
+        assertEquals(day, cashierBalance.getDay());
+        assertEquals(totalCard, cashierBalance.getTotalCard());
+        assertEquals(totalCash, cashierBalance.getTotalCash());
+        assertEquals(totalChange, cashierBalance.getTotalChange());
+        assertEquals(totalCheck, cashierBalance.getTotalCheck());
+        assertEquals(totalSales, cashierBalance.getTotalSales());
+        assertEquals(expectedBalance, cashierBalance.getBalance());
+    }
+
+    @Test
     public void testEquals() {
         BigDecimal totalCard = new BigDecimal(300);
         BigDecimal totalCash = new BigDecimal(100);
