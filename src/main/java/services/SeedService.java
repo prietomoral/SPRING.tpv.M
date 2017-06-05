@@ -1,22 +1,8 @@
 package services;
 
-import static config.ResourceNames.ADMIN_FILE;
-import static config.ResourceNames.YAML_FILES_ROOT;
-
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.annotation.PostConstruct;
-import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.Resource;
-import org.springframework.stereotype.Service;
-import org.yaml.snakeyaml.Yaml;
-
 import daos.core.AlertDao;
 import daos.core.ArticleDao;
+import daos.core.CashierBalanceDao;
 import daos.core.EmbroideryDao;
 import daos.core.InvoiceDao;
 import daos.core.ProviderDao;
@@ -29,6 +15,19 @@ import daos.users.UserDao;
 import entities.users.Authorization;
 import entities.users.Role;
 import entities.users.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Service;
+import org.yaml.snakeyaml.Yaml;
+
+import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
+import java.io.IOException;
+import java.io.InputStream;
+
+import static config.ResourceNames.ADMIN_FILE;
+import static config.ResourceNames.YAML_FILES_ROOT;
 
 @Service
 @Transactional
@@ -73,6 +72,9 @@ public class SeedService {
     @Autowired
     private AlertDao alertDao;
 
+    @Autowired
+    private CashierBalanceDao cashierBalanceDao;
+
     @PostConstruct
     public void createDefaultAdmin() {
         Yaml adminYaml = new Yaml();
@@ -95,7 +97,7 @@ public class SeedService {
 
     public void parseYaml(String fileName) {
         assert fileName != null && !fileName.isEmpty();
-        
+
         if (!fileName.equals(ADMIN_FILE)) {
             Resource resource = appContext.getResource(YAML_FILES_ROOT + fileName);
             InputStream input;
@@ -114,6 +116,7 @@ public class SeedService {
                 ticketDao.save(tpvGraph.getTicketList());
                 invoiceDao.save(tpvGraph.getInvoiceList());
                 alertDao.save(tpvGraph.getAlertList());
+                cashierBalanceDao.save(tpvGraph.getCashierBalanceList());
             } catch (IOException e) {
                 System.err.println("ERROR: File " + fileName + " doesn't exist or can't be opened");
                 e.printStackTrace();

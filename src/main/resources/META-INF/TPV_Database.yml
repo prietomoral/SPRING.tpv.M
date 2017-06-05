@@ -313,3 +313,17 @@ alertList:
   - warning: 4
     critical: 6
     article: *article84000001112
+
+cashierBalanceList:
+  - totalSales: 1010
+    totalCard: 400
+    totalCash: 200
+    totalChange: 150
+    totalCheck: 140
+    day: 2017-03-14 11:00:00.00 +1
+  - totalSales: 910
+    totalCard: 300
+    totalCash: 100
+    totalChange: 50
+    totalCheck: 40
+    day: 2017-03-15 11:00:00.00 +1
