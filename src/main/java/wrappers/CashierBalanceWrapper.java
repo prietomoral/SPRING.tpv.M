@@ -28,6 +28,15 @@ public class CashierBalanceWrapper {
         super();
     }
 
+    public CashierBalanceWrapper(int totalCard, int totalCash, int totalCheck, int totalChange, int totalSales) {
+        super();
+        this.totalCard = new BigDecimal(totalCard);
+        this.totalCash = new BigDecimal(totalCash);
+        this.totalChange = new BigDecimal(totalChange);
+        this.totalCheck = new BigDecimal(totalCheck);
+        this.totalSales = new BigDecimal(totalSales);
+    }
+
     public CashierBalanceWrapper(BigDecimal totalCard, BigDecimal totalCash, BigDecimal totalChange,
             BigDecimal totalCheck, BigDecimal totalSales, BigDecimal balance, Calendar dayString) {
         super();

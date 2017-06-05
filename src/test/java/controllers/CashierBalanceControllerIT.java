@@ -1,5 +1,6 @@
 package controllers;
 
+import api.exceptions.AlreadyExistCashierBalanceException;
 import api.exceptions.NotFoundCashierBalanceException;
 import api.exceptions.NotFoundCashierBalancesException;
 import config.PersistenceConfig;
@@ -7,7 +8,6 @@ import config.TestsControllerConfig;
 import config.TestsPersistenceConfig;
 import daos.core.CashierBalanceDao;
 import entities.core.CashierBalance;
-import org.hibernate.Hibernate;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -66,8 +66,6 @@ public class CashierBalanceControllerIT {
     @Test
     public void testGetCashierBalanceSuccess() throws ParseException {
         try {
-            Hibernate.initialize(cashierBalanceController.findCashierBalanceById(1));
-
             CashierBalanceWrapper result = cashierBalanceController.findCashierBalanceById(1);
 
             assertEquals(new BigDecimal(400).stripTrailingZeros(), result.getTotalCard().stripTrailingZeros());
@@ -87,6 +85,19 @@ public class CashierBalanceControllerIT {
             cashierBalanceController.findCashierBalanceById(20);
         } catch (NotFoundCashierBalanceException e) {
             assertEquals("No existe un Balance de Caja con ese id en el sistema. ", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testCreateCashierBalance() throws ParseException {
+        try {
+            CashierBalanceWrapper cashierBalanceWrapper = new CashierBalanceWrapper(400, 200, 150, 140, 1010);
+            cashierBalanceController.createCashierBalance(cashierBalanceWrapper);
+            List<CashierBalance> cashierBalances = cashierBalanceDao.findAll();
+            assertEquals(3, cashierBalances.size());
+            cashierBalanceController.createCashierBalance(cashierBalanceWrapper);
+        } catch (AlreadyExistCashierBalanceException e) {
+            assertEquals("Balance de Caja ya existe para este día. ", e.getMessage());
         }
     }
 }

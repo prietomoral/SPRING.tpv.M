@@ -1,6 +1,7 @@
 package api;
 
 import api.exceptions.AlertNullValuesAreNotAllowedException;
+import api.exceptions.AlreadyExistCashierBalanceException;
 import api.exceptions.AlreadyExistUserFieldException;
 import api.exceptions.ApiException;
 import api.exceptions.ErrorMessage;
@@ -42,7 +43,7 @@ public class ApiExceptionHandler {
             NotFoundAlertIdException.class, NotFoundVouchersException.class, NotFoundVoucherException.class,
             NotFoundAlertFamilyIdException.class, NotFoundYamlFileException.class,
             TicketNotFoundException.class, InvoiceNotFoundException.class, FileNotFoundException.class,
-            NotFoundCashierBalancesException.class, NotFoundCashierBalanceException.class})
+            NotFoundCashierBalancesException.class, NotFoundCashierBalanceException.class, AlreadyExistCashierBalanceException.class })
     @ResponseBody
     public ErrorMessage notFoundRequest(ApiException exception) {
         ErrorMessage apiErrorMessage = new ErrorMessage(exception);
