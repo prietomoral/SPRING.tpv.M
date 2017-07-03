@@ -29,11 +29,12 @@ public class CashierBalanceResource {
 
     @RequestMapping(method = RequestMethod.GET)
     @PreAuthorize("hasRole('MANAGER') or hasRole('OPERATOR')")
-    public CashierBalancesListWrapper findAllCashierBalances() throws NotFoundCashierBalancesException {
+    public CashierBalancesListWrapper findAllCashierBalances() {
         return cashierBalanceController.findAllCashierBalances();
     }
 
     @RequestMapping(value = Uris.ID, method = RequestMethod.GET)
+    @PreAuthorize("hasRole('MANAGER') or hasRole('OPERATOR')")
     public CashierBalanceWrapper findCashierBalanceById(@PathVariable(value = "id") int id) throws NotFoundCashierBalanceException {
         return cashierBalanceController.findCashierBalanceById(id);
     }
