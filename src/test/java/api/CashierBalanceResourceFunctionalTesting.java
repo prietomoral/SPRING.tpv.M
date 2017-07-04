@@ -36,7 +36,7 @@ public class CashierBalanceResourceFunctionalTesting {
                 new RestBuilder<CashierBalancesListWrapper>(RestService.URL).path(Uris.CASHIER_BALANCES)
                         .basicAuth(token, "").clazz(CashierBalancesListWrapper.class).get().build();
 
-        assertEquals(1, cashierBalanceWrappers.size());
+        assertEquals(1, cashierBalanceWrappers.getCashierBalanceWrappers().size());
     }
 
     @Test
@@ -103,7 +103,7 @@ public class CashierBalanceResourceFunctionalTesting {
                 new RestBuilder<CashierBalancesListWrapper>(RestService.URL).path(Uris.CASHIER_BALANCES)
                         .basicAuth(token, "").clazz(CashierBalancesListWrapper.class).get().build();
 
-        assertEquals(1, cashierBalanceWrappers.size());
+        assertEquals(1, cashierBalanceWrappers.getCashierBalanceWrappers().size());
     }
 
     @Test
@@ -154,7 +154,7 @@ public class CashierBalanceResourceFunctionalTesting {
                 new RestBuilder<CashierBalancesListWrapper>(RestService.URL).path(Uris.CASHIER_BALANCES)
                         .basicAuth(token, "").clazz(CashierBalancesListWrapper.class).get().build();
 
-        return cashierBalanceWrappers.stream().findFirst().get().getId();
+        return cashierBalanceWrappers.getCashierBalanceWrappers().stream().findFirst().get().getId();
     }
     @AfterClass
     public static void deleteAll() {

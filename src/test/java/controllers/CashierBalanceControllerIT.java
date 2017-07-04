@@ -44,12 +44,9 @@ public class CashierBalanceControllerIT {
     @Test
     public void testGetCashierBalancesSuccess() {
         List<CashierBalance> cashierBalances = cashierBalanceDao.findAll();
-        CashierBalancesListWrapper cashierBalanceWrappers = new CashierBalancesListWrapper();
-        cashierBalanceWrappers.wrapCashierBalances(cashierBalances);
-
         CashierBalancesListWrapper result;
         result = cashierBalanceController.findAllCashierBalances();
-        assertEquals(cashierBalances.size(), result.size());
+        assertEquals(cashierBalances.size(), result.getCashierBalanceWrappers().size());
     }
 
     @Test

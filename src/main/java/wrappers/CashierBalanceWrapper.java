@@ -34,27 +34,6 @@ public class CashierBalanceWrapper {
         this.totalSales = new BigDecimal(totalSales);
     }
 
-    public CashierBalanceWrapper(double totalCard, double totalCash, double totalChange, double totalCheck, double totalSales) {
-        super();
-        this.totalCard = new BigDecimal(totalCard);
-        this.totalCash = new BigDecimal(totalCash);
-        this.totalChange = new BigDecimal(totalChange);
-        this.totalCheck = new BigDecimal(totalCheck);
-        this.totalSales = new BigDecimal(totalSales);
-    }
-
-    public CashierBalanceWrapper(BigDecimal totalCard, BigDecimal totalCash, BigDecimal totalChange,
-            BigDecimal totalCheck, BigDecimal totalSales, BigDecimal balance, LocalDate createdDate) {
-        super();
-        this.totalCard = totalCard;
-        this.totalCash = totalCash;
-        this.totalChange = totalChange;
-        this.totalCheck = totalCheck;
-        this.totalSales = totalSales;
-        this.balance = balance;
-        this.createdDate = createdDate;
-    }
-
     public CashierBalanceWrapper(int id, BigDecimal totalCard, BigDecimal totalCash, BigDecimal totalChange,
             BigDecimal totalCheck, BigDecimal totalSales, BigDecimal balance, LocalDate createdDate) {
         super();
