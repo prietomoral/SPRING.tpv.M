@@ -309,7 +309,7 @@ tpv.config(function ($routeProvider) {
               notAutorized: resolveCashierBalances
             }
         })
-        .when("/feature09/:id", {
+        .when("/feature09/:id/show", {
             templateUrl: "app/components/feature09/showCashierBalance.html",
             controller: "ShowCashierBalanceController",
             controllerAs: "vm",
@@ -317,6 +317,23 @@ tpv.config(function ($routeProvider) {
               notAutorized: resolveCashierBalances
             }
         })
+        .when("/feature09/new", {
+          templateUrl: "app/components/feature09/newCashierBalance.html",
+          controller: "CreateCashierBalanceController",
+          controllerAs: "vm",
+          resolve: {
+            notAutorized: resolveCashierBalances,
+            existToday: function(f09Service, $location, Alertify){
+              return f09Service.existsTodayCashierBalance().then(function success(response){
+                if (response) {
+                  $location.url('/feature09');
+                  Alertify.log('A Cashier Balance has already been created for today.');
+                }
+              });
+            }
+          }
+        })
+
         .otherwise({
             redirectTo: '/'
         });
