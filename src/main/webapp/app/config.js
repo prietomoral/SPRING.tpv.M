@@ -301,9 +301,17 @@ tpv.config(function ($routeProvider) {
             controller: "JobController",
             controllerAs: "vm"
         })
-        .when("/feature09/list-cashier-balances", {
+        .when("/feature09/", {
             templateUrl: "app/components/feature09/listCashierBalances.html",
             controller: "ListCashierBalancesController",
+            controllerAs: "vm",
+            resolve: {
+              notAutorized: resolveCashierBalances
+            }
+        })
+        .when("/feature09/:id", {
+            templateUrl: "app/components/feature09/showCashierBalance.html",
+            controller: "ShowCashierBalanceController",
             controllerAs: "vm",
             resolve: {
               notAutorized: resolveCashierBalances
@@ -331,7 +339,7 @@ tpv.config(function ($routeProvider) {
 
       function resolveCashierBalances($window, $location, Alertify){
           var rol = $window.sessionStorage.getItem('rol');
-          if (!role || role !== "MANAGER" || role !== "OPERATOR") {
+          if (!rol || (rol !== "MANAGER" && rol !== "OPERATOR")) {
             $location.url('/feature00/login');
             Alertify.error('You must be logged as Manager or Operator to list, show, create or update a Cashier Balance');
           }
