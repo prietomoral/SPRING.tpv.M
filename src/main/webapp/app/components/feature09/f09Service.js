@@ -39,4 +39,29 @@ tpv.service('f09Service', ['$http', '$q', function ($http, $q) {
     };
     return this.request(config);
   }
+
+  this.createCashierBalance = function (cashier_balance) {
+    let config = {
+      headers: {Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
+      method: 'POST',
+      url: urlBase + "/" + resource,
+      data: {
+        "totalSales": cashier_balance.total_sales,
+        "totalCard": cashier_balance.total_card,
+        "totalCash": cashier_balance.total_cash,
+        "totalChange": cashier_balance.total_change,
+        "totalCheck": cashier_balance.total_check
+      }
+    };
+    return this.request(config);
+  }
+
+  this.existsTodayCashierBalance = function () {
+    let config = {
+      headers: {Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
+      method: 'GET',
+      url: urlBase + "/" + resource + "/today"
+    };
+    return this.request(config);
+  }
 }]);

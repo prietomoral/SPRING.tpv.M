@@ -1,4 +1,7 @@
 <h2>Cashier Balances</h2>
+<div>
+  <a class="btn btn-success" href="#/feature09/new">Create Cashier Balance</a>
+</div>
 <div class="container">
     <table class="table table-striped table-condensed" ng-if="vm.data != 0">
         <thead>
@@ -23,7 +26,7 @@
             <td>{{row.totalSales}}</td>
             <td>{{row.balance}}</td>
             <td><a class="btn btn-success btn-xs"
-                   ng-href="#feature09/{{row.id}}">View
+                   ng-href="#feature09/{{row.id}}/show">View
                 <span class="glyphicon glyphicon-edit"></span>
             </a></td>
         </tr>

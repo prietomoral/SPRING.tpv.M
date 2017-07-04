@@ -1,0 +1,99 @@
+<h4> Create Cashier Balance for {{vm.date.day}}-{{vm.date.month}}-{{vm.date.year}}</h4>
+<div class="container col-md-4">
+    <form name="vm.form" novalidate role="form" ng-submit="vm.createCashierBalance()">
+        <div class="form-group" ng-class="{ 'has-error': vm.form.warning.$touched && vm.form.warning.$invalid }">
+            <label class="control-label" for="total_sales"><span class="label label-success"> </span>&nbsp;Total
+                Sales</label>
+            <input type="number"
+                   class="form-control"
+                   name="total_sales"
+                   placeholder="total_sales"
+                   ng-model='vm.cashier_balance.total_sales'
+                   required>
+            <div class="help-block" ng-messages="vm.form.warning.$error" ng-if="vm.form.warning.$touched">
+                <p ng-message="required">Field required</p>
+                <p ng-message="number">Invalid value</p>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': vm.form.warning.$touched && vm.form.warning.$invalid }">
+            <label class="control-label" for="total_card"><span class="label label-danger"> </span>&nbsp;Total
+                Card</label>
+            <input type="number"
+                   class="form-control"
+                   name="total_card"
+                   placeholder="total_card"
+                   ng-model='vm.cashier_balance.total_card'
+                   required>
+            <div class="help-block" ng-messages="vm.form.warning.$error" ng-if="vm.form.warning.$touched">
+                <p ng-message="required">Field required</p>
+                <p ng-message="number">Invalid value</p>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': vm.form.warning.$touched && vm.form.warning.$invalid }">
+            <label class="control-label" for="total_cash"><span class="label label-danger"> </span>&nbsp;Total
+                Cash</label>
+            <input type="number"
+                   class="form-control"
+                   name="total_cash"
+                   placeholder="total_cash"
+                   ng-model='vm.cashier_balance.total_cash'
+                   required>
+            <div class="help-block" ng-messages="vm.form.warning.$error" ng-if="vm.form.warning.$touched">
+                <p ng-message="required">Field required</p>
+                <p ng-message="number">Invalid value</p>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': vm.form.warning.$touched && vm.form.warning.$invalid }">
+            <label class="control-label" for="total_change"><span class="label label-danger"> </span>&nbsp;Total
+                Change</label>
+            <input type="number"
+                   class="form-control"
+                   name="total_change"
+                   placeholder="total_change"
+                   ng-model='vm.cashier_balance.total_change'
+                   required>
+            <div class="help-block" ng-messages="vm.form.warning.$error" ng-if="vm.form.warning.$touched">
+                <p ng-message="required">Field required</p>
+                <p ng-message="number">Invalid value</p>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': vm.form.warning.$touched && vm.form.warning.$invalid }">
+            <label class="control-label" for="total_check"><span class="label label-danger"> </span>&nbsp;Total
+                Check</label>
+            <input type="number"
+                   class="form-control"
+                   name="total_check"
+                   placeholder="total_check"
+                   ng-model='vm.cashier_balance.total_check'
+                   required>
+            <div class="help-block" ng-messages="vm.form.warning.$error" ng-if="vm.form.warning.$touched">
+                <p ng-message="required">Field required</p>
+                <p ng-message="number">Invalid value</p>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': vm.form.warning.$touched && vm.form.warning.$invalid }">
+            <label class="control-label" for="balance"><span class="label label-primary"> </span>&nbsp;Balance</label>
+            <input type="number"
+                   class="form-control"
+                   name="balance"
+                   disabled="disabled"
+                   placeholder="balance"
+                   value="{{vm.cashier_balance.total_sales - (vm.cashier_balance.total_card + vm.cashier_balance.total_cash + vm.cashier_balance.total_change + vm.cashier_balance.total_check)}}"
+                   required>
+            <div class="help-block" ng-messages="vm.form.warning.$error" ng-if="vm.form.warning.$touched">
+                <p ng-message="required">Field required</p>
+                <p ng-message="number">Invalid value</p>
+            </div>
+        </div>
+        {{vm.balance}}
+        <input type="submit"
+               class="btn btn-primary"
+               ng-disabled="vm.form.$invalid"
+               value="Create">
+    </form>
+</div>

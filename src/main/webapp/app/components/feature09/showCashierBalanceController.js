@@ -6,7 +6,7 @@ tpv.controller('ShowCashierBalanceController', ['$timeout', 'Alertify', 'f09Serv
 
     vm.completed = false;
     vm.error = false;
-    
+
     vm.id = $routeParams.id;
     vm.showCashierBalance = showCashierBalance;
     showCashierBalance();
