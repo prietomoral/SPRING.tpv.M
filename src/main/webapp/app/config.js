@@ -333,7 +333,14 @@ tpv.config(function ($routeProvider) {
             }
           }
         })
-
+        .when("/feature09/:id/update", {
+          templateUrl: "app/components/feature09/updateCashierBalance.html",
+          controller: "UpdateCashierBalanceController",
+          controllerAs: "vm",
+          resolve: {
+            notAutorized: resolveCashierBalances
+          }
+        })
         .otherwise({
             redirectTo: '/'
         });
