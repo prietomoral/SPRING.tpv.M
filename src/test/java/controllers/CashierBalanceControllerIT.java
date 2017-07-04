@@ -2,6 +2,7 @@ package controllers;
 
 import api.exceptions.AlreadyExistCashierBalanceException;
 import api.exceptions.NotFoundCashierBalanceException;
+import api.exceptions.UpdateInvalidCashierBalanceException;
 import config.PersistenceConfig;
 import config.TestsControllerConfig;
 import config.TestsPersistenceConfig;
@@ -118,6 +119,58 @@ public class CashierBalanceControllerIT {
 
         } catch (AlreadyExistCashierBalanceException e) {
             assertEquals("Balance de Caja ya existe para este día. ", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testUpdateCashierBalance() throws ParseException {
+        try {
+            CashierBalance cashierBalance = cashierBalanceDao.findAll().stream().findFirst().get();
+
+            CashierBalanceWrapper cashierBalanceWrapper =
+                    new CashierBalanceWrapper(600, 0, 150, 140, 1010);
+            CashierBalance cashierBalanceExpected =
+                    new CashierBalance(600, 0, 150, 140, 1010);
+
+            cashierBalanceController.updateCashierBalance(cashierBalance.getId(), cashierBalanceWrapper);
+
+            cashierBalance = cashierBalanceDao.findOne(cashierBalance.getId());
+            assertTrue(cashierBalanceExpected.equals(cashierBalance));
+
+        } catch (NotFoundCashierBalanceException e) {
+            assertEquals("No existe un Balance de Caja con ese id en el sistema. ", e.getMessage());
+        } catch (UpdateInvalidCashierBalanceException e) {
+            assertEquals("Sólo puede modificar el Balance de Caja del día actual. ", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testUpdateCashierBalanceInvalidId() throws ParseException {
+        try {
+            CashierBalanceWrapper cashierBalanceWrapper =
+                    new CashierBalanceWrapper(600, 0, 150, 140, 1010);
+            cashierBalanceController.updateCashierBalance(200, cashierBalanceWrapper);
+
+        } catch (NotFoundCashierBalanceException e) {
+            assertEquals("No existe un Balance de Caja con ese id en el sistema. ", e.getMessage());
+        } catch (UpdateInvalidCashierBalanceException e) {
+            assertEquals("Sólo puede modificar el Balance de Caja del día actual. ", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testUpdateCashierBalanceInvalidLocalDate() throws ParseException {
+        try {
+            CashierBalance cashierBalance = cashierBalanceDao.findAll().stream().findFirst().get();
+
+            CashierBalanceWrapper cashierBalanceWrapper =
+                    new CashierBalanceWrapper(600, 0, 150, 140, 1010, LocalDate.now().minusDays(1));
+            cashierBalanceController.updateCashierBalance(cashierBalance.getId(), cashierBalanceWrapper);
+
+        } catch (NotFoundCashierBalanceException e) {
+            assertEquals("No existe un Balance de Caja con ese id en el sistema. ", e.getMessage());
+        } catch (UpdateInvalidCashierBalanceException e) {
+            assertEquals("Sólo puede modificar el Balance de Caja del día actual. ", e.getMessage());
         }
     }
 }

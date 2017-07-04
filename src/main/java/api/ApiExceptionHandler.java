@@ -24,6 +24,7 @@ import api.exceptions.TicketHasInvoiceException;
 import api.exceptions.TicketIsNotClosedException;
 import api.exceptions.TicketNotFoundException;
 import api.exceptions.UnauthorizedException;
+import api.exceptions.UpdateInvalidCashierBalanceException;
 import api.exceptions.VoucherAlreadyUsedException;
 import api.exceptions.WarningNotCanLessCritical;
 import org.apache.logging.log4j.LogManager;
@@ -59,7 +60,7 @@ public class ApiExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({MalformedHeaderException.class, InvalidUserFieldException.class, MissingArticleIdException.class,
-            AlertNullValuesAreNotAllowedException.class, WarningNotCanLessCritical.class})
+            AlertNullValuesAreNotAllowedException.class, WarningNotCanLessCritical.class, UpdateInvalidCashierBalanceException.class})
     @ResponseBody
     public ErrorMessage badRequest(ApiException exception) {
         ErrorMessage apiErrorMessage = new ErrorMessage(exception);

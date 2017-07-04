@@ -1,7 +1,8 @@
 package api;
 
+import org.joda.time.LocalDate;
 import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -20,8 +21,8 @@ public class CashierBalanceResourceFunctionalTesting {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    @BeforeClass
-    public static void populate() {
+    @Before
+    public void populate() {
         new RestService().deleteAll();
         new RestService().populate();
         token = new RestService().registerAndLoginManager();
@@ -46,15 +47,8 @@ public class CashierBalanceResourceFunctionalTesting {
 
     @Test
     public void testFindCashierBalanceById() {
-        CashierBalancesListWrapper cashierBalanceWrappers =
-                new RestBuilder<CashierBalancesListWrapper>(RestService.URL).path(Uris.CASHIER_BALANCES)
-                        .basicAuth(token, "").clazz(CashierBalancesListWrapper.class).get().build();
-
-        int id = cashierBalanceWrappers.stream().findFirst().get().getId();
-        
-        CashierBalanceWrapper cashierBalanceWrapper =
-                new RestBuilder<CashierBalanceWrapper>(RestService.URL).path(Uris.CASHIER_BALANCES + "/" + String.valueOf(id))
-                        .basicAuth(token, "").clazz(CashierBalanceWrapper.class).get().build();
+        int id = getIdOfAnyCashierBalance();
+        CashierBalanceWrapper cashierBalanceWrapper = getCashierBalanceWrapper(id);
 
         assertEquals(new BigDecimal(1010).stripTrailingZeros(), cashierBalanceWrapper.getTotalSales().stripTrailingZeros());
         assertEquals(new BigDecimal(400).stripTrailingZeros(), cashierBalanceWrapper.getTotalCard().stripTrailingZeros());
@@ -95,7 +89,57 @@ public class CashierBalanceResourceFunctionalTesting {
 
         assertEquals(1, cashierBalanceWrappers.size());
     }
-    
+
+    @Test
+    public void testUpdateCashierBalance() {
+        CashierBalanceWrapper cashierBalanceWrapper = new CashierBalanceWrapper(600, 0, 150, 140, 1010, LocalDate.now());
+        int id = getIdOfAnyCashierBalance();
+
+        new RestBuilder<CashierBalanceWrapper>(RestService.URL)
+                .path(Uris.CASHIER_BALANCES + "/" + String.valueOf(id))
+                .clazz(CashierBalanceWrapper.class).body(cashierBalanceWrapper).basicAuth(token, "").put().build();
+
+        CashierBalanceWrapper cashierBalanceWrapperUpdated = getCashierBalanceWrapper(id);
+
+        assertEquals(cashierBalanceWrapper.getTotalSales().stripTrailingZeros(), cashierBalanceWrapperUpdated.getTotalSales().stripTrailingZeros());
+        assertEquals(cashierBalanceWrapper.getTotalCard().stripTrailingZeros(), cashierBalanceWrapperUpdated.getTotalCard().stripTrailingZeros());
+        assertEquals(cashierBalanceWrapper.getTotalCash().stripTrailingZeros(), cashierBalanceWrapperUpdated.getTotalCash().stripTrailingZeros());
+        assertEquals(cashierBalanceWrapper.getTotalChange().stripTrailingZeros(), cashierBalanceWrapperUpdated.getTotalChange().stripTrailingZeros());
+        assertEquals(cashierBalanceWrapper.getTotalCheck().stripTrailingZeros(), cashierBalanceWrapperUpdated.getTotalCheck().stripTrailingZeros());
+        assertEquals(new BigDecimal(120).stripTrailingZeros(), cashierBalanceWrapperUpdated.getBalance().stripTrailingZeros());
+    }
+
+    @Test
+    public void testUpdateCashierBalanceInvalidId() {
+        thrown.expect(new HttpMatcher(HttpStatus.NOT_FOUND));
+        new RestBuilder<CashierBalanceWrapper>(RestService.URL)
+            .path(Uris.CASHIER_BALANCES + "/" + String.valueOf(20000))
+            .clazz(CashierBalanceWrapper.class).body(new CashierBalanceWrapper()).basicAuth(token, "").put().build();
+    }
+
+    @Test
+    public void testUpdateCashierBalanceInvalidLocalDate() {
+        CashierBalanceWrapper cashierBalanceWrapper = new CashierBalanceWrapper(600, 0, 150, 140, 1010, LocalDate.now().minusDays(100));
+        int id = getIdOfAnyCashierBalance();
+
+        thrown.expect(new HttpMatcher(HttpStatus.BAD_REQUEST));
+        new RestBuilder<CashierBalanceWrapper>(RestService.URL)
+            .path(Uris.CASHIER_BALANCES + "/" + String.valueOf(id))
+            .clazz(CashierBalanceWrapper.class).body(cashierBalanceWrapper).basicAuth(token, "").put().build();
+    }
+
+    private CashierBalanceWrapper getCashierBalanceWrapper(int id) {
+        return new RestBuilder<CashierBalanceWrapper>(RestService.URL).path(Uris.CASHIER_BALANCES + "/" + String.valueOf(id))
+                        .basicAuth(token, "").clazz(CashierBalanceWrapper.class).get().build();
+    }
+
+    private int getIdOfAnyCashierBalance() {
+        CashierBalancesListWrapper cashierBalanceWrappers =
+                new RestBuilder<CashierBalancesListWrapper>(RestService.URL).path(Uris.CASHIER_BALANCES)
+                        .basicAuth(token, "").clazz(CashierBalancesListWrapper.class).get().build();
+
+        return cashierBalanceWrappers.stream().findFirst().get().getId();
+    }
     @AfterClass
     public static void deleteAll() {
         new RestService().deleteAll();
