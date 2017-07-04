@@ -21,6 +21,7 @@ public class CashierBalance {
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
     private LocalDate createdDate;
 
+//    @Column(fetch = FechType)
     private BigDecimal totalCard;
 
     private BigDecimal totalCash;

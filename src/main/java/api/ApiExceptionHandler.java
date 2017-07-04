@@ -60,7 +60,7 @@ public class ApiExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({MalformedHeaderException.class, InvalidUserFieldException.class, MissingArticleIdException.class,
-            AlertNullValuesAreNotAllowedException.class, WarningNotCanLessCritical.class})
+            AlertNullValuesAreNotAllowedException.class, WarningNotCanLessCritical.class, UpdateInvalidCashierBalanceException.class})
     @ResponseBody
     public ErrorMessage badRequest(ApiException exception) {
         ErrorMessage apiErrorMessage = new ErrorMessage(exception);
@@ -72,14 +72,6 @@ public class ApiExceptionHandler {
             TicketIsNotClosedException.class, TicketHasInvoiceException.class, VoucherAlreadyUsedException.class, AlreadyExistCashierBalanceException.class})
     @ResponseBody
     public ErrorMessage conflictRequest(ApiException exception) {
-        ErrorMessage apiErrorMessage = new ErrorMessage(exception);
-        return apiErrorMessage;
-    }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({UpdateInvalidCashierBalanceException.class})
-    @ResponseBody
-    public ErrorMessage badRequestRequest(ApiException exception) {
         ErrorMessage apiErrorMessage = new ErrorMessage(exception);
         return apiErrorMessage;
     }

@@ -73,13 +73,13 @@ public class CashierBalanceController {
         CashierBalance cashierBalance = cashierBalanceOpt.get();
 
         if (!cashierBalance.getCreatedDate().equals(LocalDate.now())
-                && !cashierBalance.getCreatedDate().equals(cashierBalanceWrapper.getCreatedDate())) {
+                || !cashierBalance.getCreatedDate().equals(cashierBalanceWrapper.getCreatedDate())) {
             throw new UpdateInvalidCashierBalanceException();
         }
 
-        cashierBalance.setTotalCard(getNewValue(cashierBalanceWrapper.getTotalSales()));
-        cashierBalance.setTotalCash(getNewValue(cashierBalanceWrapper.getTotalSales()));
-        cashierBalance.setTotalChange(getNewValue(cashierBalanceWrapper.getTotalSales()));
+        cashierBalance.setTotalCard(getNewValue(cashierBalanceWrapper.getTotalCard()));
+        cashierBalance.setTotalCash(getNewValue(cashierBalanceWrapper.getTotalCash()));
+        cashierBalance.setTotalChange(getNewValue(cashierBalanceWrapper.getTotalChange()));
         cashierBalance.setTotalCheck(getNewValue(cashierBalanceWrapper.getTotalCheck()));
         cashierBalance.setTotalSales(getNewValue(cashierBalanceWrapper.getTotalSales()));
         cashierBalance.setBalance(cashierBalance.getBalance());
