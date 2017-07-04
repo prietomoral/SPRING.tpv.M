@@ -1,0 +1,42 @@
+<h2>Cashier Balance Detail</h2>
+<div class="container">
+    <row>
+        <div class="col-md-4">
+            <table class="table table-striped table-condensed">
+                <tbody>
+                <tr>
+                    <td>Created Date</td>
+                    <td>{{vm.data.createdDate[2]}}-{{vm.data.createdDate[1]}}-{{vm.data.createdDate[0]}}</td>
+                </tr>
+                <tr>
+                    <td>Total Card</td>
+                    <td>{{vm.data.totalCard}}</td>
+                </tr>
+                <tr>
+                    <td>Total Cash</td>
+                    <td>{{vm.data.totalCash}}</td>
+                </tr>
+                <tr>
+                    <td>Total Change</td>
+                    <td>{{vm.data.totalChange}}</td>
+                </tr>
+                <tr>
+                    <td>Total Check</td>
+                    <td>{{vm.data.totalCheck}}</td>
+                </tr>
+                <tr>
+                    <td>Total Sales</td>
+                    <td>{{vm.data.totalSales}}</td>
+                </tr>
+                <tr>
+                    <td>Balance</td>
+                    <td>{{vm.data.balance}}</td>
+                </tr>
+            </table>
+        </div>
+    </row>
+</div>
+
+<div>
+  <a class="btn btn-success" href="#/feature09">Back</a>
+</div>

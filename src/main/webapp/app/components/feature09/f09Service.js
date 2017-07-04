@@ -30,4 +30,13 @@ tpv.service('f09Service', ['$http', '$q', function ($http, $q) {
     };
     return this.request(config);
   }
+
+  this.showCashierBalance = function (id) {
+    let config = {
+      headers: {Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
+      method: 'GET',
+      url: urlBase + "/" + resource + "/" + id
+    };
+    return this.request(config);
+  }
 }]);
