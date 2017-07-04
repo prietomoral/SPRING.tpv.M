@@ -34,6 +34,10 @@ public class CashierBalanceController {
         return cashierBalancesWrapper;
 	}
 
+	public boolean existTodayCashierBalance() {
+        return cashierBalanceDao.findByCreatedDate(LocalDate.now()).isPresent();
+    }
+
 	public CashierBalanceWrapper findCashierBalanceById(int id) throws NotFoundCashierBalanceException {
         Optional<CashierBalance> cashierBalanceOpt = cashierBalanceDao.findById(id);
 

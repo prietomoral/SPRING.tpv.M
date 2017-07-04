@@ -34,6 +34,12 @@ public class CashierBalanceResource {
     }
 
     @PreAuthorize("hasRole('MANAGER') or hasRole('OPERATOR')")
+    @RequestMapping(value= "/today", method = RequestMethod.GET)
+    public boolean existsTodayCashierBalance() {
+        return cashierBalanceController.existTodayCashierBalance();
+    }
+
+    @PreAuthorize("hasRole('MANAGER') or hasRole('OPERATOR')")
     @RequestMapping(value = Uris.ID, method = RequestMethod.GET)
     public CashierBalanceWrapper findCashierBalanceById(@PathVariable(value = "id") int id) throws NotFoundCashierBalanceException {
         return cashierBalanceController.findCashierBalanceById(id);
@@ -51,5 +57,6 @@ public class CashierBalanceResource {
             @RequestBody CashierBalanceWrapper cashierBalanceWrapper) throws ParseException, UpdateInvalidCashierBalanceException, NotFoundCashierBalanceException {
         cashierBalanceController.updateCashierBalance(id, cashierBalanceWrapper);
     }
+
 
 }

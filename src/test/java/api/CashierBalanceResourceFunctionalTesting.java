@@ -13,6 +13,8 @@ import wrappers.CashierBalancesListWrapper;
 import java.math.BigDecimal;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class CashierBalanceResourceFunctionalTesting {
 
@@ -35,6 +37,20 @@ public class CashierBalanceResourceFunctionalTesting {
                         .basicAuth(token, "").clazz(CashierBalancesListWrapper.class).get().build();
 
         assertEquals(1, cashierBalanceWrappers.size());
+    }
+
+    @Test
+    public void testExistTodayCashierBalance() {
+            Boolean exist =
+                new RestBuilder<Boolean>(RestService.URL).path(Uris.CASHIER_BALANCES + "/today")
+                        .basicAuth(token, "").clazz(Boolean.class).get().build();
+            assertTrue(exist);
+
+            new RestService().deleteAll();
+            token = new RestService().registerAndLoginManager();
+            exist = new RestBuilder<Boolean>(RestService.URL).path(Uris.CASHIER_BALANCES + "/today")
+                        .basicAuth(token, "").clazz(Boolean.class).get().build();
+            assertFalse(exist);
     }
 
     @Test

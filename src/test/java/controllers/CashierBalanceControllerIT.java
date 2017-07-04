@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -49,6 +50,23 @@ public class CashierBalanceControllerIT {
         CashierBalancesListWrapper result;
         result = cashierBalanceController.findAllCashierBalances();
         assertEquals(cashierBalances.size(), result.size());
+    }
+
+    @Test
+    public void existTodayCashierBalance() {
+        Optional<CashierBalance> cashierBalanceOpt = cashierBalanceDao.findByCreatedDate(LocalDate.now());
+        CashierBalance cashierBalance;
+
+        if (!cashierBalanceOpt.isPresent()) {
+            cashierBalance = cashierBalanceDao.save(new CashierBalance(400, 200, 150, 140, 1010));
+        } else {
+            cashierBalance = cashierBalanceOpt.get();
+        }
+
+        assertTrue(cashierBalanceController.existTodayCashierBalance());
+
+        cashierBalanceDao.delete(cashierBalance.getId());
+        assertFalse(cashierBalanceController.existTodayCashierBalance());
     }
 
     @Test
