@@ -12,10 +12,10 @@ tpv.controller('ListCashierBalancesController', ['$timeout', 'Alertify', 'f09Ser
 
     function listCashierBalances () {
       f09Service.listCashierBalances().then(function (result) {
-        vm.completed = true;
-        vm.data = result;
+    	vm.completed = true;
+    	vm.data = result.cashierBalanceWrappers;
       }, function (errors) {
-        Alertify.error(errors);
+    	Alertify.error(errors);
       });
     }
 
