@@ -1,12 +1,8 @@
 package services;
 
-import static config.ResourceNames.DEFAULT_SEED_FILE;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import daos.core.AlertDao;
 import daos.core.ArticleDao;
+import daos.core.CashierBalanceDao;
 import daos.core.EmbroideryDao;
 import daos.core.InvoiceDao;
 import daos.core.ProviderDao;
@@ -16,6 +12,10 @@ import daos.core.VoucherDao;
 import daos.users.AuthorizationDao;
 import daos.users.TokenDao;
 import daos.users.UserDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import static config.ResourceNames.DEFAULT_SEED_FILE;
 
 @Service
 public class DataService {
@@ -56,6 +56,9 @@ public class DataService {
     @Autowired
     private InvoiceDao invoiceDao;
 
+    @Autowired
+    private CashierBalanceDao cashierBalanceDao;
+
     public void deleteAllExceptAdmin() {
         invoiceDao.deleteAll();
         ticketDao.deleteAll();
@@ -71,6 +74,7 @@ public class DataService {
         embroideryDao.deleteAll();
         textilePrintingDao.deleteAll();
         providerDao.deleteAll();
+        cashierBalanceDao.deleteAll();
 
         seedService.createDefaultAdmin();
     }

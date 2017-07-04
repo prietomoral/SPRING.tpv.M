@@ -2,7 +2,6 @@ package api;
 
 import api.exceptions.AlreadyExistCashierBalanceException;
 import api.exceptions.NotFoundCashierBalanceException;
-import api.exceptions.NotFoundCashierBalancesException;
 import controllers.CashierBalanceController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,19 +26,20 @@ public class CashierBalanceResource {
         this.cashierBalanceController = cashierBalanceController;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
     @PreAuthorize("hasRole('MANAGER') or hasRole('OPERATOR')")
-    public CashierBalancesListWrapper findAllCashierBalances() throws NotFoundCashierBalancesException {
+    @RequestMapping(method = RequestMethod.GET)
+    public CashierBalancesListWrapper findAllCashierBalances() {
         return cashierBalanceController.findAllCashierBalances();
     }
 
+    @PreAuthorize("hasRole('MANAGER') or hasRole('OPERATOR')")
     @RequestMapping(value = Uris.ID, method = RequestMethod.GET)
     public CashierBalanceWrapper findCashierBalanceById(@PathVariable(value = "id") int id) throws NotFoundCashierBalanceException {
         return cashierBalanceController.findCashierBalanceById(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
     @PreAuthorize("hasRole('MANAGER') or hasRole('OPERATOR')")
+    @RequestMapping(method = RequestMethod.POST)
     public void createCashierBalance(@RequestBody CashierBalanceWrapper cashierBalanceWrapper) throws ParseException, AlreadyExistCashierBalanceException {
         cashierBalanceController.createCashierBalance(cashierBalanceWrapper);
     }

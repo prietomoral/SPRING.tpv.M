@@ -13,14 +13,14 @@ public class CashierBalancesListWrapper extends ArrayList<CashierBalanceWrapper>
     public void wrapCashierBalances(List<CashierBalance> cashierBalances) {
        this.addAll(
                cashierBalances.stream()
-                       .map(cashierBalance -> cashierBalanceToWrapper(cashierBalance))
+                       .map(this::cashierBalanceToWrapper)
                        .collect(Collectors.toList()));
     }
 
-    public CashierBalanceWrapper cashierBalanceToWrapper(CashierBalance cashierBalance) {
-        return new CashierBalanceWrapper(cashierBalance.getTotalCard(),
+    private CashierBalanceWrapper cashierBalanceToWrapper(CashierBalance cashierBalance) {
+        return new CashierBalanceWrapper(cashierBalance.getId(), cashierBalance.getTotalCard(),
                 cashierBalance.getTotalCash(), cashierBalance.getTotalChange(),
                 cashierBalance.getTotalCheck(), cashierBalance.getTotalSales(),
-                cashierBalance.getBalance(), cashierBalance.getDay());
+                cashierBalance.getBalance(), cashierBalance.getCreatedDate());
     }
 }

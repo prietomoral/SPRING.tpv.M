@@ -78,7 +78,7 @@
 				<database.url>jdbc:mysql://localhost:3306/tpv</database.url>
 				<database.user>root</database.user>
 				<database.password></database.password>
-				<!-- validate, create sólo una vez, cada vez que cambie la estructura 
+				<!-- validate, create sólo una vez, cada vez que cambie la estructura
 					de las tablas -->
 				<hibernate.hbm2ddl.auto>validate</hibernate.hbm2ddl.auto>
 				<tomcat.url>http://localhost:8080/manager/text</tomcat.url>
@@ -243,6 +243,26 @@
             <groupId>com.itextpdf</groupId>
             <artifactId>layout</artifactId>
             <version>7.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jadira.usertype</groupId>
+            <artifactId>usertype.core</artifactId>
+            <version>3.1.0.CR1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-joda</artifactId>
+            <version>2.2.1</version>
         </dependency>
 	</dependencies>
 	<build>

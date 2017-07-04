@@ -43,7 +43,7 @@ public class ApiExceptionHandler {
             NotFoundAlertIdException.class, NotFoundVouchersException.class, NotFoundVoucherException.class,
             NotFoundAlertFamilyIdException.class, NotFoundYamlFileException.class,
             TicketNotFoundException.class, InvoiceNotFoundException.class, FileNotFoundException.class,
-            NotFoundCashierBalancesException.class, NotFoundCashierBalanceException.class, AlreadyExistCashierBalanceException.class })
+            NotFoundCashierBalancesException.class, NotFoundCashierBalanceException.class })
     @ResponseBody
     public ErrorMessage notFoundRequest(ApiException exception) {
         ErrorMessage apiErrorMessage = new ErrorMessage(exception);
@@ -68,7 +68,7 @@ public class ApiExceptionHandler {
 
     @ResponseStatus(HttpStatus.CONFLICT)
     @ExceptionHandler({AlreadyExistUserFieldException.class, InvalidFieldModifyUserException.class, AlreadyExistUserFieldException.class,
-            TicketIsNotClosedException.class, TicketHasInvoiceException.class, VoucherAlreadyUsedException.class})
+            TicketIsNotClosedException.class, TicketHasInvoiceException.class, VoucherAlreadyUsedException.class, AlreadyExistCashierBalanceException.class})
     @ResponseBody
     public ErrorMessage conflictRequest(ApiException exception) {
         ErrorMessage apiErrorMessage = new ErrorMessage(exception);
