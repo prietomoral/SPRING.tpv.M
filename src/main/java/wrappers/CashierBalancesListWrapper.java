@@ -1,26 +1,22 @@
 package wrappers;
 
-import entities.core.CashierBalance;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class CashierBalancesListWrapper extends ArrayList<CashierBalanceWrapper> {
+public class CashierBalancesListWrapper {
 
-    private static final long serialVersionUID = 1L;
+    private List<CashierBalanceWrapper> cashierBalanceWrappers;
 
-    public void wrapCashierBalances(List<CashierBalance> cashierBalances) {
-       this.addAll(
-               cashierBalances.stream()
-                       .map(this::cashierBalanceToWrapper)
-                       .collect(Collectors.toList()));
+    public CashierBalancesListWrapper () {}
+
+    public CashierBalancesListWrapper(List<CashierBalanceWrapper> cashierBalanceWrapper) {
+        this.cashierBalanceWrappers = cashierBalanceWrapper;
     }
 
-    private CashierBalanceWrapper cashierBalanceToWrapper(CashierBalance cashierBalance) {
-        return new CashierBalanceWrapper(cashierBalance.getId(), cashierBalance.getTotalCard(),
-                cashierBalance.getTotalCash(), cashierBalance.getTotalChange(),
-                cashierBalance.getTotalCheck(), cashierBalance.getTotalSales(),
-                cashierBalance.getBalance(), cashierBalance.getCreatedDate());
+    public List<CashierBalanceWrapper> getCashierBalanceWrappers() {
+        return cashierBalanceWrappers;
+    }
+
+    public void setCashierBalanceWrappers(List<CashierBalanceWrapper> cashierBalanceWrappers) {
+        this.cashierBalanceWrappers = cashierBalanceWrappers;
     }
 }
