@@ -2,6 +2,7 @@ package controllers;
 
 import api.exceptions.AlreadyExistCashierBalanceException;
 import api.exceptions.NotFoundCashierBalanceException;
+import api.exceptions.UpdateInvalidCashierBalanceException;
 import daos.core.CashierBalanceDao;
 import entities.core.CashierBalance;
 import org.joda.time.LocalDate;
@@ -10,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import wrappers.CashierBalanceWrapper;
 import wrappers.CashierBalancesListWrapper;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class CashierBalanceController {
@@ -32,11 +35,12 @@ public class CashierBalanceController {
 	}
 
 	public CashierBalanceWrapper findCashierBalanceById(int id) throws NotFoundCashierBalanceException {
-        CashierBalance cashierBalance = cashierBalanceDao.findOne(id);
+        Optional<CashierBalance> cashierBalanceOpt = cashierBalanceDao.findById(id);
 
-        if (cashierBalance == null) {
+        if (!cashierBalanceOpt.isPresent()) {
             throw new NotFoundCashierBalanceException();
         }
+        CashierBalance cashierBalance = cashierBalanceOpt.get();
 
         return new CashierBalanceWrapper(cashierBalance.getTotalCard(),
                 cashierBalance.getTotalCash(), cashierBalance.getTotalChange(),
@@ -58,5 +62,32 @@ public class CashierBalanceController {
         );
 
         cashierBalanceDao.save(cashierBalance);
+    }
+
+    public void updateCashierBalance(int id, CashierBalanceWrapper cashierBalanceWrapper) throws ParseException, UpdateInvalidCashierBalanceException, NotFoundCashierBalanceException {
+        Optional<CashierBalance> cashierBalanceOpt = cashierBalanceDao.findById(id);
+
+        if (!cashierBalanceOpt.isPresent()) {
+            throw new NotFoundCashierBalanceException();
+        }
+        CashierBalance cashierBalance = cashierBalanceOpt.get();
+
+        if (!cashierBalance.getCreatedDate().equals(LocalDate.now())
+                && !cashierBalance.getCreatedDate().equals(cashierBalanceWrapper.getCreatedDate())) {
+            throw new UpdateInvalidCashierBalanceException();
+        }
+
+        cashierBalance.setTotalCard(getNewValue(cashierBalanceWrapper.getTotalSales()));
+        cashierBalance.setTotalCash(getNewValue(cashierBalanceWrapper.getTotalSales()));
+        cashierBalance.setTotalChange(getNewValue(cashierBalanceWrapper.getTotalSales()));
+        cashierBalance.setTotalCheck(getNewValue(cashierBalanceWrapper.getTotalCheck()));
+        cashierBalance.setTotalSales(getNewValue(cashierBalanceWrapper.getTotalSales()));
+        cashierBalance.setBalance(cashierBalance.getBalance());
+
+        cashierBalanceDao.save(cashierBalance);
+    }
+
+    private BigDecimal getNewValue(BigDecimal newValue) {
+        return (newValue == null) ? new BigDecimal(0) : newValue;
     }
 }

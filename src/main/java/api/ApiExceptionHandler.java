@@ -24,6 +24,7 @@ import api.exceptions.TicketHasInvoiceException;
 import api.exceptions.TicketIsNotClosedException;
 import api.exceptions.TicketNotFoundException;
 import api.exceptions.UnauthorizedException;
+import api.exceptions.UpdateInvalidCashierBalanceException;
 import api.exceptions.VoucherAlreadyUsedException;
 import api.exceptions.WarningNotCanLessCritical;
 import org.apache.logging.log4j.LogManager;
@@ -71,6 +72,14 @@ public class ApiExceptionHandler {
             TicketIsNotClosedException.class, TicketHasInvoiceException.class, VoucherAlreadyUsedException.class, AlreadyExistCashierBalanceException.class})
     @ResponseBody
     public ErrorMessage conflictRequest(ApiException exception) {
+        ErrorMessage apiErrorMessage = new ErrorMessage(exception);
+        return apiErrorMessage;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({UpdateInvalidCashierBalanceException.class})
+    @ResponseBody
+    public ErrorMessage badRequestRequest(ApiException exception) {
         ErrorMessage apiErrorMessage = new ErrorMessage(exception);
         return apiErrorMessage;
     }
