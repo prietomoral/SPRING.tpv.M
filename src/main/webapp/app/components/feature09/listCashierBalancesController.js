@@ -7,6 +7,7 @@ tpv.controller('ListCashierBalancesController', ['$timeout', 'Alertify', 'f09Ser
     vm.completed = false;
     vm.error = false;
     vm.listCashierBalances = listCashierBalances;
+    vm.isActualDate = isActualDate;
     listCashierBalances();
 
     function listCashierBalances () {
@@ -16,6 +17,10 @@ tpv.controller('ListCashierBalancesController', ['$timeout', 'Alertify', 'f09Ser
       }, function (errors) {
         Alertify.error(errors);
       });
+    }
+
+    function isActualDate (date) {
+      return f09Service.isActualDate(date);
     }
   }
 ]);
