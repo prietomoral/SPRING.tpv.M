@@ -1,18 +1,15 @@
 package wrappers;
 
+import org.joda.time.LocalDate;
+
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 public class CashierBalanceWrapper {
-    public static final String dateFormat = "dd-MM-yyyy";
-
     private int id;
 
     private BigDecimal balance;
 
-    private String dayString;
+    private LocalDate createdDate;
 
     private BigDecimal totalCard;
 
@@ -28,7 +25,16 @@ public class CashierBalanceWrapper {
         super();
     }
 
-    public CashierBalanceWrapper(int totalCard, int totalCash, int totalCheck, int totalChange, int totalSales) {
+    public CashierBalanceWrapper(int totalCard, int totalCash, int totalChange, int totalCheck, int totalSales) {
+        super();
+        this.totalCard = new BigDecimal(totalCard);
+        this.totalCash = new BigDecimal(totalCash);
+        this.totalChange = new BigDecimal(totalChange);
+        this.totalCheck = new BigDecimal(totalCheck);
+        this.totalSales = new BigDecimal(totalSales);
+    }
+
+    public CashierBalanceWrapper(double totalCard, double totalCash, double totalChange, double totalCheck, double totalSales) {
         super();
         this.totalCard = new BigDecimal(totalCard);
         this.totalCash = new BigDecimal(totalCash);
@@ -38,28 +44,39 @@ public class CashierBalanceWrapper {
     }
 
     public CashierBalanceWrapper(BigDecimal totalCard, BigDecimal totalCash, BigDecimal totalChange,
-            BigDecimal totalCheck, BigDecimal totalSales, BigDecimal balance, Calendar dayString) {
+            BigDecimal totalCheck, BigDecimal totalSales, BigDecimal balance, LocalDate createdDate) {
         super();
-        SimpleDateFormat dateFormater = new SimpleDateFormat(dateFormat);
-        this.dayString = dateFormater.format(dayString.getTime());
         this.totalCard = totalCard;
         this.totalCash = totalCash;
         this.totalChange = totalChange;
         this.totalCheck = totalCheck;
         this.totalSales = totalSales;
         this.balance = balance;
+        this.createdDate = createdDate;
     }
 
-    public CashierBalanceWrapper(double balance, String dayString, double totalCard,
-            double totalCash, double totalChange, double totalCheck, double totalSales) {
+    public CashierBalanceWrapper(int id, BigDecimal totalCard, BigDecimal totalCash, BigDecimal totalChange,
+            BigDecimal totalCheck, BigDecimal totalSales, BigDecimal balance, LocalDate createdDate) {
         super();
-        this.dayString = dayString;
+        this.id = id;
+        this.totalCard = totalCard;
+        this.totalCash = totalCash;
+        this.totalChange = totalChange;
+        this.totalCheck = totalCheck;
+        this.totalSales = totalSales;
+        this.balance = balance;
+        this.createdDate = createdDate;
+    }
+
+    public CashierBalanceWrapper(double totalCard, double totalCash, double totalChange,
+            double totalCheck, double totalSales, LocalDate createdDate) {
+        super();
         this.totalCard = new BigDecimal(totalCard);
         this.totalCash = new BigDecimal(totalCash);
         this.totalChange = new BigDecimal(totalChange);
         this.totalCheck = new BigDecimal(totalCheck);
         this.totalSales = new BigDecimal(totalSales);
-        this.balance = new BigDecimal(balance);
+        this.createdDate = createdDate;
     }
 
     public int getId() {
@@ -76,18 +93,6 @@ public class CashierBalanceWrapper {
 
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
-    }
-
-    public Calendar getDay() throws ParseException {
-        SimpleDateFormat dateFormater = new SimpleDateFormat(dateFormat);
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(dateFormater.parse(this.dayString));
-        return cal;
-    }
-
-    public void setDay(Calendar day) {
-        SimpleDateFormat dateFormater = new SimpleDateFormat(dateFormat);
-        this.dayString = dateFormater.format(day.getTime());
     }
 
     public BigDecimal getTotalCard() {
@@ -128,5 +133,13 @@ public class CashierBalanceWrapper {
 
     public void setTotalSales(BigDecimal totalSales) {
         this.totalSales = totalSales;
+    }
+
+    public LocalDate getCreatedDate() {
+        return this.createdDate;
+    }
+
+    public void setCreatedDate(LocalDate createdDate) {
+        this.createdDate = createdDate;
     }
 }

@@ -2,12 +2,12 @@ package controllers;
 
 import api.exceptions.AlreadyExistCashierBalanceException;
 import api.exceptions.NotFoundCashierBalanceException;
-import api.exceptions.NotFoundCashierBalancesException;
 import config.PersistenceConfig;
 import config.TestsControllerConfig;
 import config.TestsPersistenceConfig;
 import daos.core.CashierBalanceDao;
 import entities.core.CashierBalance;
+import org.joda.time.LocalDate;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -20,11 +20,11 @@ import wrappers.CashierBalancesListWrapper;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.util.Calendar;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PersistenceConfig.class, TestsPersistenceConfig.class, TestsControllerConfig.class})
@@ -34,33 +34,20 @@ public class CashierBalanceControllerIT {
     public ExpectedException thrown = ExpectedException.none();
 
     @Autowired
-    CashierBalanceController cashierBalanceController;
+    private CashierBalanceController cashierBalanceController;
 
     @Autowired
-    CashierBalanceDao cashierBalanceDao;
+    private CashierBalanceDao cashierBalanceDao;
 
     @Test
-    public void testGetCashierBalancesSuccess() throws ParseException {
+    public void testGetCashierBalancesSuccess() {
         List<CashierBalance> cashierBalances = cashierBalanceDao.findAll();
+        CashierBalancesListWrapper cashierBalanceWrappers = new CashierBalancesListWrapper();
+        cashierBalanceWrappers.wrapCashierBalances(cashierBalances);
+
         CashierBalancesListWrapper result;
-        try {
-            result = cashierBalanceController.findAllCashierBalances();
-            assertEquals(cashierBalances.size(), result.size());
-
-            List<CashierBalanceWrapper> cb = result.stream().filter(cashierBalanceWrapper -> {
-                try {
-                    return cashierBalanceWrapper.getDay().get(Calendar.DAY_OF_MONTH) == 15;
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                    return false;
-                }
-            }).collect(Collectors.toList());
-
-            assertEquals(1, cb.size());
-            assertEquals(new BigDecimal(420).stripTrailingZeros(), cb.get(0).getBalance().stripTrailingZeros());
-        } catch (NotFoundCashierBalancesException e) {
-            e.printStackTrace();
-        }
+        result = cashierBalanceController.findAllCashierBalances();
+        assertEquals(cashierBalances.size(), result.size());
     }
 
     @Test
@@ -68,12 +55,14 @@ public class CashierBalanceControllerIT {
         try {
             CashierBalanceWrapper result = cashierBalanceController.findCashierBalanceById(1);
 
+            assertEquals(1, result.getId());
+            assertEquals(new BigDecimal(1010).stripTrailingZeros(), result.getTotalSales().stripTrailingZeros());
             assertEquals(new BigDecimal(400).stripTrailingZeros(), result.getTotalCard().stripTrailingZeros());
             assertEquals(new BigDecimal(200).stripTrailingZeros(), result.getTotalCash().stripTrailingZeros());
             assertEquals(new BigDecimal(150).stripTrailingZeros(), result.getTotalChange().stripTrailingZeros());
             assertEquals(new BigDecimal(140).stripTrailingZeros(), result.getTotalCheck().stripTrailingZeros());
             assertEquals(new BigDecimal(120).stripTrailingZeros(), result.getBalance().stripTrailingZeros());
-            assertEquals(1489446000000L, result.getDay().getTimeInMillis());
+            assertEquals(new LocalDate(), result.getCreatedDate());
         } catch (NotFoundCashierBalanceException e) {
             e.printStackTrace();
         }
@@ -82,20 +71,51 @@ public class CashierBalanceControllerIT {
     @Test
     public void testGetCashierBalanceNotFound() {
         try {
-            cashierBalanceController.findCashierBalanceById(20);
+            cashierBalanceController.findCashierBalanceById(200);
         } catch (NotFoundCashierBalanceException e) {
             assertEquals("No existe un Balance de Caja con ese id en el sistema. ", e.getMessage());
         }
     }
 
     @Test
-    public void testCreateCashierBalance() throws ParseException {
+    public void testCreateCashierBalanceSuccess() throws ParseException {
         try {
-            CashierBalanceWrapper cashierBalanceWrapper = new CashierBalanceWrapper(400, 200, 150, 140, 1010);
+            Optional<CashierBalance> cashierBalanceOpt = cashierBalanceDao.findByCreatedDate(LocalDate.now());
+            if (cashierBalanceOpt.isPresent()) {
+                cashierBalanceDao.delete(cashierBalanceOpt.get().getId());
+            }
+            int sizeBeforeCreate = cashierBalanceDao.findAll().size();
+            CashierBalanceWrapper cashierBalanceWrapper =
+                    new CashierBalanceWrapper(400, 200, 150, 140, 1010);
             cashierBalanceController.createCashierBalance(cashierBalanceWrapper);
-            List<CashierBalance> cashierBalances = cashierBalanceDao.findAll();
-            assertEquals(3, cashierBalances.size());
+
+            int sizeAfterCreate = cashierBalanceDao.findAll().size();
+            assertEquals(sizeBeforeCreate + 1, sizeAfterCreate);
+
+            cashierBalanceOpt = cashierBalanceDao.findByCreatedDate(LocalDate.now());
+            if (cashierBalanceOpt.isPresent()) {
+                CashierBalance cashierBalanceExpected = new CashierBalance(400, 200, 150, 140, 1010);
+                CashierBalance cashierBalance = cashierBalanceOpt.get();
+                assertTrue(cashierBalanceExpected.equals(cashierBalance));
+            }
+        } catch (AlreadyExistCashierBalanceException e) {
+            assertEquals("Balance de Caja ya existe para este día. ", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testCreateCashierBalanceException() throws ParseException {
+        try {
+            CashierBalanceWrapper cashierBalanceWrapper =
+                    new CashierBalanceWrapper(400, 200, 150, 140, 1010);
+
+            Optional<CashierBalance> cashierBalanceOpt = cashierBalanceDao.findByCreatedDate(LocalDate.now());
+
+            if (!cashierBalanceOpt.isPresent()) {
+                cashierBalanceController.createCashierBalance(cashierBalanceWrapper);
+            }
             cashierBalanceController.createCashierBalance(cashierBalanceWrapper);
+
         } catch (AlreadyExistCashierBalanceException e) {
             assertEquals("Balance de Caja ya existe para este día. ", e.getMessage());
         }

@@ -2,16 +2,15 @@ package controllers;
 
 import api.exceptions.AlreadyExistCashierBalanceException;
 import api.exceptions.NotFoundCashierBalanceException;
-import api.exceptions.NotFoundCashierBalancesException;
 import daos.core.CashierBalanceDao;
 import entities.core.CashierBalance;
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import wrappers.CashierBalanceWrapper;
 import wrappers.CashierBalancesListWrapper;
 
 import java.text.ParseException;
-import java.util.Calendar;
 import java.util.List;
 
 @Controller
@@ -24,14 +23,11 @@ public class CashierBalanceController {
         this.cashierBalanceDao = cashierBalanceDao;
     }
 
-    public CashierBalancesListWrapper findAllCashierBalances() throws NotFoundCashierBalancesException {
-		List<CashierBalance> cashierBalances = cashierBalanceDao.findAll();
-        if (cashierBalances == null || cashierBalances.size() == 0) {
-            throw new NotFoundCashierBalancesException();
-        }
-
+    public CashierBalancesListWrapper findAllCashierBalances() {
         CashierBalancesListWrapper cashierBalancesWrapper = new CashierBalancesListWrapper();
+		List<CashierBalance> cashierBalances = cashierBalanceDao.findAll();
         cashierBalancesWrapper.wrapCashierBalances(cashierBalances);
+
         return cashierBalancesWrapper;
 	}
 
@@ -45,11 +41,11 @@ public class CashierBalanceController {
         return new CashierBalanceWrapper(cashierBalance.getTotalCard(),
                 cashierBalance.getTotalCash(), cashierBalance.getTotalChange(),
                 cashierBalance.getTotalCheck(), cashierBalance.getTotalSales(),
-                cashierBalance.getBalance(), cashierBalance.getDay());
+                cashierBalance.getBalance(), cashierBalance.getCreatedDate());
     }
 
     public void createCashierBalance(CashierBalanceWrapper cashierBalanceWrapper) throws ParseException, AlreadyExistCashierBalanceException {
-        if (cashierBalanceDao.findOneByDay(Calendar.getInstance()) != null) {
+        if (cashierBalanceDao.findByCreatedDate(LocalDate.now()).isPresent()) {
             throw new AlreadyExistCashierBalanceException();
         }
 

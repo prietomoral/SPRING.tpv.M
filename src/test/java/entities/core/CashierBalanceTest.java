@@ -1,11 +1,10 @@
 package entities.core;
 
+import org.joda.time.LocalDate;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -15,8 +14,7 @@ public class CashierBalanceTest {
     @Test
     public void testCashierBalance() {
         CashierBalance cashierBalance = new CashierBalance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
-        assertEquals(dateFormat.format(Calendar.getInstance().getTime()), dateFormat.format(cashierBalance.getDay().getTime()));
+        assertTrue(cashierBalance.getCreatedDate().equals(LocalDate.now()));
     }
 
     @Test
@@ -39,23 +37,21 @@ public class CashierBalanceTest {
 
     @Test
     public void testCashierBalanceConstructorDay() throws ParseException {
-        Calendar day = Calendar.getInstance();
-        day.setTimeInMillis(1489446000000L);
         BigDecimal totalCard = new BigDecimal(300);
         BigDecimal totalCash = new BigDecimal(100);
         BigDecimal totalChange = new BigDecimal(50);
         BigDecimal totalCheck = new BigDecimal(40);
         BigDecimal totalSales = new BigDecimal(910);
         BigDecimal expectedBalance = new BigDecimal(420);
-        CashierBalance cashierBalance = new CashierBalance(day, totalCard, totalCash, totalChange, totalCheck, totalSales);
+        CashierBalance cashierBalance = new CashierBalance(totalCard, totalCash, totalChange, totalCheck, totalSales);
 
-        assertEquals(day, cashierBalance.getDay());
         assertEquals(totalCard, cashierBalance.getTotalCard());
         assertEquals(totalCash, cashierBalance.getTotalCash());
         assertEquals(totalChange, cashierBalance.getTotalChange());
         assertEquals(totalCheck, cashierBalance.getTotalCheck());
         assertEquals(totalSales, cashierBalance.getTotalSales());
         assertEquals(expectedBalance, cashierBalance.getBalance());
+        assertEquals(LocalDate.now(), cashierBalance.getCreatedDate());
     }
 
     @Test
@@ -67,7 +63,6 @@ public class CashierBalanceTest {
         BigDecimal totalSales = new BigDecimal(910);
         CashierBalance cashierBalance = new CashierBalance(totalCard, totalCash, totalChange, totalCheck, totalSales);
         CashierBalance cashierBalanceNew = new CashierBalance(totalCard, totalCash, totalChange, totalCheck, totalSales);
-        cashierBalanceNew.setDay(cashierBalance.getDay());
         assertTrue(cashierBalance.equals(cashierBalanceNew));
     }
 }

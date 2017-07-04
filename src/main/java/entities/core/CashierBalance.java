@@ -1,13 +1,13 @@
 package entities.core;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.math.BigDecimal;
-import java.util.Calendar;
 
 @Entity
 public class CashierBalance {
@@ -18,8 +18,8 @@ public class CashierBalance {
 
     private BigDecimal balance;
 
-    @Temporal(TemporalType.DATE)
-    private Calendar day;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+    private LocalDate createdDate;
 
     private BigDecimal totalCard;
 
@@ -32,31 +32,43 @@ public class CashierBalance {
     private BigDecimal totalSales;
 
     public CashierBalance() {
-        day = Calendar.getInstance();
+        createdDate = LocalDate.now();
     }
 
-    public CashierBalance(BigDecimal totalCard,
-            BigDecimal totalCash, BigDecimal totalChange, BigDecimal totalCheck, BigDecimal totalSales) {
+    public CashierBalance(long totalCard, long totalCash, long totalChange,
+            long totalCheck, long totalSales) {
         super();
-        day = Calendar.getInstance();
+        this.totalCard = new BigDecimal(totalCard);
+        this.totalCash = new BigDecimal(totalCash);
+        this.totalChange = new BigDecimal(totalChange);
+        this.totalCheck = new BigDecimal(totalCheck);
+        this.totalSales = new BigDecimal(totalSales);
+        this.balance = this.calculateBalance();
+        this.createdDate = LocalDate.now();
+    }
+
+    public CashierBalance(BigDecimal totalCard, BigDecimal totalCash, BigDecimal totalChange,
+            BigDecimal totalCheck, BigDecimal totalSales) {
+        super();
         this.totalCard = totalCard;
         this.totalCash = totalCash;
         this.totalChange = totalChange;
         this.totalCheck = totalCheck;
         this.totalSales = totalSales;
         this.balance = this.calculateBalance();
+        this.createdDate = LocalDate.now();
     }
 
-    public CashierBalance(Calendar day, BigDecimal totalCard,
-            BigDecimal totalCash, BigDecimal totalChange, BigDecimal totalCheck, BigDecimal totalSales) {
+    public CashierBalance(BigDecimal totalCard, BigDecimal totalCash, BigDecimal totalChange,
+            BigDecimal totalCheck, BigDecimal totalSales, LocalDate createdDate) {
         super();
-        this.day = day;
         this.totalCard = totalCard;
         this.totalCash = totalCash;
         this.totalChange = totalChange;
         this.totalCheck = totalCheck;
         this.totalSales = totalSales;
         this.balance = this.calculateBalance();
+        this.createdDate = createdDate;
     }
 
     public int getId() {
@@ -67,12 +79,12 @@ public class CashierBalance {
         this.id = id;
     }
 
-    public Calendar getDay() {
-        return day;
+    public LocalDate getCreatedDate() {
+        return this.createdDate;
     }
 
-    public void setDay(Calendar day) {
-        this.day = day;
+    public void setCreatedDate(LocalDate createdDate) {
+        this.createdDate = createdDate;
     }
 
     public BigDecimal getBalance() {
@@ -163,22 +175,20 @@ public class CashierBalance {
         }
         CashierBalance other = (CashierBalance) obj;
 
-        if (!(compareBigDecimalFields(totalCash, other.getTotalCash()) &&
-            compareBigDecimalFields(totalCard, other.getTotalCard()) &&
-            compareBigDecimalFields(totalChange, other.getTotalChange()) &&
-            compareBigDecimalFields(totalCheck, other.getTotalCheck()) &&
-            compareBigDecimalFields(totalSales, other.getTotalSales()) &&
-            compareBigDecimalFields(balance, other.getBalance()))) {
-            return false;
-        }
+        return (compareBigDecimalFields(totalCash.stripTrailingZeros(), other.getTotalCash().stripTrailingZeros()) &&
+            compareBigDecimalFields(totalCard.stripTrailingZeros(), other.getTotalCard().stripTrailingZeros()) &&
+            compareBigDecimalFields(totalChange.stripTrailingZeros(), other.getTotalChange().stripTrailingZeros()) &&
+            compareBigDecimalFields(totalCheck.stripTrailingZeros(), other.getTotalCheck().stripTrailingZeros()) &&
+            compareBigDecimalFields(totalSales.stripTrailingZeros(), other.getTotalSales().stripTrailingZeros()) &&
+            compareBigDecimalFields(balance.stripTrailingZeros(), other.getBalance().stripTrailingZeros())) &&
+            createdDate.equals(other.getCreatedDate());
+    }
 
-        if (day == null) {
-            if (other.day != null)
-                return false;
-        } else if (!day.equals(other.day))
-            return false;
-
-        return true;
+    @Override
+    public String toString() {
+        return "CashierBalance [id=" + id + ", createdDate= " + createdDate + ", balance= " + balance + ", card= " + totalCard +
+                ", cash= " + totalCash + ", change= " + totalChange + ", checks= " + totalCheck +
+                ", totalSales= " + totalSales + "]";
     }
 
     private Boolean compareBigDecimalFields(BigDecimal original, BigDecimal other) {
@@ -186,12 +196,5 @@ public class CashierBalance {
             return true;
         }
         return false;
-    }
-
-    @Override
-    public String toString() {
-        return "CashierBalance [id=" + id + ", day= " + day + ", balance= " + balance + ", card= " + totalCard +
-                ", cash= " + totalCash + ", change= " + totalChange + ", checks= " + totalCheck +
-                ", totalSales= " + totalSales + "]";
     }
 }

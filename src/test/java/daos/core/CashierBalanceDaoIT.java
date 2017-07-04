@@ -20,6 +20,6 @@ public class CashierBalanceDaoIT {
 
     @Test
     public void testCreate() {
-        assertEquals(2, cashierBalanceDao.count());
+        assertEquals(1, cashierBalanceDao.count());
     }
 }
